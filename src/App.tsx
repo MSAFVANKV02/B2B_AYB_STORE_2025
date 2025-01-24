@@ -47,14 +47,22 @@ export default function MiniDrawer() {
               }}
             >
               <DrawerHeader />
-              <div></div>
+             
 
               <Outlet />
             </Box>
           </ThemProviderMui>
         </Box>
       </ModalProvider>
-      <HelperIcon />
+      
+
+      {/* === chat bot ====== */}
+      {
+        window.location.pathname !== '/store/conversations' && (
+          <HelperIcon />
+        )
+      }
+  
 
       <div className="h-10 bg-white border-t text-gray-400 text-xs w-full flex justify-end items-center px-3">
         <span className="select-none text-xs">

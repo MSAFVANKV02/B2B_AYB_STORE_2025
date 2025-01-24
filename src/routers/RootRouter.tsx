@@ -22,10 +22,10 @@ import ProductSalePage from "@/pages/reports/product-sale/product-sale-page";
 import OfflinePaymentPage from "@/pages/payments/offline-payments/offline-payment-page";
 import ProductStockPage from "@/pages/reports/product-stock/product-stock-page";
 import UserSearchCountPage from "@/pages/reports/user-searches/user-search-count-page";
-import PayoutStorePage from "@/pages/store/conversations/payout-store-page";
 import StoreManagementPage from "@/pages/store/store-management-page";
 import AuthProtectionRoute from "@/middlewares/AuthProtectionRoute";
 import StoreReturnPage from "@/pages/store/return-from-store/store-return-page";
+import ConversationPage from "@/pages/store/conversations/conversation-page";
 
 
 
@@ -107,7 +107,7 @@ const rootRouter = createBrowserRouter(
           children: [
             { path: "stock-request", element: <StoreManagementPage /> },
            
-            { path: "conversations", element: <PayoutStorePage /> },
+            { path: "conversations", element: <ConversationPage /> },
             { path: "store-return", element: <StoreReturnPage/> },
             // { path: "earnings", element: <StoreEarningsPage /> },
             // { path: "commission", element:<StoreCommissionPage /> },
