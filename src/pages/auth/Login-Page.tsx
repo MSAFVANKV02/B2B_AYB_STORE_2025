@@ -50,7 +50,7 @@ export default function LoginPage() {
 
   return (
     <div
-      className="min-h-screen w-full flex justify-center items-center select-none bg-[#FDF7FF]"
+      className="min-h-screen w-full flex justify-center items-center select-none bg-[#fffbf7]"
       style={{
         backgroundImage: 'url("/img/bg/bg-admin-transparent.png")',
         backgroundPosition: "center",
@@ -82,7 +82,7 @@ export default function LoginPage() {
               </div>
             )}
             <img src="/img/logo/Logo_black.svg" alt="Admin Logo" width={100} />
-            <p>Admin</p>
+            <p>Seller</p>
           </div>
           {verifyOtp ? (
             <VerifyOtp />
