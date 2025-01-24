@@ -33,7 +33,6 @@ function NavigationList() {
       children: [
         { title: "Add New Product", segment: "/products/add-new" },
         { title: "All Products", segment: "/products/all" },
-        { title: "Category", segment: "/products/category" },
         { title: "Brand", segment: "/products/brand" },
         { title: "Product Reviews", segment: "/products/reviews" },
    

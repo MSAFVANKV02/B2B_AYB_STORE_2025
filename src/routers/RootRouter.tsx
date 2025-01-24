@@ -13,7 +13,6 @@ import {
 } from "@/layouts/Sidbar_Layout";
 import ProductAddPage from "@/pages/products/add-new/product-add-page";
 import AllProductsPage from "@/pages/products/all/All-Products-page";
-import CategoryPage from "@/pages/products/category/category-page";
 import BrandPage from "@/pages/products/brand/brand-page";
 import ProductReviewPage from "@/pages/products/product-review/product-review-page";
 import ProductSalePage from "@/pages/reports/product-sale/product-sale-page";
@@ -65,7 +64,7 @@ const rootRouter = createBrowserRouter(
           children: [
             { path: "add-new", element: <ProductAddPage /> },
             { path: "all", element: <AllProductsPage /> },
-            { path: "category", element: <CategoryPage /> },
+            // { path: "category", element: <CategoryPage /> },
             { path: "brand", element: <BrandPage /> },
             { path: "reviews", element: <ProductReviewPage /> },
           ],
