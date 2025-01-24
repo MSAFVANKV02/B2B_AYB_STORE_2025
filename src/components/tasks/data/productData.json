@@ -1,0 +1,182 @@
+[
+  {
+    "_id": 1,
+    "product_name": "Task 1",
+    "brand": "Odio",
+    "product_owner":"seller",
+    "sku": "SKU-001",
+    "barcode": "1234567890123",
+    "mrp": 500,
+    "description": "This is the first task",
+    "is_published": false,
+    "minimum_quantity": 1,
+    "product_weight": 1.2,
+    "product_dimensions":{
+      "product_height":10,
+      "product_length":20.3,
+      "product_width":5
+    },
+    
+    "dimensions": "10x5x3 cm",
+    "taxSlab": [
+      { "_id": "1", "name": "5%" },
+      { "_id": "2", "name": "12%" }
+    ],
+    "status": "approved",
+    "is_todays_deal": false,
+    "isCess": true,
+    "cess": [{ "_id": "1", "name": "GST" }],
+    "is_featured_product": true,
+    "gallery_image": [
+      "https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?q=80&w=2788&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "https://images.unsplash.com/photo-1614286635394-b5195ef87f71"
+    ],
+    "thumbnails": [
+      "https://images.unsplash.com/photo-1614286635394-b5195ef87f71",
+      "https://images.unsplash.com/photo-1614286635394-b5195ef87f71"
+    ],
+    "variations": [
+      {
+        "image": "/img/products/image 81.png",
+        "colorCode": "#FF5733",
+        "colorName": "Red",
+        "sample": true,
+        "details": [
+          {
+            "_id": "variant-1",
+            "size": "M",
+            "stock": 50,
+            "discount": 10,
+            "selling_price": 450,
+            "skuId": "SKU-M1"
+          },
+          {
+            "_id": "variant-2",
+            "size": "L",
+            "stock": 30,
+            "discount": 12,
+            "selling_price": 470,
+            "skuId": "SKU-L1"
+          }
+        ]
+      },
+      {
+        "image": "/img/products/image 84.png",
+        "colorCode": "#33FF57",
+        "colorName": "Green",
+        "sample": false,
+        "details": [
+          {
+            "_id": "variant-3",
+            "size": "S",
+            "stock": 70,
+            "discount": 5,
+            "selling_price": 480,
+            "skuId": "SKU-S1"
+          },
+          {
+            "_id": "variant-4",
+            "size": "XL",
+            "stock": 20,
+            "discount": 8,
+            "selling_price": 490,
+            "skuId": "SKU-XL1"
+          }
+        ]
+      }
+    ],
+    "sizeImages": [
+      "https://images.unsplash.com/photo-1614286635394-b5195ef87f71",
+      "https://images.unsplash.com/photo-1614286635394-b5195ef87f71"
+    ],
+    "base_price": 500,
+    "sample_price": 450,
+    "discount": 15,
+    "discount_type": "percentage",
+    "price_per_pieces": [
+      { "_id": "pp-1", "min_Piece": 1, "max_Piece": 10, "discount": 5 },
+      { "_id": "pp-2", "min_Piece": 11, "max_Piece": 20, "discount": 10 }
+    ],
+    "selectWise": "size",
+    "store": "Store A",
+    "cod": true,
+    "freeShipping": false
+  },
+  {
+    "_id": 2,
+    "product_name": "Task 2",
+    "sku": "SKU-002",
+    "product_owner":"admin",
+    "barcode": "9876543210987",
+    "mrp": 1000,
+    "description": "This is the second task",
+    "is_published": true,
+    "minimum_quantity": 2,
+    "product_weight": 1.5,
+    "product_dimensions":{
+      "product_height":10,
+      "product_length":20.3,
+      "product_width":5
+    },
+    "dimensions": "15x7x4 cm",
+    "taxSlab": [
+      { "_id": "3", "name": "18%" },
+      { "_id": "4", "name": "28%" }
+    ],
+    "status": "hold",
+    "is_todays_deal": true,
+    "isCess": false,
+    "cess": [],
+    "is_featured_product": false,
+    "gallery_image": [
+      "https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?q=80&w=2788&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "https://images.unsplash.com/photo-1614286635394-b5195ef87f71"
+    ],
+    "thumbnails": [
+      "https://images.unsplash.com/photo-1614286635394-b5195ef87f71",
+      "https://images.unsplash.com/photo-1614286635394-b5195ef87f71"
+    ],
+    "variations": [
+      {
+        "image": "/img/products/image 75.png",
+        "colorCode": "#5733FF",
+        "colorName": "Blue",
+        "sample": true,
+        "details": [
+          {
+            "_id": "variant-5",
+            "size": "S",
+            "stock": 100,
+            "discount": 5,
+            "selling_price": 950,
+            "skuId": "SKU-S2"
+          },
+          {
+            "_id": "variant-6",
+            "size": "M",
+            "stock": 80,
+            "discount": 7,
+            "selling_price": 960,
+            "skuId": "SKU-M2"
+          }
+        ]
+      }
+    ],
+    "sizeImages": [
+      "https://images.unsplash.com/photo-1614286635394-b5195ef87f71",
+      "https://images.unsplash.com/photo-1614286635394-b5195ef87f71"
+    ],
+    "base_price": 1000,
+    "sample_price": 900,
+    "discount": 10,
+    "discount_type": "flat",
+    "price_per_pieces": [
+      { "_id": "pp-3", "min_Piece": 1, "max_Piece": 5, "discount": 10 },
+      { "_id": "pp-4", "min_Piece": 6, "max_Piece": 15, "discount": 15 }
+    ],
+    "selectWise": "bundle",
+    "store": "Store B",
+    "cod": false,
+    "freeShipping": true
+  }
+]
