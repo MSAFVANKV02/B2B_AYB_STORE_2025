@@ -1,7 +1,6 @@
 
-type Props = {}
 
-export default function AllOrdersBottom({}: Props) {
+export default function AllOrdersBottom() {
   return (
     <div className="lg:w-3/4 w-full">
         <table className="w-full border-collapse">

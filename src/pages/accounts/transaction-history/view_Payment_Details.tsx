@@ -1,28 +1,21 @@
-import { Orders } from "./all-oders-page";
+import { Orders } from "./transaction-history-page";
 import { Icon } from "@iconify/react/dist/iconify.js";
-import OrderStatusSelectionSection from "@/components/orders/Order_Status_Selection_Section";
 import { Separator } from "@/components/ui/separator";
 import AllOrdersBottom from "./all_orders_bottom";
 
 type Props = {
   params: string | null;
 };
-export default function ViewOrder({ params }: Props) {
-  const filterOrderByOrderId = Orders.filter((order) => {
+export default function ViewPaymentDetails({ params }: Props) {
+  const filterPaymentHistoryId = Orders.filter((order) => {
     return order.orderCode === params;
   });
 
   return (
     <div>
-      {filterOrderByOrderId.map((order, index) => (
+      {filterPaymentHistoryId.map((order, index) => (
         <div className="space-y-10" key={`${order.orderCode}-${index}`}>
-          {/* ==============================
-                   ==============================
-                   ================================== */}
-          {/* order status change options ==== */}
-          <div className="flex justify-end gap-6">
-            <OrderStatusSelectionSection />
-          </div>
+       
 
           <Separator />
 

@@ -2,9 +2,23 @@
 
 import { ColumnDef } from "@tanstack/react-table";
 import { IOrders } from "@/types/orderTypes";
-import OrderReturnAction from "../../table_actions/Orders/order-return-action";
+import MyClock from "@/components/myUi/MyClock";
 
-export const OrderReturnColumn: ColumnDef<IOrders>[] = [
+export const RentHistoryColumn: ColumnDef<IOrders>[] = [
+  {
+    accessorKey: "orderCode",
+    header: () => <div className="font-bold text-black max-w-32">Date</div>,
+    cell: () => (
+      <div>
+        <MyClock
+          date={new Date()}
+          showSeconds={false}
+          use12Hour
+          showTime={false}
+        />
+      </div>
+    ),
+  },
   {
     accessorKey: "orderCode",
     header: () => (
@@ -15,19 +29,23 @@ export const OrderReturnColumn: ColumnDef<IOrders>[] = [
   {
     accessorKey: "returnId",
     header: () => (
-      <div className="font-bold text-black max-w-32">Return ID</div>
+      <div className="font-bold text-black max-w-32">Tenant Name</div>
     ),
-    cell: () => <div>Return ID</div>,
+    cell: () => <div>Tenant Name</div>,
   },
   {
     accessorKey: "customer",
-    header: () => <div className="font-bold text-black max-w-32">Customer</div>,
+    header: () => (
+      <div className="font-bold text-black max-w-32">Rent Amount</div>
+    ),
     cell: ({ row }) => <div>{row.original.customer}</div>,
   },
   {
-    accessorKey: "store",
-    header: () => <div className="font-bold text-black max-w-32">Store</div>,
-    cell: ({ row }) => <div>{row.original.store}</div>,
+    accessorKey: "paymentMethod",
+    header: () => (
+      <div className="font-bold text-black max-w-32">Payment Method</div>
+    ),
+    cell: ({ row }) => <div>{row.original.paymentMethod}</div>,
   },
 
   {
@@ -39,24 +57,14 @@ export const OrderReturnColumn: ColumnDef<IOrders>[] = [
       </div>
     ),
   },
-
-  {
-    accessorKey: "refund",
-    header: () => <div className="font-bold text-black max-w-32">Reason</div>,
-    cell: () => (
-      <div>
-        <span>reason Here ..</span>
-      </div>
-    ),
-  },
   {
     accessorKey: "actions",
     header: () => <div className="font-bold text-black max-w-32"></div>,
-    cell: ({ row }) => {
-      const order = row.original;
+    cell: () => {
+      // const order = row.original;
       return (
         <div className="relative flex justify-end">
-          <OrderReturnAction order={order} />
+          {/* <OrderReturnAction order={order} /> */}
           {/* Additional action logic can go here */}
         </div>
       );

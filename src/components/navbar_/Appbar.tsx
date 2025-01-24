@@ -20,13 +20,6 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 
 import FullViewScreen from "@/hooks/FullViewScreen";
 import useNavigateClicks from "@/hooks/useClicks";
@@ -37,8 +30,6 @@ import { makeToast } from "@/utils/toaster";
 
 import { useAppSelector } from "@/redux/hook";
 import { useModal } from "@/providers/context/context";
-import { useTranslation } from "react-i18next";
-import { Icon } from "@iconify/react/dist/iconify.js";
 
 type Props = {
   open: boolean;
@@ -52,12 +43,12 @@ interface AppBarProps extends MuiAppBarProps {
   open?: boolean;
 }
 
-const languages = [
-  { label: "English",icon:"circle-flags:uk", value: "en" },
-  { label: "Hindi",icon:"emojione:flag-for-india", value: "hi" },
-  { label: "Arabic",icon:"emojione:flag-for-saudi-arabia", value: "ar" },
-  { label: "Malayalam",icon:"emojione:flag-for-india", value: "ml" },
-];
+// const languages = [
+//   { label: "English",icon:"circle-flags:uk", value: "en" },
+//   { label: "Hindi",icon:"emojione:flag-for-india", value: "hi" },
+//   { label: "Arabic",icon:"emojione:flag-for-saudi-arabia", value: "ar" },
+//   { label: "Malayalam",icon:"emojione:flag-for-india", value: "ml" },
+// ];
 
 export default function NavAppBar({
   open,
@@ -69,11 +60,11 @@ export default function NavAppBar({
   const isLargeScreen = useMediaQuery("(min-width: 1024px)");
   const { currentAdmin } = useAppSelector((state) => state.admin);
   const { handleLogout } = useModal();
-  const { i18n, t } = useTranslation();
+  // const { i18n, t } = useTranslation();
 
-  const changeLanguage = (lang: string) => {
-    i18n.changeLanguage(lang);
-  };
+  // const changeLanguage = (lang: string) => {
+  //   i18n.changeLanguage(lang);
+  // };
 
   // click
   const { handleClick } = useNavigateClicks();
@@ -167,19 +158,19 @@ export default function NavAppBar({
             </div>
           </Tooltip>
 
-          <Select value={i18n.language} onValueChange={changeLanguage}>
+          {/* <Select value={i18n.language} onValueChange={changeLanguage}>
             <SelectTrigger className="w-[50px] p-2">
               <SelectValue placeholder={t("Language")} />
             </SelectTrigger>
             <SelectContent className="min-w-[10px]">
               {languages.map((language) => (
                 <SelectItem key={language.value} value={language.value}>
-                  {/* {language.label} */}
+                  {language.label}
                   <Icon icon={language.icon} />
                 </SelectItem>
               ))}
             </SelectContent>
-          </Select>
+          </Select> */}
 
           {/* Home btn ======
             ========================== */}

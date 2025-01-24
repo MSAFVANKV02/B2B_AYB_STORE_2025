@@ -60,8 +60,12 @@ function NavigationList() {
       icon: <Icon icon="streamline:graph-bar-increase-solid" />,
       isChild: true,
       children: [
-        { title: "All Orders", segment: "/accounts/orders" },
-        { title: "Customer Refunds", segment: "/accounts/refunds" },
+        { title: "Transaction history", segment: "/accounts/transaction-history" },
+        { title: "Rent history", segment: "/accounts/rent-history" },
+        { title: "Commission history", segment: "/accounts/commission-history" },
+        { title: "Money withdraw history", segment: "/accounts/money-withdrawal" },
+
+
       ],
     },
 

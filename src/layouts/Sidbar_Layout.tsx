@@ -13,7 +13,7 @@ export const ProductsLayout = () => {
   );
 };
 
-export const SalesLayout = () => (
+export const AccountLayout = () => (
   <div>
     <Outlet /> {/* Renders child routes */}
   </div>

@@ -3,10 +3,10 @@ import { DataTable } from "@/components/tasks/task_components/data-table";
 import { IOrders } from "@/types/orderTypes";
 import { useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import ViewOrder from "./view_order";
+import ViewPaymentDetails from "./view_Payment_Details";
 import AyButton from "@/components/myUi/AyButton";
 import '@/assets/css/orders.css'
-import { AllOrdersTableColumn } from "@/components/tasks/table_columns/ordes/orders-table-columns";
+import { PaymentHistoryTableColumn } from "@/components/tasks/table_columns/Accounts/transaction-table-columns";
 
 export const Orders: IOrders[] = [
   {
@@ -63,7 +63,7 @@ export const Orders: IOrders[] = [
   },
 ];
 
-export default function AllOrdersPage() {
+export default function TransactionHistoryPage() {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const [view, setView] = useState(false);
@@ -81,14 +81,14 @@ export default function AllOrdersPage() {
   }, [searchParams, params]);
 
   const handleOrderPageClick = () => {
-    navigate("/sales/orders",{replace:false}); // Navigate to the base route without query parameters
+    navigate("/accounts/transaction-history",{replace:false}); // Navigate to the base route without query parameters
     setView(false);
   };
 
   return (
     <div>
       <div className=" p-4 flex justify-between">
-        <h1 className="font-bold">{view ? "Order Details" : " All Orders"}</h1>
+        <h1 className="font-bold">{view ? "Payment Details" : "Payment History"}</h1>
         {view && <AyButton
         title="Order Page"
         onClick={()=>{
@@ -102,9 +102,9 @@ export default function AllOrdersPage() {
         {!view ? (
           <DataTable
             enableSearch
-            columns={AllOrdersTableColumn}
+            columns={PaymentHistoryTableColumn}
             data={Orders}
-            searchWith="name"
+            searchWith="orderCode"
             // statuses={statuses}
 
             enableStatus={false}
@@ -112,7 +112,7 @@ export default function AllOrdersPage() {
           />
         ) : (
           <div className="">
-            <ViewOrder params={params} />
+            <ViewPaymentDetails params={params} />
           </div>
         )}
       </div>

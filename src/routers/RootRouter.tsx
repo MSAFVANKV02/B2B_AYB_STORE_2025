@@ -7,7 +7,7 @@ import ErrorPage from "@/Error-Page";
 import LoginPage from "@/pages/auth/Login-Page";
 import {
   ProductsLayout,
-  SalesLayout,
+  AccountLayout,
   StoreManagementLayout,
   SettingsLayout,
 } from "@/layouts/Sidbar_Layout";
@@ -16,8 +16,6 @@ import AllProductsPage from "@/pages/products/all/All-Products-page";
 import CategoryPage from "@/pages/products/category/category-page";
 import BrandPage from "@/pages/products/brand/brand-page";
 import ProductReviewPage from "@/pages/products/product-review/product-review-page";
-import AllOrdersPage from "@/pages/orders/all/all-oders-page";
-import CustomerRefundPage from "@/pages/orders/customer-refunds/customer-refund-page";
 import ProductSalePage from "@/pages/reports/product-sale/product-sale-page";
 import OfflinePaymentPage from "@/pages/payments/offline-payments/offline-payment-page";
 import ProductStockPage from "@/pages/reports/product-stock/product-stock-page";
@@ -26,6 +24,10 @@ import StoreManagementPage from "@/pages/store/store-management-page";
 import AuthProtectionRoute from "@/middlewares/AuthProtectionRoute";
 import StoreReturnPage from "@/pages/store/return-from-store/store-return-page";
 import ConversationPage from "@/pages/store/conversations/conversation-page";
+import TransactionHistoryPage from "@/pages/accounts/transaction-history/transaction-history-page";
+import RentHistoryPage from "@/pages/accounts/rent-history/rent-history-page";
+import CommissionHistoryPage from "@/pages/accounts/commission-history/commission-history-page";
+import MoneyWithdrawalPage from "@/pages/accounts/money-withdrawal/money-withdrawl-page";
 
 
 
@@ -72,20 +74,24 @@ const rootRouter = createBrowserRouter(
         },
         {
           path: "/accounts",
-          element: <SalesLayout />, // Parent layout for Sales
+          element: <AccountLayout />, // Parent layout for Sales
           children: [
-            { path: "orders", element: <AllOrdersPage /> },
-            { path: "refunds", element: <CustomerRefundPage /> },
+            { path: "transaction-history", element: <TransactionHistoryPage /> },
+            { path: "rent-history", element: <RentHistoryPage /> },
+            { path: "commission-history", element: <CommissionHistoryPage /> },
+            { path: "money-withdrawal", element: <MoneyWithdrawalPage /> },
+
+
           ],
         },
         // {
         //   path: "/marketing",
-        //   element: <SalesLayout />, // Parent layout for Sales
+        //   element: <AccountLayout />, // Parent layout for Sales
         //   children: [{ path: "coupons", element: <MarketingPage /> }],
         // },
         {
           path: "/reports",
-          element: <SalesLayout />, // Parent layout for Sales
+          element: <AccountLayout />, // Parent layout for Sales
           children: [
             { path: "product-sale", element: <ProductSalePage /> },
             { path: "product-stock", element: <ProductStockPage /> },
