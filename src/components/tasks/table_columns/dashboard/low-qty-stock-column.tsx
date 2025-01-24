@@ -3,7 +3,7 @@ import { ColumnDef } from "@tanstack/react-table";
 
 
 
-export const TopSellerColumn: ColumnDef<IUserProps>[] = [
+export const LowQtyStockColumn: ColumnDef<IUserProps>[] = [
   {
     accessorKey: "title",
     header: "Seller Name",

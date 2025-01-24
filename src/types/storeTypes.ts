@@ -1,15 +1,15 @@
 export type StoreTypes = {
   registrationType: IRegistrationTypes;
-
-  storeName?: string | null;
+  role?:"Seller"|"Store"
+  name?: string | null;
   gstNumber?: string | null;
-  storeAddress?: string | null;
+  Address?: string | null;
   storeCapacity?: number | null;
   state?: string | null;
   country?: string | null;
   pinCode?: string | null;
   googleLocation?: { latitude: number | null; longitude: number | null };
-  storeManager: string | null;
+  manager: string | null;
   emailId: string | null;
   phoneNumber: string | null;
   userName: string | null;

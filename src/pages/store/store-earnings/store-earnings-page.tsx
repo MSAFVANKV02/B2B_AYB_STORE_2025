@@ -7,15 +7,15 @@ import StoreEarningRent from "./store-earnings-rent";
 const storeData: StoreTypes[] = [
   {
     registrationType: "LLP",
-    storeName: "Green Mart",
+    name: "Green Mart",
     gstNumber: "27AABCU9603R1ZV",
-    storeAddress: "123 Main Street, Springfield",
+    Address: "123 Main Street, Springfield",
     storeCapacity: 1500,
     state: "Maharashtra",
     country: "India",
     pinCode: "400001",
     googleLocation: { latitude: 21213, longitude: 1233.31 },
-    storeManager: "John Doe",
+    manager: "John Doe",
     emailId: "john.doe@greenmart.com",
     phoneNumber: "+91-9876543210",
     userName: "john_doe",
@@ -32,15 +32,15 @@ const storeData: StoreTypes[] = [
   },
   {
     registrationType: "LLP",
-    storeName: "Green Mart",
+    name: "Green Mart",
     gstNumber: "27AABCU9603R1ZV",
-    storeAddress: "123 Main Street, Springfield",
+    Address: "123 Main Street, Springfield",
     storeCapacity: 1500,
     state: "Maharashtra",
     country: "India",
     pinCode: "400001",
     googleLocation: { latitude: 21213, longitude: 1233.31 },
-    storeManager: "John Doe",
+    manager: "John Doe",
     emailId: "john.doe@greenmart.com",
     phoneNumber: "+91-9876543210",
     userName: "john_doe",
@@ -56,7 +56,6 @@ const storeData: StoreTypes[] = [
     capacity: 1500,
   },
 ];
-
 export default function StoreEarningsPage() {
 
   return (

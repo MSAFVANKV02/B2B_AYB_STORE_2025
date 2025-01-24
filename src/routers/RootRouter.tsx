@@ -17,9 +17,8 @@ import CategoryPage from "@/pages/products/category/category-page";
 import BrandPage from "@/pages/products/brand/brand-page";
 import ProductReviewPage from "@/pages/products/product-review/product-review-page";
 import ProductSalePage from "@/pages/reports/product-sale/product-sale-page";
-import OfflinePaymentPage from "@/pages/payments/offline-payments/offline-payment-page";
 import ProductStockPage from "@/pages/reports/product-stock/product-stock-page";
-import UserSearchCountPage from "@/pages/reports/user-searches/user-search-count-page";
+// import UserSearchCountPage from "@/pages/reports/user-searches/user-search-count-page";
 import StoreManagementPage from "@/pages/store/store-management-page";
 import AuthProtectionRoute from "@/middlewares/AuthProtectionRoute";
 import StoreReturnPage from "@/pages/store/return-from-store/store-return-page";
@@ -28,8 +27,7 @@ import TransactionHistoryPage from "@/pages/accounts/transaction-history/transac
 import RentHistoryPage from "@/pages/accounts/rent-history/rent-history-page";
 import CommissionHistoryPage from "@/pages/accounts/commission-history/commission-history-page";
 import MoneyWithdrawalPage from "@/pages/accounts/money-withdrawal/money-withdrawl-page";
-
-
+import PageOnBuild from "@/components/myUi/PageOnBuild";
 
 const rootRouter = createBrowserRouter(
   [
@@ -76,12 +74,13 @@ const rootRouter = createBrowserRouter(
           path: "/accounts",
           element: <AccountLayout />, // Parent layout for Sales
           children: [
-            { path: "transaction-history", element: <TransactionHistoryPage /> },
+            {
+              path: "transaction-history",
+              element: <TransactionHistoryPage />,
+            },
             { path: "rent-history", element: <RentHistoryPage /> },
             { path: "commission-history", element: <CommissionHistoryPage /> },
             { path: "money-withdrawal", element: <MoneyWithdrawalPage /> },
-
-
           ],
         },
         // {
@@ -95,37 +94,38 @@ const rootRouter = createBrowserRouter(
           children: [
             { path: "product-sale", element: <ProductSalePage /> },
             { path: "product-stock", element: <ProductStockPage /> },
-            { path: "searches", element: <UserSearchCountPage /> },
+            { path: "wishlist", element: <PageOnBuild title="Wish List"/> },
+            { path: "searches", element: <PageOnBuild title="User Searches"/> },
           ],
         },
-        
+
         // {
         //   path: "/web-setup",
         //   element: <WebpSetupPage />,
         // },
-        {
-          path: "/offline-payment",
-          element: <OfflinePaymentPage />,
-        },
+
         {
           path: "/store",
           element: <StoreManagementLayout />, // Parent layout for Store Management
           children: [
             { path: "stock-request", element: <StoreManagementPage /> },
-           
+
             { path: "conversations", element: <ConversationPage /> },
-            { path: "store-return", element: <StoreReturnPage/> },
+            { path: "store-return", element: <StoreReturnPage /> },
             // { path: "earnings", element: <StoreEarningsPage /> },
             // { path: "commission", element:<StoreCommissionPage /> },
           ],
         },
-       
+
         {
           path: "/settings",
           element: <SettingsLayout />,
           children: [
-            { path: "shipping", element: <div>Shipping Page</div> },
-          
+            {
+              path: "mange-account",
+              element: <PageOnBuild title="Manage Profile"/>,
+            },
+            { path: "support-ticket", element: <PageOnBuild title="Support Ticket"/> },
           ],
         },
       ],

@@ -49,7 +49,7 @@ export default function StoreTableAction({ data }: Props) {
             {/* Store Name */}
             <div className="flex justify-between sm:flex-row flex-col gap-3">
               <Label className="text-sm text-textGray">Store Name :</Label>
-              <span>{selectedData.storeName || "N/A"}</span>
+              <span>{selectedData.name || "N/A"}</span>
             </div>
 
             {/* GST Number */}
@@ -61,7 +61,7 @@ export default function StoreTableAction({ data }: Props) {
             {/* Store Address */}
             <div className="flex justify-between sm:flex-row flex-col gap-3">
               <Label className="text-sm text-textGray">Store Address :</Label>
-              <span>{selectedData.storeAddress || "N/A"}</span>
+              <span>{selectedData.Address || "N/A"}</span>
             </div>
 
             {/* Store Capacity in Cubic */}
@@ -104,7 +104,7 @@ export default function StoreTableAction({ data }: Props) {
             {/* Store Manager */}
             <div className="flex justify-between sm:flex-row flex-col gap-3">
               <Label className="text-sm text-textGray">Store Manager :</Label>
-              <span>{selectedData.storeManager || "N/A"}</span>
+              <span>{selectedData.name || "N/A"}</span>
             </div>
 
             {/* Email ID */}

@@ -1,51 +1,26 @@
-import { useEffect, useMemo } from "react";
 import DashSec01 from "./Dash_Sec_01";
 import DashSec02 from "./Dash_Sec_02";
 
-import { kycColumn } from "@/components/tasks/table_columns/kyc_column";
-import { columns } from "@/components/tasks/table_columns/dashboard-columns";
-// import { TopStoresColumn } from "@/components/tasks/table_columns/top-stores-column";
-// import { TopProductsColumn } from "@/components/tasks/table_columns/top-products-column";
-// import { TopSellerColumn } from "@/components/tasks/table_columns/top-seller-column";
-import { useAppDispatch, useAppSelector } from "@/redux/hook";
-import { fetchCustomerDetails } from "@/redux/actions/customerSlice";
+import { useAppSelector } from "@/redux/hook";
+
 import ReChartBar from "@/components/recharts/reChart_Bar";
 import ReChartPie from "@/components/recharts/reChart_Pie";
 import { TopProductsColumn } from "@/components/tasks/table_columns/top-products-column";
 import { TopStoresColumn } from "@/components/tasks/table_columns/top-stores-column";
-import { TopSellerColumn } from "@/components/tasks/table_columns/top-seller-column";
+import { LowQtyStockColumn } from "@/components/tasks/table_columns/dashboard/low-qty-stock-column";
 
 export default function DashboardPage() {
-  const dispatch = useAppDispatch();
+  // const dispatch = useAppDispatch();
   const { customer } = useAppSelector((state) => state.customer);
   //  const [tasks, setTasks] = useState([]);
 
-  // // const [loading, setLoading] = useState(true);
+  // const filteredCustomer = useMemo(() => {
+  //   return customer.filter((item) => item.user.kycsubmitted);
+  // }, [customer]);
 
   // useEffect(() => {
-  //   async function fetchTasks() {
-  //     try {
-  //       const response = await fetch("/src/components/tasks/data/tasks.json"); // Replace with the appropriate API route
-  //       const data = await response.json();
-  //       const validTasks = data
-  //       setTasks(validTasks);
-  //     } catch (error) {
-  //       console.error("Error fetching tasks:", error);
-  //     } finally {
-  //       // setLoading(false);
-  //     }
-  //   }
-
-  //   fetchTasks();
+  //   dispatch(fetchCustomerDetails());
   // }, []);
-
-  const filteredCustomer = useMemo(() => {
-    return customer.filter((item) => item.user.kycsubmitted);
-  }, [customer]);
-
-  useEffect(() => {
-    dispatch(fetchCustomerDetails());
-  }, []);
 
   // if (loading) return <div>Loading...</div>;
 
@@ -60,13 +35,7 @@ export default function DashboardPage() {
 
       {/* tables starts =====
         ============== */}
-      <DashSec02
-        titleOne="Offline Payment "
-        titleTwo="KYC verification "
-        data={filteredCustomer}
-        columns={columns}
-        columnsTwo={kycColumn}
-      />
+
       <DashSec02
         titleOne="Top Products "
         titleTwo="Top Stores"
@@ -76,10 +45,10 @@ export default function DashboardPage() {
       />
 
       <DashSec02
-        titleOne="Top Seller"
+        titleOne="Low Quantity Stock"
         tableTwo={false}
-        columns={TopSellerColumn}
-        columnsTwo={TopSellerColumn}
+        columns={LowQtyStockColumn}
+        columnsTwo={LowQtyStockColumn}
         data={customer}
       />
     </div>

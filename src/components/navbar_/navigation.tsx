@@ -102,12 +102,12 @@ function NavigationList() {
     //   ],
     // },
   
-    {
-      kind: "page",
-      segment: "/offline-payment",
-      title: "Offline Payment",
-      icon: <Icon icon="fluent:phone-link-setup-24-filled" />,
-    },
+    // {
+    //   kind: "page",
+    //   segment: "/offline-payment",
+    //   title: "Offline Payment",
+    //   icon: <Icon icon="fluent:phone-link-setup-24-filled" />,
+    // },
     // {
     //   kind: "page",
     //   segment: "/customers/refund",
@@ -121,9 +121,9 @@ function NavigationList() {
       title: "Settings",
       icon: <Icon icon="mdi:cog-outline" />,
       isChild: true,
-      children: [{ title: "Shipping", segment: "/settings/shipping" },
-        { title: "Admin Roles", segment: "/settings/admin-management" },
-        { title: "Payment Setup", segment: "/settings/payment-setup" }
+      children: [{ title: "Settings", segment: "/settings/mange-account" },
+        { title: "Support ticket", segment: "/settings/support-ticket" },
+       
       ],
     },
   ];
