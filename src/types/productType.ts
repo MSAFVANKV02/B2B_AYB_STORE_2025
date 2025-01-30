@@ -29,16 +29,16 @@ export type IProducts = {
   is_best_selling?: boolean;
 
   //   files section
-  gallery_image?: File[];
-  thumbnails: File[];
+  gallery_image?: File[] | string[] ;
+  thumbnails: File[] | string[] ;
   variations: {
-    image: File;
+    image: string;
     colorCode: string;
     colorName: string;
     sample: boolean;
     details: IVariants[];
   }[];
-  sizeImages: File[];
+  sizeImages: File[] | string[];
 
   // === price stock ===
   base_price: number;

@@ -27,6 +27,8 @@ import RentHistoryPage from "@/pages/accounts/rent-history/rent-history-page";
 import CommissionHistoryPage from "@/pages/accounts/commission-history/commission-history-page";
 import MoneyWithdrawalPage from "@/pages/accounts/money-withdrawal/money-withdrawl-page";
 import PageOnBuild from "@/components/myUi/PageOnBuild";
+import UploadMediaPage from "@/pages/media/upload-media-page";
+import AllUploadedFiles from "@/pages/media/retrive/all_uploaded_files";
 
 const rootRouter = createBrowserRouter(
   [
@@ -125,6 +127,8 @@ const rootRouter = createBrowserRouter(
               element: <PageOnBuild title="Manage Profile"/>,
             },
             { path: "support-ticket", element: <PageOnBuild title="Support Ticket"/> },
+            { path: "media", element: <UploadMediaPage /> },
+            { path: "media/uploads", element: <AllUploadedFiles /> },
           ],
         },
       ],

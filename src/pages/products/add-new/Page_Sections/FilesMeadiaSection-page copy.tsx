@@ -15,8 +15,6 @@ import { Button } from "@/components/ui/button";
 import { makeToastError } from "@/utils/toaster";
 import DoneAllIcon from "@mui/icons-material/DoneAll";
 import { IProducts } from "@/types/productType";
-import Media_Files_Modal from "@/components/media/Media_Files_Modal";
-import { IFileDataMedia } from "@/pages/media/retrive/all_uploaded_files";
 
 type Props = {
   setFieldValue: any;
@@ -37,64 +35,82 @@ export default function FilesMediaSectionPage({
 }: Props) {
   // console.log(values, "values");
   const { setIsOpen } = useModal();
-  const [selectedFieldName, setSelectedFieldName] = useState<{
-    id: keyof FileFormValues;
-    name: keyof FileFormValues;
-    fileType?: string;
-    label: string;
-    haveImageLink: boolean;
-    multiple?: boolean;
-    mediaType?: "pdf" | "image";
-  } | null>(null);
-
   const [localProductImages, setProductLocalImages] = useState<
-    { image: string; colorCode: string; colorName: string }[]
+    { image: File; colorCode: string; colorName: string }[]
   >([]);
   const [selectedColor, setSelectedColor] = useState<boolean>(false);
 
-  // console.log(values);
   
 
   const handleFileChange = async (
-    event: IFileDataMedia[],
+    event: React.ChangeEvent<HTMLInputElement>,
     fieldName: string
   ) => {
-    const files = event;
+    const files = event.target.files;
     if (!files) return;
 
-    const fileArray = Array.from(files);
+    const fileArray = Array.from(files); // Convert FileList to an array
+
+    const validateImageDimensions = async (
+      file: File,
+      width: number,
+      height: number
+    ) => {
+      return new Promise<boolean>((resolve, reject) => {
+        const img = new Image();
+        img.onload = () => {
+          if (img.width === width && img.height === height) {
+            resolve(true);
+          } else {
+            reject(false);
+          }
+        };
+        img.onerror = () => reject(false);
+        img.src = URL.createObjectURL(file); // Load image from file
+      });
+    };
 
     try {
       for (const file of fileArray) {
         if (fieldName === "variations" || fieldName === "gallery_image") {
+          // Set required dimensions
           const requiredWidth = 600;
           const requiredHeight = 600;
 
-          // Validate the image dimensions from the IFileDataMedia object
-          if (file.width !== requiredWidth || file.height !== requiredHeight) {
+          // Validate dimensions
+          await validateImageDimensions(
+            file,
+            requiredWidth,
+            requiredHeight
+          ).catch(() => {
             throw new Error(
               `Image must be ${requiredWidth}x${requiredHeight}px`
             );
-          }
+          });
         } else if (fieldName === "thumbnails") {
           const requiredWidth = 300;
           const requiredHeight = 300;
 
-          // Validate the image dimensions from the IFileDataMedia object
-          if (file.width !== requiredWidth || file.height !== requiredHeight) {
+          // Validate dimensions
+          await validateImageDimensions(
+            file,
+            requiredWidth,
+            requiredHeight
+          ).catch(() => {
             throw new Error(
               `Thumbnail must be ${requiredWidth}x${requiredHeight}px`
             );
-          }
+          });
         }
       }
 
+      // If all images are valid, proceed
       if (fieldName === "variations") {
         const colorCode = ""; // Replace with actual color code logic
         const colorName = ""; // Replace with actual color name logic
 
         const newImages = fileArray.map((file) => ({
-          image: file.src, // You might want to add the actual image file here if needed
+          image: file,
           colorCode,
           colorName,
         }));
@@ -106,13 +122,68 @@ export default function FilesMediaSectionPage({
         setIsOpen(true);
         setProductLocalImages((prev) => [...prev, ...newImages]);
       } else {
-        const srcArray = fileArray.map((file) => file.src);
-        setFieldValue(fieldName, srcArray);
+        setFieldValue(fieldName, fileArray); // Use array format for Formik state
       }
     } catch (error: any) {
       makeToastError(error.message || "Invalid image dimensions");
     }
   };
+
+  // const handleSaveColors = () => {
+  //   // Validate: Ensure all images have a selected color
+  //   if(localProductImages.length === 0 &&  values.variations.length > 0){
+  //     makeToastError("Please add at least one product image");
+  //     return;
+  //   }
+  //   const isAllColorsSelected = localProductImages.every(
+  //     (image) => image.colorCode && image.colorName
+  //   );
+
+  //   if (isAllColorsSelected) {
+  //     // Save to Formik field
+  //     setFieldValue("variations", localProductImages);
+  //     setIsOpen(false); // Close the modal
+  //   } else {
+  //     alert("Please select colors for all product images.");
+  //   }
+  // };
+  
+  // const handleSaveColors = () => {
+  //   // Validate: Ensure at least one product image exists if variations are present
+  //   if (localProductImages.length === 0 && values.variations.length > 0) {
+  //     makeToastError("Please add at least one product image");
+  //     return;
+  //   }
+
+  //   // Validate that all images have a selected color and name
+  //   const isAllColorsSelected = localProductImages.every(
+  //     (image) => image.colorCode && image.colorName && image.image
+  //   );
+
+  //   if (isAllColorsSelected) {
+  //     // Update Formik's variations with local images
+  //     setFieldValue(
+  //       "variations",
+  //       localProductImages.map((image) => ({
+  //         image: image.image,
+  //         colorCode: image.colorCode,
+  //         colorName: image.colorName,
+  //         details: [
+  //           {
+  //             stock: 0,
+  //             size: "",
+  //             selling_price:0,
+  //             discount:0,
+  //           },
+  //         ],
+  //       }))
+  //     );
+
+  //     setIsOpen(false); // Close the modal
+  //   } else {
+  //     alert("Please select colors for all product images.");
+  //   }
+  // };
 
   const handleSaveColors = () => {
     // Validate: Ensure at least one product image exists if variations are present
@@ -120,12 +191,12 @@ export default function FilesMediaSectionPage({
       makeToastError("Please add at least one product image");
       return;
     }
-
+  
     // Validate that all images have a selected color and name
     const isAllColorsSelected = localProductImages.every(
       (image) => image.colorCode && image.colorName && image.image
     );
-
+  
     if (isAllColorsSelected) {
       // Filter out duplicates by checking `colorCode` and `colorName`
       const newVariations = localProductImages.filter(
@@ -136,7 +207,7 @@ export default function FilesMediaSectionPage({
               variation.colorName === image.colorName
           )
       );
-
+  
       // Create updated variations by appending only new variations
       const updatedVariations = [
         ...values.variations, // Preserve existing variations
@@ -154,103 +225,117 @@ export default function FilesMediaSectionPage({
           ],
         })),
       ];
-
+  
       // Update Formik's field with merged variations
       setFieldValue("variations", updatedVariations);
-
+  
       // Clear local images to avoid duplicating them on the next save
       setProductLocalImages([]);
-
+  
       setIsOpen(false); // Close the modal
     } else {
       alert("Please select colors for all product images.");
     }
   };
-
-  const userDetailsFields: {
-    id: keyof FileFormValues;
-    name: keyof FileFormValues;
-    fileType?: string;
-    label: string;
-    haveImageLink: boolean;
-    multiple?: boolean;
-    mediaType?: "pdf" | "image";
-  }[] = [
-    {
-      id: "gallery_image",
-      name: "gallery_image",
-      fileType: "text",
-      label: "Gallery Images (600x600)",
-      haveImageLink: true,
-      multiple: true,
-      mediaType: "image",
-    },
-    {
-      id: "thumbnails",
-      name: "thumbnails",
-      fileType: "text",
-      label: "Add Thumbnail Image (300x300)",
-      haveImageLink: true,
-      multiple: true,
-      mediaType: "image",
-    },
-    {
-      id: "variations",
-      name: "variations",
-      fileType: "text",
-      label: "Product images (600x600)",
-      haveImageLink: true,
-      multiple: true,
-      mediaType: "image",
-    },
-    {
-      id: "sizeImages",
-      name: "sizeImages",
-      fileType: "text",
-      label: "Size chart",
-      haveImageLink: true,
-      multiple: false,
-      mediaType: "image",
-    },
-  ];
+  
 
   return (
     <div className="">
       {/* Main container starts here ======= */}
-      <div className="space-y-4 mb-10">
-        {userDetailsFields.map((field) => (
-          <div
-            key={field.id}
-            className=""
-            onClick={() => {
-              // console.log(field.name, "field.name}");
-              setSelectedFieldName(field); // Update selected field name
-            }}
-          >
-            <FormFieldGenal
-              setFieldValue={setFieldValue}
-              values={values[field.id] || []}
-              id={field.id}
-              name={field.id}
-              title={field.label}
-            />
-          </div>
-        ))}
+
+      <div className="space-y-5">
+        <FormFieldGenal
+          setFieldValue={setFieldValue}
+          values={values.gallery_image || []}
+          id="gallery_image"
+          name="gallery_image"
+          title="Gallery Images (600x600)"
+          onChange={(e) => handleFileChange(e, "gallery_image")}
+        />
+
+        {/* thumbnail */}
+        <FormFieldGenal
+          values={values.thumbnails}
+          setFieldValue={setFieldValue}
+          id="thumbnails"
+          name="thumbnails"
+          title="Add Thumbnail Image (300x300)"
+          onChange={(e) => handleFileChange(e, "thumbnails")}
+        />
+
+        {/* variations */}
+        <FormFieldGenal
+          values={values.variations}
+          setFieldValue={setFieldValue}
+          id="variations"
+          setIsOpen={setIsOpen}
+          name="variations"
+          title="Product images (600x600)"
+          onChange={(e) => handleFileChange(e, "variations")}
+        />
+
+        {/* sizeImages */}
+        <FormFieldGenal
+          values={values.sizeImages}
+          setFieldValue={setFieldValue}
+          id="sizeImages"
+          name="sizeImages"
+          title="Size chart"
+          onChange={(e) => handleFileChange(e, "sizeImages")}
+        />
       </div>
 
-      {selectedFieldName && (
-        <Media_Files_Modal
-          fieldName={selectedFieldName.name}
-          multiple={selectedFieldName.multiple}
-          mediaType={selectedFieldName.mediaType}
-          handleFileUpload={(event, fieldName) => {
-            handleFileChange(event, fieldName);
-          }}
+      {/* ============= selected images ==== starts currently changes to FormFieldGenal  */}
+      {/* <div className="flex flex-wrap mt-10">
+        <SelectedImages
+          value={values.gallery_image}
+          name="gallery_image"
+          title="selected Gallery Images"
+          alt="gallery images"
+          setFieldValue={setFieldValue}
         />
-      )}
 
-      {/* drawerModal */}
+      
+        {values.variations.length > 0 && (
+          <div className="flex flex-col">
+            <span className="span">Selected Product Images</span>
+            <div
+              onClick={() => setIsOpen(true)}
+              className="grid grid-cols-4 gap-2 mt-3"
+            >
+              {values.variations.map((value) => (
+                <Tooltip
+                  title={`Color: ${value.colorName}`}
+                  placement="top"
+                  className="cursor-pointer"
+                >
+                  <img
+                    className="h-12 w-12 rounded-full border border-gray-300"
+                    src={URL.createObjectURL(value.image)}
+                    alt="gallery images"
+                  />
+                </Tooltip>
+              ))}
+            </div>
+          </div>
+        )}
 
+        <SelectedImages
+          value={values.sizeImages}
+          name="sizeImages"
+          title="selected Size Images"
+          alt="gallery images"
+          setFieldValue={setFieldValue}
+        />
+
+        <SelectedImages
+          value={values.thumbnails}
+          name="thumbnails"
+          title="selected Thumbnail Images"
+          alt="gallery images"
+          setFieldValue={setFieldValue}
+        />
+      </div> */}
       {/*========= selected images ==== Ends currently changes to FormFieldGenal  */}
 
       <TaskModal className="h-[50vh] p-0 shadow-xl border border-black/20 b">
@@ -309,6 +394,7 @@ type FormFieldGenalProps = {
   id: string;
   name: string;
   fieldClassName?: string;
+  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   setFieldValue: any;
   values: any[];
   setIsOpen?: (value: boolean) => void;
@@ -319,26 +405,19 @@ export function FormFieldGenal({
   title,
   id,
   name,
-
+  fieldClassName,
   setFieldValue,
-
+  onChange,
   values = [],
   setIsOpen,
 }: FormFieldGenalProps) {
-  const { openMediaDrawer } = useModal();
-
   return (
     <div className={cn("flex items-center justify-between gap-10", className)}>
       <Label htmlFor={name} className="text-sm text-textGray">
         {title}
       </Label>
-      <div
-        className="flex flex-col gap-1 w-[70%] rel"
-       
-      >
-        <div className="flex items-center gap-3"
-         onClick={openMediaDrawer}
-        >
+      <div className="flex flex-col gap-1 w-[70%] rel">
+        <div className="flex items-center gap-3">
           <Label
             htmlFor={id}
             className="border relative overflow-hidden items-center gap-4 rounded-md w-[300px] cursor-pointer flex"
@@ -362,11 +441,7 @@ export function FormFieldGenal({
             </span>
           )}
         </div>
-        <ErrorMessage
-          name={name}
-          component="span"
-          className="text-red-500 text-xs"
-        />
+        <ErrorMessage name={name} component="span" className="text-red-500 text-xs" />
         {name === "variations" ? (
           <>
             {values.length > 0 && (
@@ -389,7 +464,7 @@ export function FormFieldGenal({
                       {value.image && (
                         <img
                           className="h-12 w-12 rounded-full border border-gray-300"
-                          src={value.image}
+                          src={URL.createObjectURL(value.image)}
                           alt="gallery images"
                         />
                       )}
@@ -409,6 +484,16 @@ export function FormFieldGenal({
           />
         )}
       </div>
+
+      <input
+        id={id}
+        name={name}
+        type="file"
+        accept="image/png, image/jpeg, image/jpg, image/webp"
+        className={cn("hidden", fieldClassName)} // Hidden input
+        onChange={onChange} // Custom handler
+        multiple
+      />
     </div>
   );
 }
@@ -442,7 +527,7 @@ export function SelectedImages({
               <div className="" key={index}>
                 <div className="w-[50px] bg-gray-100 rounded-md relative mt-3">
                   <img
-                    src={image}
+                    src={URL.createObjectURL(image)}
                     alt={alt}
                     className="object-cover "
                   />

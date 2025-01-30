@@ -20,6 +20,7 @@ import React, {
 // Define the context type
 interface ModalContextType {
   isOpen: boolean;
+  mediaOpenDrawer: boolean;
   selectedTask: IUserProps | null;
   openModal: (task: any, type: IModalTypes) => void;
   openProductModal: (task: any) => void;
@@ -33,11 +34,16 @@ interface ModalContextType {
   selectedPage: string | null;
   setSelectedPage: Dispatch<SetStateAction<string | null>>;
   setIsOpen: Dispatch<SetStateAction<boolean>>;
+  setMediaOpenDrawer: Dispatch<SetStateAction<boolean>>;
+
   setSelectedCategory: Dispatch<SetStateAction<ICategory | null>>;
   selectedProducts: IProducts | null;
   selectedCategory: ICategory | null;
   openCategoryModal: (task: ICategory) => void;
   handleLogout: () => void;
+  openMediaDrawer: () => void;
+  closeMediaDrawer: () => void;
+  
 }
 
 // Create the context
@@ -65,6 +71,10 @@ export const ModalProvider: React.FC<{ children: ReactNode }> = ({
   const [isTopSellerTable, setIsTopSellerTable] = useState(false);
   const [modalTypeDashboard, setModalTypeDashboard] = useState<IModalTypes>("");
   const [selectedPage, setSelectedPage] = useState<string | null>("general");
+
+  // media drawer open
+  const [mediaOpenDrawer, setMediaOpenDrawer] = useState(false);
+
 
   // store sections =======
   // const [storeEdit]
@@ -104,6 +114,14 @@ export const ModalProvider: React.FC<{ children: ReactNode }> = ({
 
   // }
 
+  const openMediaDrawer = ()=>{
+    setMediaOpenDrawer(true);
+  }
+
+  const closeMediaDrawer = ()=>{
+    setMediaOpenDrawer(false);
+  }
+
   const handleLogout = async () => {
     try {
       // await LogoutAdmins_Api();
@@ -141,6 +159,10 @@ export const ModalProvider: React.FC<{ children: ReactNode }> = ({
         selectedCategory,
         setSelectedCategory,
         handleLogout,
+        closeMediaDrawer,
+        mediaOpenDrawer,
+        openMediaDrawer,
+        setMediaOpenDrawer
       }}
     >
       {children}

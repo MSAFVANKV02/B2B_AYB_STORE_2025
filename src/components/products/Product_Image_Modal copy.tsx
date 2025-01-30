@@ -21,13 +21,13 @@ interface Color {
 
 type MetadataFormProps = {
   productLocalImages: {
-    image: string;
+    image: File;
     colorCode: string;
     colorName: string;
   }[];
   setProductLocalImages: (
     images: {
-      image: string;
+      image: File;
       colorCode: string;
       colorName: string;
     }[]
@@ -148,7 +148,7 @@ export const ProductImageModal = ({
       {productLocalImages.map((product, index) => (
         <div key={index} className="flex justify-between">
           <img
-            src={product.image}
+            src={URL.createObjectURL(product.image)}
             alt=""
             className="w-10 h-10"
           />

@@ -1,3 +1,5 @@
+export const LOCAL_URL = `http://localhost:4000`
+
 export const ALLOWED_DOMAIN = "https://6qg6jmv3-5176.inc1.devtunnels.ms";
 
 

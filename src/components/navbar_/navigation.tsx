@@ -129,6 +129,7 @@ function NavigationList() {
       isChild: true,
       children: [{ title: "Settings", segment: "/settings/mange-account", subscribed:'premium', },
         { title: "Support ticket", segment: "/settings/support-ticket", subscribed:'premium', },
+        { title: "Media", segment: "/settings/media", subscribed:'premium', },
        
       ],
     },
