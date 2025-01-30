@@ -1,16 +1,16 @@
 import { Get_Admins_Api } from "@/services/auth/route";
-import { IAdminTypes } from "@/types/adminUserTypes";
+import { StoreTypes } from "@/types/storeTypes";
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 
 
 type FormData = {
-    admin:IAdminTypes[];
+    admin:StoreTypes[];
     token: string | null;
     isLoading: boolean;
     isLogged: boolean;
     error: string | null;
-    currentAdmin: IAdminTypes | null;
+    currentAdmin: StoreTypes | null;
 }
 
 // Initial state
@@ -44,7 +44,7 @@ export const fetchAdminDetails = createAsyncThunk(
   }
 );
 
-// export const fetchCurrentAdminDetails = createAsyncThunk(
+// export const fetchCurrentSellerDetails = createAsyncThunk(
 //   "admin/fetchAdminDetails",
 //   async (_, { rejectWithValue }) => {
 //     try {
@@ -80,6 +80,7 @@ const authSlice = createSlice({
     },
     setCurrentAdminSlices: (state, action) =>{
       state.currentAdmin = action.payload;
+      state.isLogged = true;
     }
   },
   extraReducers: (builder) => {

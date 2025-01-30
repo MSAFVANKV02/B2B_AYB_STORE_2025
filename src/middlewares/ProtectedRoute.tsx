@@ -67,6 +67,7 @@ import { useAppDispatch, useAppSelector } from "@/redux/hook";
 import { setCurrentAdminSlices } from "@/redux/actions/adminSlice";
 import { Get_Current_Admins_Api } from "@/services/auth/route";
 import PreloaderPage from "@/preloader-page";
+import { ALLOWED_DOMAIN } from "@/types/urlPath";
 
 interface ProtectedRouteProps {
   children: React.ReactNode;
@@ -94,15 +95,21 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
 
   useEffect(() => {
     if (isLogged) {
-      fetchCurrentAdminDetails();
+      fetchCurrentSellerDetails();
     }
   }, []);
 
-  const fetchCurrentAdminDetails = async () => {
+  if (window.location.origin.includes(ALLOWED_DOMAIN)) {
+    return <>{children}</>;
+  }
+
+  const fetchCurrentSellerDetails = async () => {
     try {
       const res = await Get_Current_Admins_Api();
+      console.log(res);
+      
       if (res.status === 200) {
-        dispatch(setCurrentAdminSlices(res.data.admin));
+        dispatch(setCurrentAdminSlices(res.data.seller));
       }
     } catch (error) {
       console.error("Error fetching current admin details:", error);
@@ -129,23 +136,28 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
     return <Navigate to="/dashboard" replace />;
   }
 
-  // Admins have unrestricted access
-  if (currentAdmin?.role === "admin") {
+  // // Admins have unrestricted access
+  if (currentAdmin?.role === "Seller") {
     return <>{children}</>;
   }
+  // =================================================================
 
   // Helper function to check if the user has access to the current route
-  const hasAccess = (path: string) => {
-    if (path === "/settings/user-strict") {
-      return true; // Allow access to this specific page
-    }
-    return currentAdmin?.pages.includes(path); // Check against user's allowed pages
-  };
+  // const hasAccess = (path: string) => {
+  //   if (path === "/settings/user-strict") {
+  //     return true; // Allow access to this specific page
+  //   }
+  //   return currentAdmin?.pages.includes(path); // Check against user's allowed pages
+  // };
+  // =================================================================
 
-  // Redirect users without access to the current route
-  if (!hasAccess(pathname)) {
-    return <Navigate to="/settings/user-strict" replace />;
-  }
+
+  // // Redirect users without access to the current route
+  // if (!hasAccess(pathname)) {
+  //   return <Navigate to="/settings/user-strict" replace />;
+  // }
+  // =================================================================
+
 
   // Allow access to protected routes for authenticated users
   return <>{children}</>;

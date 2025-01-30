@@ -8,7 +8,9 @@ export const GeneralSchema = Yup.object({
   mrp: Yup.number()
     .positive("MRP must be greater than 0")
     .required("MRP is required"),
-  product_sku: Yup.string().min(1, "SKU is required").required("SKU is required"),
+  product_sku: Yup.string()
+    .min(1, "SKU is required")
+    .required("SKU is required"),
   barcode: Yup.string().optional(),
   brand: Yup.string().required("Brand is required"),
   keywords: Yup.string().optional(),
@@ -36,13 +38,13 @@ export const GeneralSchema = Yup.object({
   // ========= tax details starts==========================
   tax_details: Yup.object({
     taxSlab: Yup.array()
-    .of(
-      Yup.object().shape({
-        _id: Yup.string().required("ID is required"),
-        name: Yup.string().required("Name is required"),
-      })
-    )
-    .min(1, "At least one tax slab must be selected"),
+      .of(
+        Yup.object().shape({
+          _id: Yup.string().required("ID is required"),
+          name: Yup.string().required("Name is required"),
+        })
+      )
+      .min(1, "At least one tax slab must be selected"),
     isCess: Yup.boolean().default(false),
     //   cess: Yup.array().when("isCess", (isCess, schema) => {
     //     return isCess ? schema.required("Cess is required") : schema.optional();
@@ -62,16 +64,14 @@ export const GeneralSchema = Yup.object({
     //         .required("Cess is required"),
     //     otherwise: (schema) => schema.optional(),
     //   }),
-    cess: Yup.number()
-  .when("isCess", {
-    is: true,
-    then: (schema) =>
-      schema
-        .positive("Cess must be a positive number")
-        .required("Cess is required"),
-    otherwise: (schema) => schema.optional(),
-  }),
-
+    cess: Yup.number().when("isCess", {
+      is: true,
+      then: (schema) =>
+        schema
+          .positive("Cess must be a positive number")
+          .required("Cess is required"),
+      otherwise: (schema) => schema.optional(),
+    }),
   }),
   //========= tax details Ends ==========================
 
@@ -84,7 +84,6 @@ export const GeneralSchema = Yup.object({
   //   is_todays_deal: Yup.boolean().default(false),
   //   is_featured_product: Yup.boolean().default(false),
   description: Yup.string().optional(),
-  
 });
 // Combined schema
 
@@ -149,9 +148,6 @@ export const PriceStockSchema = Yup.object({
     .oneOf(["size", "bundle"], "Select a valid option: 'size' or 'bundle'")
     .required("Select Wise is required"),
 
-  // Store Selection
-  store: Yup.string().required("Store selection is required"),
-
   // Variations (details array validation)
   variations: Yup.array()
     .of(
@@ -172,7 +168,7 @@ export const PriceStockSchema = Yup.object({
             //   .min(0, "Discount must be a positive number")
             //   .max(100, "Discount cannot be more than 100%")
             //   .required("Discount is required"),
-            skuId: Yup.string().optional()
+            skuId: Yup.string().optional(),
           })
         ),
       })
@@ -195,9 +191,9 @@ export const getValidationSchema = (step: number) => {
       return FilesSchema;
     case 3:
       return PriceStockSchema;
-      case 4:
-        // Combine all schemas for a comprehensive validation
-        return GeneralSchema.concat(FilesSchema).concat(PriceStockSchema);
+    case 4:
+      // Combine all schemas for a comprehensive validation
+      return GeneralSchema.concat(FilesSchema).concat(PriceStockSchema);
     // Add cases for other schemas when implementing PriceStockSectionPage and ShippingSectionPage
   }
 };

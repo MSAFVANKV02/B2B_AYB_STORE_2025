@@ -13,7 +13,6 @@ import {
 } from "@/components/ui/select";
 import { Checkbox, styled } from "@mui/material";
 import SelectWise from "@/components/products/Select_Wise";
-import { StoreSelection } from "@/components/products/price section/Store_Selection";
 import AllNewProductsTable from "@/components/products/price section/All_new_Products_Table";
 import PricePerPiecesComponent from "@/components/products/Price_Per_Pieces_Component";
 
@@ -157,7 +156,7 @@ export default function PriceStockSectionPage({
 
         {/* select store ====
         ==================== */}
-        <div className="flex items-center lg:flex-row flex-col justify-between">
+        {/* <div className="flex items-center lg:flex-row flex-col justify-between">
           <Label className="text-textGray">Store</Label>
           <div className="lg:w-3/4">
             <StoreSelection values={values} setFieldValue={setFieldValue} />
@@ -167,7 +166,7 @@ export default function PriceStockSectionPage({
               className="text-red-500 text-xs"
             />
           </div>
-        </div>
+        </div> */}
       </div>
 
       {/* ======= All Selected Details In Table ======== */}

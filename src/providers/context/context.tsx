@@ -2,11 +2,12 @@ import { IModalTypes } from "@/components/tasks/table_actions/data-table-action-
 import useNavigateClicks from "@/hooks/useClicks";
 import { logoutState } from "@/redux/actions/adminSlice";
 import { useAppDispatch } from "@/redux/hook";
-import { LogoutAdmins_Api } from "@/services/auth/route";
+// import { LogoutAdmins_Api } from "@/services/auth/route";
 import { IUserProps } from "@/types/adminUserTypes";
 import { ICategory } from "@/types/categorytypes";
 import { IProducts } from "@/types/productType";
 import { makeToastError } from "@/utils/toaster";
+import Cookies from "js-cookie";
 import React, {
   createContext,
   useContext,
@@ -105,7 +106,8 @@ export const ModalProvider: React.FC<{ children: ReactNode }> = ({
 
   const handleLogout = async () => {
     try {
-      await LogoutAdmins_Api();
+      // await LogoutAdmins_Api();
+      await Cookies.remove("sl_b2b_tkn")  
       dispatch(logoutState());
       handleClick("/login");
     } catch (error:any) {

@@ -1,6 +1,12 @@
 export type StoreTypes = {
+  _id?:string;
   registrationType: IRegistrationTypes;
-  role?:"Seller"|"Store"
+  role?: "Seller" | "Store";
+  isRegistered?: boolean;
+  isBlocked?: boolean;
+  mobileVerified?: boolean;
+  subscription?: boolean;
+  adminStatus?: IAdminStatus;
   name?: string | null;
   gstNumber?: string | null;
   Address?: string | null;
@@ -27,26 +33,29 @@ export type StoreTypes = {
   status?: "pending" | "paid";
   created_at?: string | number | Date;
   // =====  Sole Proprietorship Registration  ================
-  aadhaarCard?:File | string | null;
-  panCard?:File | string | null;
-  localBodyLicense?:File | string | null;
-  roomRentAgreement?:File | string | null;
-  gstCertificate?:File | string | null;
- 
+  aadhaarCard?: File | string | null;
+  panCard?: File | string | null;
+  localBodyLicense?: File | string | null;
+  roomRentAgreement?: File | string | null;
+  gstCertificate?: File | string | null;
 
   // =====  Partnerships Firm Registration  ================
-  partnershipAgreement?:File | string | null;
-   companyPanCard?:File | string | null;
+  partnershipAgreement?: File | string | null;
+  companyPanCard?: File | string | null;
 
   //  pv ltd license================================
-  companyIncorporationCertificate?:File | string | null;
+  companyIncorporationCertificate?: File | string | null;
   cinNumber?: string | null;
 
   // ----- llp ltd license================================
   llpNumber?: string | null;
-
-
 };
 
 
-export type IRegistrationTypes = "Sole Proprietorship"|"Partnerships"|"LLP"|"PVT LTD"
+export type IAdminStatus =  "pending" | "viewed" | "approved" | "rejected";
+
+export type IRegistrationTypes =
+  | "Sole Proprietorship"
+  | "Partnerships"
+  | "LLP"
+  | "PVT LTD";

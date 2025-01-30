@@ -43,11 +43,11 @@ export default function AdminProductTaskbar() {
       <div className="px-4 py-5">
         <h3 className="font-bold">Add New Product</h3>
       </div>
-      <ul className="w-full flex flex-row lg:justify-between lg:items-start justify-center items-center lg:flex-nowrap flex-wrap">
+      <ul className="w-full flex lg:flex-row flex-col lg:justify-between lg:items-start justify-center items-center lg:flex-nowrap flex-wrap">
         {TaskbarItems.map((item, index) => (
           <li
             key={item.id}
-            className={`${
+            className={`w-full ${
               selectedPage === item.path
                 ? "backdrop-blur-lg  bg-bgGraySoft hover:bg-none text-textMain border-t border-l border border-textHardSoft font-bold"
                 : "hover:bg-black/5 border-b border-t border-l border"

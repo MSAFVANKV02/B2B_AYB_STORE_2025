@@ -214,14 +214,15 @@ export default function NavAppBar({
                   </span>
                   <span className=" text-gray-400">
                     {" "}
-                    {currentAdmin?.name || currentAdmin?.email.split("@")[0]}
+                    {currentAdmin?.userName || (currentAdmin?.emailId ? currentAdmin.emailId.split("@")[0] : "Unknown")}
+
                   </span>
                 </div>
                 {/* ====== */}
                 <Avatar className="w-7 h-7">
                   <AvatarImage src="https://github.com/shadcn.png" />
                   <AvatarFallback>
-                    {currentAdmin?.name || "Admin"}
+                    {currentAdmin?.name || "Seller"}
                   </AvatarFallback>
                 </Avatar>
               </div>

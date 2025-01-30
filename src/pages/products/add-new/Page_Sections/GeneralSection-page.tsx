@@ -168,11 +168,11 @@ const [selectedTaxSlab, setSelectedTaxSlab] = useState<
         />
 
         {/* #Dimension ==== */}
-        <div className={cn("flex items-center justify-between")}>
+        <div className={cn("flex md:flex-row flex-col md:items-center gap-3 justify-between")}>
           <Label htmlFor="dimension" className="text-textGray">
             Dimension (width / height / length)
           </Label>
-          <div className="flex  md:w-3/4 gap-2">
+          <div className="flex md:flex-row flex-col  md:w-3/4 gap-2">
             <div className="w-full">
               <Field
                 id="product_dimensions.product_width"
@@ -237,11 +237,11 @@ const [selectedTaxSlab, setSelectedTaxSlab] = useState<
         {/* #Tax details ======= */}
 
         <b>Tax details</b>
-        <div className="flex justify-between w-full mb-10">
+        <div className="flex justify-between md:flex-row gap-3 flex-col w-full mb-10">
           <Label htmlFor="tax_details.taxSlab" className="text-textGray">
             Tax Slab
           </Label>
-          <div className="w-3/4 flex flex-col gap-1">
+          <div className="md:w-3/4 flex flex-col gap-1">
             <Select
               isMulti
               components={animatedComponents}
@@ -272,11 +272,11 @@ const [selectedTaxSlab, setSelectedTaxSlab] = useState<
         </div>
 
         {/* #Cess ========== */}
-        <div className="flex justify-between w-full mb-10">
+        <div className="flex justify-between md:flex-row flex-col gap-3 w-full mb-10">
           <Label htmlFor="tax_details.cess" className="text-textGray">
             CESS
           </Label>
-          <div className="w-3/4 flex ">
+          <div className="md:w-3/4 flex ">
             <MySwitch
               id="tax_details.cess"
               isOn={values.tax_details.isCess}
@@ -334,7 +334,7 @@ const [selectedTaxSlab, setSelectedTaxSlab] = useState<
           <Label htmlFor="is_featured_product" className="text-textGray">
             is_featured_product
           </Label>
-          <div className="flex items-center justify-start w-3/4 gap-2">
+          <div className="flex items-center justify-start md:w-3/4 gap-2">
             <MySwitch
               id="is_featured_product"
               isOn={values.is_featured_product}
@@ -347,7 +347,7 @@ const [selectedTaxSlab, setSelectedTaxSlab] = useState<
           <Label htmlFor="is_todays_deal" className="text-textGray">
             Todays Deal
           </Label>
-          <div className="flex items-center justify-start w-3/4 gap-2">
+          <div className="flex items-center justify-start md:w-3/4 gap-2">
             <MySwitch
               id="is_todays_deal"
               isOn={values.is_todays_deal}

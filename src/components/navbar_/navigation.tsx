@@ -1,4 +1,5 @@
 import { useAppSelector } from "@/redux/hook";
+import { ALLOWED_DOMAIN } from "@/types/urlPath";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import { useCallback } from "react";
 
@@ -15,6 +16,7 @@ function NavigationList() {
       segment: "/dashboard",
       title: "Dashboard",
       icon: <Icon icon="material-symbols:dashboard-rounded" />,
+      subscribed:'premium',
     },
     // {
     //   kind: "page",
@@ -29,12 +31,13 @@ function NavigationList() {
       segment: "/products",
       title: "Products",
       icon: <Icon icon="entypo:box" />,
+      subscribed:'free',
       isChild: true,
       children: [
-        { title: "Add New Product", segment: "/products/add-new" },
-        { title: "All Products", segment: "/products/all" },
-        { title: "Brand", segment: "/products/brand" },
-        { title: "Product Reviews", segment: "/products/reviews" },
+        { title: "Add New Product", segment: "/products/add-new", subscribed:'free', },
+        { title: "All Products", segment: "/products/all" , subscribed:'free',},
+        { title: "Brand", segment: "/products/brand" , subscribed:'free',},
+        { title: "Product Reviews", segment: "/products/reviews" , subscribed:'free',},
    
       ],
     },
@@ -43,13 +46,14 @@ function NavigationList() {
       segment: "/store",
       title: "Store Management",
       icon: <Icon icon="mdi:storefront-outline" />,
+      subscribed:'free',
       isChild: true,
       children: [
-        { title: "Store Stock Request", segment: "/store/stock-request" },
-        { title: "Conversations", segment: "/store/conversations" },
-        // { title: "Product Transfer", segment: "/store/product-transfer" },
-        { title: "Return from store", segment: "/store/store-return" },
-        // { title: "Store Commission", segment: "/store/commission" },
+        { title: "Store Stock Request", segment: "/store/stock-request", subscribed:'free', },
+        { title: "Conversations", segment: "/store/conversations", subscribed:'free', },
+        // { title: "Product Transfer", segment: "/store/product-transfer", subscribed:'free', },
+        { title: "Return from store", segment: "/store/store-return", subscribed:'free', },
+        // { title: "Store Commission", segment: "/store/commission", subscribed:'free', },
       ],
     },
     {
@@ -57,12 +61,13 @@ function NavigationList() {
       segment: "/accounts",
       title: "Accounts",
       icon: <Icon icon="streamline:graph-bar-increase-solid" />,
+      subscribed:'free',
       isChild: true,
       children: [
-        { title: "Transaction history", segment: "/accounts/transaction-history" },
-        { title: "Rent history", segment: "/accounts/rent-history" },
-        { title: "Commission history", segment: "/accounts/commission-history" },
-        { title: "Money withdraw history", segment: "/accounts/money-withdrawal" },
+        { title: "Transaction history", segment: "/accounts/transaction-history", subscribed:'free', },
+        { title: "Rent history", segment: "/accounts/rent-history", subscribed:'free', },
+        { title: "Commission history", segment: "/accounts/commission-history", subscribed:'free', },
+        { title: "Money withdraw history", segment: "/accounts/money-withdrawal", subscribed:'free', },
 
 
       ],
@@ -74,12 +79,13 @@ function NavigationList() {
       segment: "/reports",
       title: "Reports",
       icon: <Icon icon="mdi:chart-bar" />,
+      subscribed:'free',
       isChild: true,
       children: [
-        { title: "Product Sale", segment: "/reports/product-sale" },
-        { title: "Product Stock", segment: "/reports/product-stock" },
-        { title: "Product Wishlist", segment: "/reports/wishlist" },
-        { title: "User Searches", segment: "/reports/searches" },
+        { title: "Product Sale", segment: "/reports/product-sale", subscribed:'free', },
+        { title: "Product Stock", segment: "/reports/product-stock", subscribed:'free', },
+        { title: "Product Wishlist", segment: "/reports/wishlist", subscribed:'free', },
+        { title: "User Searches", segment: "/reports/searches", subscribed:'free', },
       ],
     },
 
@@ -92,12 +98,12 @@ function NavigationList() {
     //   icon: <Icon icon="mdi:account-tie" />,
     //   isChild: true,
     //   children: [
-    //     { title: "Create Seller", segment: "/seller/create" },
-    //     { title: "Seller", segment: "/seller/all" },
-    //     { title: "Seller Payout", segment: "/seller/payout-seller" },
-    //     { title: "Request to Stock", segment: "/seller/request-stock" },
-    //     { title: "Conversations", segment: "/seller/conversations" },
-    //     { title: "Returns to Seller", segment: "/seller/returns" },
+    //     { title: "Create Seller", segment: "/seller/create", subscribed:'free', },
+    //     { title: "Seller", segment: "/seller/all", subscribed:'free', },
+    //     { title: "Seller Payout", segment: "/seller/payout-seller", subscribed:'free', },
+    //     { title: "Request to Stock", segment: "/seller/request-stock", subscribed:'free', },
+    //     { title: "Conversations", segment: "/seller/conversations", subscribed:'free', },
+    //     { title: "Returns to Seller", segment: "/seller/returns", subscribed:'free', },
     //   ],
     // },
   
@@ -119,9 +125,10 @@ function NavigationList() {
       segment: "/settings",
       title: "Settings",
       icon: <Icon icon="mdi:cog-outline" />,
+      subscribed:'premium',//main subscription page before child
       isChild: true,
-      children: [{ title: "Settings", segment: "/settings/mange-account" },
-        { title: "Support ticket", segment: "/settings/support-ticket" },
+      children: [{ title: "Settings", segment: "/settings/mange-account", subscribed:'premium', },
+        { title: "Support ticket", segment: "/settings/support-ticket", subscribed:'premium', },
        
       ],
     },
@@ -131,33 +138,41 @@ function NavigationList() {
   // ====== filters =====
 
   const filteredNavigation = useCallback(() => {
+    if (window.location.origin.includes(ALLOWED_DOMAIN)) {
+      return NAVIGATION; // Show everything in dev tunnel
+    }
+  
     if (!currentAdmin) return [];
 
-    // Show all navigation items if the currentAdmin is an "admin"
-    if (currentAdmin.role === "admin") {
-      return NAVIGATION;
-    }
-
-    // Filter navigation items based on allowed pages for non-admin roles
-    if (currentAdmin.pages) {
-      return NAVIGATION.filter((item) => {
-        if (item.segment && currentAdmin.pages.includes(item.segment)) {
-          return true;
-        }
-
-        if (item.isChild) {
-          item.children = item.children?.filter((child) =>
-            currentAdmin.pages.includes(child.segment)
-          );
-          return item.children?.length > 0;
-        }
-
-        return false;
-      });
-    }
-
-    return [];
+        // Show all navigation items for "Seller" role
+    // if (currentAdmin.role === "Seller") {
+    //   return NAVIGATION;
+    // }
+  
+    // Filter based on subscription type
+    return NAVIGATION.filter((item) => {
+      // Check for the main page subscription
+      const isMainPageValid = currentAdmin.subscription === false
+        ? item.subscribed === 'free'
+        : item.subscribed === 'free' || item.subscribed === 'premium';
+  
+      // If the main page is valid, check the children (if any)
+      if (isMainPageValid && item.isChild && item.children) {
+        // Filter children based on subscription
+        item.children = item.children.filter((child) => {
+          return currentAdmin.subscription === false
+            ? child.subscribed === 'free'
+            : child.subscribed === 'free' || child.subscribed === 'premium';
+        });
+        // Return the item with its filtered children
+        return item.children.length > 0 || !item.children.length; // Keep item if it has valid children or no children
+      }
+  
+      return isMainPageValid;
+    });
   }, [currentAdmin]);
+  
+  
 
   const navigationItems = filteredNavigation();
   

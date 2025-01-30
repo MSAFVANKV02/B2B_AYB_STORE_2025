@@ -18,6 +18,7 @@ import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
 import Collapse from "@mui/material/Collapse"; // Import Collapse
 import NavAppBar from "./Appbar";
+import { useWindowWidth } from "@react-hook/window-size";
 
 const drawerWidth = 290;
 
@@ -87,10 +88,13 @@ const Drawer = styled(MuiDrawer, {
 
 export default function NavbarDrawer() {
   // const { currentAdmin } = useAppSelector((state)=>state.admin);
+  const onlyWidth = useWindowWidth();
 
   const { navigationItems } = NavigationList();
   const theme = useTheme();
-  const [open, setOpen] = React.useState(true);
+  const [open, setOpen] = React.useState(()=>{
+    return onlyWidth > 1024;
+  });
   const [collapseStates, setCollapseStates] = React.useState<{
     [key: number]: boolean;
   }>({}); // Track collapse state

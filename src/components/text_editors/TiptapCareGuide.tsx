@@ -68,11 +68,11 @@ export default function TiptapCareGuide({ careGuide, onChange, label }: Props) {
   }, [careGuide, editor]);
 
   return (
-    <div className="flex justify-between">
+    <div className="flex md:flex-row flex-col justify-between">
       <Label htmlFor="" className="block text-sm font-medium text-textGray">
         {label}
       </Label>
-      <div className="w-3/4 changed">
+      <div className="md:w-3/4 changed">
          <TipTapToolbar editor={editor} />
       <EditorContent editor={editor} />
       </div>

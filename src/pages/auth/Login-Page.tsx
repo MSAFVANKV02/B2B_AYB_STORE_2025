@@ -22,7 +22,7 @@ export default function LoginPage() {
     try {
       setLoading(true);
 
-      const { data, status } = await SendOtp_Login_Api({ email, password });
+      const { data, status } = await SendOtp_Login_Api({  emailId:email, password });
 
       if (status === 200) {
         localStorage.setItem("otp-timer", "60");

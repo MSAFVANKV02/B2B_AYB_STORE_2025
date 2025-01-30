@@ -144,7 +144,10 @@ export default function ProductAddPage() {
         {({ values, setFieldValue, errors }) => (
           <Form>
             <ProductHeader className="flex-col w-full items-start gap-5">
+              {/* ======= product navbar ====== */}
               <AddProductsNavbar />
+              {/* ======= product navbar ====== */}
+
               <div className="text-lg font-bold capitalize px-4">
                 {currentStep === 1 && "Product Information"}
                 {currentStep === 2 && "Product Files & Media"}
