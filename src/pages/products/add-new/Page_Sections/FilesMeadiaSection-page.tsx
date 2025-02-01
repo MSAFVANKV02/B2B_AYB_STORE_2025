@@ -44,7 +44,7 @@ export default function FilesMediaSectionPage({
     label: string;
     haveImageLink: boolean;
     multiple?: boolean;
-    mediaType?: "pdf" | "image";
+    mediaType?: "pdf" | "image" | "videos" | "xl" | "";
   } | null>(null);
 
   const [localProductImages, setProductLocalImages] = useState<
@@ -94,7 +94,7 @@ export default function FilesMediaSectionPage({
         const colorName = ""; // Replace with actual color name logic
 
         const newImages = fileArray.map((file) => ({
-          image: file.src, // You might want to add the actual image file here if needed
+          image: file.imageurl, // You might want to add the actual image file here if needed
           colorCode,
           colorName,
         }));
@@ -106,7 +106,7 @@ export default function FilesMediaSectionPage({
         setIsOpen(true);
         setProductLocalImages((prev) => [...prev, ...newImages]);
       } else {
-        const srcArray = fileArray.map((file) => file.src);
+        const srcArray = fileArray.map((file) => file.imageurl);
         setFieldValue(fieldName, srcArray);
       }
     } catch (error: any) {
@@ -174,7 +174,7 @@ export default function FilesMediaSectionPage({
     label: string;
     haveImageLink: boolean;
     multiple?: boolean;
-    mediaType?: "pdf" | "image";
+    mediaType?: "pdf" | "image" | "videos" | "xl" | "";
   }[] = [
     {
       id: "gallery_image",
@@ -328,12 +328,12 @@ export function FormFieldGenal({
   const { openMediaDrawer } = useModal();
 
   return (
-    <div className={cn("flex items-center justify-between gap-10", className)}>
+    <div className={cn("flex lg:items-center lg:flex-row flex-col justify-between lg:gap-10", className)}>
       <Label htmlFor={name} className="text-sm text-textGray">
         {title}
       </Label>
       <div
-        className="flex flex-col gap-1 w-[70%] rel"
+        className="flex flex-col gap-1 lg:w-[70%] rel"
        
       >
         <div className="flex items-center gap-3"
@@ -341,7 +341,7 @@ export function FormFieldGenal({
         >
           <Label
             htmlFor={id}
-            className="border relative overflow-hidden items-center gap-4 rounded-md w-[300px] cursor-pointer flex"
+            className="border relative overflow-hidden items-center gap-4 rounded-md lg:w-[300px] w-full cursor-pointer flex"
           >
             <span
               className="bg-bgGraySoft h-full flex py-4 px-10

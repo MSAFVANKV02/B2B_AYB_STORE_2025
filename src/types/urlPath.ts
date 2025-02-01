@@ -36,5 +36,13 @@ export const UPDATE_CUSTOMER_KYC_URL = `/user_api/seller/approveOrreject_Kyc`;
 
 export const CREATE_STORE_URL = `/user_api/seller/addStore`
 
+// ============ media urls =========================
+// ==============****************====================
+
+export const CREATE_MEDIA_URL = `/product_api/media/addMedia`;
+export const GET_MEDIA_URL = `/product_api/media/getAllMedia`
+
+
+
 
 

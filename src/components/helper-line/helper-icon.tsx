@@ -17,7 +17,20 @@ const MessageArea = styled(List)(() => ({
   // backgroundColor: "#f5f5f5"
 }));
 
-const MessageBubble = styled(Box)<{ isBot: boolean }>(({ isBot }) => ({
+// const MessageBubble = styled(Box)<{ isBot: boolean }>(({ isBot }) => ({
+//   backgroundColor: isBot ? "#f5f5f5" : "#EC922B",
+//   color: isBot ? "#000" : "#fff",
+//   padding: "10px 15px",
+//   borderRadius: isBot ? "15px 15px 15px 0" : "15px 15px 0 15px",
+//   maxWidth: "80%",
+//   marginLeft: isBot ? 0 : "auto",
+//   marginRight: isBot ? "auto" : 0,
+//   marginBottom: 10,
+//   boxShadow: "0 2px 5px rgba(0,0,0,0.1)",
+// }));
+const MessageBubble = styled(Box, {
+  shouldForwardProp: (prop) => prop !== "isBot",
+})<{ isBot: boolean }>(({ isBot }) => ({
   backgroundColor: isBot ? "#f5f5f5" : "#EC922B",
   color: isBot ? "#000" : "#fff",
   padding: "10px 15px",
@@ -28,6 +41,7 @@ const MessageBubble = styled(Box)<{ isBot: boolean }>(({ isBot }) => ({
   marginBottom: 10,
   boxShadow: "0 2px 5px rgba(0,0,0,0.1)",
 }));
+
 
 export default function HelperIcon() {
   const [openHelper, setOpenHelper] = useState(false);

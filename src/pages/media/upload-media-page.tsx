@@ -13,11 +13,10 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import axios from "axios";
-import { LOCAL_URL } from "@/types/urlPath";
-import { makeToastError } from "@/utils/toaster";
+import { makeToast, makeToastError } from "@/utils/toaster";
 import { Label } from "@/components/ui/label";
 import * as Yup from "yup";
+import { Create_Media_Api } from "@/services/media/route";
 
 // const fileValidationSchema = Yup.object().shape({
 //   files: Yup.array()
@@ -71,7 +70,7 @@ export default function UploadMediaPage() {
             files: [],
             category: "all",
           }}
-          onSubmit={async (values) => {
+          onSubmit={async (values,{resetForm}) => {
             if (values.files.length === 0) {
               makeToastError("Please select at least one file.");
               return;
@@ -83,25 +82,21 @@ export default function UploadMediaPage() {
             });
             formData.append("category", values.category);
 
-            const response = await axios.post(
-              `${LOCAL_URL}/product_api/media/addMedia`,
-              formData,
-              {
-                headers: { "Content-Type": "multipart/form-data" },
-                withCredentials: true,
-              }
-            );
-
             try {
+              const response = await Create_Media_Api(formData);
+              if(response.status === 200) {
+                makeToast(`${response.data.message || 'Media uploaded successfully.'}`);
+                resetForm()
+              }
               console.log("Upload response:", response);
-              alert("Files uploaded successfully!");
+              // alert("Files uploaded successfully!");
             } catch (error) {
               console.error("Upload failed", error);
-              alert("Failed to upload files.");
+              makeToastError("Failed to upload files.");
             }
           }}
         >
-          {({ values, setFieldValue }) => (
+          {({ values, setFieldValue, isSubmitting }) => (
             <Form className="space-y-6">
               <div className="flex gap-10 md:items-center">
                 <Label>Select File Category :</Label>
@@ -136,7 +131,7 @@ export default function UploadMediaPage() {
               </div>
 
               <div className="flex w-full justify-center">
-                <AyButton type="submit" title="Submit" />
+                <AyButton type="submit" title="Submit" loading={isSubmitting} />
               </div>
             </Form>
           )}
