@@ -1,6 +1,12 @@
 import usePageTitle from "@/hooks/usePageTitle";
 import { Outlet } from "react-router-dom";
 
+export const SalesLayout = () => (
+  <div>
+    <Outlet /> {/* Renders child routes */}
+  </div>
+);
+
 export const ProductsLayout = () => {
   {
     usePageTitle("Ayaboo | Products");
@@ -20,7 +26,7 @@ export const AccountLayout = () => (
 );
 
 export const StoreManagementLayout = () => {
-
+  usePageTitle("Ayaboo | Store");
   return (
     <div>
       {/* <h1>Store Management Page</h1> */}
@@ -30,7 +36,7 @@ export const StoreManagementLayout = () => {
 };
 
 export const SellerManagementLayout = () => {
-  usePageTitle("Ayaboo | Seller");
+  usePageTitle("Ayaboo | Store");
   return (
     <div>
       {/* <h1>Store Management Page</h1> */}

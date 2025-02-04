@@ -62,11 +62,11 @@ export default function LoginPage() {
       cancel="input, button, .no-drag"
       >
         <div
-          className={`relative w-[320px] cursor-pointer bg-white/40 backdrop-filter overflow-hidden shadow-[#EC922B]/50 shadow-2xl backdrop-blur-lg rounded-xl mx-1 sm:h-[400px] h-[380px] p-5 flex flex-col ${
+          className={`relative w-[320px] cursor-pointer bg-white/40 backdrop-filter overflow-hidden shadow-[#2B90EC]/50 shadow-2xl backdrop-blur-lg rounded-xl mx-1 sm:h-[400px] h-[380px] p-5 flex flex-col ${
             verifyOtp ? "" : "justify-between"
           }`}
         >
-          <div className="absolute w-96 h-96 bg-[#EC922B]/10 blur-md shadow-[#EC922B]/50 shadow-md -z-50 rounded-full -top-[160px] -right-[160px]" />
+          <div className="absolute w-96 h-96 bg-[#2B90EC]/10 blur-md shadow-[#2B90EC]/50 shadow-md -z-50 rounded-full -top-[160px] -right-[160px]" />
 
           <div className="flex items-center justify-between w-full">
             {verifyOtp && (

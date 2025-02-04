@@ -54,15 +54,16 @@ export default function StoreManagementPage() {
         // setTypeUrl={setSelectedTab}
           tabs={[
             {
-              value: "store-request",
+              value: "seller-request",
               title: "Request",
-              url: "/store/stock-request?type=store-request",
+              url: "/seller/stock-request?type=seller-request",
             },
             {
               value: "send-request",
               title: "Sent requests",
-              url: "/store/stock-request?type=send-request",
+              url: "/seller/stock-request?type=send-request",
             },
+            
           ]}
         />
         {/* <DataTableStore data={storeData} /> */}

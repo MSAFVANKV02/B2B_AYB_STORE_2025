@@ -17,7 +17,7 @@ export default function MyCheckBox({onChange,checked,id}: Props) {
               onChange={onChange}
               sx={{
                 "&.Mui-checked": {
-                  color: "#EC922B", // Custom color when checked
+                  color: "#2B90EC", // Custom color when checked
                 },
               }}
             />

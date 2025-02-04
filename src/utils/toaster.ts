@@ -4,7 +4,7 @@ export const makeToast = (text:string)=>{
     toast.success(text, {
         style:{
             borderRadius:"4px",
-            background:"#EC922B",
+            background:"#2B90EC",
             color:"#fff"
         }
     })
@@ -14,7 +14,7 @@ export const makeToastError = (text:string)=>{
     toast.error(text, {
         style:{
             borderRadius:"4px",
-            background:"#EC922B",
+            background:"#2B90EC",
             color:"#fff"
         }
     })

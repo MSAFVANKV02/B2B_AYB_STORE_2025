@@ -39,7 +39,7 @@ export default function BrandPage() {
           <BrandTable brands={brands} />
         </div>
         {/* ===== brand creating section ======= */}
-        <div className="flex-grow bg-white rounded-lg p-5 shadow overflow-y-auto">
+        <div className="lg:w-[35%] bg-white rounded-lg p-5 shadow overflow-y-auto">
           <BrandCreateSection />
         </div>
       </div>

@@ -7,7 +7,7 @@
 // }
 
 // const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
-//   const isLogged = isAuthenticated();
+//   const isToken = isAuthenticated();
 //   const { pathname } = useLocation();
 
 //   const loginUser = {
@@ -19,11 +19,11 @@
 //     "pages": ["/products/add-new", "/products/all"], // Example pages user has access to
 //   };
 
-//   if (!isLogged) {
+//   if (!isToken) {
 //     // Redirect to login if user is not authenticated
 //     return <Navigate to="/login" replace />;
 //   }
-//   if (pathname === "/login" && isLogged ) {
+//   if (pathname === "/login" && isToken ) {
 //     // Redirect to login if user is not authenticated
 //     return <Navigate to="/dashboard" replace />;
 //   }
@@ -74,11 +74,11 @@ interface ProtectedRouteProps {
 }
 
 const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
-  const isLogged = isAuthenticated();
+  const isToken = isAuthenticated();
   const [loading, setLoading] = useState(true);
 
   const dispatch = useAppDispatch();
-  const { currentAdmin } = useAppSelector((state) => state.admin);
+  const { currentAdmin, isLogged} = useAppSelector((state) => state.admin);
   const location = useLocation(); // Access the current location
   const { pathname } = location;
 
@@ -91,13 +91,15 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
   //   pages: ["/products/add-new", "/products/all"], // Example pages user has access to
   // };
 
-  // console.log(currentAdmin,'currentAdmin');
+  // console.log(isLogged,'isLogged');
 
   useEffect(() => {
-    if (isLogged) {
+    fetchCurrentSellerDetails();
+
+    if (isToken) {
       fetchCurrentSellerDetails();
     }
-  }, []);
+  }, [isLogged]);
 
   if (window.location.origin.includes(ALLOWED_DOMAIN)) {
     return <>{children}</>;
@@ -106,19 +108,20 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
   const fetchCurrentSellerDetails = async () => {
     try {
       const res = await Get_Current_Admins_Api();
-      console.log(res);
+      // console.log(res);
       
       if (res.status === 200) {
-        dispatch(setCurrentAdminSlices(res.data.seller));
+        dispatch(setCurrentAdminSlices(res.data.store));
       }
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (error) {
-      console.error("Error fetching current admin details:", error);
+      console.error("Error fetching current admin details:");
     } finally {
       setLoading(false); // Stop loading once the process completes
     }
   };
 
-  if (isLogged && loading) {
+  if (isToken && loading) {
     return (
       <div>
         <PreloaderPage />
@@ -127,7 +130,7 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
   }
 
   // Redirect unauthenticated users to the login page
-  if (!isLogged) {
+  if (!isToken) {
     return <Navigate to="/login" state={{ from: location }} replace />;
   }
 

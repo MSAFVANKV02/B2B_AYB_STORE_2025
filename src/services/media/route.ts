@@ -1,8 +1,18 @@
 import { CREATE_MEDIA_URL, DELETE_MEDIA_URL, GET_MEDIA_URL } from "@/types/urlPath";
 import { API } from "../auth/route";
+import Cookies from "js-cookie";
 
-export const Create_Media_Api = async (data:any) =>
-    await API.post(`${CREATE_MEDIA_URL}`,data, { withCredentials: true });
+export const Create_Media_Api = async (data:any) => {
+    const token = Cookies.get("sl_b2b_tkn"); // Get only 'st_b2b_tkn'
+    // console.log(token,'token');
+    
+  
+    return await API.post(`${CREATE_MEDIA_URL}`, data, {
+      headers: {
+        Authorization: `st_b2b_tkn=${token}`, // Send token in Authorization header
+      },
+    });
+  };
 
 // 2. Get media Route =================================
 export const Get_Media_Api = async () =>

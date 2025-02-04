@@ -134,13 +134,13 @@
 
 /* ==== base colors ==== */
 :root {
-  --mainColor: #EC922B;
-  --mainText: #EC922B;
+  --mainColor: #2B90EC;
+  --mainText: #2B90EC;
   --softColor: #7741a9;
   --hardSoftColor: #c4a68313;
-  --primaryVariant: #EC922B;
+  --primaryVariant: #2B90EC;
   --secColor: #60c6c4;
-  --colorSoft: #cc975a1d;
+  --colorSoft: #2b8fec2f;
   --gray: #898989;
   --green: #69bf35;
 
@@ -159,11 +159,11 @@
 
 /** Text Gradient Example */
 .text-gradient {
-  color: #EC922B;
+  color: #2B90EC;
   background-image: linear-gradient(
     45deg,
-    #EC922B 25%,
-    #EC922B 77%,
+    #2B90EC 25%,
+    #2B90EC 77%,
     #b355d3 10%
   );
   background-clip: text;

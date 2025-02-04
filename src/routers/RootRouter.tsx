@@ -10,6 +10,7 @@ import {
   AccountLayout,
   StoreManagementLayout,
   SettingsLayout,
+  SalesLayout,
 } from "@/layouts/Sidbar_Layout";
 import ProductAddPage from "@/pages/products/add-new/product-add-page";
 import AllProductsPage from "@/pages/products/all/All-Products-page";
@@ -29,6 +30,9 @@ import MoneyWithdrawalPage from "@/pages/accounts/money-withdrawal/money-withdra
 import PageOnBuild from "@/components/myUi/PageOnBuild";
 import UploadMediaPage from "@/pages/media/upload-media-page";
 import AllUploadedFiles from "@/pages/media/retrive/all_uploaded_files";
+import AllOrdersPage from "@/pages/orders/all/all-oders-page";
+import CustomerRefundPage from "@/pages/orders/customer-refunds/customer-refund-page";
+import CustomersPage from "@/pages/customers/customers-page";
 
 const rootRouter = createBrowserRouter(
   [
@@ -72,6 +76,22 @@ const rootRouter = createBrowserRouter(
           ],
         },
         {
+          path: "/sales",
+          element: <SalesLayout />, // Parent layout for Sales
+          children: [
+            { path: "orders", element: <AllOrdersPage /> },
+            // { path: "refunds", element: <CustomerRefundPage /> },
+          ],
+        },
+        {
+          path: "/refunds",
+          element: <CustomerRefundPage />, // Parent layout for Sales
+        },
+        {
+          path: "/customers",
+          element: <CustomersPage />, // Parent layout for Sales
+        },
+        {
           path: "/accounts",
           element: <AccountLayout />, // Parent layout for Sales
           children: [
@@ -106,7 +126,7 @@ const rootRouter = createBrowserRouter(
         // },
 
         {
-          path: "/store",
+          path: "/seller",
           element: <StoreManagementLayout />, // Parent layout for Store Management
           children: [
             { path: "stock-request", element: <StoreManagementPage /> },

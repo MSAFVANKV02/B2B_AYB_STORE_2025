@@ -32,7 +32,9 @@ interface ModalContextType {
   isTopSellerTable: boolean;
   modalTypeDashboard: IModalTypes;
   selectedPage: string | null;
+  openDrawerFieldName: string | null;
   setSelectedPage: Dispatch<SetStateAction<string | null>>;
+  setDrawerFieldName: Dispatch<SetStateAction<string | null>>;
   setIsOpen: Dispatch<SetStateAction<boolean>>;
   setMediaOpenDrawer: Dispatch<SetStateAction<boolean>>;
 
@@ -71,6 +73,8 @@ export const ModalProvider: React.FC<{ children: ReactNode }> = ({
   const [isTopSellerTable, setIsTopSellerTable] = useState(false);
   const [modalTypeDashboard, setModalTypeDashboard] = useState<IModalTypes>("");
   const [selectedPage, setSelectedPage] = useState<string | null>("general");
+  const [openDrawerFieldName, setDrawerFieldName] = useState<string | null>("");
+
 
   // media drawer open
   const [mediaOpenDrawer, setMediaOpenDrawer] = useState(false);
@@ -162,7 +166,9 @@ export const ModalProvider: React.FC<{ children: ReactNode }> = ({
         closeMediaDrawer,
         mediaOpenDrawer,
         openMediaDrawer,
-        setMediaOpenDrawer
+        setMediaOpenDrawer,
+        openDrawerFieldName,
+        setDrawerFieldName
       }}
     >
       {children}

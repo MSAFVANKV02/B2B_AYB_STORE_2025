@@ -45,7 +45,7 @@ export default function ReChartBar() {
               <XAxis dataKey="name" />
               <YAxis />
               <Tooltip />
-              <Bar dataKey="value" fill="#EC922B" />
+              <Bar dataKey="value" fill="#2B90EC" />
             </BarChart>
           </ResponsiveContainer>
         </CardContent>

@@ -40,7 +40,7 @@ type Props = {
             width: '100%',
             height: '100%',
             borderRadius: '5px',
-            backgroundColor: '#EC922B',
+            backgroundColor: '#2B90EC',
             color: '#fff',
             '&:hover': {
               backgroundColor: '#450586',

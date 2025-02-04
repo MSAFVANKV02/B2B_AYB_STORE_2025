@@ -182,7 +182,7 @@ export default function PriceStockSectionPage({
 const CustomCheckbox = styled(Checkbox)({
   color: "#ccc", // Default color
   "&.Mui-checked": {
-    color: "#EC922B", // Color when checked
+    color: "#2B90EC", // Color when checked
   },
 });
 

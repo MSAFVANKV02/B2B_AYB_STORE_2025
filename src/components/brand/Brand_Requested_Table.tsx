@@ -2,7 +2,7 @@ import { useModal } from "@/providers/context/context";
 import MyEyeIcon from "../icons/My_EyeIcon";
 import TaskModal, { TaskModalContent, TaskModalHeader } from "../modals/TaskModal";
 import MyCloseIcon from "../icons/My_CloseIcon";
-import BrandAcceptionForm from "./Brand_Acception_Form";
+import BrandAcceptForm from "./Brand_Acception_Form";
 
 type Props = {
     brands: {
@@ -81,7 +81,7 @@ export default function BrandRequestedTable({brands}: Props) {
 
         <TaskModalContent >
           {/* Brand Details */}
-          <BrandAcceptionForm />
+          <BrandAcceptForm />
         </TaskModalContent>
       </TaskModal>
     </div>

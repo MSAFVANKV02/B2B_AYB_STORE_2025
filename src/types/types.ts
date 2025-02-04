@@ -17,3 +17,5 @@ export interface ICoupon {
     updatedAt: Date; // Date of last update
   }
   
+
+  export type IMediaDataType = "pdf" | "image" | "videos" | "xl" | "";

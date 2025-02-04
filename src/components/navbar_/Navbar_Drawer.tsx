@@ -70,7 +70,7 @@ const Drawer = styled(MuiDrawer, {
       // zIndex: theme.zIndex.drawer + 2,
     },
     "& .MuiListItemIcon-root": {
-      color: "#EC922B", // Icon color
+      color: "#2B90EC", // Icon color
     },
   }),
   ...(!open && {
@@ -81,7 +81,7 @@ const Drawer = styled(MuiDrawer, {
       color: "#fff", // White text color (optional)
     },
     "& .MuiListItemIcon-root": {
-      color: "#EC922B", // Icon color
+      color: "#2B90EC", // Icon color
     },
   }),
 }));
@@ -166,7 +166,7 @@ export default function NavbarDrawer() {
             color: "#fff", // White text color (optional)
           },
           "& .MuiListItemIcon-root": {
-            color: "#EC922B", // Icon color
+            color: "#2B90EC", // Icon color
           },
         }}
       >

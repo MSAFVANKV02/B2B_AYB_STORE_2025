@@ -260,7 +260,7 @@ export default function WebBannerForm() {
                           />
                           <div className="absolute -right-4 -top-8">
                             <MyDeleteIcon
-                              color="#EC922B"
+                              color="#2B90EC"
                               onClick={() => {
                                 const updatedImages = values.kyc_slider.filter(
                                   (_, i) => i !== index
@@ -316,7 +316,7 @@ export default function WebBannerForm() {
                             />
                             <div className="absolute -right-4 -top-8">
                               <MyDeleteIcon
-                                color="#EC922B"
+                                color="#2B90EC"
                                 onClick={() => {
                                   const updatedImages =
                                     values.login_page.filter(

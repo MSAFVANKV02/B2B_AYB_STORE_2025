@@ -27,49 +27,49 @@ export default function HomeSec01() {
     //   label: "total revenue",
     //   amount: `0`,
     //   icon: "solar:wallet-outline",
-    //   bgcolor: "#FFAD4E",
+    //   bgcolor: "var(--mainColor)",
     // },
     {
       id: 2,
       label: "Total Customers",
       amount: 0,
       icon: "fluent-mdl2:group",
-      bgcolor: "#FFAD4E",
+      bgcolor: "var(--mainColor)",
     },
     {
       id: 4,
       label: "Total Stores",
       amount: 0,
       icon: "mynaui:store",
-      bgcolor: "#FFAD4E",
+      bgcolor: "var(--mainColor)",
     },
     {
       id: 5,
       label: "Total Orders",
       amount: 0,
       icon: "material-symbols-light:order-approve-outline",
-      bgcolor: "#FFAD4E",
+      bgcolor: "var(--mainColor)",
     },
     {
       id: 6,
       label: "Total Products",
       amount: 0,
       icon: "carbon:product",
-      bgcolor: "#FFAD4E",
+      bgcolor: "var(--mainColor)",
     },
     {
       id: 7,
       label: "Total Brands",
       amount: 0,
       icon: "tdesign:root-list",
-      bgcolor: "#FFAD4E",
+      bgcolor: "var(--mainColor)",
     },
     {
       id: 8,
       label: "Total Category",
       amount: 4,
       icon: "fluent:apps-20-regular",
-      bgcolor: "#FFAD4E",
+      bgcolor: "var(--mainColor)",
     },
   ];
 
@@ -80,7 +80,7 @@ export default function HomeSec01() {
       count: 0,
       icon: "material-symbols-light:pending-actions-rounded",
       bgcolor: "#fff",
-      iColor: "#FFAD4E",
+      iColor: "var(--mainColor)",
     },
     {
       id: 2,
@@ -88,7 +88,7 @@ export default function HomeSec01() {
       count: 0,
       icon: "fluent-mdl2:processing",
       bgcolor: "#fff",
-      iColor: "#FFAD4E",
+      iColor: "var(--mainColor)",
     },
     {
       id: 3,
@@ -96,7 +96,7 @@ export default function HomeSec01() {
       count: 0,
       icon: "mdi:file-cancel",
       bgcolor: "#fff",
-      iColor: "#FFAD4E",
+      iColor: "var(--mainColor)",
     },
     {
       id: 4,
@@ -104,7 +104,7 @@ export default function HomeSec01() {
       count: 0,
       icon: "carbon:delivery-add",
       bgcolor: "#fff",
-      iColor: "#FFAD4E",
+      iColor: "var(--mainColor)",
     },
     {
       id: 5,
@@ -112,7 +112,7 @@ export default function HomeSec01() {
       count: 0,
       icon: "carbon:delivery",
       bgcolor: "#fff",
-      iColor: "#FFAD4E",
+      iColor: "var(--mainColor)",
     },
     {
       id: 6,
@@ -120,7 +120,7 @@ export default function HomeSec01() {
       count: 0,
       icon: "iconoir:delivery",
       bgcolor: "#fff",
-      iColor: "#FFAD4E",
+      iColor: "var(--mainColor)",
     },
   ];
 

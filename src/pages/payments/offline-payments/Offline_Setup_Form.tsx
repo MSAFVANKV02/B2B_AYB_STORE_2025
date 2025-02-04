@@ -142,7 +142,7 @@ export default function OfflineSetupForm() {
                           />
                           <div className="absolute -right-4 -top-8">
                             <MyDeleteIcon
-                              color="#EC922B"
+                              color="#2B90EC"
                               onClick={() => {
                                 const updatedImages = values.upi_banners.filter(
                                   (_, i) => i !== index

@@ -20,14 +20,18 @@ export default function MyPdf({
 }: Props) {
   return (
    <div className="w-fit">
+      {/* <span className="break-words">
+        https://res.cloudinary.com/ddzwv1pc9/image/upload/v1738655867/media_uploads/cuyuuw6yrpzdmbhnogu8.pdf
+        </span> */}
     {
-      isPdfShown ? (
+      isPdfShown && value ? (
         <Link
         to={value}
         target="_blank"
         rel="noopener noreferrer"
         className="relative w-fit"
       >
+      
         <PdfFile fileURL={value} className={cn(`h-16 w-16`,className)} />
         <div className={cn(`absolute h-16 w-16 bg-black/50 top-0 rounded-md flex items-center justify-center`,className)}>
           <Icon icon="solar:eye-bold" fontSize={20} color="#fff" />

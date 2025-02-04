@@ -80,7 +80,7 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({
 
                 <div className="absolute -right-4 -top-8">
                   <MyDeleteIcon
-                    color="#EC922B"
+                    color="#2B90EC"
                     onClick={() => {
                       const updatedImages = images.filter(
                         (_, i) => i !== index

@@ -10,9 +10,11 @@ export const STORE_RESEND_OTP = `/user_api/admin/resendOtp_AdminLogin`;
 // ==== sub admins =================
 export const CREATE_SUB_STORE_URL = `/user_api/seller/createSubadmin`;
 export const UPDATE_SUB_STORE_URL = `/user_api/seller/updateSubadmin`;
-export const GET_STORE_URL = `/user_api/seller/getSubadmins`;
+export const GET_STORE_URL = `/user_api/store/getCurrentStore`;
 
-export const GET_CURRENT_STORE_URL = `/user_api/seller/getCurrentSeller`;
+// ==== current store =================
+
+export const GET_CURRENT_STORE_URL = `/user_api/store/getCurrentStore`;
 
 export const DELETE_STORE_URL = `/user_api/seller/deleteSubadmin`;
 

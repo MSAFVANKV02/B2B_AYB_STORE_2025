@@ -18,7 +18,7 @@ const MessageArea = styled(List)(() => ({
 }));
 
 // const MessageBubble = styled(Box)<{ isBot: boolean }>(({ isBot }) => ({
-//   backgroundColor: isBot ? "#f5f5f5" : "#EC922B",
+//   backgroundColor: isBot ? "#f5f5f5" : "#2B90EC",
 //   color: isBot ? "#000" : "#fff",
 //   padding: "10px 15px",
 //   borderRadius: isBot ? "15px 15px 15px 0" : "15px 15px 0 15px",
@@ -31,7 +31,7 @@ const MessageArea = styled(List)(() => ({
 const MessageBubble = styled(Box, {
   shouldForwardProp: (prop) => prop !== "isBot",
 })<{ isBot: boolean }>(({ isBot }) => ({
-  backgroundColor: isBot ? "#f5f5f5" : "#EC922B",
+  backgroundColor: isBot ? "#f5f5f5" : "#2B90EC",
   color: isBot ? "#000" : "#fff",
   padding: "10px 15px",
   borderRadius: isBot ? "15px 15px 15px 0" : "15px 15px 0 15px",
@@ -104,7 +104,7 @@ export default function HelperIcon() {
       <div
         className={`${
           openHelper ? "w-[350px] h-[500px] p-3 shadow-lg" : "w-0 h-0"
-        }  duration-700 transition-all bg-[#cc975a]/80 backdrop-blur-sm  fixed bottom-10 right-7 rounded-md rounded-br-3xl `}
+        }  duration-700 transition-all bg-[#2B90EC]/40 backdrop-blur-sm  fixed bottom-10 right-7 rounded-md rounded-br-3xl `}
       >
         <div className={`${openHelper ? "" : "hidden"} flex flex-col justify-between h-full`}>
           {/* header ==========*/}
@@ -154,7 +154,7 @@ export default function HelperIcon() {
            onClick={handleSend}
            disabled={!input.trim()}
           >
-            <Icon icon="mingcute:ai-fill" className="" color="#9928c3" fontSize={20}/>
+            <Icon icon="mingcute:ai-fill" className="" color="white" fontSize={20}/>
           </ShinyButton>
 
           </div>

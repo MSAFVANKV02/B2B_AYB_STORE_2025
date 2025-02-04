@@ -535,7 +535,9 @@ export default function AllUploadedFiles({
                               className="w-full h-full object-cover"
                             />
                           ) : type === "pdf" ? (
-                            <MyPdf value={file.imageurl} isPdfShown />
+                            <>
+                              <MyPdf value={file.imageurl} isPdfShown />
+                            </>
                           ) : (
                             <span className="block text-center font-semibold">
                               {file.name}

@@ -144,7 +144,7 @@ export default function SelectWise({ setFieldValue, values, errors }: Props) {
             <AyButton
               title="Add New Size"
               sx={{
-                border: "1px dotted #EC922B",
+                border: "1px dotted #2B90EC",
                 bgcolor: "#F3F3F3",
                 color: "#737373",
                 py: "0.6rem",
@@ -230,7 +230,7 @@ export default function SelectWise({ setFieldValue, values, errors }: Props) {
               title="Add New Bundle"
               outLineColor=""
               sx={{
-                border: "1px dotted #EC922B",
+                border: "1px dotted #2B90EC",
                 bgcolor: "#F3F3F3",
                 color: "#737373",
                 py: "0.6rem",

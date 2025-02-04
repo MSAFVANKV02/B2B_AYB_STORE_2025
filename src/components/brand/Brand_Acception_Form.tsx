@@ -2,10 +2,10 @@ import { Field, Form, Formik } from "formik";
 import { Input } from "../ui/input";
 import PdfFile from "../myUi/PdfFile";
 import { Icon } from "@iconify/react/dist/iconify.js";
-import { TaskModalFooter } from "../modals/TaskModal";
-import AyButton from "../myUi/AyButton";
+// import { TaskModalFooter } from "../modals/TaskModal";
+// import AyButton from "../myUi/AyButton";
 
-type Props = {};
+
 
 interface FormValues {
   name: string;
@@ -16,7 +16,7 @@ interface FormValues {
   brand_noc: File | null;
 }
 
-export default function BrandAcceptionForm({}: Props) {
+export default function BrandAcceptForm() {
   const InitialValues: FormValues = {
     name: "",
     logo: null,
@@ -159,7 +159,7 @@ export default function BrandAcceptionForm({}: Props) {
               </a>
             </div>
 
-            <TaskModalFooter>
+            {/* <TaskModalFooter>
               <div className="flex gap-3">
                 <AyButton 
                 title="Reject"
@@ -184,7 +184,7 @@ export default function BrandAcceptionForm({}: Props) {
                 }}
                 />
               </div>
-            </TaskModalFooter>
+            </TaskModalFooter> */}
           </Form>
         )}
       </Formik>
