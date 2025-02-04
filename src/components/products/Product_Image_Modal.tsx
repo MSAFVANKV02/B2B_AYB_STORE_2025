@@ -54,7 +54,7 @@ export const ProductImageModal = ({
   ]);
   const [showColorPicker, setShowColorPicker] = useState(false);
 
-  console.log(productLocalImages, "productLocalImages");
+  // console.log(productLocalImages, "productLocalImages");
 
   const handleColorChange = (
     index: number,

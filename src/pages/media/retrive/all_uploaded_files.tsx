@@ -253,9 +253,13 @@ import useNavigateClicks from "@/hooks/useClicks";
 import { useAppDispatch, useAppSelector } from "@/redux/hook";
 import { fetchMediaDetails } from "@/redux/actions/mediaSlice";
 import File_Size_Formatter from "@/components/myUi/File_Size_Formatter";
+import PreloaderPage from "@/preloader-page";
+import { makeToast, makeToastError } from "@/utils/toaster";
+import { Delete_Media_Api } from "@/services/media/route";
+import MyDeleteIcon from "@/components/icons/My_DeleteIcon";
 
 export interface IFileDataMedia {
-  _id: number;
+  _id: string;
   name: string;
   format: string;
   imageurl: string;
@@ -269,22 +273,33 @@ type Props = {
   onClick?: (selectedFiles: IFileDataMedia[], imageurl: string[]) => void;
   multiple?: boolean;
   mediaType?: "pdf" | "image" | "videos" | "xl" | "";
+  selectedFiles?: IFileDataMedia[]; // New prop
+  setSelectedFiles?: (files: IFileDataMedia[]) => void; // New prop
 };
 
 export default function AllUploadedFiles({
   onClick,
   multiple,
   mediaType = "",
+  selectedFiles = [],
+  setSelectedFiles,
 }: Props) {
   const { handleClick } = useNavigateClicks();
-  const { media: files } = useAppSelector((state) => state.media);
+  const { media: files, isLoading } = useAppSelector((state) => state.media);
   const dispatch = useAppDispatch();
   const [date, setDate] = useState<Date | undefined>();
-  const [selectedFiles, setSelectedFiles] = useState<IFileDataMedia[]>([]);
+  const [lastSelectedIndex, setLastSelectedIndex] = useState<number | null>(
+    null
+  );
+  const [loadingFiles, setLoadingFiles] = useState<{ [key: string]: boolean }>(
+    {}
+  );
+
+  // const [selectedFiles, setSelectedFiles] = useState<IFileDataMedia[]>([]);
 
   useEffect(() => {
     dispatch(fetchMediaDetails());
-  }, []);
+  }, [dispatch]);
 
   // console.log(date);
 
@@ -314,32 +329,97 @@ export default function AllUploadedFiles({
     ),
   };
 
-  const handleFileClick = (file: IFileDataMedia) => {
-    let updatedFiles;
+  const handleFileClick = (file: IFileDataMedia, event: React.MouseEvent) => {
+    const fileIndex = filteredFiles.findIndex((f) => f?._id === file?._id);
+    let updatedFiles = [...selectedFiles];
+
     if (multiple) {
-      if (
-        selectedFiles.some((selected) => selected.imageurl === file.imageurl)
-      ) {
-        updatedFiles = selectedFiles.filter(
-          (selected) => selected.imageurl !== file.imageurl
-        );
+      if (event.shiftKey && lastSelectedIndex !== null) {
+        // Multi-select files between last selected and current
+        const start = Math.min(lastSelectedIndex, fileIndex);
+        const end = Math.max(lastSelectedIndex, fileIndex);
+        const filesToSelect = filteredFiles.slice(start, end + 1);
+
+        updatedFiles = Array.from(
+          new Set([...selectedFiles, ...filesToSelect])
+        ); // Avoid duplicates
       } else {
-        updatedFiles = [...selectedFiles, file];
+        // Normal toggle selection
+        if (selectedFiles.some((selected) => selected?._id === file?._id)) {
+          updatedFiles = selectedFiles.filter(
+            (selected) => selected?._id !== file?._id
+          );
+        } else {
+          updatedFiles.push(file);
+        }
       }
     } else {
-      updatedFiles = selectedFiles[0]?.imageurl === file.imageurl ? [] : [file];
+      updatedFiles = selectedFiles[0]?._id === file?._id ? [] : [file];
     }
-    setSelectedFiles(updatedFiles);
+
+    setSelectedFiles?.(updatedFiles);
+    setLastSelectedIndex(fileIndex); // Store last clicked index
     onClick?.(
       updatedFiles,
       updatedFiles.map((file) => file.imageurl)
     );
   };
 
+  const handleDeleteFileFromServer = async (id: string) => {
+    try {
+      // Set the loading state to true for the specific file
+      setLoadingFiles((prevState) => ({ ...prevState, [id]: true }));
+
+      const response = await Delete_Media_Api(id);
+      if (response.status === 200) {
+        dispatch(fetchMediaDetails());
+        makeToast(response.data.message);
+      }
+    } catch (error: any) {
+      makeToastError(error.message || "Failed to delete files");
+    } finally {
+      // Set the loading state to false for the specific file after the operation
+      setLoadingFiles((prevState) => ({ ...prevState, [id]: false }));
+    }
+  };
+
+  // ======= working fine old function for select files =====
+
+  // const handleFileClick = (file: IFileDataMedia) => {
+  //   let updatedFiles;
+  //   if (multiple) {
+  //     if (
+  //       selectedFiles.some((selected) => selected.imageurl === file.imageurl)
+  //     ) {
+  //       updatedFiles = selectedFiles.filter(
+  //         (selected) => selected.imageurl !== file.imageurl
+  //       );
+  //     } else {
+  //       updatedFiles = [...selectedFiles, file];
+  //     }
+  //   } else {
+  //     updatedFiles = selectedFiles[0]?.imageurl === file.imageurl ? [] : [file];
+  //   }
+  //   setSelectedFiles(updatedFiles);
+  //   onClick?.(
+  //     updatedFiles,
+  //     updatedFiles.map((file) => file.imageurl)
+  //   );
+  // };
+
+  if (isLoading) return <PreloaderPage />;
+
   return (
     <PagesLayout className="h-fit">
       <PageLayoutHeader>
-        <h1>All Uploaded Files</h1>
+        {selectedFiles && selectedFiles.length > 0 ? (
+          <div>
+            <h1 className="text-xs">{selectedFiles.length} selected</h1>
+          </div>
+        ) : (
+          <h1>All Uploaded Files</h1>
+        )}
+
         <AyButton
           title="Upload Media"
           onClick={() => handleClick("/settings/media")}
@@ -347,21 +427,45 @@ export default function AllUploadedFiles({
       </PageLayoutHeader>
 
       <PagesLayoutContent className="space-y-10">
-        <Popover>
-          <PopoverTrigger>
-            <AyButton
-              icon="fluent-color:calendar-clock-20"
-              iconSize={23}
-              variant="outlined"
-              outLineColor="gray"
-              title="Filter With Date"
-              sx={{ width: "fit-content" }}
-            />
-          </PopoverTrigger>
-          <PopoverContent className="ml-36 z-[10006]">
-            <Calendar mode="single" selected={date} onSelect={setDate} className="z-[10006]" />
-          </PopoverContent>
-        </Popover>
+        <div className="flex items-center gap-5 flex-wrap">
+          <Popover>
+            <PopoverTrigger>
+              <AyButton
+                icon="fluent-color:calendar-clock-20"
+                iconSize={23}
+                variant="outlined"
+                outLineColor="gray"
+                title={`${date ? "Filter With Date" : "Filter With Date"}`}
+                sx={{ width: "fit-content" }}
+              />
+            </PopoverTrigger>
+            <PopoverContent className="ml-36 z-[10006]">
+              <Calendar
+                mode="single"
+                selected={date}
+                onSelect={setDate}
+                className="z-[10006]"
+              />
+            </PopoverContent>
+          </Popover>
+          {/* reset button calendar ======= */}
+          {date && (
+            <div className="">
+              <AyButton
+                title="Reset"
+                variant="outlined"
+                sx={{
+                  width: "fit-content",
+                }}
+                onClick={() => {
+                  if (date) {
+                    setDate(undefined);
+                  }
+                }}
+              />
+            </div>
+          )}
+        </div>
 
         {filteredFiles.length === 0 ? (
           <p className="text-center text-gray-500 font-semibold ">
@@ -379,19 +483,40 @@ export default function AllUploadedFiles({
                     <ul className="grid xl:grid-cols-7 gap-3 md:grid-cols-5 sm:grid-cols-3 grid-cols-2">
                       {files.map((file) => (
                         <li
-                          key={file._id}
-                          className={`aspect-square relative flex-col max-w-[200px] flex justify-center items-center border cursor-pointer ${
-                            selectedFiles.find((f) => f._id === file._id)
+                          key={file?._id}
+                          className={`aspect-square shadow-2xl group hover:scale-105 duration-200  transition-transform relative flex-col max-w-[200px] flex justify-center items-center border cursor-pointer ${
+                            selectedFiles.find((f) => f?._id === file?._id)
                               ? "border-blue-500"
                               : ""
                           }`}
                           // className="border cursor-pointer p-5 rounded-xl shadow-lg"
-                          onClick={() => {
+                          // onClick={() => {
+                          //   if (onClick) {
+                          //     handleFileClick(file);
+                          //   }
+                          // }}
+                          onClick={(event) => {
                             if (onClick) {
-                              handleFileClick(file);
+                              handleFileClick(file, event);
                             }
                           }}
                         >
+                          <div
+                            className={`absolute top-0 right-0 ${
+                              loadingFiles[file?._id] ||
+                              selectedFiles.some((f) => f?._id === file?._id)
+                                ? "block"
+                                : "group-hover:block hidden"
+                            }`}
+                          >
+                            <MyDeleteIcon
+                              loading={loadingFiles[file?._id] || false}
+                              onClick={() =>
+                                handleDeleteFileFromServer(file?._id)
+                              }
+                            />
+                          </div>
+
                           {/* {JSON.stringify(file)} */}
                           {/* {file.imageurl} sdas */}
                           {type === "image" ? (
@@ -419,9 +544,9 @@ export default function AllUploadedFiles({
                           {selectedFiles.length > 0 &&
                             selectedFiles.map(
                               (select) =>
-                                select._id === file._id && (
+                                select?._id === file?._id && (
                                   <span
-                                    key={select._id}
+                                    key={select?._id}
                                     className=" absolute bg-black/10 flex items-center justify-center 
                                     flex-col backdrop-blur-sm top-0 left-0 w-full h-full text-white text-center text-xs"
                                   >

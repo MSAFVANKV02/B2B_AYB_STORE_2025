@@ -1,6 +1,5 @@
 import {
   Drawer,
-  DrawerClose,
   DrawerContent,
   DrawerFooter,
   DrawerHeader,
@@ -14,6 +13,7 @@ import MyCloseIcon from "../icons/My_CloseIcon";
 import AllUploadedFiles, {
   IFileDataMedia,
 } from "@/pages/media/retrive/all_uploaded_files";
+import { makeToastError } from "@/utils/toaster";
 
 type Props = {
   setFieldValues?: (name: string, value: any) => void;
@@ -42,14 +42,21 @@ function MediaFilesModal({
     }
   };
 
-  const handleSelectFiles = () => {
-    if (fieldName && handleFileUpload) {
-      handleFileUpload(selectedFiles, fieldName);
+  const handleSelectFiles = async () => {
+    if(selectedFiles.length === 0){
+      return makeToastError('Please select files')
+    }
+    if (fieldName && handleFileUpload && selectedFiles.length > 0) {
+     await handleFileUpload(selectedFiles, fieldName);
+      setSelectedFiles([]);
       setMediaOpenDrawer(false);
     }
   };
 
   // console.log(fieldName, "fieldName in nowhere");
+  const handleReset = () => {
+    setSelectedFiles([]); // Clears the selection
+  };
 
   return (
     <Drawer
@@ -78,6 +85,8 @@ function MediaFilesModal({
 
                 handleFileSelection(selectedFiles);
               }}
+              selectedFiles={selectedFiles} // Pass state
+              setSelectedFiles={setSelectedFiles} 
               multiple={multiple}
               mediaType={mediaType}
             />
@@ -85,13 +94,32 @@ function MediaFilesModal({
 
           {/* Footer Stays Visible */}
           <DrawerFooter className="flex-shrink-0">
-            <DrawerClose>
+            {/* <DrawerClose className="">
               <AyButton
                 title="Select"
                 type="button"
                 onClick={handleSelectFiles}
               />
-            </DrawerClose>
+
+             
+            </DrawerClose> */}
+      
+             <div className="flex  gap-3 justify-end items-center">
+             <AyButton
+                title="Select"
+                type="button"
+                onClick={handleSelectFiles}
+              />
+
+             
+    
+            <AyButton
+                title="Reset"
+                type="button"
+                variant="cancel"
+                onClick={handleReset} 
+              />
+             </div>
           </DrawerFooter>
         </DrawerContent>
       </div>

@@ -41,6 +41,7 @@ export const CREATE_STORE_URL = `/user_api/seller/addStore`
 
 export const CREATE_MEDIA_URL = `/product_api/media/addMedia`;
 export const GET_MEDIA_URL = `/product_api/media/getAllMedia`
+export const DELETE_MEDIA_URL = `/product_api/media/deleteMediaById`
 
 
 

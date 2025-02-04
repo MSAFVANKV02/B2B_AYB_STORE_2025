@@ -1,4 +1,4 @@
-import { CREATE_MEDIA_URL, GET_MEDIA_URL } from "@/types/urlPath";
+import { CREATE_MEDIA_URL, DELETE_MEDIA_URL, GET_MEDIA_URL } from "@/types/urlPath";
 import { API } from "../auth/route";
 
 export const Create_Media_Api = async (data:any) =>
@@ -8,6 +8,9 @@ export const Create_Media_Api = async (data:any) =>
 export const Get_Media_Api = async () =>
     await API.get(`${GET_MEDIA_URL}`, { withCredentials: true });
 
+
+export const Delete_Media_Api = async (id:string) =>
+    await API.delete(`${DELETE_MEDIA_URL}/${id}`, { withCredentials: true });
 
 
 // export const Create_Media_Api = async (data: any) => {

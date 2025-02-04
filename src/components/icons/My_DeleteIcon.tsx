@@ -1,25 +1,42 @@
 import { Icon } from "@iconify/react/dist/iconify.js";
-import { IconButton, Toolbar, Tooltip } from "@mui/material";
+import { IconButton, Toolbar, Tooltip, TooltipProps } from "@mui/material";
 
 type Props = {
   onClick: () => void;
   icon?: string;
   title?: string;
-  color?: string; // Color of the icon
+  color?: string;
+  fontSize?: number;
+  tooltipTitle?: string;
+  placement?: TooltipProps["placement"];
+  loading?: boolean;
+  loadingIcon?: string; 
 };
 
 export default function MyDeleteIcon({
   onClick,
+  color,
+  fontSize = 20,
+  placement = "top",
   icon = "material-symbols:delete",
   title = "Delete",
-  color = "", // Color of the tooltip and icon, defaults to error color.
+  loading = false,
+  loadingIcon = "eos-icons:loading"
+
 }: Props) {
   return (
     <Toolbar disableGutters>
-      <Tooltip title={title} placement="top">
+      <Tooltip title={title} placement={placement}>
         <div className="">
           <IconButton onClick={onClick}>
-            <Icon icon={icon} fontSize={20} color={color} />
+            {
+              loading ? (
+                <Icon icon={loadingIcon} fontSize={fontSize} color={color} />
+              ):(
+                <Icon icon={icon} fontSize={fontSize} color={color} />
+              )
+            }
+            
           </IconButton>
         </div>
       </Tooltip>

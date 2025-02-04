@@ -402,9 +402,9 @@ export function FormFieldGenal({
         ) : (
           <SelectedImages
             value={values}
-            name="gallery_image"
-            title="selected Gallery Images"
-            alt="gallery images"
+            name={name}
+            title={title}
+            alt={title}
             setFieldValue={setFieldValue}
           />
         )}

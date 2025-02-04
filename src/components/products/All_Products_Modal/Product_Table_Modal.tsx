@@ -51,13 +51,13 @@ export default function ProductTableModalData({
                         {variation.image &&
                         typeof variation.image === "string" ? (
                           <img
-                            src={""}
+                            src={variation.image}
                             alt="Variant"
                             className="w-7 h-7 object-cover rounded-sm"
                           />
                         ) : (
                           <img
-                            src={URL.createObjectURL(variation.image) ?? ""}
+                            src={variation.image ?? ""}
                             alt="Variant"
                             className="w-7 h-7 object-cover rounded-sm"
                           />
