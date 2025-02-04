@@ -69,7 +69,7 @@ export default function VerifyOtp() {
     try {
       const response = await Verify_Otp_Api({
         phoneNumber: mobile,
-        otp_Seller: form.otp,
+        otp_Store: form.otp,
       });
 
       if (response.data.success) {

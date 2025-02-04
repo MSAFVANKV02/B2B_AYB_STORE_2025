@@ -82,7 +82,7 @@ export default function LoginPage() {
               </div>
             )}
             <img src="/img/logo/Logo_black.svg" alt="Admin Logo" width={100} />
-            <p>Seller</p>
+            <p>Store</p>
           </div>
           {verifyOtp ? (
             <VerifyOtp />

@@ -2,7 +2,7 @@ import Cookies from 'js-cookie';
 
 export const isAuthenticated = () => {
   // const token = Cookies.get('us_b2b_admin');
-  const token = Cookies.get('sl_b2b_tkn');
+  const token = Cookies.get('st_b2b_tkn');
 
   // console.log('Token from cookies:', token);
   // console.log(document.cookie);
