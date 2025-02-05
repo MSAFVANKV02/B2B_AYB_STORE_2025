@@ -220,20 +220,20 @@ function NavigationList() {
       segment: "/settings",
       title: "Settings",
       icon: <Icon icon="mdi:cog-outline" />,
-      subscribed: "premium", //main subscription page before child
+      subscribed: "free", //main subscription page before child
       isChild: true,
       children: [
         {
           title: "Settings",
           segment: "/settings/mange-account",
-          subscribed: "premium",
+          subscribed: "free",
         },
         {
           title: "Support ticket",
           segment: "/settings/support-ticket",
-          subscribed: "premium",
+          subscribed: "free",
         },
-        { title: "Media", segment: "/settings/media", subscribed: "premium" },
+        { title: "Media", segment: "/settings/media", subscribed: "free" },
       ],
     },
   ];

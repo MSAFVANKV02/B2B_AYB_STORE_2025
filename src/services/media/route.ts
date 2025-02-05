@@ -1,4 +1,4 @@
-import { CREATE_MEDIA_URL, DELETE_MEDIA_URL, GET_MEDIA_URL } from "@/types/urlPath";
+import { CREATE_MEDIA_URL, DELETE_MEDIA_URL, DELETE_MULTIPLE_MEDIA_URL, GET_MEDIA_BY_ID_URL, GET_MEDIA_URL } from "@/types/urlPath";
 import { API } from "../auth/route";
 import Cookies from "js-cookie";
 
@@ -18,10 +18,21 @@ export const Create_Media_Api = async (data:any) => {
 export const Get_Media_Api = async () =>
     await API.get(`${GET_MEDIA_URL}`, { withCredentials: true });
 
+// 3. get all media by user id Route =================================
+
+export const Get_Media_By_Id_Api = async (id:string) =>
+  await API.get(`${GET_MEDIA_BY_ID_URL}/${id}`, { withCredentials: true });
+
 
 export const Delete_Media_Api = async (id:string) =>
     await API.delete(`${DELETE_MEDIA_URL}/${id}`, { withCredentials: true });
 
+// ---- delete with selected ids =================================
+export const Delete_Media_Selected_Ids_Api = async (ids: string[]) =>
+  await API.delete(`${DELETE_MULTIPLE_MEDIA_URL}`, {
+    data: { ids }, // Correct way to send data in DELETE request
+    withCredentials: true,
+  });
 
 // export const Create_Media_Api = async (data: any) => {
 //     try {

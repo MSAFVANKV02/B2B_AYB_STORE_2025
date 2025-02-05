@@ -10,10 +10,14 @@ import { ModalProvider } from "./providers/context/context";
 import HelperIcon from "./components/helper-line/helper-icon";
 import { useEffect } from "react";
 import { Trans, useTranslation } from "react-i18next";
+import { dehydrate, HydrationBoundary, QueryClient } from "@tanstack/react-query";
+import ReactQueyProvider from "./providers/react-quey";
+import QueryLayout from "./layouts/queryLayout";
 
 
 export default function MiniDrawer() {
   const { i18n } = useTranslation();
+  const query = new QueryClient();
 
   const isLargeScreen = useMediaQuery("(min-width: 1024px)");
 
@@ -49,7 +53,14 @@ export default function MiniDrawer() {
               <DrawerHeader />
              
 
-              <Outlet />
+              <ReactQueyProvider>
+                <HydrationBoundary state={dehydrate(query)}>
+                <QueryLayout>
+                    <Outlet />
+                </QueryLayout>
+               
+              </HydrationBoundary>
+              </ReactQueyProvider>
             </Box>
           </ThemProviderMui>
         </Box>

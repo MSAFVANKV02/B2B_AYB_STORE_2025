@@ -1,11 +1,10 @@
-
 import * as Yup from "yup";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import AyButton from "@/components/myUi/AyButton";
-import OpenMediaDrawer from "@/components/myUi/OpenMediaDrawer";
 import MyPdf from "@/components/myUi/MyPdf";
+import OpenMediaDrawer from "@/components/myUi/OpenMediaDrawer";
 
 // pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.mjs`;
 
@@ -31,7 +30,6 @@ interface FormValues {
     file: File;
   } | null;
 }
-
 
 const initialValues: FormValues = {
   name: "",
@@ -118,7 +116,7 @@ export default function BrandCreateSection() {
               }}
             />
             <div className="mt-3">
-              <MyPdf value={values.logo as string} isPdfShown />
+              {values.logo &&(<MyPdf value={values.logo as string} isPdfShown />)}
             </div>
 
             {/*#3 ====  Trade Mark number ====== 
@@ -157,14 +155,14 @@ export default function BrandCreateSection() {
                 if (!files) return;
                 const srcArray = files.map((file) => file.imageurl);
                 // console.log(srcArray,'srcArray');
-                
+
                 setFieldValue(fieldName, srcArray[0]);
               }}
             />
             <div className="mt-3">
               {/* <span className="break-words">{values.tm_cert}</span> */}
 
-              <MyPdf value={values.tm_cert ?? ""} isPdfShown={true} />
+              {values.tm_cert &&(<MyPdf value={values.tm_cert ?? ""} isPdfShown={true} />)}
             </div>
 
             {/*#5 ==== Brand certificate owner name ====== 
@@ -206,9 +204,9 @@ export default function BrandCreateSection() {
               }}
             />
             <div className="mt-3">
-              <MyPdf value={values.brand_noc as string} isPdfShown />
+              {values.brand_noc &&(<MyPdf value={values.brand_noc as string} isPdfShown />)}
             </div>
-            {/* <div className="flex flex-col gap-1 text-xs">
+             {/* <div className="flex flex-col gap-1 text-xs">
               <Label
                 htmlFor="brand_noc"
                 className="text-xs font-bold text-textGray "
