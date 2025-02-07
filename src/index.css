@@ -183,3 +183,12 @@
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 10001; 
 } */
+
+.no-spinner::-webkit-outer-spin-button,
+.no-spinner::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.no-spinner {
+  -moz-appearance: textfield; /* Firefox */
+}

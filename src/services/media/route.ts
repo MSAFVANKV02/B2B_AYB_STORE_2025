@@ -3,7 +3,7 @@ import { API } from "../auth/route";
 import Cookies from "js-cookie";
 
 export const Create_Media_Api = async (data:any) => {
-    const token = Cookies.get("sl_b2b_tkn"); // Get only 'st_b2b_tkn'
+    const token = Cookies.get("st_b2b_tkn"); // Get only 'st_b2b_tkn'
     // console.log(token,'token');
     
   

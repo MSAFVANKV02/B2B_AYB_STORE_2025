@@ -4,12 +4,23 @@ import { Label } from "@/components/ui/label";
 import { Box, useMediaQuery } from "@mui/material";
 import { cn } from "@/lib/utils";
 import TiptapCareGuide from "@/components/text_editors/TiptapCareGuide";
-import Select, { MultiValue } from "react-select";
-import makeAnimated from "react-select/animated";
+// import Select, { MultiValue } from "react-select";
 import { MySwitch } from "@/components/myUi/mySwitch";
-import { useState } from "react";
-import { customStyles } from "@/components/products/Custom_styles";
+import React, { ReactNode } from "react";
 import { IProductDimensions, ITaxDetails } from "@/types/productType";
+
+
+import TagInput from "@/components/global/tagInput";
+import { Link } from "react-router-dom";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import NonGstGoodsDetails from "./gstGood_Details/Non_Gst_Goods_Details";
+
 // Define the type for form values
 export interface GeneralFormValues {
   product_name: string;
@@ -17,24 +28,16 @@ export interface GeneralFormValues {
   product_sku: string;
   barcode?: string;
   brand?: string;
-  keywords?: string;
+  keywords: string[];
   minimum_quantity: number;
   product_weight?: number;
-
-  // height?: number;
-  // length?: number;
-  // width?: number;
   product_dimensions: IProductDimensions;
-
   dimensions?: string;
-  tax_details:ITaxDetails;
-  // taxSlab?: SelectOption[];
-  // isCess: boolean;
-  // cess?: SelectOption[];
+  tax_details: ITaxDetails;
   status: boolean;
   is_todays_deal: boolean;
   description?: string;
-  
+
   is_featured_product: boolean;
 }
 
@@ -45,130 +48,146 @@ type Props = {
   errors: any;
 };
 
-const animatedComponents = makeAnimated();
-const taxSlabs: SelectOption[] = [
-  { _id: "1", name: "5%" },
-  { _id: "2", name: "12%" },
-  { _id: "3", name: "18%" },
-  { _id: "4", name: "28%" },
-];
-interface SelectOption {
-  _id: string;
-  name: string;
-}
-
 export default function GeneralSectionPage({
   values,
   setFieldValue,
-  // errors,
-}: Props) {
+  // errors
+}: // errors,
+
+Props) {
   const isLargeScreen = useMediaQuery("(min-width: 1024px)");
-
-  // const [selectedCessOptions, setSelectedCessOptions] = useState<
-  //   MultiValue<SelectOption>
-  // >(values.cess || []);
-  // const [selectedTaxSlab, setSelectedTaxSlab] = useState<
-  //   MultiValue<SelectOption>
-  // >(values.taxSlab || []);
-
-  // =========================================
-//   const [selectedCessOptions, setSelectedCessOptions] = useState<
-//   MultiValue<SelectOption>
-// >(values.tax_details.cess || []);
-const [selectedTaxSlab, setSelectedTaxSlab] = useState<
-  MultiValue<SelectOption>
->(values.tax_details.taxSlab || []);
 
   // console.log(errors, "errors");
   // console.log(values, "values");
 
+  const productFields: {
+    id: keyof GeneralFormValues;
+    name: keyof GeneralFormValues;
+    title?: string;
+    fileType?: string;
+    placeholder: string;
+    type?: React.ComponentProps<"input">["type"];
+    render?: (data: any) => ReactNode;
+  }[] = [
+    {
+      id: "product_name",
+      title: "Product Name",
+      name: "product_name",
+      fileType: "text",
+      placeholder: "Enter Product Name",
+      type: "text",
+    },
+    {
+      id: "product_sku",
+      title: "SKU Id",
+      name: "product_sku",
+      fileType: "text",
+      placeholder: "Enter SKU Id",
+      type: "text",
+    },
+    {
+      id: "barcode",
+      title: "Barcode",
+      name: "barcode",
+      fileType: "text",
+      placeholder: "Enter Barcode",
+      type: "text",
+    },
+    {
+      id: "mrp",
+      title: "Product MRP",
+      name: "mrp",
+      fileType: "text",
+      placeholder: "Enter Product MRP",
+      type: "number",
+    },
+    {
+      id: "brand",
+      title: "Brand",
+      name: "brand",
+      fileType: "text",
+      placeholder: "Enter Brand",
+      type: "text",
+    },
+    {
+      id: "keywords",
+      title: "Brand",
+      name: "keywords",
+      fileType: "text",
+      placeholder: "Enter Keywords here",
+      type: "text",
+      render: () => {
+        return (
+          <div className="flex justify-between">
+            <Label className="text-textGray text-sm">KeyWords</Label>
+            <TagInput
+              tags={values.keywords ?? []}
+              setTags={(updatedTags) => {
+                setFieldValue("keywords", updatedTags);
+              }}
+            />
+          </div>
+        );
+      },
+    },
+    {
+      id: "minimum_quantity",
+      title: "Minimum Qty*",
+      name: "minimum_quantity",
+      fileType: "text",
+      placeholder: "Enter Minimum Qty",
+    },
+    {
+      id: "product_weight",
+      title: "Product product_weight in gm",
+      name: "product_weight",
+      fileType: "text",
+      placeholder: "Enter Product product_weight in gm",
+    },
+    // {
+    //   id: "product_dimensions.product_width",
+    //   title:"Product product_weight in gm",
+    //   name: "product_dimensions.product_width",
+    //   fileType: "text",
+    //   placeholder: "Enter Product product_weight in gm",
+    // },
+  ];
 
   return (
-    <Box display="flex"  sx={{
-      flexDirection:isLargeScreen ?"row":"column"
-    }} gap="13px">
+    <Box
+      display="flex"
+      sx={{
+        flexDirection: isLargeScreen ? "row" : "column",
+      }}
+      gap="13px"
+    >
       <div className="md:w-3/4 w-full flex flex-col gap-3">
-        <FormFieldGenal
-          value={values.product_name}
-          title="Product Name"
-          id="product_name"
-          name="product_name"
-          placeholder="Enter Product Name"
-          fieldAs={Input}
-        />
-
-        {/* #sku ==== */}
-        <FormFieldGenal
-          value={values.product_sku}
-          title="SKU id"
-          id="product_sku"
-          name="product_sku"
-          placeholder="SKU ID"
-          fieldAs={Input}
-        />
-        {/* #barcode ==== */}
-        <FormFieldGenal
-          value={values.barcode}
-          title="Barcode"
-          id="barcode"
-          name="barcode"
-          placeholder="Barcode"
-          fieldAs={Input}
-        />
-
-        {/* #mrp ==== */}
-        <FormFieldGenal
-          value={values.mrp}
-          title="Product MRP"
-          id="mrp"
-          name="mrp"
-          type="number"
-          placeholder="Product MRP"
-          fieldAs={Input}
-        />
-
-        {/* #Brand ==== */}
-        <FormFieldGenal
-          value={values.brand}
-          title="Brand"
-          id="brand"
-          name="brand"
-          placeholder="Brand"
-          fieldAs={Input}
-        />
-
-        {/* #keywords ==== */}
-        <FormFieldGenal
-          value={values.keywords}
-          title="Search Keywords"
-          id="keywords"
-          name="keywords"
-          placeholder="Keywords"
-          fieldAs={Input}
-        />
-
-        {/* #minimum_quantity ==== */}
-        <FormFieldGenal
-          value={values.minimum_quantity}
-          title="Minimum Qty*"
-          id="minimum_quantity"
-          name="minimum_quantity"
-          placeholder="Quantity"
-          fieldAs={Input}
-        />
-
-        {/* #product_weight ==== */}
-        <FormFieldGenal
-          value={values.product_weight}
-          title="Product product_weight in gm"
-          id="product_weight"
-          name="product_weight"
-          placeholder="product_weight"
-          fieldAs={Input}
-        />
+        {productFields.map((field) => (
+          <div key={field.id}>
+            {field.render ? (
+              field.render({ values, setFieldValue })
+            ) : (
+              
+              <FormFieldGenal
+                value={values[field.id] as string}
+                title={field.title ?? ""}
+                id={field.id}
+                name={field.name}
+                type={field.type ?? "text"}
+                placeholder={field.placeholder}
+                setFieldValue={setFieldValue}
+                fieldAs={Input}
+              />
+            )}
+          </div>
+        ))}
 
         {/* #Dimension ==== */}
-        <div className={cn("flex md:flex-row flex-col md:items-center gap-3 justify-between")}>
+        <div
+          className={cn(
+            "flex md:flex-row flex-col md:items-center gap-3 justify-between"
+          )}
+        >
           <Label htmlFor="dimension" className="text-textGray">
             Dimension (width / height / length)
           </Label>
@@ -235,99 +254,74 @@ const [selectedTaxSlab, setSelectedTaxSlab] = useState<
         />
 
         {/* #Tax details ======= */}
+        <FormFieldGenal
+          title="HSN/SAC"
+          id="tax_details.hsn_sac_number"
+          name="tax_details.hsn_sac_number"
+          placeholder="HSN/SAC"
+          className={cn(``)}
+          fieldClassName="w-[200px]"
+          type="number"
+          setFieldValue={setFieldValue}
+          fieldAs={Input}
+          extraTitle={
+            <Link
+              to={`https://services.gst.gov.in/services/searchhsnsac`}
+              target="_blank"
+              className="text-textMain text-sm font-semibold capitalize"
+            >
+              Chek HSN/SAC number
+            </Link>
+          }
+          value={`${values.tax_details.hsn_sac_number}`} // Bind field value to Formik
+        />
+        {/* ==== #non_gst_goods ===== */}
+        <FormFieldGenal
+          title="Is non-GST Goods"
+          defaultValue="no"
+          select
+          id="tax_details.non_gst_goods"
+          name="tax_details.non_gst_goods"
+          placeholder="Yes / No"
+          className={cn(``)}
+          fieldClassName=""
+          fieldAs={Input}
+          setFieldValue={setFieldValue}
+          value={`${values.tax_details.non_gst_goods}`} // Bind field value to Formik
+        />
 
-        <b>Tax details</b>
-        <div className="flex justify-between md:flex-row gap-3 flex-col w-full mb-10">
-          <Label htmlFor="tax_details.taxSlab" className="text-textGray">
-            Tax Slab
-          </Label>
-          <div className="md:w-3/4 flex flex-col gap-1">
-            <Select
-              isMulti
-              components={animatedComponents}
-              name="tax_details.taxSlab"
-              className=""
-              styles={customStyles}
-              value={selectedTaxSlab}
-              placeholder="Select tax slab"
-              closeMenuOnSelect={false}
-              options={taxSlabs} // assuming categories is an array of SelectOption
-              getOptionLabel={(e: SelectOption) => e.name} // Explicitly type 'e' as SelectOption
-              getOptionValue={(e: SelectOption) => e._id} // Explicitly type 'e' as SelectOption
-              onChange={(selected: MultiValue<SelectOption>) => {
-                // console.log(selected);
-                const selectedOptions = selected.map((option) => option);
-                setSelectedTaxSlab(selectedOptions);
-
-                setFieldValue("tax_details.taxSlab", selectedOptions);
-              }}
-            />
-               <ErrorMessage
-            name="tax_details.taxSlab"
-            component="span"
-            className="text-red-500 text-xs"
-          />
-          </div>
-       
-        </div>
+        {/* ====  #Gst Goods Details ====== */}
+        {values.tax_details.non_gst_goods === "no" && (
+          <NonGstGoodsDetails values={values} setFieldValue={setFieldValue} />
+        )}
 
         {/* #Cess ========== */}
-        <div className="flex justify-between md:flex-row flex-col gap-3 w-full mb-10">
-          <Label htmlFor="tax_details.cess" className="text-textGray">
-            CESS
-          </Label>
-          <div className="md:w-3/4 flex ">
+
+        <FormFieldGenal
+          title="CESS"
+          reverseFlex={true}
+          maxNumber={100}
+          havePercentage
+          extraTitle={
             <MySwitch
-              id="tax_details.cess"
+              id="tax_details.isCess"
               isOn={values.tax_details.isCess}
               handleToggle={() => {
                 setFieldValue("tax_details.isCess", !values.tax_details.isCess);
-                if (!values.tax_details.isCess) setFieldValue("values.tax_details.cess", []);
+                if (!values.tax_details.isCess)
+                  setFieldValue("values.tax_details.cess", []);
               }}
             />
-            <div className="w-full">
-            <Field
-                id="tax_details.cess"
-                name="tax_details.cess"
-                placeholder="Cess"
-                className={cn(` p-6 ml-3`)}
-                type="number"
-                as={Input}
-                disabled={!values.tax_details.isCess}
-                value={values.tax_details.cess} // Bind field value to Formik
-              />
-             
-              {/* <Select
-                isMulti
-                components={animatedComponents}
-                className="w-full pl-3"
-                styles={customStyles}
-                placeholder="Select Cess"
-                isDisabled={!values.tax_details.isCess}
-                value={selectedCessOptions}
-                closeMenuOnSelect={false}
-                options={taxSlabs}
-                getOptionLabel={(e: SelectOption) => e.name}
-                getOptionValue={(e: SelectOption) => e._id}
-                onChange={(selected: MultiValue<SelectOption>) => {
-                  // console.log(selected);
-                  // const selectedNames = selected.map((option) => option.name); // Extract names
-                  // const selectedIds = selected.map((option) => option._id); // Extract names
-                  const selectedOptions = selected.map((option) => option);
-                  setSelectedCessOptions(selectedOptions);
-
-                  setFieldValue("tax_details.cess", selectedOptions); // Save only the names
-                }}
-              /> */}
-              <ErrorMessage
-                name="tax_details.cess"
-                component="span"
-                className="text-red-500 text-xs"
-              />
-            </div>
-          </div>
-        </div>
-
+          }
+          id="tax_details.cess"
+          name="tax_details.cess"
+          placeholder="Cess"
+          className={cn(``)}
+          type="number"
+          fieldAs={Input}
+          disabled={!values.tax_details.isCess}
+          value={`${values.tax_details.cess}`} // Bind field value to Formik
+        />
         {/* #status toggle ========= */}
         <b>Status</b>
         <div className="flex justify-between">
@@ -338,7 +332,12 @@ const [selectedTaxSlab, setSelectedTaxSlab] = useState<
             <MySwitch
               id="is_featured_product"
               isOn={values.is_featured_product}
-              handleToggle={() => setFieldValue("is_featured_product", !values.is_featured_product)}
+              handleToggle={() =>
+                setFieldValue(
+                  "is_featured_product",
+                  !values.is_featured_product
+                )
+              }
             />
           </div>
         </div>
@@ -377,6 +376,18 @@ type FormFieldGenalProps = {
   fieldAs?: React.ElementType;
   fieldClassName?: string;
   type?: string;
+  extraTitle?: React.ReactNode;
+  select?: boolean;
+  setFieldValue?: (name: string, value: any) => void;
+  selectValue?: { name: string; value: ITaxDetails["calculation_types"] }[];
+  defaultValue?: string;
+  maxNumber?: number;
+  havePercentage?: boolean;
+  disabled?: boolean;
+  reverseFlex?: boolean;
+  titleSize?: "sm"|"lg"|"xs"|"xl";
+  onChange?: (value: any) => void;
+  showError?: boolean;
 };
 
 export function FormFieldGenal({
@@ -388,24 +399,130 @@ export function FormFieldGenal({
   placeholder,
   fieldAs,
   fieldClassName,
-  type = "text", // default type is text
+  type = "text",
+  extraTitle,
+  select,
+  setFieldValue,
+  selectValue,
+  defaultValue,
+  maxNumber,
+  havePercentage,
+  disabled,
+  reverseFlex,
+  titleSize,
+  onChange,
 }: FormFieldGenalProps) {
+
+
+  const titleSizeAdd = (size?: string) => {
+    switch (size) {
+      case "sm":
+        return "text-sm";
+      case "lg":
+        return "text-lg";
+      case "xs":
+        return "text-xs";
+      case "xl":
+        return "text-xl";
+      default:
+        return "text-sm";
+    }
+  };
+
   return (
-    <div className={cn("flex md:flex-row flex-col gap-2 md:items-center justify-between", className)}>
-      <Label htmlFor={name} className="text-textGray">
-        {title}
-      </Label>
+    <div
+      className={cn(
+        "flex md:flex-row flex-col gap-2 md:items-center justify-between",
+        className
+      )}
+    >
+      {title && (
+        <Label htmlFor={name} className={`text-textGray ${titleSizeAdd(titleSize)}`}>
+          {title}
+        </Label>
+      )}
+
       <div className="flex flex-col md:w-3/4 gap-2">
-        <Field
-          id={id}
+        <div
+          className={cn(
+            "flex items-center gap-3",
+            reverseFlex ? "flex-row-reverse" : "flex-col lg:flex-row"
+          )}
+        >
+          {select ? (
+            <Select
+              defaultValue={defaultValue}
+              onValueChange={(value) => {
+                if (setFieldValue) setFieldValue(name, value);
+              }}
+            >
+              <SelectTrigger
+                className={cn(` p-6 text-textGray`, fieldClassName)}
+              >
+                <SelectValue placeholder={placeholder} />
+              </SelectTrigger>
+              <SelectContent>
+                {selectValue?.map(({ name, value }) => (
+                  <SelectItem key={value} value={value}>
+                    {name}
+                  </SelectItem>
+                )) || [
+                  <SelectItem key="no" value="no">
+                    No
+                  </SelectItem>,
+                  <SelectItem key="yes" value="yes">
+                    Yes
+                  </SelectItem>,
+                ]}
+                {/* <SelectItem value="no">No</SelectItem>
+                <SelectItem value="yes">Yes</SelectItem> */}
+              </SelectContent>
+            </Select>
+          ) : (
+            <div className={cn(`no-spinner w-full relative`, fieldClassName)}>
+              <Field
+                id={id}
+                max={maxNumber}
+                name={name}
+                placeholder={placeholder}
+                className={cn(`no-spinner p-6`, fieldClassName)}
+                type={type}
+                as={fieldAs}
+                value={value}
+                disabled={disabled}
+                onChange={(e:React.ChangeEvent<HTMLInputElement>) => {
+                  const newValue = e.target.value;
+                  if (setFieldValue) {
+                    setFieldValue(name, newValue);
+                  }
+                  if (onChange) {
+                    onChange(e);
+                  }
+                }}
+                onInput={(e: any) => {
+                  if (
+                    maxNumber !== undefined &&
+                    Number(e.currentTarget.value) > maxNumber
+                  ) {
+                    e.currentTarget.value = maxNumber.toString(); // Reset input to maxNumber
+                  }
+                }}
+              />
+              {type === "number" && havePercentage && (
+                <span className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500">
+                  %
+                </span>
+              )}
+            </div>
+          )}
+
+          {extraTitle && <div>{extraTitle}</div>}
+        </div>
+        <ErrorMessage
           name={name}
-          placeholder={placeholder}
-          className={cn(` p-6`, fieldClassName)}
-          type={type}
-          as={fieldAs}
-          value={value} // Bind field value to Formik
+          component="span"
+          className="text-red-500 text-xs"
         />
-        <ErrorMessage name={name} component="span" className="text-red-500 text-xs" />
       </div>
     </div>
   );
