@@ -14,11 +14,13 @@
 /out/
 # /public
 # production
-# /build
+/build
 # /public/CascadiaFonts
 # misc
 .DS_Store
 *.pem
+./dist
+dist/
 
 # debug
 npm-debug.log*
