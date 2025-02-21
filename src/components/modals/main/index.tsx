@@ -1,17 +1,20 @@
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import React from 'react'
 
 type Props = {
     trigger: React.ReactNode;
-    children: React.ReactNode;
+    children?: React.ReactNode;
     title: string;
     description?: string;
     classname?: string;
+    footer?:  React.ReactNode;
+    open?: boolean;
+    setOpen?(value: boolean): void;
 }
 
-const Modal = ({children,trigger, title, classname, description}: Props) => {
+const Modal = ({children,trigger, title, classname, description, footer, open, setOpen}: Props) => {
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}> 
         <DialogTrigger className={classname} asChild >
             {trigger}
         </DialogTrigger>
@@ -26,7 +29,12 @@ const Modal = ({children,trigger, title, classname, description}: Props) => {
                 </DialogDescription>
             </DialogHeader>
             {children}
+
+            <DialogFooter>
+        { footer}
+        </DialogFooter>
         </DialogContent>
+   
     </Dialog>
   )
 }

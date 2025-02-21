@@ -1,27 +1,20 @@
 import BrandTable from "@/components/brand/Brand_Table";
 import { Input } from "@/components/ui/input";
 import BrandCreateSection from "./brand_create_section";
+import { useEffect } from "react";
+import { useAppDispatch, useAppSelector } from "@/redux/hook";
+import { getAllBrands } from "@/redux/actions/brandsSlice";
 
 
-const brands = [
-  {
-    id: 1,
-    name: "Brand Name",
-    logo: "/img/logo/Logo_black.svg", // Replace with actual image path
-    brand_cert_owner_name:"Safvan",
-    user:"seller",
-  },
-  {
-    id: 2,
-    name: "Brand Name",
-    logo: "/img/logo/Logo_black.svg", // Replace with actual image path
-    brand_cert_owner_name:"Fayiz",
-    user:"store",
-  },
-];
 
 
 export default function BrandPage() {
+  const dispatch = useAppDispatch();
+  const {brands} = useAppSelector((state)=> state.brand)
+
+  useEffect(()=>{
+    dispatch(getAllBrands())
+  },[]);
 
   return (
     <div className="min-h-[80vh]">
@@ -39,7 +32,7 @@ export default function BrandPage() {
           <BrandTable brands={brands} />
         </div>
         {/* ===== brand creating section ======= */}
-        <div className="lg:w-[35%] bg-white rounded-lg p-5 shadow overflow-y-auto">
+        <div className="flex-grow bg-white rounded-lg p-5 shadow overflow-y-auto">
           <BrandCreateSection />
         </div>
       </div>

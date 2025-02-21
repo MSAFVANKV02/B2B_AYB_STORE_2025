@@ -1,22 +1,24 @@
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+
+
 import SellerRequestTable from "./products_tables/Seller_Request_Table";
 import { useEffect, useState } from "react";
 import { ProductTableColumns } from "@/components/tasks/table_columns/products-table-columns";
 import { DataTable } from "@/components/tasks/task_components/data-table";
-import {  CircleOff,  ShieldCheck } from "lucide-react";
+import { CircleOff, ShieldCheck } from "lucide-react";
+import MyPageTab from "@/components/myUi/MyTabs";
 
 const statuses = [
-    {
-      value: "active",
-      label: "Active",
-      icon: ShieldCheck,
-    },
-    {
-      value: "hold",
-      label: "Hold",
-      icon: CircleOff,
-    }
-  ]
+  {
+    value: "active",
+    label: "Active",
+    icon: ShieldCheck,
+  },
+  {
+    value: "hold",
+    label: "Hold",
+    icon: CircleOff,
+  },
+];
 
 export default function AllProductsPage() {
   const [products, setProducts] = useState([]);
@@ -47,43 +49,54 @@ export default function AllProductsPage() {
 
   return (
     <div className="min-h-screen bg-white rounded-md p-3">
-      <Tabs defaultValue="approved" className="w-full">
-        <TabsList className="border bg-transparent rounded-full py-7 ">
-          <TabsTrigger
-            value="approved"
-            className="data-[state=active]:bg-black py-3 data-[state=active]:text-white data-[state=active]:rounded-full"
-          >
-            Approved Products
-          </TabsTrigger>
-          <TabsTrigger
-            value="request"
-            className="data-[state=active]:bg-black py-3 data-[state=active]:text-white data-[state=active]:rounded-full"
-          >
-            Seller product request
-          </TabsTrigger>
-        </TabsList>
+     
+       
+        <MyPageTab
+          // setTypeUrl={setSelectedTab}
+          tabs={[
+            {
+              value: "all-product",
+              title: "All Product",
+              url: "/products/all?type=all-product",
+              children: (
+                <div className="w-full">
+                  <DataTable
+                    enableSearch
+                    columns={ProductTableColumns}
+                    data={products}
+                    searchWith="product_name"
+                    statuses={statuses}
+                    enableStatus={true}
+                    enableView
+                  />
+                </div>
+              ),
+            },
+            {
+              value: "requested-product",
+              title: "Store product request",
+              url: "/products/all?type=requested-product",
+              children: (
+                <div className="w-full">
+                  <SellerRequestTable />
+                </div>
+              ),
+            },
+           
+            {
+              value: "new-product",
+              title: "New Product",
+              url: "/products/all?type=new-product",
+              children: (
+                <div className="w-full">
+                  <SellerRequestTable />
+                </div>
+              ),
+            },
+          ]}
+        />
 
-        {/* tab .1 ===== */}
-        <TabsContent value="approved" className="2xl:max-w-[100%]  xl:max-w-[95%] mx-auto  max-w-[90%]">
-          {/* <ApprovedProductTable columns={ProductTableColumns} data={products} /> */}
-          <DataTable
-            enableSearch
-            columns={ProductTableColumns}
-            data={products}
-            searchWith="product_name"
-            statuses={statuses}
-            enableStatus={true}
-            enableView
-
-          />
-        </TabsContent>
-
-        {/* tab .2 ===== */}
-
-        <TabsContent value="request">
-          <SellerRequestTable />
-        </TabsContent>
-      </Tabs>
+      
     </div>
   );
 }

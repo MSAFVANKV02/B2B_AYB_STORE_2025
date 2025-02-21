@@ -13,6 +13,7 @@ type Props = {
   type?: "submit" | "reset" | "button";
   loading?: boolean;
   disabled?: boolean; // Whether the button is disabled or not
+  children?: React.ReactNode; 
   // onclickEvent?: (route:string)=>void; // Event handler for onClick event
 };
 
@@ -27,6 +28,7 @@ export default function AyButton({
   type = "button",
   loading,
   disabled = false,
+  children
 }: Props) {
   return (
     <Button
@@ -91,6 +93,7 @@ export default function AyButton({
           <Icon icon={`${icon}`} fontSize={iconSize} className="mr-2" /> {title}
         </>
       )}
+      {children}
       {/* <Icon icon={`${icon}`} fontSize={iconSize} /> {title} */}
     </Button>
   );

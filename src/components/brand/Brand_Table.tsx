@@ -1,14 +1,9 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import BrandApprovedTable from "./Brand_Approved_Table";
 import BrandRequestedTable from "./Brand_Requested_Table";
+import { IBrand } from "@/types/brandtypes";
 type Props = {
-    brands: {
-        id: number;
-        name: string;
-        logo: string; // Replace with actual image path
-        brand_cert_owner_name: string;
-        user: string; // seller or store
-    }[]
+    brands: IBrand[]
 };
 
 export default function BrandTable({

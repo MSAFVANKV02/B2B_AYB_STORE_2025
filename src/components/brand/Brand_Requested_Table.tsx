@@ -1,22 +1,23 @@
 import { useModal } from "@/providers/context/context";
 import MyEyeIcon from "../icons/My_EyeIcon";
-import TaskModal, { TaskModalContent, TaskModalHeader } from "../modals/TaskModal";
+import TaskModal, {
+  TaskModalContent,
+  TaskModalHeader,
+} from "../modals/TaskModal";
 import MyCloseIcon from "../icons/My_CloseIcon";
-import BrandAcceptForm from "./Brand_Acception_Form";
+import BrandAcceptionForm from "./Brand_Acception_Form";
+import { IBrand } from "@/types/brandtypes";
+import { useAppDispatch } from "@/redux/hook";
+import { setSelectedBrand } from "@/redux/actions/brandsSlice";
+import { Icon } from "@iconify/react/dist/iconify.js";
 
 type Props = {
-    brands: {
-        id: number;
-        name: string;
-        logo: string; // Replace with actual image path
-        brand_cert_owner_name: string;
-        user: string; // seller or store
-    }[]
+  brands: IBrand[];
 };
 
+export default function BrandRequestedTable({ brands }: Props) {
+  const dispatch = useAppDispatch();
 
-
-export default function BrandRequestedTable({brands}: Props) {
   const { setIsOpen } = useModal();
 
   return (
@@ -33,37 +34,61 @@ export default function BrandRequestedTable({brands}: Props) {
           </tr>
         </thead>
         <tbody className="text-xs">
-          {brands.map((brand, index) => (
-            <tr
-              key={brand.id}
-              className={`${
-                index % 2 === 0 ? "bg-white" : "bg-gray-50"
-              } hover:bg-gray-100 `}
-            >
-              <td className="py-3 px-4">{index + 1}</td>
-              <td className="py-3 px-4">{brand.name}</td>
-              <td className="py-3 px-4">{brand.user}</td>
-              <td className="py-3 px-4">{brand.brand_cert_owner_name}</td>
-
-
-              <td className="py-3 px-4 ">
-                <img
-                  src={brand.logo}
-                  alt={`${brand.name} Logo`}
-                  className="w-20 h-20 object-contain"
-                />
-              </td>
-              <td className="py-3 px-4 flex justify-end">
-               <MyEyeIcon
-               onClick={()=>{
-                 setIsOpen(true);
-                 // Open brand details modal
-               }}
-               />
-               
+          {brands.length === 0 ? (
+            // Show a single row indicating no brands
+            <tr className="text-center">
+              <td
+                colSpan={4}
+                className="py-10 border-b px-4 text-gray-500 text-sm"
+              >
+                No brands available
               </td>
             </tr>
-          ))}
+          ) : (
+            brands.map((brand, index) => (
+              <tr
+                key={brand._id}
+                className={`${
+                  index % 2 === 0 ? "bg-white" : "bg-gray-50"
+                } hover:bg-gray-100 `}
+              >
+                <td className="py-3 px-4">{index + 1}</td>
+                <td className="py-3 px-4">{brand.name}</td>
+                <td className="py-3 px-4">{brand.certificateOwnerName}</td>
+                <td className="py-3 px-4">{brand.name}</td>
+
+                <td className="py-3 px-4 ">
+                  {brand.logo ? (
+                    <img
+                      src={brand.logo}
+                      alt={`${brand.name} Logo`}
+                      className="w-14 rounded-md"
+                      onError={(e) => {
+                        const target = e.target as HTMLImageElement; // Type casting
+                        target.src = "/img/logo/Logo_black.svg";
+                      }}
+                    />
+                  ) : (
+                    <div className="w-14 h-14 rounded-full bg-gray-200 flex items-center justify-center">
+                      <Icon
+                        icon="material-symbols:error-outline"
+                        fontSize={20}
+                      />
+                    </div>
+                  )}
+                </td>
+                <td className="py-3 px-4 flex justify-end">
+                  <MyEyeIcon
+                    onClick={() => {
+                      dispatch(setSelectedBrand(brand));
+                      setIsOpen(true);
+                      // Open brand details modal
+                    }}
+                  />
+                </td>
+              </tr>
+            ))
+          )}
         </tbody>
       </table>
 
@@ -79,9 +104,9 @@ export default function BrandRequestedTable({brands}: Props) {
           />
         </TaskModalHeader>
 
-        <TaskModalContent >
+        <TaskModalContent>
           {/* Brand Details */}
-          <BrandAcceptForm />
+          <BrandAcceptionForm />
         </TaskModalContent>
       </TaskModal>
     </div>

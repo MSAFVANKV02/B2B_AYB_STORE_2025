@@ -10,6 +10,7 @@ import storage from 'redux-persist/lib/storage';
 import {  persistReducer } from "redux-persist";
 import {combineReducers} from '@reduxjs/toolkit'
 // import { version } from "os";
+import brandReducer from "@/redux/actions/brandsSlice"
 
 const persistConfig = {
   key: 'root',
@@ -21,7 +22,9 @@ const rootReducer = combineReducers({
   category: categoryReducer, //
   admin:adminReducer,
   customer: customerReducer, 
-  media: mediaReducer
+  media: mediaReducer,
+  brand: brandReducer
+
 });
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 

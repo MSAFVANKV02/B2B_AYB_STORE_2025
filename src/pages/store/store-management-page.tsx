@@ -57,6 +57,9 @@ export default function StoreManagementPage() {
               value: "seller-request",
               title: "Request",
               url: "/seller/stock-request?type=seller-request",
+              children: <div className="w-full">
+                <DataTableStore data={sampleData} />
+              </div>,
             },
             {
               value: "send-request",
@@ -67,7 +70,7 @@ export default function StoreManagementPage() {
           ]}
         />
         {/* <DataTableStore data={storeData} /> */}
-        <DataTableStore data={sampleData} />
+       
       </div>
     </div>
   );

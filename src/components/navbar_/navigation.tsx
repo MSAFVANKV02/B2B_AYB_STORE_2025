@@ -6,6 +6,9 @@ import { useCallback } from "react";
 function NavigationList() {
   const { currentAdmin } = useAppSelector((state) => state.admin);
 
+  console.log(currentAdmin,'currentAdmin');
+  
+
   const NAVIGATION = [
     {
       kind: "page",
@@ -106,7 +109,12 @@ function NavigationList() {
       isChild: true,
       children: [
         {
-          title: "Store Stock Request",
+          title: "New Products From Seller",
+          segment: "/seller/new-products",
+          subscribed: "free",
+        },
+        {
+          title: "Stock Request",
           segment: "/seller/stock-request",
           subscribed: "free",
         },
