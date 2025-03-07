@@ -3,12 +3,10 @@ import { getAllProductsInAdmin } from "@/actions/products/productActions";
 import { useQueryData } from "@/hooks/useQueryData";
 import { IProducts } from "@/types/productType";
 import { useEffect } from "react";
-import { dispatch } from "@/redux/hook";
 import InventoryTable from "./Inventory/InventoryTable";
 
 import { useSearchParams } from "react-router-dom";
 import MyPageTab from "@/components/myUi/MyTabs";
-import { addProductRedux } from "@/redux/actions/product_Slice";
 
 export default function AllProductsPage() {
   const [searchParams] = useSearchParams();
@@ -27,7 +25,7 @@ export default function AllProductsPage() {
             value: "",
           },
         ],
-        urlTypes === "deleted-product" ? "deleted" : undefined
+        // urlTypes === "deleted-product" ? "deleted" : undefined
       ) // Wrap in an arrow function
   );
   // console.log(fetchedProducts,'fetchedProducts');
@@ -41,11 +39,11 @@ export default function AllProductsPage() {
 
   // console.log(product,'productproduct');
 
-  useEffect(() => {
-    if (product.length > 0) {
-      dispatch(addProductRedux(product));
-    }
-  }, [product, urlTypes, refetch]);
+  // useEffect(() => {
+  //   if (product.length > 0) {
+  //     dispatch(addProductRedux(product));
+  //   }
+  // }, [product, urlTypes, refetch]);
 
   useEffect(() => {
     // fetch()

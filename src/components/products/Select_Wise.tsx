@@ -70,7 +70,7 @@ export default function SelectWise({ setFieldValue, values, errors }: Props) {
   //         discount: 0,
   //         selling_price: 0,
   //         skuId: "",
-  //         sample: false, // Add sample property if required in your `IVariants`
+  //         sample: false, // Add sample property if required in your `IVariantsDetails`
   //       })),
   //     }))
   //   );

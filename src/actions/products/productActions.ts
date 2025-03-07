@@ -24,8 +24,11 @@ export const getAllProductsInAdmin = async (
 
 
     const { data, status } = await get_Products_Api(filter);
+    console.log(data,'das');
     if (status === 200 || status === 201) {
       // return { status: 200, data: data.file };
+     
+      
       return {
         status: status,
         data: data.products,
@@ -34,7 +37,7 @@ export const getAllProductsInAdmin = async (
     }
     // console.log( ");
   } catch (error) {
-    // console.log(error, "error getAllProductsInAdmin");
+    console.log(error, "error getAllProductsInAdmin");
     return { status: 403, data: [], error: error };
   }
 };

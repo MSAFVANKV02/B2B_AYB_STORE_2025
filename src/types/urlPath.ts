@@ -81,7 +81,7 @@ export const HARD_DELETE_SINGLE_BRAND_URL = `/product_api/brand/hardDeleteBrand`
 // ==============****************====================
 
 
-export const CREATE_PRODUCT_URL = `/product_api/product/addProduct`;
+export const CREATE_PRODUCT_URL = `/product_api/product/store/addProduct`;
 export const GET_PRODUCTS_URL = `/product_api/product/get-store-products`;
 
 export const TOGGLE_PRODUCTS_URL = `/product_api/product/toggle-product-button`;

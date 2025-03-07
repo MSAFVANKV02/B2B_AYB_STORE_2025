@@ -281,12 +281,12 @@ export default function ProductAddPage() {
               if(id){
                 refetch()
               }else{
-                // resetForm();
+                resetForm();
               }
              
             }
           } catch (error: any) {
-            // console.error("Product submission error:", error);
+            console.error("Product submission error:", error);
             if (error.response.data) {
               makeToastError(error.response.data.message);
             }

@@ -1,4 +1,4 @@
-import { IProducts, IVariants } from "@/types/productType";
+import { IProducts, IVariantsDetails } from "@/types/productType";
 
 export const ExpandableRowComponent = ({ data }: { data: IProducts }) => {
   return (
@@ -57,7 +57,7 @@ export const ExpandableRowComponent = ({ data }: { data: IProducts }) => {
                   </tr>
                 </thead>
                 <tbody>
-                  {variation.details.map((detail: IVariants, i) => (
+                  {variation.details.map((detail: IVariantsDetails, i) => (
                     <tr key={i} className="border bg-[#ffff]">
                       <td className="border px-2 py-1">{detail.size}</td>
                       <td className="border px-2 py-1">{detail.stock}</td>

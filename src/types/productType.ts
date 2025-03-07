@@ -44,14 +44,7 @@ export type IProducts = {
   //   files section
   gallery_image?:  string[];
   thumbnails:  string[];
-  variations: {
-    variant_name?: string;
-    image: string;
-    colorCode: string;
-    colorName: string;
-    sample: boolean;
-    details: IVariants[];
-  }[];
+  variations: IVariants[];
   size_chart:  string;
 
   // === price stock ===
@@ -83,6 +76,15 @@ export type IProducts = {
   reject_reason?: string;
 };
 // ====== type ends =================
+
+export type IVariants = {
+  variant_name?: string;
+  image: string;
+  colorCode: string;
+  colorName: string;
+  sample: boolean;
+  details: IVariantsDetails[];
+}
 
 export type IProductCreatedBy = {
   _id?: string;
@@ -137,7 +139,7 @@ export type IPricePerPieces = {
   discount: number;
 };
 
-export type IVariants = {
+export type IVariantsDetails = {
   _id?: string;
   size: string;
   // bundleSizes?:[{ size: string, quantity: number}];

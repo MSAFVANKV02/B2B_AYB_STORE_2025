@@ -61,7 +61,7 @@ export const ActionsCellRenderer = ({ data, refetch }: IProps) => {
   const { storeSeller } = useAppSelector((state) => state.storeSeller);
 
 
-  // const isOutOfStock = variations?.details?.some((variant: IVariants) => variant.stock <= 0) ?? false;
+  // const isOutOfStock = variations?.details?.some((variant: IVariantsDetails) => variant.stock <= 0) ?? false;
 
   // const onRemoveClick = useCallback(() => {
   //   api.applyTransaction({ remove: [node.data] });
