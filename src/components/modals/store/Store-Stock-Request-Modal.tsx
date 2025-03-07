@@ -10,6 +10,12 @@ import { Label } from "@/components/ui/label";
 import AyButton from "@/components/myUi/AyButton";
 
 import * as Yup from "yup";
+import { IProducts } from "@/types/productType";
+
+
+type IProps ={
+  data: IProducts
+}
 
 interface FormValues {
   boxWeight?: number;
@@ -47,7 +53,7 @@ const validationSchema = Yup.object().shape({
   lrPhoto: Yup.mixed().required("LR photo is required"),
 });
 
-export default function StoreStockRequestModal() {
+export default function StoreStockRequestModal({data}:IProps) {
   const { setIsOpen } = useModal();
   // const [fileNames, setFileNames] = useState<
   //   Record<keyof FileInputFields, string | null>
@@ -186,7 +192,7 @@ export default function StoreStockRequestModal() {
             </div>
           </div>
           {/* ======================= */}
-          <StoreStockLocalTable />
+          <StoreStockLocalTable  data={data} />
           {/* ======================= */}
 
           <Formik

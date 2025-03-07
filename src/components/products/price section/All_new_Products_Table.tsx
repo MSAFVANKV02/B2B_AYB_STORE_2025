@@ -30,6 +30,7 @@ export default function AllNewProductsTable({ values, setFieldValue }: Props) {
               Selling Price
             </th>
             <th className="border text-xs text-textGray px-4 py-2">SKU ID</th>
+            <th className="border text-xs text-textGray px-4 py-2">Variant Name</th>
             <th className="border text-xs text-textGray px-4 py-2">Sample</th>
           </tr>
         </thead>
@@ -116,7 +117,7 @@ export default function AllNewProductsTable({ values, setFieldValue }: Props) {
                         type="number"
                         min="0"
                         className="w-full border rounded px-2 text-center py-2"
-                        value={variant.bundle_quantity || 0}
+                        value={variant.bundleQuantity || 0}
                         onChange={(e) =>
                           setFieldValue(
                             `variations[${vIndex}].details[${index}].bundle_quantity`,
@@ -153,6 +154,22 @@ export default function AllNewProductsTable({ values, setFieldValue }: Props) {
                       onChange={(e) =>
                         setFieldValue(
                           `variations[${vIndex}].details[${index}].skuId`,
+                          e.target.value
+                        )
+                      }
+                    />
+                  </td>
+
+                   {/* SKU ID */}
+                   <td className="border px-4 py-1 text-center">
+                    <input
+                      type="text"
+                      className="l border rounded min-w-[150px] w-full px-2 text-center py-2"
+                      value={variation.variant_name || ""}
+                      placeholder="variant_name here"
+                      onChange={(e) =>
+                        setFieldValue(
+                          `variations[${vIndex}].variant_name`,
                           e.target.value
                         )
                       }

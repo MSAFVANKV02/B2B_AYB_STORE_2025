@@ -3,14 +3,16 @@ import categoryReducer from "@/redux/actions/category_Slice"
 import adminReducer from "@/redux/actions/adminSlice"
 import customerReducer from "@/redux/actions/customerSlice";
 import mediaReducer from "@/redux/actions/mediaSlice"
-
+import brandReducer from "@/redux/actions/brandsSlice"
+import productsReducer from "@/redux/actions/product_Slice"
+import storeSellerReducer from "@/redux/actions/storeSellerSlice"
 
 
 import storage from 'redux-persist/lib/storage';
 import {  persistReducer } from "redux-persist";
 import {combineReducers} from '@reduxjs/toolkit'
 // import { version } from "os";
-import brandReducer from "@/redux/actions/brandsSlice"
+
 
 const persistConfig = {
   key: 'root',
@@ -23,7 +25,11 @@ const rootReducer = combineReducers({
   admin:adminReducer,
   customer: customerReducer, 
   media: mediaReducer,
-  brand: brandReducer
+  brand: brandReducer,
+  products: productsReducer,
+  storeSeller: storeSellerReducer,
+
+
 
 });
 const persistedReducer = persistReducer(persistConfig, rootReducer);

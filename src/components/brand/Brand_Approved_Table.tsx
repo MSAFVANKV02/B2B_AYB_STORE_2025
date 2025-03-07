@@ -1,12 +1,14 @@
 
 
-import MyDeleteIcon from "../icons/My_DeleteIcon";
+
 import { IBrand } from "@/types/brandtypes";
 import { Icon } from "@iconify/react/dist/iconify.js";
-import AyButton from "../myUi/AyButton";
-import Modal from "../modals/main";
-import { DeleteBrands } from "@/actions/brand/brandActionAPi";
-import { useState } from "react";
+
+import BrandDetailsModal from "./Brand_Details_Modal";
+import MyEyeIcon from "../icons/My_EyeIcon";
+import { dispatch } from "@/redux/hook";
+import { setSelectedBrand } from "@/redux/actions/brandsSlice";
+import { useModal } from "@/providers/context/context";
 
 
 type Props = {
@@ -15,9 +17,14 @@ type Props = {
 
 export default function BrandApprovedTable({ brands }: Props) {
 
-  const [openModalId, setOpenModalId] = useState<string | null>(null);
+  // const [openModalId, setOpenModalId] = useState<string | null>(null);
   // const {selectedBrand} = useAppSelector((state)=> state.brand)
-  const { hardDeleteSingleBrandFn, softDeleteBrandFn } = DeleteBrands();
+  // const { hardDeleteSingleBrandFn, softDeleteBrandFn } = DeleteBrands();
+  const {setIsOpen} = useModal();
+
+
+
+
 
   return (
     <div className="overflow-x-auto rounded-lg border mt-5 h-[68vh] overflow-y-auto ">
@@ -26,6 +33,8 @@ export default function BrandApprovedTable({ brands }: Props) {
           <tr>
             <th className="py-2 px-4">#</th>
             <th className="py-2 px-4">Brand</th>
+            <th className="py-2 px-4">Created By</th>
+            <th className="py-2 px-4">Status</th>
             <th className="py-2 px-4">Logo</th>
             <th className="py-2 px-4 text-right">Actions</th>
           </tr>
@@ -51,6 +60,8 @@ export default function BrandApprovedTable({ brands }: Props) {
               >
                 <td className="py-3 px-4">{index + 1}</td>
                 <td className="py-3 px-4">{brand.name}</td>
+                <td className="py-3 px-4">{brand.createdBy}</td>
+                <td className="py-3 px-4">{brand.status}</td>
                 <td className="py-3 px-4 ">
                   {/* <img
                   src={brand.logo}
@@ -78,8 +89,16 @@ export default function BrandApprovedTable({ brands }: Props) {
                 </td>
                 <td className="py-3 flex justify-end px-3">
               
+                <MyEyeIcon
+                    onClick={() => {
+                      dispatch(setSelectedBrand({ brand, mode: "view" }));
+                      setIsOpen(true);
+                      // Open brand details modal
+                    }}
+                  />
+
                   {/* ==== */}
-                  <Modal
+                  {/* <Modal
                     open={openModalId === brand._id}
                     setOpen={(value) =>
                       setOpenModalId(value ? brand._id : null)
@@ -130,13 +149,16 @@ export default function BrandApprovedTable({ brands }: Props) {
                         />
                       </div>
                     }
-                  />
+                  /> */}
                 </td>
               </tr>
             ))
           )}
         </tbody>
       </table>
+
+       {/* view details === */}
+       <BrandDetailsModal/>
 
       {/* <TaskModal>
         <TaskModalHeader>

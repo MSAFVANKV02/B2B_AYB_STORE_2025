@@ -19,3 +19,6 @@ export interface ICoupon {
   
 
   export type IMediaDataType = "pdf" | "image" | "videos" | "xl" | "";
+
+  // ==========
+  

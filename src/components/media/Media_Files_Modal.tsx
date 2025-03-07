@@ -10,10 +10,9 @@ import AyButton from "../myUi/AyButton";
 import { memo, useState } from "react";
 import { useModal } from "@/providers/context/context";
 import MyCloseIcon from "../icons/My_CloseIcon";
-import AllUploadedFiles, {
-  IFileDataMedia,
-} from "@/pages/media/retrive/all_uploaded_files";
+
 import { makeToastError } from "@/utils/toaster";
+import AllUploadedFiles, { IFileDataMedia, IFIlesCategory } from "@/pages/media/retrive/all_uploaded_files";
 
 type Props = {
   setFieldValues?: (name: string, value: any) => void;
@@ -21,6 +20,7 @@ type Props = {
   multiple?: boolean;
   handleFileUpload?: (event: IFileDataMedia[], fieldName: string) => void;
   mediaType?: "pdf" | "image" | "videos" | "xl" | "";
+  category?: IFIlesCategory;
 };
 
 function MediaFilesModal({
@@ -28,6 +28,7 @@ function MediaFilesModal({
   multiple,
   handleFileUpload,
   mediaType,
+  category
 }: Props) {
   const [selectedFiles, setSelectedFiles] = useState<IFileDataMedia[]>([]);
   const { setMediaOpenDrawer, mediaOpenDrawer } = useModal();
@@ -74,7 +75,6 @@ function MediaFilesModal({
                 }}
               />
             </DrawerTitle>
-            {/* {fieldName} */}
           </DrawerHeader>
 
           {/* Content Scrollable */}
@@ -86,6 +86,7 @@ function MediaFilesModal({
 
                 handleFileSelection(selectedFiles);
               }}
+              category={category}
               selectedFiles={selectedFiles} // Pass state
               setSelectedFiles={setSelectedFiles} 
               multiple={multiple}

@@ -4,7 +4,7 @@ import { useAppDispatch, useAppSelector } from "@/redux/hook";
 import { ICategory } from "@/types/categorytypes";
 import { Collapse } from "@mui/material";
 import { ChevronDown, ChevronUp } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { GeneralFormValues } from "./GeneralSection-page";
 import { Separator } from "@/components/ui/separator";
 import { ErrorMessage } from "formik";
@@ -17,12 +17,16 @@ type Props = {
 const CategorySelection = ({ setFieldValue, values }: Props) => {
   const categories = useAppSelector((state) => state.category.categories);
   //   console.log(JSON.stringify(categories));
-  // console.log(values);
+  // console.log(categories);
 
   const dispatch = useAppDispatch();
 
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [openRows, setOpenRows] = useState<Record<string, boolean>>({});
+
+  const categoryId = useMemo(() => {
+    return typeof values.categoryId === "string" ? values.categoryId : values.categoryId?._id;
+  }, [values.categoryId]);
 
   // Fetch categories on mount
   useEffect(() => {
@@ -35,7 +39,7 @@ const CategorySelection = ({ setFieldValue, values }: Props) => {
   // Handle category selection
   const handleCheckboxChange = (id: string) => {
     setSelectedId((prev) => (prev === id ? null : id));
-    if (values.categoryId === id) {
+    if (categoryId === id) {
       setFieldValue("categoryId", null); // Deselect category
     } else {
       setFieldValue("categoryId", id); // Select category
@@ -65,7 +69,7 @@ const CategorySelection = ({ setFieldValue, values }: Props) => {
   };
 
   // Find the selected category or subcategory based on values.categoryId
-  const selectedCategory = findCategoryById(categories, values.categoryId);
+  const selectedCategory = findCategoryById(categories, categoryId ??"");
 
   // Recursive function to render categories
   const renderCategories = (categories: ICategory[], level = 0) => {
@@ -80,7 +84,7 @@ const CategorySelection = ({ setFieldValue, values }: Props) => {
               size="small"
               color="ayaboo"
               label={category.name}
-              checked={values.categoryId === category._id}
+              checked={categoryId === category._id}
               onChange={() => handleCheckboxChange(category._id!)}
             />
             {/* <span className="cursor-pointer text-xs capitalize">
@@ -146,7 +150,11 @@ const CategorySelection = ({ setFieldValue, values }: Props) => {
   return (
     <div>
       {/* <h2 className="font-bold mb-2">Product Category</h2> */}
-      {renderCategories(categories.filter((cat) => !cat.parentId))}
+      {/* {renderCategories(categories.filter((cat) => !cat.parentId))} */}
+      {categories.some((cat) => !cat.parentId)
+        ? renderCategories(categories.filter((cat) => !cat.parentId))
+        : renderCategories(categories)}
+
       <ErrorMessage
         name={"categoryId"}
         component="span"

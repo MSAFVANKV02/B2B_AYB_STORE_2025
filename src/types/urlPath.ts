@@ -37,6 +37,8 @@ export const UPDATE_CUSTOMER_KYC_URL = `/user_api/seller/approveOrreject_Kyc`;
 // ==============****************====================
 
 export const CREATE_STORE_URL = `/user_api/seller/addStore`
+export const GET_ALL_STORE_URL = `/user_api/admin/getStore`
+
 
 // ============ media urls =========================
 // ==============****************====================
@@ -72,3 +74,37 @@ export const GET_BRAND_URL = `/product_api/brand/getAllBrands`;
 export const SOFT_DELETE_SINGLE_BRAND_URL = `/product_api/brand/softDeleteBrand`;
 export const HARD_DELETE_ALL_BRAND_URL = `/product_api/brand/hardDeleteAllBrands`;
 export const HARD_DELETE_SINGLE_BRAND_URL = `/product_api/brand/hardDeleteBrand`;
+
+
+
+// ============ CREATE  PRODUCTS =========================
+// ==============****************====================
+
+
+export const CREATE_PRODUCT_URL = `/product_api/product/addProduct`;
+export const GET_PRODUCTS_URL = `/product_api/product/get-store-products`;
+
+export const TOGGLE_PRODUCTS_URL = `/product_api/product/toggle-product-button`;
+export const CHANGE_PRODUCT_STATUS_URL = `/product_api/product/change-product-status`;
+
+
+// ============ DELETE  PRODUCTS =========================
+// ==============****************====================
+export const DELETE_PRODUCT_URL = `/product_api/product/delete`;
+export const RESTORE_DELETED_PRODUCT_URL = `/product_api/product/restore`;
+export const GET_DELETED_PRODUCT_URL = `/product_api/product/deleted-products`;
+export const GET_REQUESTED_STOCK_PRODUCT_URL = `/product_api/stock/store/request/get-requests`;
+
+
+
+
+// ============ EDIT  PRODUCTS =========================
+// ==============****************====================
+export const UPDATE_PRODUCT_URL = `/product_api/product`;
+
+
+
+// ===== stock request / get / related apis =====
+// ==================================================== //
+
+export const REQUEST_PRODUCT_STOCK_URL = `/product_api/stock/request/create`;

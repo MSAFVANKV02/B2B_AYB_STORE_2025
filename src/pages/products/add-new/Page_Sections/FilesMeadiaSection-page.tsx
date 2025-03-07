@@ -25,10 +25,10 @@ type Props = {
 };
 
 export type FileFormValues = {
-  gallery_image: File[];
-  thumbnails: File[];
-  variations: { image: File; colorCode: string; colorName: string }[];
-  sizeImages: File[];
+  gallery_image: string[];
+  thumbnails: string[];
+  variations: { image: string; colorCode: string; colorName: string }[];
+  size_chart: string;
 };
 
 export default function FilesMediaSectionPage({
@@ -53,7 +53,6 @@ export default function FilesMediaSectionPage({
   const [selectedColor, setSelectedColor] = useState<boolean>(false);
 
   // console.log(values);
-  
 
   const handleFileChange = async (
     event: IFileDataMedia[],
@@ -88,8 +87,12 @@ export default function FilesMediaSectionPage({
           }
         }
       }
-
-      if (fieldName === "variations") {
+      if (fieldName === "size_chart") {
+        // makeToastError("size chart");
+        // Since size_chart should be a single string (not an array), store only one URL
+        const srcString = files.length > 0 ? files[0].imageurl : "";
+        setFieldValue(fieldName, srcString);
+      } else if (fieldName === "variations") {
         const colorCode = ""; // Replace with actual color code logic
         const colorName = ""; // Replace with actual color name logic
 
@@ -156,7 +159,7 @@ export default function FilesMediaSectionPage({
       ];
 
       // Update Formik's field with merged variations
-      setFieldValue("variations", updatedVariations);
+      setFieldValue("variations", updatedVariations ?? []);
 
       // Clear local images to avoid duplicating them on the next save
       setProductLocalImages([]);
@@ -204,8 +207,8 @@ export default function FilesMediaSectionPage({
       mediaType: "image",
     },
     {
-      id: "sizeImages",
-      name: "sizeImages",
+      id: "size_chart",
+      name: "size_chart",
       fileType: "text",
       label: "Size chart",
       haveImageLink: true,
@@ -229,7 +232,14 @@ export default function FilesMediaSectionPage({
           >
             <FormFieldGenal
               setFieldValue={setFieldValue}
-              values={values[field.id] || []}
+              // values={Array.isArray(values[field.id]) ? values[field.id] : []}
+              values={
+                field.id === "size_chart"
+                  ? values[field.id] || ""
+                  : Array.isArray(values[field.id])
+                  ? values[field.id]
+                  : []
+              }
               id={field.id}
               name={field.id}
               title={field.label}
@@ -240,6 +250,7 @@ export default function FilesMediaSectionPage({
 
       {selectedFieldName && (
         <Media_Files_Modal
+          category="products"
           fieldName={selectedFieldName.name}
           multiple={selectedFieldName.multiple}
           mediaType={selectedFieldName.mediaType}
@@ -310,7 +321,7 @@ type FormFieldGenalProps = {
   name: string;
   fieldClassName?: string;
   setFieldValue: any;
-  values: any[];
+  values: any;
   setIsOpen?: (value: boolean) => void;
 };
 
@@ -322,23 +333,23 @@ export function FormFieldGenal({
 
   setFieldValue,
 
-  values = [],
+  values,
   setIsOpen,
 }: FormFieldGenalProps) {
   const { openMediaDrawer } = useModal();
 
   return (
-    <div className={cn("flex lg:items-center lg:flex-row flex-col justify-between lg:gap-10", className)}>
+    <div
+      className={cn(
+        "flex lg:items-center lg:flex-row flex-col justify-between lg:gap-10",
+        className
+      )}
+    >
       <Label htmlFor={name} className="text-sm text-textGray">
         {title}
       </Label>
-      <div
-        className="flex flex-col gap-1 lg:w-[70%] rel"
-       
-      >
-        <div className="flex items-center gap-3"
-         onClick={openMediaDrawer}
-        >
+      <div className="flex flex-col gap-1 lg:w-[70%] rel">
+        <div className="flex items-center gap-3" onClick={openMediaDrawer}>
           <Label
             htmlFor={id}
             className="border relative overflow-hidden items-center gap-4 rounded-md lg:w-[300px] w-full cursor-pointer flex"
@@ -356,7 +367,7 @@ export function FormFieldGenal({
               <DoneAllIcon
                 fontSize="small"
                 sx={{
-                  color: "#2B90EC",
+                  color: "#EC922B",
                 }}
               />
             </span>
@@ -369,6 +380,7 @@ export function FormFieldGenal({
         />
         {name === "variations" ? (
           <>
+           <span className="span">{title}</span>
             {values.length > 0 && (
               <div className="flex flex-col">
                 <span className="span">Selected Product Images</span>
@@ -380,21 +392,37 @@ export function FormFieldGenal({
                   }}
                   className="grid grid-cols-4 gap-2 mt-3 w-[300px]"
                 >
-                  {values.map((value) => (
+                  {Array.isArray(values) ? (
+                    values.map((value) => (
+                      <Tooltip
+                        title={`Color: ${value.colorName}`}
+                        placement="top"
+                        className="cursor-pointer"
+                      >
+                        {value.image && (
+                          <img
+                            className="h-12 w-12 rounded-full border border-gray-300"
+                            src={value.image}
+                            alt="gallery images"
+                          />
+                        )}
+                      </Tooltip>
+                    ))
+                  ) : (
                     <Tooltip
-                      title={`Color: ${value.colorName}`}
+                      title={`Color:`}
                       placement="top"
                       className="cursor-pointer"
                     >
-                      {value.image && (
+                      {values && (
                         <img
                           className="h-12 w-12 rounded-full border border-gray-300"
-                          src={value.image}
+                          src={values}
                           alt="gallery images"
                         />
                       )}
                     </Tooltip>
-                  ))}
+                  )}
                 </div>
               </div>
             )}
@@ -417,7 +445,7 @@ export function FormFieldGenal({
 type SelectedImageProps = {
   // children: React.ReactNode;
   className?: string;
-  value: File[];
+  value: any;
   title: string; // Label for the field
   alt?: string;
   setFieldValue: any; // Custom handler
@@ -432,20 +460,18 @@ export function SelectedImages({
   alt,
   setFieldValue,
 }: SelectedImageProps) {
+  // console.log(value, "value in SelectedImages");
+
   return (
     <>
-      {value.length > 0 && (
-        <div className={cn("", className)}>
-          <span className="span">{title}</span>
-          <div className="grid grid-cols-3 w-[200px] gap-2">
-            {value?.map((image: any, index: number) => (
+      <div className={cn("", className)}>
+        <span className="span">{title}</span>
+        <div className="grid grid-cols-3 w-[200px] gap-2">
+          {Array.isArray(value) ? (
+            value?.map((image: any, index: number) => (
               <div className="" key={index}>
                 <div className="w-[50px] bg-gray-100 rounded-md relative mt-3">
-                  <img
-                    src={image}
-                    alt={alt}
-                    className="object-cover "
-                  />
+                  <img src={image} alt={alt} className="object-cover " />
                   <Tooltip title={`img-${index + 1}`} placement="top-end">
                     <button
                       type="button"
@@ -462,10 +488,20 @@ export function SelectedImages({
                   </Tooltip>
                 </div>
               </div>
-            ))}
-          </div>
+            ))
+          ) : (
+            <Tooltip title={`Color:`} placement="top">
+              {value && (
+                <img
+                  className="h-12 w-12 rounded-full border border-gray-300"
+                  src={value}
+                  alt="gallery images"
+                />
+              )}
+            </Tooltip>
+          )}
         </div>
-      )}
+      </div>
     </>
   );
 }

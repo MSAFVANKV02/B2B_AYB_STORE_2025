@@ -21,15 +21,18 @@ import {
 } from "@/components/ui/select";
 import NonGstGoodsDetails from "./gstGood_Details/Non_Gst_Goods_Details";
 import CategorySelection from "./CategorySelection";
+import BrandSelectTab from "@/components/global/brand-select";
+import { IBrand } from "@/types/brandtypes";
+import { ICategory } from "@/types/categorytypes";
 
 // Define the type for form values
 export interface GeneralFormValues {
   product_name: string;
   mrp: number;
   product_sku: string;
-  categoryId:string;
+  categoryId:string | ICategory;
   barcode?: string;
-  brand?: string;
+  brand?: string | IBrand;
   keywords: string[];
   minimum_quantity: number;
   product_weight?: number;
@@ -53,13 +56,14 @@ type Props = {
 export default function GeneralSectionPage({
   values,
   setFieldValue,
+  errors
 }: // errors
 // errors,
 
 Props) {
   const isLargeScreen = useMediaQuery("(min-width: 1024px)");
 
-  // console.log(errors, "errors");
+  console.log(errors, "errors");
   // console.log(values, "values");
 
   const productFields: {
@@ -99,7 +103,7 @@ Props) {
       id: "mrp",
       title: "Product MRP",
       name: "mrp",
-      fileType: "text",
+      fileType: "number",
       placeholder: "Enter Product MRP",
       type: "number",
     },
@@ -110,6 +114,18 @@ Props) {
       fileType: "text",
       placeholder: "Enter Brand",
       type: "text",
+      render: () => {
+        return (
+          <div className="flex justify-between lg:flex-row flex-col gap-3">
+            <Label className="text-textGray text-sm">Brand</Label>
+           <BrandSelectTab 
+            setFieldValue={setFieldValue}
+            values={values}
+            errors={errors}
+           />
+          </div>
+        );
+      },
     },
     {
       id: "keywords",
@@ -120,7 +136,7 @@ Props) {
       type: "text",
       render: () => {
         return (
-          <div className="flex justify-between">
+          <div className="flex justify-between lg:flex-row flex-col gap-3">
             <Label className="text-textGray text-sm">KeyWords</Label>
             <TagInput
               tags={values.keywords ?? []}
@@ -136,14 +152,14 @@ Props) {
       id: "minimum_quantity",
       title: "Minimum Qty*",
       name: "minimum_quantity",
-      fileType: "text",
+      fileType: "number",
       placeholder: "Enter Minimum Qty",
     },
     {
       id: "product_weight",
       title: "Product product_weight in gm",
       name: "product_weight",
-      fileType: "text",
+      fileType: "number",
       placeholder: "Enter Product product_weight in gm",
     },
     // {
@@ -174,7 +190,7 @@ Props) {
                 title={field.title ?? ""}
                 id={field.id}
                 name={field.name}
-                type={field.type ?? "text"}
+                type={field.fileType }
                 placeholder={field.placeholder}
                 setFieldValue={setFieldValue}
                 fieldAs={Input}
@@ -234,6 +250,7 @@ Props) {
                 id="product_dimensions.product_length"
                 name="product_dimensions.product_length"
                 placeholder="product_length"
+                 type="number"
                 className={cn(` p-6`)}
                 as={Input}
                 value={values.product_dimensions.product_length} // Bind field value to Formik
@@ -251,7 +268,9 @@ Props) {
         <TiptapCareGuide
           label="Description"
           careGuide={values.description ?? ""}
-          onChange={(value) => console.log(value)}
+          onChange={(value) =>{
+            setFieldValue("description", value);
+            console.log(value)}}
         />
 
         {/* #Tax details ======= */}
@@ -310,7 +329,7 @@ Props) {
               handleToggle={() => {
                 setFieldValue("tax_details.isCess", !values.tax_details.isCess);
                 if (!values.tax_details.isCess)
-                  setFieldValue("values.tax_details.cess", []);
+                  setFieldValue("values.tax_details.cess", undefined);
               }}
             />
           }
@@ -322,6 +341,7 @@ Props) {
           fieldAs={Input}
           disabled={!values.tax_details.isCess}
           value={`${values.tax_details.cess}`} // Bind field value to Formik
+          setFieldValue={setFieldValue} 
         />
         {/* #status toggle ========= */}
         <b>Status</b>
@@ -498,6 +518,7 @@ export function FormFieldGenal({
                 value={value}
                 disabled={disabled}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                  console.log("New Cess Value:", e.target.value);
                   const newValue = e.target.value;
                   if (setFieldValue) {
                     setFieldValue(name, newValue);

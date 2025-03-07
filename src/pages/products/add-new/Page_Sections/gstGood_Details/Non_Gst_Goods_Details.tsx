@@ -10,7 +10,6 @@ type Props = {
 };
 
 const NonGstGoodsDetails = ({ values, setFieldValue }: Props) => {
-
   useEffect(() => {
     if (values.tax_details.calculation_types === "on_value") {
       setFieldValue("tax_details.on_items_rate_details", [
@@ -25,6 +24,14 @@ const NonGstGoodsDetails = ({ values, setFieldValue }: Props) => {
       ]);
     }
   }, [values.tax_details.calculation_types, setFieldValue]);
+
+  useEffect(() => {
+    if (values.tax_details.igst) {
+      setFieldValue("tax_details.central_tax", values.tax_details.igst / 2);
+      setFieldValue("tax_details.state_tax", values.tax_details.igst / 2);
+    }
+  }, [values.tax_details.igst]);
+
   return (
     <div className="space-y-3">
       <FormFieldGenal
@@ -54,22 +61,33 @@ const NonGstGoodsDetails = ({ values, setFieldValue }: Props) => {
           placeholder="IGST"
           className={cn(``)}
           fieldClassName="w-[200px]"
-            havePercentage
+          havePercentage
           type="number"
           fieldAs={Input}
           extraTitle={
             <div className="flex flex-col text-xs gap-2 text-textGray">
-              <span>Central Tax: <b>{values.tax_details.igst && values.tax_details.igst / 2 || 0}%</b> </span>
-              <span>State Tax: <b>{values.tax_details.igst && values.tax_details.igst / 2 || 0}%</b></span>
+              <span>
+                Central Tax:{" "}
+                <b>
+                  {(values.tax_details.igst && values.tax_details.igst / 2) ||
+                    0}
+                  %
+                </b>{" "}
+              </span>
+              <span>
+                State Tax:{" "}
+                <b>
+                  {(values.tax_details.igst && values.tax_details.igst / 2) ||
+                    0}
+                  %
+                </b>
+              </span>
             </div>
           }
           value={`${values.tax_details.igst}`} // Bind field value to Formik
         />
       ) : (
-       <GstOnItemsRate 
-        setFieldValue={setFieldValue}
-        values={values} 
-       />
+        <GstOnItemsRate setFieldValue={setFieldValue} values={values} />
       )}
     </div>
   );

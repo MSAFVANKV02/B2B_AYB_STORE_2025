@@ -111,7 +111,7 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
       // console.log(res);
       
       if (res.status === 200) {
-        dispatch(setCurrentAdminSlices(res.data.store));
+        dispatch(setCurrentAdminSlices(res.data.data));
       }
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (error) {

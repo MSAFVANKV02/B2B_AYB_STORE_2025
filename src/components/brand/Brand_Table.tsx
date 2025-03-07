@@ -16,6 +16,11 @@ export default function BrandTable({ brands }: Props) {
     return brand.status === "pending";
   });
 
+  const filterRejectedBrands = brands.filter((brand) => {
+    return brand.status === "rejected";
+  });
+
+
   return (
     <div className="">
       <MyPageTab
@@ -27,10 +32,16 @@ export default function BrandTable({ brands }: Props) {
             children: <BrandApprovedTable brands={filterApprovedBrands} />,
           },
           {
-            title: "Brand Requests",
+            title: "Requested Brand",
             value: "requested",
             url: "/products/brand?type=requested",
             children: <BrandRequestedTable brands={filterRequestedBrands} />,
+          },
+          {
+            title: "Rejected Brand",
+            value: "rejected",
+            url: "/products/brand?type=rejected",
+            children: <BrandRequestedTable brands={filterRejectedBrands} />,
           },
         ]}
       />

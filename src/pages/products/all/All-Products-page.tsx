@@ -1,102 +1,102 @@
+// import { CircleOff, ShieldCheck } from "lucide-react";
+import { getAllProductsInAdmin } from "@/actions/products/productActions";
+import { useQueryData } from "@/hooks/useQueryData";
+import { IProducts } from "@/types/productType";
+import { useEffect } from "react";
+import { dispatch } from "@/redux/hook";
+import InventoryTable from "./Inventory/InventoryTable";
 
-
-import SellerRequestTable from "./products_tables/Seller_Request_Table";
-import { useEffect, useState } from "react";
-import { ProductTableColumns } from "@/components/tasks/table_columns/products-table-columns";
-import { DataTable } from "@/components/tasks/task_components/data-table";
-import { CircleOff, ShieldCheck } from "lucide-react";
+import { useSearchParams } from "react-router-dom";
 import MyPageTab from "@/components/myUi/MyTabs";
-
-const statuses = [
-  {
-    value: "active",
-    label: "Active",
-    icon: ShieldCheck,
-  },
-  {
-    value: "hold",
-    label: "Hold",
-    icon: CircleOff,
-  },
-];
+import { addProductRedux } from "@/redux/actions/product_Slice";
 
 export default function AllProductsPage() {
-  const [products, setProducts] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [searchParams] = useSearchParams();
+  const urlTypes = searchParams.get("type");
+  const {
+    data: fetchedProducts,
+    isFetching,
+    refetch,
+  } = useQueryData(
+    ["all-products", urlTypes],
+    () =>
+      getAllProductsInAdmin(
+        [
+          {
+            key: "",
+            value: "",
+          },
+        ],
+        urlTypes === "deleted-product" ? "deleted" : undefined
+      ) // Wrap in an arrow function
+  );
+  // console.log(fetchedProducts,'fetchedProducts');
 
-  //   console.log(products);
+  // const { products } = useAppSelector((state) => state.products);
+
+  const { data: product = [] } = (fetchedProducts ?? {}) as {
+    status?: number;
+    data?: IProducts[];
+  };
+
+  // console.log(product,'productproduct');
 
   useEffect(() => {
-    async function fetchTasks() {
-      try {
-        const response = await fetch(
-          "/src/components/tasks/data/productData.json"
-        ); // Replace with the appropriate API route
-        const data = await response.json();
-        // const validTasks = z.array(taskSchema).parse(data);
-        setProducts(data);
-      } catch (error) {
-        console.error("Error fetching tasks:", error);
-      } finally {
-        setLoading(false);
-      }
+    if (product.length > 0) {
+      dispatch(addProductRedux(product));
     }
+  }, [product, urlTypes, refetch]);
 
-    fetchTasks();
-  }, []);
-
-  if (loading) return <div>Loading...</div>;
+  useEffect(() => {
+    // fetch()
+    refetch();
+  }, [urlTypes, refetch]);
 
   return (
-    <div className="min-h-screen bg-white rounded-md p-3">
-     
-       
-        <MyPageTab
-          // setTypeUrl={setSelectedTab}
-          tabs={[
-            {
-              value: "all-product",
-              title: "All Product",
-              url: "/products/all?type=all-product",
-              children: (
-                <div className="w-full">
-                  <DataTable
-                    enableSearch
-                    columns={ProductTableColumns}
-                    data={products}
-                    searchWith="product_name"
-                    statuses={statuses}
-                    enableStatus={true}
-                    enableView
-                  />
-                </div>
-              ),
-            },
-            {
-              value: "requested-product",
-              title: "Store product request",
-              url: "/products/all?type=requested-product",
-              children: (
-                <div className="w-full">
-                  <SellerRequestTable />
-                </div>
-              ),
-            },
-           
-            {
-              value: "new-product",
-              title: "New Product",
-              url: "/products/all?type=new-product",
-              children: (
-                <div className="w-full">
-                  <SellerRequestTable />
-                </div>
-              ),
-            },
-          ]}
-        />
-
-      
+    <div className="min-h-screen bg-white rounded-md p-3 overflow-x-hidden">
+      <MyPageTab
+        // setTypeUrl={setSelectedTab}
+        tabs={[
+          {
+            value: "all-product",
+            title: "All Products",
+            url: "/products/all?type=all-product",
+            children: (
+              <div className="overflow-x-auto w-full">
+                <InventoryTable
+                  refetch={refetch}
+                  products={product}
+                  loading={isFetching}
+                />
+              </div>
+            ),
+          },
+          {
+            value: "deleted-product",
+            title: "Trash",
+            url: "/products/all?type=deleted-product",
+            children: (
+              <div className="overflow-x-auto w-full">
+                <InventoryTable
+                  refetch={refetch}
+                  products={product}
+                  loading={isFetching}
+                />
+              </div>
+            ),
+          },
+          // {
+          //   value: "new-product",
+          //   title: "New Product",
+          //   url: "/products/all?type=new-product",
+          //   children: (
+          //     <div className="w-full">
+          //       <SellerRequestTable />
+          //     </div>
+          //   ),
+          // },
+        ]}
+      />
     </div>
   );
 }

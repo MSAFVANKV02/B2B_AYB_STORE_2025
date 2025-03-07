@@ -6,7 +6,7 @@ import { useCallback } from "react";
 function NavigationList() {
   const { currentAdmin } = useAppSelector((state) => state.admin);
 
-  console.log(currentAdmin,'currentAdmin');
+  // console.log(currentAdmin,'currentAdmin');
   
 
   const NAVIGATION = [
@@ -35,7 +35,7 @@ function NavigationList() {
         {
           title: "Add New Product",
           segment: "/products/add-new",
-          subscribed: "premium",
+          subscribed: "free",
         },
         { title: "All Products", segment: "/products/all", subscribed: "free" },
         { title: "Brand", segment: "/products/brand", subscribed: "free" },

@@ -1,44 +1,49 @@
+
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
-import { IPricePerPieces } from "@/types/productType";
+import { IPricePerPieces, IProducts } from "@/types/productType";
 import { Icon } from "@iconify/react";
 import { makeToastError } from "@/utils/toaster";
 
 type Props = {
   pricePerPieces: IPricePerPieces[];
   setFieldValue: (field: string, value: any) => void;
+  values: IProducts;
 };
 
 export default function PricePerPiecesComponent({
   pricePerPieces,
   setFieldValue,
+  values
 }: Props) {
   const handleAddField = () => {
     const newField = {
-      _id: Date.now().toString(),
-      min_Piece: 0,
+      minPiece: values.minimum_quantity ? values.minimum_quantity : 0,
       max_Piece: 0,
       discount: 0,
     };
     setFieldValue("price_per_pieces", [...pricePerPieces, newField]);
   };
 
-  const handleRemoveField = (id: string) => {
-    if(pricePerPieces.length === 1) {
+  const handleRemoveField = (index: number) => {
+    if (pricePerPieces.length === 1) {
       makeToastError("Cannot remove the first field.");
       return;
     }
-    const updatedFields = pricePerPieces.filter((item) => item._id !== id);
+    const updatedFields = pricePerPieces.filter((_, i) => i !== index);
     setFieldValue("price_per_pieces", updatedFields);
   };
 
   const handleChange = (
-    id: string,
+    index: number,
     field: keyof IPricePerPieces,
     value: number
   ) => {
-    const updatedFields = pricePerPieces.map((item) =>
-      item._id === id ? { ...item, [field]: value } : item
+    if (field === "minPiece" && values.minimum_quantity) {
+      value = Math.max(value, values.minimum_quantity); // Prevent entering value lower than minimum_quantity
+    }
+    const updatedFields = pricePerPieces.map((item, i) =>
+      i === index ? { ...item, [field]: value } : item
     );
     setFieldValue("price_per_pieces", updatedFields);
   };
@@ -51,49 +56,42 @@ export default function PricePerPiecesComponent({
       </div>
       <div className="p-2">
         {pricePerPieces.map((field, index) => (
-          <div key={field._id} className="flex items-center gap-4 mb-2">
-            <div className=" flex flex-col items-center">
-            {index === 0 && <span className="span">min</span>}
-            
+          <div key={index} className="flex items-center gap-4 mb-2">
+            <div className="flex flex-col items-center">
+              {index === 0 && <span className="span">min</span>}
               <Input
                 type="number"
-                className="w-[60px]"
+                className="w-[80px]"
                 placeholder="Min"
-                value={field.min_Piece}
-                onChange={(e) =>
-                  handleChange(field._id!, "min_Piece", +e.target.value)
-                }
+                min={values.minimum_quantity ? values.minimum_quantity : 0}
+                value={field.minPiece}
+                onChange={(e) => handleChange(index, "minPiece", +e.target.value)}
               />
             </div>
             <span className="pt-3">-</span>
-            <div className=" flex flex-col items-center">
-            {index === 0 && <span className="span">max</span>}
+            <div className="flex flex-col items-center">
+              {index === 0 && <span className="span">max</span>}
               <Input
                 type="number"
-                className="w-[60px]"
+                  className="w-[80px]"
                 placeholder="Max"
-                value={field.max_Piece}
-                onChange={(e) =>
-                  handleChange(field._id!, "max_Piece", +e.target.value)
-                }
+                value={field.maxPiece}
+                onChange={(e) => handleChange(index, "maxPiece", +e.target.value)}
               />
             </div>
 
             <span className="pt-3">=</span>
-            <div className=" flex flex-col items-center">
-            {index === 0 && <span className="text-white select-none">discount</span>}
-            <Input
-              type="number"
-              className="w-full"
-              placeholder="Discount"
-              value={field.discount}
-              onChange={(e) =>
-                handleChange(field._id!, "discount", +e.target.value)
-              }
-            />
+            <div className="flex flex-col items-center">
+              {index === 0 && <span className="text-white select-none">discount</span>}
+              <Input
+                type="number"
+                className="w-full"
+                placeholder="Discount"
+                value={field.discount}
+                onChange={(e) => handleChange(index, "discount", +e.target.value)}
+              />
             </div>
-           
-            <button onClick={() => handleRemoveField(field._id!)}>
+            <button onClick={() => handleRemoveField(index)}>
               <Icon icon="fluent:delete-24-regular" />
             </button>
           </div>
@@ -102,7 +100,6 @@ export default function PricePerPiecesComponent({
       <div className="p-2">
         <Button
           variant="outline"
-
           type="button"
           className="w-full border-dashed bg-gray-50 border-textMain"
           onClick={handleAddField}

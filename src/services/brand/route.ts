@@ -8,6 +8,7 @@ import {
 } from "@/types/urlPath";
 import { API } from "../auth/route";
 import { IBrandGetStatus } from "@/types/brandtypes";
+import Cookies from "js-cookie";
 
 export const create_Brand_Api = async (data: {
   name: string;
@@ -16,11 +17,20 @@ export const create_Brand_Api = async (data: {
   trademarkCertificate: string;
   certificateOwnerName: string;
   nonObjectiveDocument: string;
-}) => await API.post(CREATE_BRAND_URL, data, { withCredentials: true });
+}) => {
+  const token = Cookies.get("st_b2b_tkn");
+
+  return await API.post(CREATE_BRAND_URL, data, {
+    withCredentials: true,
+    headers: {
+      Authorization: `Bearer ${token}`, // Passing token in Authorization header
+    },
+  });
+};
 
 //   2. Get all Brands =
-export const get_Brand_Api = async (status:IBrandGetStatus) =>
-  await API.post(GET_BRAND_URL, status , { withCredentials: true });
+export const get_Brand_Api = async (status: IBrandGetStatus) =>
+  await API.post(GET_BRAND_URL, status, { withCredentials: true });
 
 // 3. soft delete single brand
 export const soft_Delete_Single_Brand_Api = async (id: string) =>
@@ -39,14 +49,16 @@ export const hard_Delete_Single_Brand_Api = async (id: string) =>
     withCredentials: true,
   });
 
-
-  // 6. update brands 
-export const update_Brand_Api = async (data: {
-  name: string;
-  logo: string;
-  trademarkNumber: string;
-  trademarkCertificate: string;
-  certificateOwnerName: string;
-  nonObjectiveDocument: string;
-},id:string) =>
-  await API.put(`${UPDATE_BRAND_URL}/${id}`, data , { withCredentials: true });
+// 6. update brands
+export const update_Brand_Api = async (
+  data: {
+    name: string;
+    logo: string;
+    trademarkNumber: string;
+    trademarkCertificate: string;
+    certificateOwnerName: string;
+    nonObjectiveDocument: string;
+  },
+  id: string
+) =>
+  await API.put(`${UPDATE_BRAND_URL}/${id}`, data, { withCredentials: true });

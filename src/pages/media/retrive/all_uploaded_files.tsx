@@ -1,4 +1,3 @@
-
 import AyButton from "@/components/myUi/AyButton";
 import MyPdf from "@/components/myUi/MyPdf";
 import { Calendar } from "@/components/ui/calendar";
@@ -25,9 +24,9 @@ import {
 import MyDeleteIcon from "@/components/icons/My_DeleteIcon";
 import Modal from "@/components/modals/main";
 import { Trash } from "lucide-react";
+import { useQueryData } from "@/hooks/useQueryData";
 import { getAllMediaById } from "@/actions/media/mediaAction";
 import CheckBox from "@/components/myUi/checkBox";
-import { useQueryData } from "@/hooks/useQueryData";
 
 export interface IFileDataMedia {
   _id: string;
@@ -38,7 +37,10 @@ export interface IFileDataMedia {
   width: number;
   height: number;
   uploadedAt: Date;
+  category:IFIlesCategory
 }
+
+export type IFIlesCategory = "all"|"products"|"category"|"brand"
 
 type Props = {
   onClick?: (selectedFiles: IFileDataMedia[], imageurl: string[]) => void;
@@ -46,6 +48,7 @@ type Props = {
   mediaType?: "pdf" | "image" | "videos" | "xl" | "";
   selectedFiles?: IFileDataMedia[]; // New prop
   setSelectedFiles?: (files: IFileDataMedia[]) => void; // New prop
+  category?: IFIlesCategory;
 };
 
 export default function AllUploadedFiles({
@@ -54,6 +57,7 @@ export default function AllUploadedFiles({
   mediaType = "",
   selectedFiles = [],
   setSelectedFiles,
+  category="all"
 }: Props) {
   const { handleClick } = useNavigateClicks();
   // const { media: files } = useAppSelector((state) => state.media);
@@ -76,13 +80,38 @@ export default function AllUploadedFiles({
     {}
   );
 
+  // const [selectedFiles, setSelectedFiles] = useState<IFileDataMedia[]>([]);
+
+  // useEffect(() => {
+  //   // dispatch(fetchMediaDetails());
+  //   dispatch(setMediaData(data));
+
+  // }, [dispatch]);
+
+  // console.log(date);
+
+  // const filteredFiles = files.filter(
+  //   (file) =>
+  //     !date || new Date(file.uploadedAt).toDateString() === date.toDateString()
+  // );
+  // const filteredFiles = Array.isArray(files)
+  //   ? files.filter(
+  //       (file) =>
+  //         !date ||
+  //         new Date(file.uploadedAt).toDateString() === date.toDateString()
+  //     )
+  //   : [];
   const filteredFiles = Array.isArray(files)
-    ? files.filter(
-        (file) =>
-          !date ||
-          new Date(file.uploadedAt).toDateString() === date.toDateString()
-      )
-    : [];
+  ? files.filter((file) => {
+      const matchesCategory = category === "all" || file.category === category;
+      const matchesDate =
+        !date || new Date(file.uploadedAt).toDateString() === date.toDateString();
+      const matchesMediaType = mediaType === "" || file.format.startsWith(`${mediaType}/`);
+
+      return matchesCategory && matchesDate && matchesMediaType;
+    })
+  : [];
+
 
   const categorizedFiles = {
     image: filteredFiles.filter((file) => file.format.startsWith("image/")),
@@ -177,6 +206,29 @@ export default function AllUploadedFiles({
     }
   };
 
+  // ======= working fine old function for select files =====
+
+  // const handleFileClick = (file: IFileDataMedia) => {
+  //   let updatedFiles;
+  //   if (multiple) {
+  //     if (
+  //       selectedFiles.some((selected) => selected.imageurl === file.imageurl)
+  //     ) {
+  //       updatedFiles = selectedFiles.filter(
+  //         (selected) => selected.imageurl !== file.imageurl
+  //       );
+  //     } else {
+  //       updatedFiles = [...selectedFiles, file];
+  //     }
+  //   } else {
+  //     updatedFiles = selectedFiles[0]?.imageurl === file.imageurl ? [] : [file];
+  //   }
+  //   setSelectedFiles(updatedFiles);
+  //   onClick?.(
+  //     updatedFiles,
+  //     updatedFiles.map((file) => file.imageurl)
+  //   );
+  // };
 
   if (isFetching) return <PreloaderPage />;
 

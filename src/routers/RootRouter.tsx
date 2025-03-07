@@ -3,7 +3,7 @@ import DashboardPage from "@/pages/dashboard/dashboard-page";
 import { createBrowserRouter, Navigate } from "react-router-dom";
 
 import ProtectedRoute from "@/middlewares/ProtectedRoute";
-import ErrorPage from "@/Error-Page";
+// import ErrorPage from "@/Error-Page";
 import LoginPage from "@/pages/auth/Login-Page";
 import {
   ProductsLayout,
@@ -11,6 +11,7 @@ import {
   StoreManagementLayout,
   SettingsLayout,
   SalesLayout,
+  SellerManagementLayout,
 } from "@/layouts/Sidbar_Layout";
 import ProductAddPage from "@/pages/products/add-new/product-add-page";
 import AllProductsPage from "@/pages/products/all/All-Products-page";
@@ -33,6 +34,7 @@ import AllUploadedFiles from "@/pages/media/retrive/all_uploaded_files";
 import AllOrdersPage from "@/pages/orders/all/all-oders-page";
 import CustomerRefundPage from "@/pages/orders/customer-refunds/customer-refund-page";
 import CustomersPage from "@/pages/customers/customers-page";
+import SellerManagementPage from "@/pages/seller-management/seller-management-page";
 
 const rootRouter = createBrowserRouter(
   [
@@ -126,7 +128,7 @@ const rootRouter = createBrowserRouter(
         // },
 
         {
-          path: "/seller",
+          path: "/stock",
           element: <StoreManagementLayout />, // Parent layout for Store Management
           children: [
             { path: "stock-request", element: <StoreManagementPage /> },
@@ -136,6 +138,16 @@ const rootRouter = createBrowserRouter(
             // { path: "earnings", element: <StoreEarningsPage /> },
             // { path: "commission", element:<StoreCommissionPage /> },
           ],
+        },
+        // === seller management ===
+        {
+          path:"/seller",
+          element: <SellerManagementLayout />,
+          children:[
+            { path: "new-products", element: <SellerManagementPage />},
+            { path: "stock-request", element: <StoreManagementPage /> },
+          ]
+
         },
 
         {
@@ -155,7 +167,23 @@ const rootRouter = createBrowserRouter(
     },
     {
       path: "*",
-      element: <ErrorPage />,
+      // element: <ErrorPage />,
+      // element: <App />,
+      element:  <App/>,
+      children:[
+        {
+          path: "*",
+          element: (
+            <>
+                   {/* <Navigate to="/error" replace /> */}
+                   <PageOnBuild title="Not Available"/>
+            </>
+     
+          ),
+        },
+      ]
+     
+
     },
   ]
   // ,{

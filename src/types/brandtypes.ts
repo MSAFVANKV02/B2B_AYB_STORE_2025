@@ -8,9 +8,10 @@ export interface IBrand {
   nonObjectiveDocument: string;
   isDeleted: boolean;
   status:"pending"|"rejected"|"approved";
+  createdBy:string;
   createdAt: string;
   updatedAt: string;
 }
 
 
-export type IBrandGetStatus = "approved"|"rejected"|""
+export type IBrandGetStatus = "approved"|"rejected"|"pending"|""

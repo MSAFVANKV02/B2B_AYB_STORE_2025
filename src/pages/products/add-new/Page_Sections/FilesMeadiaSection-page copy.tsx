@@ -26,7 +26,7 @@
 //   gallery_image: File[];
 //   thumbnails: File[];
 //   variations: { image: File; colorCode: string; colorName: string }[];
-//   sizeImages: File[];
+//   size_chart: File[];
 // };
 
 // export default function FilesMediaSectionPage({
@@ -40,7 +40,29 @@
 //   >([]);
 //   const [selectedColor, setSelectedColor] = useState<boolean>(false);
 
-  
+//   // const handleFileChange = (
+//   //   event: React.ChangeEvent<HTMLInputElement>,
+//   //   fieldName: string
+//   // ) => {
+//   //   const files = event.target.files;
+//   //   if (files) {
+//   //     const fileArray = Array.from(files); // Convert FileList to an array
+
+//   //     if (fieldName === "variations" && files) {
+//   //       const colorCode = ""; // Replace with actual color code logic
+//   //       const colorName = ""; // Replace with actual color name logic
+
+//   //       const newImages = fileArray.map((file) => ({
+//   //         image: file,
+//   //         colorCode,
+//   //         colorName,
+//   //       }));
+//   //       setIsOpen(true);
+//   //       return setProductLocalImages((prev) => [...prev, ...newImages]);
+//   //     }
+//   //     setFieldValue(fieldName, fileArray); // Use array format for Formik state
+//   //   }
+//   // };
 
 //   const handleFileChange = async (
 //     event: React.ChangeEvent<HTMLInputElement>,
@@ -274,14 +296,14 @@
 //           onChange={(e) => handleFileChange(e, "variations")}
 //         />
 
-//         {/* sizeImages */}
+//         {/* size_chart */}
 //         <FormFieldGenal
-//           values={values.sizeImages}
+//           values={values.size_chart}
 //           setFieldValue={setFieldValue}
-//           id="sizeImages"
-//           name="sizeImages"
+//           id="size_chart"
+//           name="size_chart"
 //           title="Size chart"
-//           onChange={(e) => handleFileChange(e, "sizeImages")}
+//           onChange={(e) => handleFileChange(e, "size_chart")}
 //         />
 //       </div>
 
@@ -321,8 +343,8 @@
 //         )}
 
 //         <SelectedImages
-//           value={values.sizeImages}
-//           name="sizeImages"
+//           value={values.size_chart}
+//           name="size_chart"
 //           title="selected Size Images"
 //           alt="gallery images"
 //           setFieldValue={setFieldValue}
@@ -435,7 +457,7 @@
 //               <DoneAllIcon
 //                 fontSize="small"
 //                 sx={{
-//                   color: "#2B90EC",
+//                   color: "#5F08B1",
 //                 }}
 //               />
 //             </span>
