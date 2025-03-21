@@ -18,11 +18,13 @@ import React, {
 } from "react";
 
 // Define the context type
-interface ModalContextType {
+interface ModalContextType<T = any> {
   isOpen: boolean;
   mediaOpenDrawer: boolean;
   selectedTask: IUserProps | null;
+  dynamicSelectedTask: T | null;
   openModal: (task: any, type: IModalTypes) => void;
+  dynamicOpenModal: (task: T) => void;
   openProductModal: (task: any) => void;
   closeModal: () => void;
   isOfflineTable: boolean;
@@ -37,7 +39,7 @@ interface ModalContextType {
   setDrawerFieldName: Dispatch<SetStateAction<string | null>>;
   setIsOpen: Dispatch<SetStateAction<boolean>>;
   setMediaOpenDrawer: Dispatch<SetStateAction<boolean>>;
-
+  setDynamicSelectedTask: Dispatch<SetStateAction<any | null>>;
   setSelectedCategory: Dispatch<SetStateAction<ICategory | null>>;
   selectedProducts: IProducts | null;
   selectedCategory: ICategory | null;
@@ -45,6 +47,8 @@ interface ModalContextType {
   handleLogout: () => void;
   openMediaDrawer: () => void;
   closeMediaDrawer: () => void;
+  dynamicCloseModal: () => void;
+
   
 }
 
@@ -52,14 +56,17 @@ interface ModalContextType {
 const ModalContext = createContext<ModalContextType | undefined>(undefined);
 
 // Create a provider component
-export const ModalProvider: React.FC<{ children: ReactNode }> = ({
-  children,
-}) => {
+// export const ModalProvider: React.FC<{ children: ReactNode }> = ({
+//   children,
+// }) => {
+  export const ModalProvider = <T,>({ children }: { children: ReactNode }) => {
   const dispatch = useAppDispatch();
   const { handleClick } = useNavigateClicks();
 
   const [isOpen, setIsOpen] = useState(false);
   const [selectedTask, setSelectedTask] = useState<IUserProps |null>(null);
+  const [dynamicSelectedTask, setDynamicSelectedTask] = useState<T | null>(null);
+
   const [selectedProducts, setSelectedProducts] = useState<IProducts | null>(
     null
   );
@@ -89,6 +96,17 @@ export const ModalProvider: React.FC<{ children: ReactNode }> = ({
     setIsOpen(true);
     setModalTypeDashboard(type);
   };
+
+  const dynamicOpenModal = (task: T) => {
+    setDynamicSelectedTask(task);
+    setIsOpen(true);
+  };
+
+  const dynamicCloseModal = () => {
+    setDynamicSelectedTask(null);
+    setIsOpen(false);
+  };
+
   const closeModal = () => {
     setIsOpen(false);
     setSelectedTask(null);
@@ -168,7 +186,11 @@ export const ModalProvider: React.FC<{ children: ReactNode }> = ({
         openMediaDrawer,
         setMediaOpenDrawer,
         openDrawerFieldName,
-        setDrawerFieldName
+        setDrawerFieldName,
+        dynamicOpenModal,
+        dynamicSelectedTask,
+        setDynamicSelectedTask,
+        dynamicCloseModal
       }}
     >
       {children}
@@ -177,8 +199,9 @@ export const ModalProvider: React.FC<{ children: ReactNode }> = ({
 };
 
 // Custom hook to use the ModalContext
-export const useModal = () => {
-  const context = useContext(ModalContext);
+export const useModal =  <T,>() => {
+  // const context = useContext(ModalContext);
+  const context = useContext(ModalContext as React.Context<ModalContextType<T> | undefined>);
   if (!context) {
     throw new Error("useModal must be used within a ModalProvider");
   }

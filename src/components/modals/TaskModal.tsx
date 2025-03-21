@@ -35,9 +35,10 @@ export default function TaskModal({
       shouldCloseOnOverlayClick={true}
       overlayClassName="fixed inset-0 bg-black/20 backdrop-filter  flex items-center justify-center z-[10000] "
       className={cn(
-        `bg-white  md:rounded-lg rounded-none  min-w-xl w-[30vw] p-4 h-[80vh]  outline-none  overflow-y-auto relative z-[10001]`,
+        `bg-white md:rounded-lg rounded-none min-w-xl w-[30vw] p-4 h-[80vh] flex flex-col outline-none overflow-hidden relative z-[10001]`,
         className
       )}
+      
     >
       {/* <div className="md:hidden block">
         <MyBackBtn
@@ -86,7 +87,7 @@ export function TaskModalContent({
   children,
   className,
 }: TaskModalContentProps) {
-  return <div className={cn("flex-grow", className)}>{children}</div>;
+  return <div className={cn("flex flex-col flex-grow overflow-auto", className)}>{children}</div>;
 }
 
 type TaskModalFooterProps = {

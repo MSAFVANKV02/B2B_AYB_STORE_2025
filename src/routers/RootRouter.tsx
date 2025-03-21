@@ -34,7 +34,7 @@ import AllUploadedFiles from "@/pages/media/retrive/all_uploaded_files";
 import AllOrdersPage from "@/pages/orders/all/all-oders-page";
 import CustomerRefundPage from "@/pages/orders/customer-refunds/customer-refund-page";
 import CustomersPage from "@/pages/customers/customers-page";
-import SellerManagementPage from "@/pages/seller-management/seller-management-page";
+import SellerNewAddedProductsPage from "@/pages/seller-management/new-product-from-seller/seller-new-products-page";
 
 const rootRouter = createBrowserRouter(
   [
@@ -144,7 +144,7 @@ const rootRouter = createBrowserRouter(
           path:"/seller",
           element: <SellerManagementLayout />,
           children:[
-            { path: "new-products", element: <SellerManagementPage />},
+            { path: "new-products", element: <SellerNewAddedProductsPage />},
             { path: "stock-request", element: <StoreManagementPage /> },
           ]
 

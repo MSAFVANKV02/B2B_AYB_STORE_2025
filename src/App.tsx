@@ -10,10 +10,14 @@ import { ModalProvider } from "./providers/context/context";
 import HelperIcon from "./components/helper-line/helper-icon";
 import { useEffect } from "react";
 import { Trans, useTranslation } from "react-i18next";
-import { dehydrate, HydrationBoundary, QueryClient } from "@tanstack/react-query";
+import {
+  dehydrate,
+  HydrationBoundary,
+  QueryClient,
+} from "@tanstack/react-query";
 import ReactQueyProvider from "./providers/react-quey";
 import QueryLayout from "./layouts/queryLayout";
-
+import { TooltipProvider } from "./components/ui/tooltip";
 
 export default function MiniDrawer() {
   const { i18n } = useTranslation();
@@ -51,36 +55,29 @@ export default function MiniDrawer() {
               }}
             >
               <DrawerHeader />
-             
 
               <ReactQueyProvider>
                 <HydrationBoundary state={dehydrate(query)}>
-                <QueryLayout>
-                    <Outlet />
-                </QueryLayout>
-               
-              </HydrationBoundary>
+                  <QueryLayout>
+                    <TooltipProvider delayDuration={100}>
+                      <Outlet />
+                    </TooltipProvider>
+                  </QueryLayout>
+                </HydrationBoundary>
               </ReactQueyProvider>
             </Box>
           </ThemProviderMui>
         </Box>
       </ModalProvider>
-      
 
       {/* === chat bot ====== */}
-      {
-        window.location.pathname !== '/store/conversations' && (
-          <HelperIcon />
-        )
-      }
-  
+      {window.location.pathname !== "/store/conversations" && <HelperIcon />}
 
       <div className="h-10 bg-white border-t text-gray-400 text-xs w-full flex justify-end items-center px-3">
         <span className="select-none text-xs">
-        <Trans>
-          Copyright 2024 All Rights Are Reserved | © Ayaboo by Haash.Tech
-        </Trans>
-          
+          <Trans>
+            Copyright 2024 All Rights Are Reserved | © Ayaboo by Haash.Tech
+          </Trans>
         </span>
       </div>
     </div>

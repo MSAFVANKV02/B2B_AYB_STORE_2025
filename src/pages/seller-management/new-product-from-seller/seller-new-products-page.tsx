@@ -10,12 +10,11 @@ import {
 } from "@/actions/products/productActions";
 import { useSearchParams } from "react-router-dom";
 import { useQueryData } from "@/hooks/useQueryData";
-import { SELLER_INVENTORY_COLUMNS } from "./table-cells/seller-inventory-columns";
+import { SELLER_NEW_PRODUCT_INVENTORY_COLUMNS } from "./table-cells/seller-new-product-inventory-columns";
 import MyPageTab from "@/components/myUi/MyTabs";
 import { SELLER_STOCK_INVENTORY_COLUMNS } from "./table-cells/seller-stock-inventory-columns";
-import { ExpandableRowComponent } from "@/components/tables/inventory-table/Inventory-Cells/expandable-varients";
 
-const SellerManagementPage = () => {
+const SellerNewAddedProductsPage = () => {
   const [searchParams] = useSearchParams();
   const urlTypes = searchParams.get("type");
   const {
@@ -42,6 +41,7 @@ const SellerManagementPage = () => {
   };
 
   
+  console.log(product, "product");
 
   // let product: IProducts[] | IStockType[] = [];
 
@@ -73,10 +73,11 @@ const SellerManagementPage = () => {
                 children: (
                   <div className="overflow-x-auto w-full">
                     <InventoryDataTable
-                      expandableRowsComponent={ExpandableRowComponent}
+                      // expandableRowsComponent={ExpandableRowComponent}
+                      expandableRows={false}
                       products={product}
                       loading={isFetching}
-                      columns={SELLER_INVENTORY_COLUMNS(refetch)}
+                      columns={SELLER_NEW_PRODUCT_INVENTORY_COLUMNS(refetch)}
                     />
                   </div>
                 ),
@@ -88,10 +89,12 @@ const SellerManagementPage = () => {
                 children: (
                   <div className="overflow-x-auto w-full">
                     <InventoryDataTable
-                      expandableRowsComponent={ExpandableRowComponent}
+                      // expandableRowsComponent={ExpandableRowComponent}
+                      expandableRows={false}
+
                       products={product}
                       loading={isFetching}
-                      columns={SELLER_STOCK_INVENTORY_COLUMNS(refetch)}
+                      columns={SELLER_STOCK_INVENTORY_COLUMNS()}
                     />
                   </div>
                 ),
@@ -109,4 +112,4 @@ const SellerManagementPage = () => {
   );
 };
 
-export default SellerManagementPage;
+export default SellerNewAddedProductsPage;

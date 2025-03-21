@@ -46,14 +46,14 @@ export const getAllRequestedProductsInStore = async (
 
 ) => {
   try {
-    console.log('url');
+    // console.log('url');
   
 
 
     const { data, status } =  await get_Requested_Product_Api() ;
     if (status === 200 || status === 201) {
       // return { status: 200, data: data.file }; 
-       console.log( data,'adadasda');
+      //  console.log( data,'adadasda');
       return {
         status: status,
         data: data.data,

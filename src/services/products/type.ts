@@ -1,5 +1,5 @@
 export interface IRequestProductType {
-    request_type: "new_stock"|"stock_transfer"
+    request_type?: "new_stock"|"stock_transfer"
     source_store: string
     destination: string
     product_details: ProductDetail[]

@@ -14,10 +14,11 @@ interface Props {
   products: any[];
   loading: boolean;
   columns: TableColumn<any>[]; // Ensure columns are of type IProducts
-  expandableRowsComponent: React.FC<{ data: any }>;
+  expandableRowsComponent?: React.FC<{ data: any }>;
+  expandableRows?: boolean;
 }
 
-const InventoryDataTable = ({ products = [], loading, columns, expandableRowsComponent }: Props) => {
+const InventoryDataTable = ({ products = [], loading, columns, expandableRowsComponent,expandableRows=true }: Props) => {
   const [expandedRow, setExpandedRow] = useState<string | null>(null);
   const { filteredData: filteredProducts, handleSearch } =
     useSearchFn<IProducts>(products);
@@ -58,7 +59,7 @@ const InventoryDataTable = ({ products = [], loading, columns, expandableRowsCom
           customStyles={CustomStylesInventory}
           pagination
           responsive
-          expandableRows
+          expandableRows={expandableRows}
           expandableRowExpanded={(row) => String(row._id) === expandedRow}
           onRowExpandToggled={(_, row) => handleRowExpand(row)}
           expandableRowsComponent={expandableRowsComponent}

@@ -11,13 +11,13 @@ type Props = {
 }
 
 const ActionsCellRenderer = ({data}: Props) => {
-  const { setIsOpen } = useModal();
+  const {  dynamicOpenModal } = useModal();
 
   return (
     <div>
         <div className='text-textMain flex items-center gap-2 cursor-pointer'
         onClick={()=>{
-          setIsOpen(true)
+          dynamicOpenModal(data)
         
         }}
         >
@@ -25,7 +25,7 @@ const ActionsCellRenderer = ({data}: Props) => {
         </div>
 
         <RequestStockModal 
-        data={data}
+        // data={data}
         />
     </div>
   )

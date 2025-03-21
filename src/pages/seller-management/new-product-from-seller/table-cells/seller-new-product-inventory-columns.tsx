@@ -1,21 +1,19 @@
-import { MySwitch } from "@/components/myUi/mySwitch";
-import { toggleProductButton } from "@/redux/actions/product_Slice";
-import { dispatch } from "@/redux/hook";
+
 import { IProducts, IProductStatus } from "@/types/productType";
 import { TableColumn } from "react-data-table-component";
+
 
 // import { ActionsCellRenderer } from "./RenderAction_Cell";
 import { Badge } from "@/components/ui/badge";
 import Image from "@/components/global/image";
-import { makeToastError } from "@/utils/toaster";
 import ActionsCellRenderer from "./ActionsCellRenderer";
-export const SELLER_INVENTORY_COLUMNS = (
+export const SELLER_NEW_PRODUCT_INVENTORY_COLUMNS = (
   refetch: () => void
 ): TableColumn<IProducts>[] => [
   // {
   //     name: " ",
   //     selector: row => row._id || "",  // Just a placeholder, does not affect functionality
-  //     width: "50px",
+      // width: "50px",
   //     center: true,
   //     omit: false,  // Ensure it is not omitted
   //   },
@@ -24,11 +22,15 @@ export const SELLER_INVENTORY_COLUMNS = (
     cell: (row) => {
       const variations = row.variations ?? [];
 
-      const allSizes = (variations ?? [])
-        .flatMap((variant: any) =>
-          (variant.details ?? []).map((detail: any) => detail.size)
-        )
-        .join(", ");
+      
+        const allSizes =
+        Array.from(
+          new Set(
+            variations.flatMap((variant) =>
+              (variant.details ?? []).map((detail) => detail.size)
+            )
+          )
+        ).join(", ") || "No sizes available";
 
       const allColors = variations
         .map((variant: any) => variant.colorName)
@@ -74,7 +76,7 @@ export const SELLER_INVENTORY_COLUMNS = (
 
     sortable: true,
     grow: 1, // Makes this column take up more space
-    width: "250px",
+    // width: "250px",
   },
   {
     name: "Status",
@@ -101,119 +103,27 @@ export const SELLER_INVENTORY_COLUMNS = (
       );
     },
     grow: 1,
-    width: "150px",
+    // width: "150px",
   },
   {
     name: "Base Price",
     selector: (row) => `₹${row.basePrice ?? 0}`,
     grow: 1,
-    width: "150px",
+    // width: "150px",
   },
   {
     name: "Sample Price",
     selector: (row) => `₹${row.samplePrice ?? 0}`,
     grow: 1,
-    width: "150px",
+    // width: "150px",
   },
   {
     name: "MRP",
     selector: (row) => row.mrp ?? 0,
     grow: 1,
-    width: "150px",
+    // width: "150px",
   },
-  {
-    name: "Featured",
-    cell: (row) => (
-      <div className="flex flex- items-center gap-1 py-3">
-        <MySwitch
-          isOn={!!row.is_featured_product}
-          id={`is_featured_product${row._id}`}
-          handleToggle={async () => {
-            if (row.isDeleted) {
-              return makeToastError("Cant Update Deleted Product");
-            }
-            await dispatch(
-              toggleProductButton({
-                fieldName: "is_featured_product",
-                productId: row._id ?? "",
-              })
-            );
-            refetch();
-          }}
-        />
-        {/* {row.non_featured_stores && row.non_featured_stores.length > 0 && (
-          <span className="text-gray-500 text-xs capitalize  ">
-            hidden Stores : {row.non_featured_stores.length}
-          </span>
-        )} */}
-      </div>
-    ),
-    grow: 1,
-    // width:"150px"
-  },
-  {
-    name: "Published",
-    cell: (row) => (
-      <div className="flex flex- items-center gap-1 py-3">
-        <MySwitch
-          isOn={!!row.is_published}
-          id={`is_published-${row._id}`}
-          handleToggle={async () => {
-            if (row.isDeleted) {
-              return makeToastError("Cant Update Deleted Product");
-            }
-            await dispatch(
-              toggleProductButton({
-                fieldName: "is_published",
-                productId: row._id ?? "",
-              })
-            );
-            setTimeout(() => {
-              refetch();
-            }, 100);
-          }}
-        />
-        {/* {row.non_published_stores && row.non_published_stores.length > 0 && (
-          <span className="text-gray-500 text-xs capitalize  ">
-            hidden Stores : {row.non_published_stores.length}
-          </span>
-        )} */}
-      </div>
-    ),
-    grow: 1,
-  },
-  {
-    name: "Todays Deal",
-    cell: (row) => (
-      <div className="flex flex- items-center gap-1 py-3">
-        <MySwitch
-          isOn={!!row.is_todays_deal}
-          id={`is_todays_deal-${row._id}`}
-          handleToggle={async () => {
-            if (row.isDeleted) {
-              return makeToastError("Cant Update Deleted Product");
-            }
-            await dispatch(
-              toggleProductButton({
-                fieldName: "is_todays_deal",
-                productId: row._id ?? "",
-              })
-            );
-            setTimeout(() => {
-              refetch();
-            }, 100);
-          }}
-        />
-        {/* {row.non_todays_deal_stores &&
-          row.non_todays_deal_stores.length > 0 && (
-            <span className="text-gray-500 text-xs capitalize  ">
-              hidden Stores : {row.non_todays_deal_stores.length}
-            </span>
-          )} */}
-      </div>
-    ),
-    grow: 1,
-  },
+
   {
     name: "Actions",
     cell: (row) => (

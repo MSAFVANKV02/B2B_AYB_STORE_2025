@@ -1,3 +1,4 @@
+import Image from "@/components/global/image";
 import { IProducts, IVariantsDetails } from "@/types/productType";
 
 export const ExpandableRowComponent = ({ data }: { data: IProducts }) => {
@@ -15,18 +16,17 @@ export const ExpandableRowComponent = ({ data }: { data: IProducts }) => {
                 <span className="font-[500]   text-[16px]">Color Name :</span>
                 <div className="space-x-3">
                   {""}
-                 <span> {variation.colorName}</span>
+                  <span> {variation.colorName}</span>
                   <div
-                style={{
-                  width:"12px",
-                  backgroundColor: variation.colorCode,
-                  borderRadius: "50%",
-                  display: "inline-block",
-                  height: "12px",
-                }}
-               />
+                    style={{
+                      width: "12px",
+                      backgroundColor: variation.colorCode,
+                      borderRadius: "50%",
+                      display: "inline-block",
+                      height: "12px",
+                    }}
+                  />
                 </div>
-               
               </div>
               {/* ==== */}
               <div className="space-x-2  flex ">
@@ -35,7 +35,6 @@ export const ExpandableRowComponent = ({ data }: { data: IProducts }) => {
                   {""}
                   {variation.colorCode}
                 </span>
-              
               </div>
               {/* ======== */}
               <div className="space-x-2  flex ">
@@ -46,6 +45,20 @@ export const ExpandableRowComponent = ({ data }: { data: IProducts }) => {
                 </span>
               </div>
               {/* =========================== */}
+              {/* ==== */}
+              <div className="space-x-2  flex w-full">
+                <span className="font-[500] text-[16px] w-fit">Photos :</span>
+                <div className="w- flex gap-3 flex-wrap">
+                  <>
+                    <Image
+                      src={variation.image ?? ""}
+                      alt="product-thumbnails"
+                      className="w-14 h-14 rounded-md border overflow-hidden bg-white shadow"
+                    />
+                  </>
+                </div>
+              </div>
+              {/* ======== */}
             </div>
             <h4 className="text-md font-semibold mt-2">Details:</h4>
             {variation.details && variation.details.length > 0 ? (

@@ -7,30 +7,30 @@ import Image from "@/components/global/image";
 
 import { IStockType } from "@/types/stock_types";
 export const SELLER_STOCK_INVENTORY_COLUMNS = (
-  refetch: () => void
+  // refetch: () => void
 ): TableColumn<IStockType>[] => [
   {
     name: "Product Name",
     cell: (row) => {
-      console.log(row,'row');
+      // console.log(row,'row');
       
-      const productNames = row.product_details
-        .map((product) => product.product.product_name)
-        .join(", ");
+      // const productNames = row.product_details
+      //   .map((product) => product.product.product_name)
+      //   .join(", ");
 
-      const allSizes = row.product_details
-        .flatMap((product) =>
-          product.variant_details.flatMap((variant) =>
-            variant.size_details.map((size) => size.size)
-          )
-        )
-        .join(", ");
+      // const allSizes = row.product_details
+      //   .flatMap((product) =>
+      //     product.variant_details.flatMap((variant) =>
+      //       variant.size_details.map((size) => size.size)
+      //     )
+      //   )
+      //   .join(", ");
 
-      const allColors = row.product_details
-        .flatMap((product) =>
-          product.variant_details.map((variant) => variant.color)
-        )
-        .join(", ");
+      // const allColors = row.product_details
+      //   .flatMap((product) =>
+      //     product.variant_details.map((variant) => variant.color)
+      //   )
+      //   .join(", ");
 
       return (
         <div className="flex gap-2 items-center py-3">
@@ -43,7 +43,7 @@ export const SELLER_STOCK_INVENTORY_COLUMNS = (
           <div className="flex flex-col gap-1 items-start w-full overflow-hidden">
             <div className="w-full truncate flex items-center">
               <b>Name: </b>
-              <span>{productNames || ""}</span>
+              <span>{row.destination || ""}</span>
             </div>
             <div className="w-full truncate flex items-center">
               <b>Brand: </b>
@@ -51,14 +51,14 @@ export const SELLER_STOCK_INVENTORY_COLUMNS = (
                 {row.product_details[0]?.product.brand?.name || "N/A"}
               </span>
             </div>
-            <div className="w-full truncate flex items-center">
+            {/* <div className="w-full truncate flex items-center">
               <b>Sizes :</b>
               <span>{allSizes}</span>
             </div>
             <div className="w-full truncate flex items-center">
               <b>Colors :</b>
               <span>{allColors}</span>
-            </div>
+            </div> */}
           </div>
         </div>
       );

@@ -1,3 +1,4 @@
+import { isValidUrl } from "@/hooks/useImgValidate";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import { useState } from "react";
 
@@ -21,7 +22,7 @@ const Image = ({ src, alt, className, fallbackSrc, error }: Props) => {
     <div className={`relative overflow-hidden ${className}`}>
       {!hasError ? (
         <img
-          src={imgSrc}
+        src={isValidUrl(imgSrc)?imgSrc:"/"}
           alt={alt}
           className="w-full h-full object-cover"
           onError={() => {
