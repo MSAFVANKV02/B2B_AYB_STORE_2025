@@ -189,9 +189,12 @@ export default function RequestStockModal() {
                   data={dynamicSelectedTask}
                 />
                 <div className="my-7">
-                  <ol className="list-decimal list-inside text-sm space-y-4">
-                    <li>Add purchase qty for make that product your's</li>
-                    <li>remove purchase qty for make 0 for remove the current item</li>
+                 <p>
+                 Note:
+                 </p>
+                  <ol className="list-decimal list-inside text-sm space-y-3">
+                    <li>Must Add purchase qty for requesting product.</li>
+                    <li>remove purchase qty for make "0" for remove the item from list.</li>
 
                   </ol>
                 </div>
