@@ -1,4 +1,4 @@
-import { CUSTOMER_DETAILS_URL, UPDATE_CUSTOMER_KYC_URL } from "@/types/urlPath";
+import { CUSTOMER_DETAILS_URL, UPDATE_CUSTOMER_KYC_URL } from "@/services/api/urlPath";
 import { API } from "../auth/route";
 
 

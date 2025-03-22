@@ -11,9 +11,9 @@ import TaskModal, {
 } from "@/components/modals/TaskModal";
 import StockVarianTable from "./stock_varient_table";
 import { useAppSelector } from "@/redux/hook";
-import { send_Request_Product_Stock_Api } from "@/services/products/route";
 import Loader from "@/components/global/loader";
 import { makeToast, makeToastError, makeToastWarning } from "@/utils/toaster";
+import { send_Request_Product_Stock_Api } from "@/services/stock/route";
 
 // type IProps = {
 //   data: IProducts;
@@ -30,13 +30,28 @@ export default function RequestStockModal() {
   // });
 
   // Define the shape of form values
-  // console.log(currentAdmin, "admin");
+  // console.log(dynamicCloseModal, "admin");
 
-  const allSizes = (dynamicSelectedTask?.variations ?? [])
-    .flatMap((variant: any) =>
-      (variant.details ?? []).map((detail: any) => detail.size)
+  
+
+  const allSizes = Array.from(
+    new Set(
+      (dynamicSelectedTask?.variations ?? []).flatMap((variant: any) =>
+        (variant.details ?? []).map((detail: any) => detail.size)
+      )
     )
-    .join(", ");
+  ).join(", ");
+  
+
+  //     const allSizes = isProduct(dynamicSelectedTask)
+  // ? Array.from(
+  //     new Set(
+  //       dynamicSelectedTask.variations.flatMap((variant: any) =>
+  //         (variant.details ?? []).map((detail: any) => detail.size)
+  //       )
+  //     )
+  //   ).join(", ")
+  // : "";
 
   const allColors = (dynamicSelectedTask?.variations ?? [])
     .map((variant: any) => variant.colorName)
@@ -46,6 +61,13 @@ export default function RequestStockModal() {
   if (!dynamicSelectedTask) {
     return null; // or show a loading state
   }
+
+
+
+// console.log(isProduct(dynamicSelectedTask), "isProduct(dynamicSelectedTask)");
+// if (!isProduct(dynamicSelectedTask) && !isStock(dynamicSelectedTask)) {
+//   return null; // or show a loading state
+// }
 
   return (
     <div>
@@ -156,7 +178,7 @@ export default function RequestStockModal() {
               product_details: [],
             }}
             onSubmit={async (values) => {
-              // console.log("Final Submitted Values:", values);
+              console.log("Final Submitted Values:", values);
               if (values.product_details.length === 0) {
                 makeToastWarning("Please select at least one product variant.");
                 return;
@@ -168,7 +190,7 @@ export default function RequestStockModal() {
                   request_type: "new_stock",
                   source_store: values.source_store,
                 });
-                console.log(response, "response");
+                // console.log(response, "response");
                 if (response.status === 201) {
                   dynamicCloseModal();
                   makeToast(response.data.message);
@@ -212,12 +234,19 @@ export default function RequestStockModal() {
                       },
                     }}
                     onClick={() => {
-                      resetForm();
+                      resetForm({
+                        values: {
+                          source_store: currentAdmin?._id || "",
+                          destination: dynamicSelectedTask.createdBy?._id || "",
+                          product_details: [],
+                        },
+                      });
+                      setFieldValue("product_details", []);
                     }}
                   />
 
                   <AyButton type="submit">
-                    <Loader state={isSubmitting}>submit</Loader>
+                    <Loader state={isSubmitting}>Request</Loader>
                   </AyButton>
                 </div>
               </Form>

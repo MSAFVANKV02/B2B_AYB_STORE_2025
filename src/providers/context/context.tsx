@@ -20,12 +20,14 @@ import React, {
 // Define the context type
 interface ModalContextType<T = any> {
   isOpen: boolean;
+  openRow:number | string | null;
   mediaOpenDrawer: boolean;
   selectedTask: IUserProps | null;
   dynamicSelectedTask: T | null;
   openModal: (task: any, type: IModalTypes) => void;
   dynamicOpenModal: (task: T) => void;
   openProductModal: (task: any) => void;
+  toggleAccordion:(index: number| string) => void;
   closeModal: () => void;
   isOfflineTable: boolean;
   isKycTable: boolean;
@@ -41,6 +43,7 @@ interface ModalContextType<T = any> {
   setMediaOpenDrawer: Dispatch<SetStateAction<boolean>>;
   setDynamicSelectedTask: Dispatch<SetStateAction<any | null>>;
   setSelectedCategory: Dispatch<SetStateAction<ICategory | null>>;
+  setOpenRow:Dispatch<SetStateAction<number | string | null>>;
   selectedProducts: IProducts | null;
   selectedCategory: ICategory | null;
   openCategoryModal: (task: ICategory) => void;
@@ -81,6 +84,14 @@ const ModalContext = createContext<ModalContextType | undefined>(undefined);
   const [modalTypeDashboard, setModalTypeDashboard] = useState<IModalTypes>("");
   const [selectedPage, setSelectedPage] = useState<string | null>("general");
   const [openDrawerFieldName, setDrawerFieldName] = useState<string | null>("");
+
+  // for tables
+  const [openRow, setOpenRow] = useState<number| string | null>(null);
+
+  const toggleAccordion = (productIndex: number| string) => {
+    setOpenRow(openRow === productIndex ? null : productIndex);
+  };
+
 
 
   // media drawer open
@@ -190,7 +201,10 @@ const ModalContext = createContext<ModalContextType | undefined>(undefined);
         dynamicOpenModal,
         dynamicSelectedTask,
         setDynamicSelectedTask,
-        dynamicCloseModal
+        dynamicCloseModal,
+        openRow,
+        setOpenRow,
+        toggleAccordion
       }}
     >
       {children}

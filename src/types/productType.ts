@@ -148,6 +148,7 @@ export type IVariantsDetails = {
   discount: number;
   selling_price: number;
   skuId: string;
+  requested_stock?: number;
 };
 
 export interface SelectOption {

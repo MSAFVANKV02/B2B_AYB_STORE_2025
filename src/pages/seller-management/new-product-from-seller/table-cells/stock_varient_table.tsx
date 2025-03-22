@@ -17,6 +17,8 @@ const StockVarianTable = ({data, values,setFieldValue}: Props) => {
     variant: any,
     stock: any
   ) => {
+    console.log(variant,'variant');
+    
     const updatedDetails = [...values.product_details];
   
     const productIndex = updatedDetails.findIndex(
@@ -31,7 +33,7 @@ const StockVarianTable = ({data, values,setFieldValue}: Props) => {
             variant_name: variant.variant_name,
             image: variant.image,
             colorCode: variant.colorCode,
-            color: variant.colorName,
+            colorName: variant.colorName,
             sample: variant.sample,
             size_details: [
               {
@@ -57,7 +59,7 @@ const StockVarianTable = ({data, values,setFieldValue}: Props) => {
           variant_name: variant.variant_name,
           image: variant.image,
           colorCode: variant.colorCode,
-          color: variant.colorName,
+          colorName: variant.colorName,
           sample: variant.sample,
           size_details: [
             {
@@ -172,6 +174,11 @@ const StockVarianTable = ({data, values,setFieldValue}: Props) => {
                     type="number"
                     placeholder="0"
                     className=" text-xs px-2 py-1 text-gray-900"
+                    value={
+                      values.product_details.find(p => p.product === data._id)?.variant_details
+                        .find(v => v.colorCode === variant.colorCode)?.size_details
+                        .find(s => s.size === stock.size)?.stock || 0 // Ensure it shows 0 if not set
+                    }
                     // disabled={stock.transfer <= 0}
                     onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                       handleQuantityChange(Number(e.target.value), variant, stock)

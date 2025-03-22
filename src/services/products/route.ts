@@ -4,19 +4,18 @@ import {
   DELETE_PRODUCT_URL,
   GET_DELETED_PRODUCT_URL,
   GET_PRODUCTS_URL,
-  GET_REQUESTED_STOCK_PRODUCT_URL,
-  REQUEST_PRODUCT_STOCK_URL,
+
   RESTORE_DELETED_PRODUCT_URL,
   TOGGLE_PRODUCTS_URL,
   UPDATE_PRODUCT_URL,
-} from "@/types/urlPath";
+} from "@/services/api/product-urlPath";
 import { API } from "../auth/route";
 import { IProductStatus } from "@/types/productType";
-import { IProdAddRoot } from "@/types/add_Prod_Types";
-import { IRequestProductType } from "./type";
+// import { IProdAddRoot } from "@/types/add_Prod_Types";
+
 
 // * 1. Create a new Product ====
-export const add_Product_Api = (data: Partial<IProdAddRoot>) =>
+export const add_Product_Api = (data: any) =>
   API.post(CREATE_PRODUCT_URL, data, { withCredentials: true });
 
 // 2. get all product in Dashboard ==========
@@ -40,10 +39,7 @@ export const get_Products_Api = (
 
 
   // 9
-  export const get_Requested_Product_Api = async () =>
-    await API.get(`${GET_REQUESTED_STOCK_PRODUCT_URL}`, {
-      withCredentials: true,
-    });
+
 
 // 3. toggle product status (featured, todays deal) ====
 
@@ -100,7 +96,7 @@ export const get_Deleted_Product_Api = async () =>
 
 
   // 8. update product item
-export const update_Product_Api = async (data: Partial<IProdAddRoot>,id: string) =>
+export const update_Product_Api = async (data: any,id: string) =>
   await API.put(`${UPDATE_PRODUCT_URL}/${id}`,data, {
     withCredentials: true,
   });
@@ -111,7 +107,3 @@ export const update_Product_Api = async (data: Partial<IProdAddRoot>,id: string)
 
 
 
-export const send_Request_Product_Stock_Api = async (data: IRequestProductType) =>
-  await API.post(`${REQUEST_PRODUCT_STOCK_URL}`,data, {
-    withCredentials: true,
-  });

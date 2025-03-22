@@ -6,10 +6,11 @@ import {
   change_Product_Status_Api,
   delete_Product_Api,
   get_Products_Api,
-  get_Requested_Product_Api,
+
   restore_Deleted_Product_Api,
   toggle_Product_Api,
 } from "@/services/products/route";
+import { get_Requested_Product_Api } from "@/services/stock/route";
 import { IProductStatus } from "@/types/productType";
 import { makeToast } from "@/utils/toaster";
 
@@ -62,7 +63,7 @@ export const getAllRequestedProductsInStore = async (
     }
   
   } catch (error) {
-    console.log(error, "error getAllProductsInAdmin");
+    console.log("error getAllProductsInAdmin");
     return { status: 403, data: [], error: error };
   }
 };

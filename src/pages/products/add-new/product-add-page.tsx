@@ -17,11 +17,13 @@ import { getValidationSchema } from "./ProductSchema";
 import AddProductsNavbar from "@/components/products/Add_Products_TaskBar";
 import AyButton from "@/components/myUi/AyButton";
 import { add_Product_Api, update_Product_Api } from "@/services/products/route";
-import { IProdAddRoot } from "@/types/add_Prod_Types";
+// import { IProdAddRoot } from "@/types/add_Prod_Types";
 import { makeToast, makeToastError } from "@/utils/toaster";
 import { useQueryData } from "@/hooks/useQueryData";
 import { getAllProductsInAdmin } from "@/actions/products/productActions";
 import { IProducts } from "@/types/productType";
+import { handleSetDummyData } from "./Page_Sections/add-dymmy-data";
+import Loader from "@/components/global/loader";
 
 const pageToStep: any = {
   general: 1,
@@ -54,14 +56,14 @@ export default function ProductAddPage() {
     return Array.isArray(product) ? product[0] : product;
   }, [product]);
 
-  console.log(editProduct, "edit product");
+  // console.log(editProduct, "edit product");
 
   // const initialValues = useMemo(() => {
   //   return editProduct ? { ...InitialValues, ...editProduct } : InitialValues;
   // }, [editProduct]);
   const initialValues = useMemo(() => {
     if (!editProduct) return InitialValues;
-  
+
     const relevantValues = {
       product_name: editProduct.product_name || InitialValues.product_name,
       mrp: editProduct.mrp || InitialValues.mrp,
@@ -70,23 +72,42 @@ export default function ProductAddPage() {
       brand: editProduct.brand || InitialValues.brand,
       categoryId: editProduct.categoryId || InitialValues.categoryId,
       keywords: editProduct.keywords || InitialValues.keywords,
-      minimum_quantity: editProduct.minimum_quantity || InitialValues.minimum_quantity,
-      product_weight: editProduct.product_weight || InitialValues.product_weight,
+      minimum_quantity:
+        editProduct.minimum_quantity || InitialValues.minimum_quantity,
+      product_weight:
+        editProduct.product_weight || InitialValues.product_weight,
       product_dimensions: {
-        product_height: editProduct.product_dimensions?.product_height || InitialValues.product_dimensions.product_height,
-        product_length: editProduct.product_dimensions?.product_length || InitialValues.product_dimensions.product_length,
-        product_width: editProduct.product_dimensions?.product_width || InitialValues.product_dimensions.product_width,
+        product_height:
+          editProduct.product_dimensions?.product_height ||
+          InitialValues.product_dimensions.product_height,
+        product_length:
+          editProduct.product_dimensions?.product_length ||
+          InitialValues.product_dimensions.product_length,
+        product_width:
+          editProduct.product_dimensions?.product_width ||
+          InitialValues.product_dimensions.product_width,
       },
       tax_details: {
-        hsn_sac_number: editProduct.tax_details?.hsn_sac_number || InitialValues.tax_details.hsn_sac_number,
-        non_gst_goods: editProduct.tax_details?.non_gst_goods || InitialValues.tax_details.non_gst_goods,
-        calculation_types: editProduct.tax_details?.calculation_types || InitialValues.tax_details.calculation_types,
-        on_items_rate_details: editProduct.tax_details?.on_items_rate_details || InitialValues.tax_details.on_items_rate_details,
-        isCess: editProduct.tax_details?.isCess || InitialValues.tax_details.isCess,
+        hsn_sac_number:
+          editProduct.tax_details?.hsn_sac_number ||
+          InitialValues.tax_details.hsn_sac_number,
+        non_gst_goods:
+          editProduct.tax_details?.non_gst_goods ||
+          InitialValues.tax_details.non_gst_goods,
+        calculation_types:
+          editProduct.tax_details?.calculation_types ||
+          InitialValues.tax_details.calculation_types,
+        on_items_rate_details:
+          editProduct.tax_details?.on_items_rate_details ||
+          InitialValues.tax_details.on_items_rate_details,
+        isCess:
+          editProduct.tax_details?.isCess || InitialValues.tax_details.isCess,
         igst: editProduct.tax_details?.igst || InitialValues.tax_details.igst,
       },
-      is_featured_product: editProduct.is_featured_product ?? InitialValues.is_featured_product,
-      is_todays_deal: editProduct.is_todays_deal ?? InitialValues.is_todays_deal,
+      is_featured_product:
+        editProduct.is_featured_product ?? InitialValues.is_featured_product,
+      is_todays_deal:
+        editProduct.is_todays_deal ?? InitialValues.is_todays_deal,
       description: editProduct.description || InitialValues.description,
       gallery_image: editProduct.gallery_image || InitialValues.gallery_image,
       thumbnails: editProduct.thumbnails || InitialValues.thumbnails,
@@ -95,17 +116,18 @@ export default function ProductAddPage() {
       samplePrice: editProduct.samplePrice || InitialValues.samplePrice,
       discount: editProduct.discount || InitialValues.discount,
       discount_type: editProduct.discount_type || InitialValues.discount_type,
-      price_per_pieces: editProduct.price_per_pieces || InitialValues.price_per_pieces,
+      price_per_pieces:
+        editProduct.price_per_pieces || InitialValues.price_per_pieces,
       selectWise: editProduct.selectWise || InitialValues.selectWise,
       variations: editProduct.variations || InitialValues.variations,
       is_cod: editProduct.is_cod ?? InitialValues.is_cod,
-      is_free_shipping: editProduct.is_free_shipping ?? InitialValues.is_free_shipping,
+      is_free_shipping:
+        editProduct.is_free_shipping ?? InitialValues.is_free_shipping,
       status: editProduct.status || InitialValues.status,
     };
-  
+
     return relevantValues;
   }, [editProduct]);
-  
 
   const { search, pathname } = useLocation(); // Access current URL
   const navigate = useNavigate(); // For navigation
@@ -154,11 +176,10 @@ export default function ProductAddPage() {
   };
 
   const handleSaveComplete = () => {
-   
     setCurrentStep(1); // Resetting the step
     setSelectedPage("general"); // Resetting to the first step/page
     navigate(`${pathname}?q=general`); // Redirect to the first page
-  }
+  };
 
   //   ==== switch pages =======
   const renderPageComponent = (
@@ -166,6 +187,8 @@ export default function ProductAddPage() {
     values: any,
     errors: any
   ) => {
+    console.log(values);
+
     switch (selectedPage || "general") {
       case "general":
         return (
@@ -228,77 +251,51 @@ export default function ProductAddPage() {
             return handleNextStep();
           }
           try {
-            const productData: IProdAddRoot = {
-              product_name: values.product_name ?? "",
-              mrp: values.mrp ?? 0,
-              product_sku: values.product_sku ?? "",
-              barcode: values.barcode ?? "",
-              brand: values.brand ?? "",
-              categoryId: values.categoryId ?? "",
-              keywords: values.keywords ?? [],
-              minimum_quantity: values.minimum_quantity ?? 0,
-              product_weight: values.product_weight ?? 0,
-              product_dimensions: {
-                product_height: values.product_dimensions?.product_height ?? 0,
-                product_length: values.product_dimensions?.product_length ?? 0,
-                product_width: values.product_dimensions?.product_width ?? 0,
-              },
-              tax_details: values.tax_details ?? {
-                hsn_sac_number: 0,
-                non_gst_goods: "",
-                calculation_types: "",
-                on_items_rate_details: [],
-                isCess: false,
-              },
-              is_featured_product: values.is_featured_product,
-              is_todays_deal: values.is_todays_deal,
-              description: values.description ?? "",
-              gallery_image: values.gallery_image ?? [],
-              thumbnails: values.thumbnails ?? [],
-              size_chart: values.size_chart ?? "",
-              basePrice: values.basePrice ?? 0,
-              samplePrice: values.samplePrice ?? 0,
-              discount: values.discount ?? 0,
-              discount_type: values.discount_type ?? "",
-              price_per_pieces: values.price_per_pieces ?? [],
-              selectWise: values.selectWise ?? "",
-              variations: values.variations ?? [],
-              is_cod: values.is_cod ?? false,
-              is_free_shipping: values.is_free_shipping ?? false,
-              status: values.status ?? "pending",
+          
 
-            };
+            const route = id
+              ? update_Product_Api(values, id)
+              : add_Product_Api(values);
 
-
-            const route = id ? update_Product_Api(productData,id) : add_Product_Api(productData);
-
-            const response = await route
+            const response = await route;
             // console.log(response, "response product add");
 
             if (response.status === 200 || response.status === 201) {
               makeToast(response.data.message ?? "Product Added Successfully");
-              handleSaveComplete()
-              if(id){
-                refetch()
-              }else{
+              handleSaveComplete();
+              if (id) {
+                refetch();
+              } else {
                 resetForm();
               }
-             
             }
           } catch (error: any) {
-            console.error("Product submission error:", error);
+            // console.error("Product submission error:", error);
             if (error.response.data) {
               makeToastError(error.response.data.message);
             }
           }
         }}
       >
-        {({ values, setFieldValue, errors }) => (
+        {({ values, setFieldValue, errors, isSubmitting }) => (
           <Form>
             <ProductHeader className="flex-col w-full items-start gap-5">
               <AddProductsNavbar />
-              <div className="text-lg font-bold capitalize px-4">
-                {currentStep === 1 && "Product Information"}
+              <div className="text-lg font-bold capitalize px-4 w-full">
+                {currentStep === 1 && (
+                  <div className="flex justify-between w-full">
+                    <h3>Product Information</h3>
+                    {import.meta.env.MODE === "development" && (
+                      <button
+                        onClick={() => handleSetDummyData(setFieldValue)}
+                        type="button"
+                        className="text-xs underline underline-offset-4"
+                      >
+                        Add Dummy Product
+                      </button>
+                    )}
+                  </div>
+                )}
                 {currentStep === 2 && "Product Files & Media"}
                 {currentStep === 3 && "Product Price & Stock"}
                 {currentStep === 4 && "Shipping Configuration"}
@@ -340,12 +337,14 @@ export default function ProductAddPage() {
                 Prev
               </AyButton>
               {/* ------ */}
-              <AyButton type="submit" title="">
-                {currentStep === 4
-                  ? id
-                    ? "Edit Product"
-                    : "Save Product"
-                  : "Next"}
+              <AyButton type="submit" title="" disabled={isSubmitting}>
+                <Loader state={isSubmitting}>
+                  {currentStep === 4
+                    ? id
+                      ? "Edit Product"
+                      : "Save Product"
+                    : "Next"}
+                </Loader>
               </AyButton>
             </ProductFooter>
           </Form>

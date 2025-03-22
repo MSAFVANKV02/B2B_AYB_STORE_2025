@@ -67,7 +67,7 @@ import { useAppDispatch, useAppSelector } from "@/redux/hook";
 import { setCurrentAdminSlices } from "@/redux/actions/adminSlice";
 import { Get_Current_Admins_Api } from "@/services/auth/route";
 import PreloaderPage from "@/preloader-page";
-import { ALLOWED_DOMAIN } from "@/types/urlPath";
+import { ALLOWED_DOMAIN } from "@/services/api/urlPath";
 
 interface ProtectedRouteProps {
   children: React.ReactNode;

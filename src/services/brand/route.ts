@@ -5,7 +5,7 @@ import {
   HARD_DELETE_SINGLE_BRAND_URL,
   SOFT_DELETE_SINGLE_BRAND_URL,
   UPDATE_BRAND_URL,
-} from "@/types/urlPath";
+} from "@/services/api/urlPath";
 import { API } from "../auth/route";
 import { IBrandGetStatus } from "@/types/brandtypes";
 import Cookies from "js-cookie";

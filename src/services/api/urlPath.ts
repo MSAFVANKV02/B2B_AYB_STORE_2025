@@ -77,34 +77,7 @@ export const HARD_DELETE_SINGLE_BRAND_URL = `/product_api/brand/hardDeleteBrand`
 
 
 
-// ============ CREATE  PRODUCTS =========================
-// ==============****************====================
-
-
-export const CREATE_PRODUCT_URL = `/product_api/product/store/addProduct`;
-export const GET_PRODUCTS_URL = `/product_api/product/get-store-products`;
-
-export const TOGGLE_PRODUCTS_URL = `/product_api/product/toggle-product-button`;
-export const CHANGE_PRODUCT_STATUS_URL = `/product_api/product/change-product-status`;
-
-
-// ============ DELETE  PRODUCTS =========================
-// ==============****************====================
-export const DELETE_PRODUCT_URL = `/product_api/product/delete`;
-export const RESTORE_DELETED_PRODUCT_URL = `/product_api/product/restore`;
-export const GET_DELETED_PRODUCT_URL = `/product_api/product/deleted-products`;
-export const GET_REQUESTED_STOCK_PRODUCT_URL = `/product_api/stock/store/request/get-requests`;
 
 
 
 
-// ============ EDIT  PRODUCTS =========================
-// ==============****************====================
-export const UPDATE_PRODUCT_URL = `/product_api/product`;
-
-
-
-// ===== stock request / get / related apis =====
-// ==================================================== //
-
-export const REQUEST_PRODUCT_STOCK_URL = `/product_api/stock/request/create`;

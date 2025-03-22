@@ -1,5 +1,5 @@
 import { useAppSelector } from "@/redux/hook";
-import { ALLOWED_DOMAIN } from "@/types/urlPath";
+import { ALLOWED_DOMAIN } from "@/services/api/urlPath";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import { useCallback } from "react";
 

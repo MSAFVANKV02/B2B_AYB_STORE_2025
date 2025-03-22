@@ -1,4 +1,5 @@
 export interface IProdAddRoot {
+  product_owner?:string;
     product_name: string
     mrp: number
     product_sku: string
@@ -16,12 +17,13 @@ export interface IProdAddRoot {
     gallery_image: string[]
     thumbnails: string[]
     size_chart: string
-    discount_type: string
+    discount_type: "none"|"percentage"|"flat"
     price_per_pieces: PricePerPiece[]
     selectWise: string
     variations: Variation[]
     is_cod: boolean
     is_free_shipping: boolean
+    is_published: boolean
     basePrice: number
     samplePrice: number
     discount: number
@@ -39,7 +41,10 @@ export interface IProdAddRoot {
     hsn_sac_number: number
     non_gst_goods: string
     calculation_types: string
-    on_items_rate_details: OnItemsRateDetail[]
+    central_tax:number;
+    state_tax: number;
+    on_items_rate_details: OnItemsRateDetail[];
+    igst:string;
     isCess: boolean
   }
   

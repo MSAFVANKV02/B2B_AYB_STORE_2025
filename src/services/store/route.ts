@@ -1,4 +1,4 @@
-import { CREATE_STORE_URL, GET_ALL_STORE_URL } from "@/types/urlPath";
+import { CREATE_STORE_URL, GET_ALL_STORE_URL } from "@/services/api/urlPath";
 import { API } from "../auth/route";
 
 type DataGet = "seller" | "store" | "storeSeller";

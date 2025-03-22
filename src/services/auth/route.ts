@@ -8,7 +8,7 @@ import {
   LOGOUT_STORE_URL,
   UPDATE_SUB_STORE_URL,
   STORE_SEND_OTP,
-} from "@/types/urlPath";
+} from "@/services/api/urlPath";
 import axios from "axios";
 
 export const API = axios.create({

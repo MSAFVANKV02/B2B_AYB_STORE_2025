@@ -1,13 +1,17 @@
+
+import { IAdminTypes } from "./adminUserTypes"
 import { IProducts } from "./productType"
 import { StoreTypes } from "./storeTypes"
+
+export type IStockStatusTypes = "requested"|"rejected"|"approved"|"in_transit"|"received"|"outofstock"
 
 export interface IStockType {
     _id: string
     request_type: string
     source_store: StoreTypes
-    destination: string
+    destination: StoreTypes |IAdminTypes
     product_details: ProductDetail[];
-    status: string
+    status: IStockStatusTypes
     history: History[]
     parcel_details: any[]
     createdAt: string

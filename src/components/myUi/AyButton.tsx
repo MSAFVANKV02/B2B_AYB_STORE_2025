@@ -143,7 +143,11 @@ export default function AyButton({
       transition={{ type: "spring", stiffness: 300 }}
     >
  <Button
-      onClick={onClick}
+      onClick={()=>{
+        if(onClick && !disabled){
+          onClick();
+        }
+      }}
       type={type}
       disabled={disabled}
       sx={{

@@ -14,7 +14,7 @@ export interface IRequestProductType {
     variant_name: string;
     image: string
     colorCode: string
-    color: string
+    colorName: string
     sample: string
     size_details: SizeDetail[]
   }
