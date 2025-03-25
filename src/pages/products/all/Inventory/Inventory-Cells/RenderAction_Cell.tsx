@@ -13,7 +13,7 @@ import {
 import { Icon } from "@iconify/react/dist/iconify.js";
 
 import { useCallback, useEffect, useState } from "react";
-import { IProducts, IProductStatus } from "@/types/productType";
+import {  IProductStatus } from "@/types/productType";
 
 
 import { dispatch, useAppSelector } from "@/redux/hook";
@@ -30,9 +30,10 @@ import { DeleteProductFn } from "@/actions/products/productActions";
 import { useNavigate } from "react-router-dom";
 import { useSoftDeleteProduct, useUpdateProductStatus, useUpdateToggleWithStore } from "@/hooks/use-product-statusChange";
 import My_Icon from "@/components/icons/My_Icon";
+import { IFinalProductTypes } from "@/types/final-product-types";
 
 type IProps = {
-  data: IProducts;
+  data: IFinalProductTypes;
   refetch: any;
   isDarkMode: boolean;
 };
@@ -98,7 +99,7 @@ export const ActionsCellRenderer = ({ data, refetch }: IProps) => {
       non_featured_stores = [],
       non_published_stores = [],
       non_todays_deal_stores = [],
-    } = data;
+    } = data.product;
   
     let newSelectedStores: string[] = [];
   
@@ -128,7 +129,7 @@ export const ActionsCellRenderer = ({ data, refetch }: IProps) => {
     <div className="flex justify-center items-center">
       {/* delete button */}
 
-      {data.isDeleted ? (
+      {data.product.isDeleted ? (
         <My_Icon
           icon="mdi:restore"
           onClick={async() => {
@@ -173,7 +174,7 @@ export const ActionsCellRenderer = ({ data, refetch }: IProps) => {
                     }}
                   >
                     {label}
-                    {value === data.status && <Icon icon="charm:tick-double" />}
+                    {value === data.product.status && <Icon icon="charm:tick-double" />}
                   </DropdownMenuItem>
                 ))}
               </ul>

@@ -1,4 +1,4 @@
-import { IProducts } from "@/types/productType";
+
 import DataTable from "react-data-table-component";
 import { INVENTORY_COLUMNS } from "./Inventory-Cells/Inventory_Columns";
 
@@ -10,12 +10,13 @@ import { useState } from "react";
 import { Input } from "@/components/ui/input";
 import useSearchFn from "@/hooks/useSeach-Fn";
 import { LoaderSkelton } from "./Inventory-Cells/Loader-Skelton";
+import { IFinalProductTypes } from "@/types/final-product-types";
 
 
 interface Props {
   gridTheme?: string;
   isDarkMode?: boolean;
-  products: IProducts[];
+  products: IFinalProductTypes[];
   refetch: any;
   loading : boolean;
 }
@@ -23,10 +24,10 @@ interface Props {
 const InventoryTable = ({ refetch, products=[], loading }: Props) => {
   const [expandedRow, setExpandedRow] = useState<string | null>(null);
   const { filteredData: filteredProducts, handleSearch } =
-    useSearchFn<IProducts>(products);
+    useSearchFn<IFinalProductTypes>(products);
 
   // Function to toggle row expansion (only one at a time)
-  const handleRowExpand = (row: IProducts) => {
+  const handleRowExpand = (row: IFinalProductTypes) => {
     setExpandedRow((prev) => (prev === row._id ? null : row._id ?? null));
   };
 

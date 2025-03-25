@@ -5,7 +5,8 @@ import { receive_Transacted_Stock_Api } from "@/services/stock/route";
 import { IAdminTypes } from "@/types/adminUserTypes";
 import { IStockStatusTypes, IStockType } from "@/types/stock_types";
 import { StoreTypes } from "@/types/storeTypes";
-import { makeToast } from "@/utils/toaster";
+import { makeToast, makeToastError } from "@/utils/toaster";
+import { useQueryClient } from "@tanstack/react-query";
 import React, { memo } from "react";
 
 type Props = {
@@ -28,6 +29,7 @@ const isAdminType = (
 
 const RequestedProductStock = ({ data, closeModal }: Props) => {
   // console.log(data, "data in RequestedProductStock");
+  const queryClient = useQueryClient();
 
   const { destination, product_details } = data;
 
@@ -78,8 +80,9 @@ const RequestedProductStock = ({ data, closeModal }: Props) => {
 
   const handleReceiveRequestedProduct = async (id:string) =>{
     try {
-      const {data,status} = await receive_Transacted_Stock_Api(id);
+      const {data,status} = await receive_Transacted_Stock_Api(id,"received");
       if(status === 201 || status === 200){
+        queryClient.invalidateQueries({ queryKey: ["all-new-products"] });
         makeToast(data.message);
         closeModal();
        
@@ -87,9 +90,8 @@ const RequestedProductStock = ({ data, closeModal }: Props) => {
     } catch (error: any) {
       console.log(error, "error in receive_requested_product");
       if(error){
-        makeToast(error.response.data.message||"something wrong happened!");
+        makeToastError(error.response.data.message||"something wrong happened!");
       }
-      
     }
   }
 

@@ -1,12 +1,12 @@
-// import { CircleOff, ShieldCheck } from "lucide-react";
-import { getAllProductsInAdmin } from "@/actions/products/productActions";
+
 import { useQueryData } from "@/hooks/useQueryData";
-import { IProducts } from "@/types/productType";
 import { useEffect } from "react";
 import InventoryTable from "./Inventory/InventoryTable";
 
 import { useSearchParams } from "react-router-dom";
 import MyPageTab from "@/components/myUi/MyTabs";
+import { getStorePurchasedProducts } from "@/actions/stocks/stockAction";
+import { IFinalProductTypes } from "@/types/final-product-types";
 
 export default function AllProductsPage() {
   const [searchParams] = useSearchParams();
@@ -18,15 +18,7 @@ export default function AllProductsPage() {
   } = useQueryData(
     ["all-products", urlTypes],
     () =>
-      getAllProductsInAdmin(
-        [
-          {
-            key: "",
-            value: "",
-          },
-        ],
-        // urlTypes === "deleted-product" ? "deleted" : undefined
-      ) // Wrap in an arrow function
+      getStorePurchasedProducts()
   );
   // console.log(fetchedProducts,'fetchedProducts');
 
@@ -34,10 +26,10 @@ export default function AllProductsPage() {
 
   const { data: product = [] } = (fetchedProducts ?? {}) as {
     status?: number;
-    data?: IProducts[];
+    data?: IFinalProductTypes[];
   };
 
-  // console.log(product,'productproduct');
+  console.log(product,'productproduct');
 
   // useEffect(() => {
   //   if (product.length > 0) {

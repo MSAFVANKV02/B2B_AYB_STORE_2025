@@ -21,7 +21,7 @@ const SellerNewAddedProductsPage = () => {
     data: fetchedProducts,
     isFetching,
     refetch,
-  } = useQueryData(["all-products", urlTypes], async () => {
+  } = useQueryData(["all-new-products", urlTypes], async () => {
     if (urlTypes === "requested-product") {
       return await getAllRequestedProductsInStore();
     } else {

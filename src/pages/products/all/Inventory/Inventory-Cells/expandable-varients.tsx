@@ -1,11 +1,12 @@
-import { IProducts, IVariantsDetails } from "@/types/productType";
+import { IFinalProductTypes } from "@/types/final-product-types";
+import {  IVariantsDetails } from "@/types/productType";
 
-export const ExpandableRowComponent = ({ data }: { data: IProducts }) => {
+export const ExpandableRowComponent = ({ data }: { data: IFinalProductTypes }) => {
   return (
     <div className="p-4 bg-gray-50 rounded">
       <h3 className="text-lg font-semibold">Variations</h3>
-      {data.variations && data.variations.length > 0 ? (
-        data.variations.map((variation, index) => (
+      {data.product.variations && data.product.variations.length > 0 ? (
+        data.product.variations.map((variation, index) => (
           <div key={index} className="border-b border-gray- py-2 ">
             <div className="flex flex-col gap-3 my-6">
               <div className="space-x-2 flex ">

@@ -1,16 +1,17 @@
 import { MySwitch } from "@/components/myUi/mySwitch";
 import { toggleProductButton } from "@/redux/actions/product_Slice";
 import { dispatch } from "@/redux/hook";
-import { IProducts, IProductStatus } from "@/types/productType";
+import {  IProductStatus } from "@/types/productType";
 import { TableColumn } from "react-data-table-component";
 
 import { ActionsCellRenderer } from "./RenderAction_Cell";
 import { Badge } from "@/components/ui/badge";
 import Image from "@/components/global/image";
 import { makeToastError } from "@/utils/toaster";
+import { IFinalProductTypes } from "@/types/final-product-types";
 export const INVENTORY_COLUMNS = (
   refetch: () => void
-): TableColumn<IProducts>[] => [
+): TableColumn<IFinalProductTypes>[] => [
   // {
   //     name: " ",
   //     selector: row => row._id || "",  // Just a placeholder, does not affect functionality
@@ -21,7 +22,7 @@ export const INVENTORY_COLUMNS = (
   {
     name: "Product Name",
     cell: (row) => {
-      const variations = row.variations ?? [];
+      const variations = row.product.variations ?? [];
 
 
       const allSizes = (variations ?? [])
@@ -35,7 +36,7 @@ export const INVENTORY_COLUMNS = (
       return (
         <div className="flex gap-2 items-center py-3">
           <Image
-            src={row.thumbnails[0]}
+            src={row.product.thumbnails[0]}
             alt="product-thumbnails"
             className="w-14 h-11 rounded-md"
           />
@@ -43,17 +44,17 @@ export const INVENTORY_COLUMNS = (
           <div className="flex flex-col gap-1 items-start w-full overflow-hidden">
             <div className="w-full truncate flex items-center">
               <b>Name: </b>
-              <span>{row.product_name || ""}</span>
+              <span>{row.product.product_name || ""}</span>
             </div>
             {/* === */}
             <div className="w-full truncate flex items-center">
               <b>Brand: </b>
-              <span>{row.brand?.name || ""}</span>
+              <span>{row.product.brand?.name || ""}</span>
             </div>
             {/* ====== */}
             <div className="w-full truncate flex items-center">
               <b>Min-Qty: </b>
-              <span>{row.minimum_quantity}</span>
+              <span>{row.product.minimum_quantity}</span>
             </div>
             {/* ====== */}
             <div className="w-full truncate flex items-center">
@@ -90,11 +91,11 @@ export const INVENTORY_COLUMNS = (
       return (
         <Badge
           className={`${
-            statusClasses[row.status] ||
+            statusClasses[row.product.status] ||
             "bg-gray-100 text-gray-800 border border-gray-400 "
           }`}
         >
-          {row.status}
+          {row.product.status}
         </Badge>
       );
     },
@@ -103,19 +104,19 @@ export const INVENTORY_COLUMNS = (
   },
   {
     name: "Base Price",
-    selector: (row) => `₹${row.basePrice ?? 0}`,
+    selector: (row) => `₹${row.product.basePrice ?? 0}`,
     grow: 1,
     width: "150px",
   },
   {
     name: "Sample Price",
-    selector: (row) => `₹${row.samplePrice ?? 0}`,
+    selector: (row) => `₹${row.product.samplePrice ?? 0}`,
     grow: 1,
     width: "150px",
   },
   {
     name: "MRP",
-    selector: (row) => row.mrp ?? 0,
+    selector: (row) => row.product.mrp ?? 0,
     grow: 1,
     width: "150px",
   },
@@ -124,10 +125,10 @@ export const INVENTORY_COLUMNS = (
     cell: (row) => (
       <div className="flex flex- items-center gap-1 py-3">
         <MySwitch
-          isOn={!!row.is_featured_product}
+          isOn={!!row.product.is_featured_product}
           id={`is_featured_product${row._id}`}
           handleToggle={async () => {
-            if (row.isDeleted) {
+            if (row.product.isDeleted) {
               return makeToastError("Cant Update Deleted Product");
             }
             await dispatch(
@@ -139,9 +140,9 @@ export const INVENTORY_COLUMNS = (
             refetch();
           }}
         />
-        {row.non_featured_stores && row.non_featured_stores.length > 0 && (
+        {row.product.non_featured_stores && row.product.non_featured_stores.length > 0 && (
           <span className="text-gray-500 text-xs capitalize  ">
-            hidden Stores : {row.non_featured_stores.length}
+            hidden Stores : {row.product.non_featured_stores.length}
           </span>
         )}
       </div>
@@ -154,16 +155,16 @@ export const INVENTORY_COLUMNS = (
     cell: (row) => (
       <div className="flex flex- items-center gap-1 py-3">
         <MySwitch
-          isOn={!!row.is_published}
-          id={`is_published-${row._id}`}
+          isOn={!!row.product.is_published}
+          id={`is_published-${row.product._id}`}
           handleToggle={async () => {
-            if (row.isDeleted) {
+            if (row.product.isDeleted) {
               return makeToastError("Cant Update Deleted Product");
             }
             await dispatch(
               toggleProductButton({
                 fieldName: "is_published",
-                productId: row._id ?? "",
+                productId: row.product._id ?? "",
               })
             );
             setTimeout(() => {
@@ -171,9 +172,9 @@ export const INVENTORY_COLUMNS = (
             }, 100);
           }}
         />
-        {row.non_published_stores && row.non_published_stores.length > 0 && (
+        {row.product.non_published_stores && row.product.non_published_stores.length > 0 && (
           <span className="text-gray-500 text-xs capitalize  ">
-            hidden Stores : {row.non_published_stores.length}
+            hidden Stores : {row.product.non_published_stores.length}
           </span>
         )}
       </div>
@@ -185,16 +186,16 @@ export const INVENTORY_COLUMNS = (
     cell: (row) => (
       <div className="flex flex- items-center gap-1 py-3">
         <MySwitch
-          isOn={!!row.is_todays_deal}
-          id={`is_todays_deal-${row._id}`}
+          isOn={!!row.product.is_todays_deal}
+          id={`is_todays_deal-${row.product._id}`}
           handleToggle={async () => {
-            if (row.isDeleted) {
+            if (row.product.isDeleted) {
               return makeToastError("Cant Update Deleted Product");
             }
             await dispatch(
               toggleProductButton({
                 fieldName: "is_todays_deal",
-                productId: row._id ?? "",
+                productId: row.product._id ?? "",
               })
             );
             setTimeout(() => {
@@ -202,9 +203,9 @@ export const INVENTORY_COLUMNS = (
             }, 100);
           }}
         />
-        {row.non_todays_deal_stores && row.non_todays_deal_stores.length > 0 && (
+        {row.product.non_todays_deal_stores && row.product.non_todays_deal_stores.length > 0 && (
           <span className="text-gray-500 text-xs capitalize  ">
-            hidden Stores : {row.non_todays_deal_stores.length}
+            hidden Stores : {row.product.non_todays_deal_stores.length}
           </span>
         )}
       </div>

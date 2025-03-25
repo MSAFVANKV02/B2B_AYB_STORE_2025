@@ -17,7 +17,7 @@ const StockVarianTable = ({data, values,setFieldValue}: Props) => {
     variant: any,
     stock: any
   ) => {
-    console.log(variant,'variant');
+    // console.log(variant,'variant');
     
     const updatedDetails = [...values.product_details];
   
