@@ -178,7 +178,7 @@ export default function RequestStockModal() {
               product_details: [],
             }}
             onSubmit={async (values) => {
-              console.log("Final Submitted Values:", values);
+              // console.log("Final Submitted Values:", values);
               if (values.product_details.length === 0) {
                 makeToastWarning("Please select at least one product variant.");
                 return;

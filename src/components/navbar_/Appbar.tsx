@@ -9,7 +9,6 @@ import {
 } from "@mui/material";
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from "@mui/material/AppBar";
 import { MenuIcon } from "lucide-react";
-import { Fullscreen, PublicOutlined } from "@mui/icons-material";
 import {
   Dialog,
   DialogClose,
@@ -30,6 +29,7 @@ import { makeToast } from "@/utils/toaster";
 
 import { useAppSelector } from "@/redux/hook";
 import { useModal } from "@/providers/context/context";
+import { FullScreenSvg, GlobSvg } from "../icons/glob-icon";
 
 type Props = {
   open: boolean;
@@ -150,27 +150,17 @@ export default function NavAppBar({
         <Box mr="1rem" display="flex" gap="" alignItems="center">
           {/* Full screen btn ======
             ========================== */}
-          <Tooltip title="Full Screen">
+            <Tooltip title="Full Screen">
             <div className="">
               <IconButton onClick={handleFullScreen}>
-                <Fullscreen />
+                {/* <Fullscreen /> */}
+                <FullScreenSvg />
+                {/* <Icon icon='iconamoon:screen-full' /> */}
               </IconButton>
             </div>
           </Tooltip>
 
-          {/* <Select value={i18n.language} onValueChange={changeLanguage}>
-            <SelectTrigger className="w-[50px] p-2">
-              <SelectValue placeholder={t("Language")} />
-            </SelectTrigger>
-            <SelectContent className="min-w-[10px]">
-              {languages.map((language) => (
-                <SelectItem key={language.value} value={language.value}>
-                  {language.label}
-                  <Icon icon={language.icon} />
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select> */}
+      
 
           {/* Home btn ======
             ========================== */}
@@ -178,7 +168,8 @@ export default function NavAppBar({
           <Tooltip title="home">
             <div className="">
               <IconButton onClick={() => handleClick("/dashboard")}>
-                <PublicOutlined />
+                {/* <PublicOutlined /> */}
+                <GlobSvg />
               </IconButton>
             </div>
           </Tooltip>
@@ -208,21 +199,22 @@ export default function NavAppBar({
           <Dialog>
             <DialogTrigger>
               <div className="flex gap-3 ml-5">
-                <div className="flex flex-col text-start">
-                  <span className="text-sm font-medium text-gray-700">
+              <div className="flex flex-col text-start">
+                <span className=" text-gray-700 text-sm">
+                    {" "}
+                    {currentAdmin?.name || currentAdmin?.emailId?.split("@")[0]}
+                  </span>
+                  <span className="text-xs font-medium text-gray-400">
                     {currentAdmin?.role}
                   </span>
-                  <span className=" text-gray-400">
-                    {" "}
-                    {currentAdmin?.userName || (currentAdmin?.emailId ? currentAdmin.emailId.split("@")[0] : "Unknown")}
-
-                  </span>
+                
                 </div>
                 {/* ====== */}
-                <Avatar className="w-7 h-7">
-                  <AvatarImage src="https://github.com/shadcn.png" />
-                  <AvatarFallback>
-                    {currentAdmin?.name || "Seller"}
+                 {/* ====== */}
+                 <Avatar className="w-9 h-9">
+                  <AvatarImage src="https://github.com/shadcn." />
+                  <AvatarFallback className=" bg-bgSoft backdrop-blur-sm">
+                  {currentAdmin?.name?.charAt(0) || "Seller"}
                   </AvatarFallback>
                 </Avatar>
               </div>

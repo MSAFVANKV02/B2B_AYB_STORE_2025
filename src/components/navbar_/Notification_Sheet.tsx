@@ -45,7 +45,7 @@ export default function NotificationBarSheet() {
           {/* Wrap IconButton in a div to prevent button nesting */}
           <div>
             <IconButton>
-              <Notifications />
+            <Notifications className="text-[#8F8F8F]" />
             </IconButton>
           </div>
         </Tooltip>

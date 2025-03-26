@@ -5,7 +5,7 @@ import { INVENTORY_COLUMNS } from "./Inventory-Cells/Inventory_Columns";
 import { Button } from "@/components/ui/button";
 import { CustomStylesInventory } from "./Inventory-Cells/custome-style";
 import { ExpandableRowComponent } from "./Inventory-Cells/expandable-varients";
-import { handleExportExcel } from "./Inventory-Cells/xlsx_downloader";
+import {  handleExportStockExcel } from "./Inventory-Cells/xlsx_downloader";
 import { useState } from "react";
 import { Input } from "@/components/ui/input";
 import useSearchFn from "@/hooks/useSeach-Fn";
@@ -30,6 +30,9 @@ const InventoryTable = ({ refetch, products=[], loading }: Props) => {
   const handleRowExpand = (row: IFinalProductTypes) => {
     setExpandedRow((prev) => (prev === row._id ? null : row._id ?? null));
   };
+
+  // console.log(products,'products');
+  
 
   //   const [selectedRows, setSelectedRows] = useState(false);
   //   const [toggledClearRows, setToggleClearRows] = useState(false);
@@ -71,7 +74,7 @@ const InventoryTable = ({ refetch, products=[], loading }: Props) => {
   >
     Clear Selected Rows
   </button> */}
-      <div className="flex justify-end py-5">
+      <div className="flex py-5">
         
 
         <div className="flex gap-4">
@@ -86,7 +89,7 @@ const InventoryTable = ({ refetch, products=[], loading }: Props) => {
 
           <Button
             onClick={() => {
-              handleExportExcel(products);
+              handleExportStockExcel(products);
             }}
             className="bg-green-600 text-white"
           >

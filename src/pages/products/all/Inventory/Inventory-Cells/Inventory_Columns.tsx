@@ -9,6 +9,7 @@ import { Badge } from "@/components/ui/badge";
 import Image from "@/components/global/image";
 import { makeToastError } from "@/utils/toaster";
 import { IFinalProductTypes } from "@/types/final-product-types";
+import { PublishedCell } from "./column_Cells";
 export const INVENTORY_COLUMNS = (
   refetch: () => void
 ): TableColumn<IFinalProductTypes>[] => [
@@ -152,33 +153,7 @@ export const INVENTORY_COLUMNS = (
   },
   {
     name: "Published",
-    cell: (row) => (
-      <div className="flex flex- items-center gap-1 py-3">
-        <MySwitch
-          isOn={!!row.product.is_published}
-          id={`is_published-${row.product._id}`}
-          handleToggle={async () => {
-            if (row.product.isDeleted) {
-              return makeToastError("Cant Update Deleted Product");
-            }
-            await dispatch(
-              toggleProductButton({
-                fieldName: "is_published",
-                productId: row.product._id ?? "",
-              })
-            );
-            setTimeout(() => {
-              refetch();
-            }, 100);
-          }}
-        />
-        {row.product.non_published_stores && row.product.non_published_stores.length > 0 && (
-          <span className="text-gray-500 text-xs capitalize  ">
-            hidden Stores : {row.product.non_published_stores.length}
-          </span>
-        )}
-      </div>
-    ),
+    cell: (row) => <PublishedCell row={row} refetch={refetch} />,
     grow: 1,
   },
   {
@@ -216,21 +191,7 @@ export const INVENTORY_COLUMNS = (
     name: "Actions",
     cell: (row) => (
       <>
-        {/* <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <button className="p-2 rounded-md hover:bg-gray-100">
-              <MoreVertical size={18} />
-            </button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            <DropdownMenuItem onClick={() => {}}>Edit</DropdownMenuItem>
-            <DropdownMenuItem onClick={() => {}}>Duplicate</DropdownMenuItem>
-            <DropdownMenuItem onClick={() => {}} className="text-red-500">
-              Delete
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu> */}
-        {/* {row._id} */}
+      
         <ActionsCellRenderer data={row} refetch={refetch} isDarkMode={false} />
       </>
     ),

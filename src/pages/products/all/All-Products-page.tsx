@@ -4,7 +4,6 @@ import { useEffect } from "react";
 import InventoryTable from "./Inventory/InventoryTable";
 
 import { useSearchParams } from "react-router-dom";
-import MyPageTab from "@/components/myUi/MyTabs";
 import { getStorePurchasedProducts } from "@/actions/stocks/stockAction";
 import { IFinalProductTypes } from "@/types/final-product-types";
 
@@ -29,13 +28,9 @@ export default function AllProductsPage() {
     data?: IFinalProductTypes[];
   };
 
-  console.log(product,'productproduct');
+  // console.log(product,'productproduct');
 
-  // useEffect(() => {
-  //   if (product.length > 0) {
-  //     dispatch(addProductRedux(product));
-  //   }
-  // }, [product, urlTypes, refetch]);
+
 
   useEffect(() => {
     // fetch()
@@ -44,7 +39,7 @@ export default function AllProductsPage() {
 
   return (
     <div className="min-h-screen bg-white rounded-md p-3 overflow-x-hidden">
-      <MyPageTab
+      {/* <MyPageTab
         // setTypeUrl={setSelectedTab}
         tabs={[
           {
@@ -86,7 +81,14 @@ export default function AllProductsPage() {
           //   ),
           // },
         ]}
-      />
+      /> */}
+         <div className="overflow-x-auto w-full">
+                <InventoryTable
+                  refetch={refetch}
+                  products={product}
+                  loading={isFetching}
+                />
+              </div>
     </div>
   );
 }
