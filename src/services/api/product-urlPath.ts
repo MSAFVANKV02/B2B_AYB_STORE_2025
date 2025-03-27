@@ -5,7 +5,7 @@
 export const CREATE_PRODUCT_URL = `/product_api/product/store/addProduct`;
 export const GET_PRODUCTS_URL = `/product_api/product/get-store-products`;
 
-export const TOGGLE_PRODUCTS_URL = `/product_api/product/toggle-product-button`;
+export const TOGGLE_PRODUCTS_URL = `/product_api/product/store/toggle-product-button`;
 export const CHANGE_PRODUCT_STATUS_URL = `/product_api/product/change-product-status`;
 
 // ============ EDIT  PRODUCTS =========================

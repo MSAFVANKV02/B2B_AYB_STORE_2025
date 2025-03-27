@@ -7,7 +7,6 @@ import { Outlet } from "react-router-dom";
 import ThemProviderMui from "./providers/metrialUi/theme-provider";
 import { useMediaQuery } from "@mui/material";
 import { ModalProvider } from "./providers/context/context";
-import HelperIcon from "./components/helper-line/helper-icon";
 import { useEffect } from "react";
 import { Trans, useTranslation } from "react-i18next";
 import {
@@ -71,7 +70,7 @@ export default function MiniDrawer() {
       </ModalProvider>
 
       {/* === chat bot ====== */}
-      {window.location.pathname !== "/store/conversations" && <HelperIcon />}
+      {/* {window.location.pathname !== "/store/conversations" && <HelperIcon />} */}
 
       <div className="h-10 bg-white border-t text-gray-400 text-xs w-full flex justify-end items-center px-3">
         <span className="select-none text-xs">

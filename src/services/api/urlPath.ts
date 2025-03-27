@@ -28,6 +28,13 @@ export const DELETE_STORE_URL = `/user_api/seller/deleteSubadmin`;
 // ------ logout --------------------
 export const LOGOUT_STORE_URL = `/user_api/seller/logoutAdmin`;
 
+// update profiles --------------------
+export const UPDATE_PROFILE_URL = `/user_api/store/editStore`;
+export const RESET_PASSWORD_URL = `/user_api/store/change-password`;
+export const DELETE_PROFILE_AVATAR_URL = `/user_api/store/remove-avatar`;
+
+
+
 
 // ------ customer --------------------
 export const CUSTOMER_DETAILS_URL = `/user_api/seller/getUsersWithkyc`;

@@ -158,7 +158,7 @@ const ModalContext = createContext<ModalContextType | undefined>(undefined);
   const handleLogout = async () => {
     try {
       // await LogoutAdmins_Api();
-      await Cookies.remove("sl_b2b_tkn")  
+      await Cookies.remove("st_b2b_tkn")  
       dispatch(logoutState());
       handleClick("/login");
     } catch (error:any) {

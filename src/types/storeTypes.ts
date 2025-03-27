@@ -2,6 +2,7 @@ export type StoreTypes = {
   _id?:string;
   registrationType: IRegistrationTypes;
   role?: "Seller" | "Store";
+  avatar:string;
   isRegistered?: boolean;
   isBlocked?: boolean;
   mobileVerified?: boolean;

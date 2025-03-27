@@ -9,27 +9,16 @@ import {
 } from "@mui/material";
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from "@mui/material/AppBar";
 import { MenuIcon } from "lucide-react";
-import {
-  Dialog,
-  DialogClose,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
+
 
 import FullViewScreen from "@/hooks/FullViewScreen";
 import useNavigateClicks from "@/hooks/useClicks";
-import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import NotificationBarSheet from "./Notification_Sheet";
-import { Button } from "../ui/button";
+
 import { makeToast } from "@/utils/toaster";
 
-import { useAppSelector } from "@/redux/hook";
-import { useModal } from "@/providers/context/context";
 import { FullScreenSvg, GlobSvg } from "../icons/glob-icon";
+import AdminProfile from "./appbar_items/admin_profile";
 
 type Props = {
   open: boolean;
@@ -58,8 +47,8 @@ export default function NavAppBar({
   // handle full screen mode ====
   const { handleFullScreen } = FullViewScreen();
   const isLargeScreen = useMediaQuery("(min-width: 1024px)");
-  const { currentAdmin } = useAppSelector((state) => state.admin);
-  const { handleLogout } = useModal();
+  // const { currentAdmin } = useAppSelector((state) => state.admin);
+
   // const { i18n, t } = useTranslation();
 
   // const changeLanguage = (lang: string) => {
@@ -180,7 +169,7 @@ export default function NavAppBar({
           <NotificationBarSheet />
 
           {/* Clear Cache Button */}
-          <Tooltip title="Clear Cache">
+          <Tooltip title="Clear Cache" className="sm:block hidden">
             <div className="">
               <IconButton onClick={handleClearCache}>
                 <img
@@ -196,58 +185,7 @@ export default function NavAppBar({
 
           {/* User Details avatar and more settings =====
         ================================================ */}
-          <Dialog>
-            <DialogTrigger>
-              <div className="flex gap-3 ml-5">
-              <div className="flex flex-col text-start">
-                <span className=" text-gray-700 text-sm">
-                    {" "}
-                    {currentAdmin?.name || currentAdmin?.emailId?.split("@")[0]}
-                  </span>
-                  <span className="text-xs font-medium text-gray-400">
-                    {currentAdmin?.role}
-                  </span>
-                
-                </div>
-                {/* ====== */}
-                 {/* ====== */}
-                 <Avatar className="w-9 h-9">
-                  <AvatarImage src="https://github.com/shadcn." />
-                  <AvatarFallback className=" bg-bgSoft backdrop-blur-sm">
-                  {currentAdmin?.name?.charAt(0) || "Seller"}
-                  </AvatarFallback>
-                </Avatar>
-              </div>
-            </DialogTrigger>
-            <DialogContent>
-              <DialogHeader>
-                <DialogTitle>Are you absolutely sure?</DialogTitle>
-                <DialogDescription>
-                  Logout from the application
-                </DialogDescription>
-              </DialogHeader>
-              <DialogFooter className="sm:justify-end">
-                <DialogClose asChild>
-                  <Button type="button" variant="secondary">
-                    Close
-                  </Button>
-                </DialogClose>
-                <DialogClose asChild>
-                  <Button
-                    type="button"
-                    variant="default"
-                    onClick={() => {
-                      // Cookie.remove("ad_b2b_tkn");
-                      // window.location.href = "/login";  // Redirect to login page after logout
-                      handleLogout();
-                    }}
-                  >
-                    Logout
-                  </Button>
-                </DialogClose>
-              </DialogFooter>
-            </DialogContent>
-          </Dialog>
+       <AdminProfile />
 
           {/* =============================== */}
         </Box>

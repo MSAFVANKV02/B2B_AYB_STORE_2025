@@ -1,4 +1,4 @@
-import { IProductStatus } from "./productType"
+import { IProductCreatedBy, IProductStatus, IToggleOptions } from "./productType"
 
 export interface IFinalProductTypes {
     _id: string
@@ -15,7 +15,7 @@ export interface IFinalProductTypes {
   export interface Product {
     _id: string
     product_owner: string
-    createdBy: string
+    createdBy: IProductCreatedBy
     brand: Brand
     product_sku: string
     barcode: string
@@ -49,9 +49,9 @@ export interface IFinalProductTypes {
     variations: Variation[]
     status: IProductStatus
     isDeleted: boolean
-    non_published_stores: any[]
-    non_featured_stores: any[]
-    non_todays_deal_stores: any[]
+    non_published_stores: IToggleOptions[]
+    non_featured_stores: IToggleOptions[]
+    non_todays_deal_stores: IToggleOptions[]
     requested_stores: RequestedStore[]
     slug: string
     createdAt: string
@@ -135,7 +135,7 @@ export interface IFinalProductTypes {
     bankDetails: BankDetails
     _id: string
     role: string
-    createdBy: string
+    createdBy: IProductCreatedBy
     subscription: boolean
     mobileVerified: boolean
     isRegistered: boolean

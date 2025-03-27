@@ -35,6 +35,7 @@ import AllOrdersPage from "@/pages/orders/all/all-oders-page";
 import CustomerRefundPage from "@/pages/orders/customer-refunds/customer-refund-page";
 import CustomersPage from "@/pages/customers/customers-page";
 import SellerNewAddedProductsPage from "@/pages/seller-management/new-product-from-seller/seller-new-products-page";
+import UserProfilePage from "@/pages/user-profile/user-profile-page";
 
 const rootRouter = createBrowserRouter(
   [
@@ -76,6 +77,14 @@ const rootRouter = createBrowserRouter(
             { path: "brand", element: <BrandPage /> },
             { path: "reviews", element: <ProductReviewPage /> },
           ],
+        },
+        {
+          path:"/admin/profile/",
+          element: <UserProfilePage />
+        },
+        {
+          path:"/admin/profile/:page",
+          element: <UserProfilePage />
         },
         {
           path: "/sales",

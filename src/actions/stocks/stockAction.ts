@@ -4,7 +4,7 @@ export const getStorePurchasedProducts = async () => {
   try {
     const { data, status } = await get_Store_Purchased_Product_Api();
 
-    console.log(data,'data');
+    // console.log(data,'data');
     
 
     if (status === 200) {

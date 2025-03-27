@@ -28,8 +28,8 @@ export default function PriceStockSectionPage({
   setFieldValue,
   errors,
 }: Props) {
-  console.log(errors, "error");
-  console.log(values, "values");
+  // console.log(errors, "error");
+  // console.log(values, "values");
 
   useEffect(() => {
     if (values.variations?.length > 0) {

@@ -1,15 +1,12 @@
-import { MySwitch } from "@/components/myUi/mySwitch";
-import { toggleProductButton } from "@/redux/actions/product_Slice";
-import { dispatch } from "@/redux/hook";
+
 import {  IProductStatus } from "@/types/productType";
 import { TableColumn } from "react-data-table-component";
 
-import { ActionsCellRenderer } from "./RenderAction_Cell";
+
 import { Badge } from "@/components/ui/badge";
 import Image from "@/components/global/image";
-import { makeToastError } from "@/utils/toaster";
 import { IFinalProductTypes } from "@/types/final-product-types";
-import { PublishedCell } from "./column_Cells";
+import { SwitchCells } from "./column_Cells";
 export const INVENTORY_COLUMNS = (
   refetch: () => void
 ): TableColumn<IFinalProductTypes>[] => [
@@ -123,81 +120,31 @@ export const INVENTORY_COLUMNS = (
   },
   {
     name: "Featured",
-    cell: (row) => (
-      <div className="flex flex- items-center gap-1 py-3">
-        <MySwitch
-          isOn={!!row.product.is_featured_product}
-          id={`is_featured_product${row._id}`}
-          handleToggle={async () => {
-            if (row.product.isDeleted) {
-              return makeToastError("Cant Update Deleted Product");
-            }
-            await dispatch(
-              toggleProductButton({
-                fieldName: "is_featured_product",
-                productId: row._id ?? "",
-              })
-            );
-            refetch();
-          }}
-        />
-        {row.product.non_featured_stores && row.product.non_featured_stores.length > 0 && (
-          <span className="text-gray-500 text-xs capitalize  ">
-            hidden Stores : {row.product.non_featured_stores.length}
-          </span>
-        )}
-      </div>
-    ),
+    cell: (row) => <SwitchCells row={row} refetch={refetch} name="is_featured_product" />,
     grow: 1,
-    // width:"150px"
   },
   {
     name: "Published",
-    cell: (row) => <PublishedCell row={row} refetch={refetch} />,
+    cell: (row) => <SwitchCells row={row} refetch={refetch} name="is_published" />,
     grow: 1,
   },
-  {
+  
+   {
     name: "Todays Deal",
-    cell: (row) => (
-      <div className="flex flex- items-center gap-1 py-3">
-        <MySwitch
-          isOn={!!row.product.is_todays_deal}
-          id={`is_todays_deal-${row.product._id}`}
-          handleToggle={async () => {
-            if (row.product.isDeleted) {
-              return makeToastError("Cant Update Deleted Product");
-            }
-            await dispatch(
-              toggleProductButton({
-                fieldName: "is_todays_deal",
-                productId: row.product._id ?? "",
-              })
-            );
-            setTimeout(() => {
-              refetch();
-            }, 100);
-          }}
-        />
-        {row.product.non_todays_deal_stores && row.product.non_todays_deal_stores.length > 0 && (
-          <span className="text-gray-500 text-xs capitalize  ">
-            hidden Stores : {row.product.non_todays_deal_stores.length}
-          </span>
-        )}
-      </div>
-    ),
+    cell: (row) => <SwitchCells row={row} refetch={refetch} name="is_todays_deal" />,
     grow: 1,
   },
-  {
-    name: "Actions",
-    cell: (row) => (
-      <>
+  // {
+  //   name: "Actions",
+  //   cell: (row) => (
+  //     <>
       
-        <ActionsCellRenderer data={row} refetch={refetch} isDarkMode={false} />
-      </>
-    ),
-    ignoreRowClick: true,
-    allowOverflow: true,
-    button: true,
-    width: "100px",
-  },
+  //       <ActionsCellRenderer data={row} refetch={refetch} isDarkMode={false} />
+  //     </>
+  //   ),
+  //   ignoreRowClick: true,
+  //   allowOverflow: true,
+  //   button: true,
+  //   width: "100px",
+  // },
 ];
