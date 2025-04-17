@@ -1,7 +1,7 @@
 // import { cn } from "@/lib/utils";
 // import { Icon } from "@iconify/react/dist/iconify.js";
 // import Media_Files_Modal from "./Media_Files_Modal";
-// import { useModal } from "@/providers/context/context";
+// import { UseModal } from "@/providers/context/context";
 
 // type Props = {
 //   className?: string;
@@ -32,7 +32,7 @@
 //   multiple,
  
 // }: Props) {
-//   const { openMediaDrawer} = useModal();
+//   const { openMediaDrawer} = UseModal();
 
 //     // console.log(setFieldValues,'setFieldValues');
     

@@ -5,7 +5,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Separator } from "@/components/ui/separator";
-import { useModal } from "@/providers/context/context";
+import { UseModal } from "@/providers/context/context";
 import { IOrders } from "@/types/orderTypes";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import { IconButton } from "@mui/material";
@@ -20,7 +20,7 @@ type Props = {
 };
 
 export default function OrderReturnAction({ order }: Props) {
-  const { setIsOpen } = useModal(); // Ensure the modal state management works
+  const { setIsOpen } = UseModal(); // Ensure the modal state management works
   const [selectedOrder, setSelectedOrder] = useState<IOrders | null>(null); // To hold the selected order
   const [searchParams] = useSearchParams();
   //   const [returnPages, setReturnPages] = useState<"all" | "replace" | "refund">(

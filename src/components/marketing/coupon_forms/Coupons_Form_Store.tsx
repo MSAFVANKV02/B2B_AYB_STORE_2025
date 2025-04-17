@@ -1,4 +1,4 @@
-import { useModal } from "@/providers/context/context";
+import { UseModal } from "@/providers/context/context";
 
 import { ErrorMessage, Form, Formik } from "formik";
 import {
@@ -59,7 +59,7 @@ const storeOptions: SelectOption[] = [
 
 
 export default function CouponsFormForStore() {
-  const { setIsOpen } = useModal();
+  const { setIsOpen } = UseModal();
   const [selectedStores, setSelectedStores] = useState<SelectOption[]>([]);
 
 

@@ -3,7 +3,7 @@
 // import { ErrorMessage } from "formik";
 // import CloseIcon from "@mui/icons-material/Close";
 // import { Tooltip } from "@mui/material";
-// import { useModal } from "@/providers/context/context";
+// import { UseModal } from "@/providers/context/context";
 // import { useState } from "react";
 // import TaskModal, {
 //   TaskModalContent,
@@ -36,7 +36,7 @@
 //   values,
 // }: Props) {
 //   // console.log(values, "values");
-//   const { setIsOpen } = useModal();
+//   const { setIsOpen } = UseModal();
 //   const [selectedFieldName, setSelectedFieldName] = useState<{
 //     id: keyof FileFormValues;
 //     name: keyof FileFormValues;
@@ -325,7 +325,7 @@
 //   values = [],
 //   setIsOpen,
 // }: FormFieldGenalProps) {
-//   const { openMediaDrawer } = useModal();
+//   const { openMediaDrawer } = UseModal();
 
 //   return (
 //     <div className={cn("flex lg:items-center lg:flex-row flex-col justify-between lg:gap-10", className)}>

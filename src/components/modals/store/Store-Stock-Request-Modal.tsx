@@ -1,7 +1,7 @@
 import MyCloseIcon from "@/components/icons/My_CloseIcon";
 import TaskModal, { TaskModalContent, TaskModalHeader } from "../TaskModal";
 import StoreStockLocalTable from "@/components/tasks/local-tables/store_stock_local_table";
-import { useModal } from "@/providers/context/context";
+import { UseModal } from "@/providers/context/context";
 import { ErrorMessage, Form, Formik } from "formik";
 import { FormField } from "@/components/myUi/FormField";
 import { Input } from "@/components/ui/input";
@@ -54,7 +54,7 @@ const validationSchema = Yup.object().shape({
 });
 
 export default function StoreStockRequestModal({data}:IProps) {
-  const { setIsOpen } = useModal();
+  const { setIsOpen } = UseModal();
   // const [fileNames, setFileNames] = useState<
   //   Record<keyof FileInputFields, string | null>
   // >({

@@ -1,6 +1,7 @@
 export const InitialValues = {
   product_name: '',
   mrp: undefined,
+  bundle_details:null,
   product_sku: '',
   barcode: '',
   brand: '',

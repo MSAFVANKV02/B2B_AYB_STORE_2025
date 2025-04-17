@@ -6,7 +6,7 @@ import TaskModal, {
   TaskModalHeader,
 } from "@/components/modals/TaskModal";
 import { Label } from "@/components/ui/label";
-import { useModal } from "@/providers/context/context";
+import { UseModal } from "@/providers/context/context";
 import { StoreTypes } from "@/types/storeTypes";
 import { useState } from "react";
 
@@ -15,7 +15,7 @@ type Props = {
 };
 
 export default function StoreTableAction({ data }: Props) {
-  const { setIsOpen } = useModal();
+  const { setIsOpen } = UseModal();
   const [selectedData, setSelectedData] = useState<StoreTypes | null>(null);
 
   const handleViewClick = () => {

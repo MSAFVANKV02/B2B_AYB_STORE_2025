@@ -1,4 +1,4 @@
-import { useModal } from "@/providers/context/context";
+import { UseModal } from "@/providers/context/context";
 
 import { ErrorMessage, Form, Formik } from "formik";
 
@@ -46,7 +46,7 @@ const validationSchema = Yup.object().shape({
 });
 
 export default function CouponsFormForWelcome() {
-  const { setIsOpen } = useModal();
+  const { setIsOpen } = UseModal();
 
   return (
     <div className="border p-5 shadow-xl rounded-lg">

@@ -1,4 +1,4 @@
-import { useModal } from "@/providers/context/context";
+import { UseModal } from "@/providers/context/context";
 import ProductLayout, {
   ProductContent,
   ProductFooter,
@@ -124,6 +124,8 @@ export default function ProductAddPage() {
       is_free_shipping:
         editProduct.is_free_shipping ?? InitialValues.is_free_shipping,
       status: editProduct.status || InitialValues.status,
+      bundle_details:
+      editProduct.bundle_details || InitialValues.bundle_details,
     };
 
     return relevantValues;
@@ -131,7 +133,7 @@ export default function ProductAddPage() {
 
   const { search, pathname } = useLocation(); // Access current URL
   const navigate = useNavigate(); // For navigation
-  const { selectedPage, setSelectedPage } = useModal();
+  const { selectedPage, setSelectedPage } = UseModal();
   const [currentStep, setCurrentStep] = useState(1);
   const searchParams = useMemo(() => new URLSearchParams(search), [search]);
 
@@ -253,10 +255,19 @@ export default function ProductAddPage() {
           try {
           
 
-            const route = id
-              ? update_Product_Api(values, id)
-              : add_Product_Api(values);
+            // const route = id
+            //   ? update_Product_Api(values, id)
+            //   : add_Product_Api(values);
+            const productPayload = {
+              ...values,
+              ...(values.selectWise === "bundle"
+                ? {}
+                : { bundle_details: [] }),
+            };
 
+            const route = id
+              ? update_Product_Api(productPayload, id)
+              : add_Product_Api(productPayload);
             const response = await route;
             // console.log(response, "response product add");
 

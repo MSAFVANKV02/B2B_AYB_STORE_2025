@@ -10,7 +10,7 @@ type Props = {
 }
 
 export default function OrderTableActionModal({orderId}: Props) {
-    // const {setIsOpen} = useModal();
+    // const {setIsOpen} = UseModal();
     const navigate = useNavigate();
 
     const showOrderDetails = (orderId:string) =>{

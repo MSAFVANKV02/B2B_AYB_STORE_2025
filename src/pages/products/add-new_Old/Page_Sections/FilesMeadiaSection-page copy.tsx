@@ -3,7 +3,7 @@
 // import { ErrorMessage } from "formik";
 // import CloseIcon from "@mui/icons-material/Close";
 // import { Tooltip } from "@mui/material";
-// import { useModal } from "@/providers/context/context";
+// import { UseModal } from "@/providers/context/context";
 // import { useState } from "react";
 // import TaskModal, {
 //   TaskModalContent,
@@ -34,7 +34,7 @@
 //   values,
 // }: Props) {
 //   // console.log(values, "values");
-//   const { setIsOpen } = useModal();
+//   const { setIsOpen } = UseModal();
 //   const [localProductImages, setProductLocalImages] = useState<
 //     { image: File; colorCode: string; colorName: string }[]
 //   >([]);

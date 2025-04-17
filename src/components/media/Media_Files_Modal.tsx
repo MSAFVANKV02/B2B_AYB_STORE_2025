@@ -8,7 +8,7 @@ import {
 
 import AyButton from "../myUi/AyButton";
 import { memo, useState } from "react";
-import { useModal } from "@/providers/context/context";
+import { UseModal } from "@/providers/context/context";
 import MyCloseIcon from "../icons/My_CloseIcon";
 
 import { makeToastError } from "@/utils/toaster";
@@ -31,7 +31,7 @@ function MediaFilesModal({
   category
 }: Props) {
   const [selectedFiles, setSelectedFiles] = useState<IFileDataMedia[]>([]);
-  const { setMediaOpenDrawer, mediaOpenDrawer } = useModal();
+  const { setMediaOpenDrawer, mediaOpenDrawer } = UseModal();
 
   const handleFileSelection = (src: IFileDataMedia[]) => {
     if (multiple) {

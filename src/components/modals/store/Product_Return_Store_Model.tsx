@@ -1,7 +1,7 @@
 import MyCloseIcon from "@/components/icons/My_CloseIcon";
 import TaskModal, { TaskModalContent, TaskModalHeader } from "../TaskModal";
 import StoreStockLocalTable from "@/components/tasks/local-tables/store_stock_local_table";
-import { useModal } from "@/providers/context/context";
+import { UseModal } from "@/providers/context/context";
 import { ErrorMessage, Form, Formik } from "formik";
 import { FormField } from "@/components/myUi/FormField";
 import { Input } from "@/components/ui/input";
@@ -29,7 +29,7 @@ type FileInputFields = {
 };
 
 export default function ProductReturnModel() {
-  const { setIsOpen } = useModal();
+  const { setIsOpen } = UseModal();
 
   const fieldInputs: {
     id: string;

@@ -1,5 +1,5 @@
 import MyCloseIcon from "@/components/icons/My_CloseIcon";
-import { useModal } from "@/providers/context/context";
+import { UseModal } from "@/providers/context/context";
 import { Form, Formik } from "formik";
 
 import AyButton from "@/components/myUi/AyButton";
@@ -21,7 +21,7 @@ import { send_Request_Product_Stock_Api } from "@/services/stock/route";
 
 export default function RequestStockModal() {
   const { setIsOpen, dynamicCloseModal, dynamicSelectedTask } =
-    useModal<IProducts>();
+    UseModal<IProducts>();
   const { currentAdmin } = useAppSelector((state) => state.admin);
   // const [fileNames, setFileNames] = useState<
   //   Record<keyof FileInputFields, string | null>

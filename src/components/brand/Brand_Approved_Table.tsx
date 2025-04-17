@@ -8,7 +8,7 @@ import BrandDetailsModal from "./Brand_Details_Modal";
 import MyEyeIcon from "../icons/My_EyeIcon";
 import { dispatch } from "@/redux/hook";
 import { setSelectedBrand } from "@/redux/actions/brandsSlice";
-import { useModal } from "@/providers/context/context";
+import { UseModal } from "@/providers/context/context";
 
 
 type Props = {
@@ -20,7 +20,7 @@ export default function BrandApprovedTable({ brands }: Props) {
   // const [openModalId, setOpenModalId] = useState<string | null>(null);
   // const {selectedBrand} = useAppSelector((state)=> state.brand)
   // const { hardDeleteSingleBrandFn, softDeleteBrandFn } = DeleteBrands();
-  const {setIsOpen} = useModal();
+  const {setIsOpen} = UseModal();
 
 
 

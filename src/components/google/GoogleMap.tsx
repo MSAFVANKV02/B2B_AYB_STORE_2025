@@ -9,7 +9,7 @@ import TaskModal, {
 import MyCloseIcon from "../icons/My_CloseIcon";
 import AyButton from "../myUi/AyButton";
 import CircularProgress from "@mui/material/CircularProgress";
-import { useModal } from "@/providers/context/context";
+import { UseModal } from "@/providers/context/context";
 import { makeToast, makeToastError } from "@/utils/toaster";
 // import axios from "axios";
 
@@ -23,7 +23,7 @@ type Props = {
 const libraries: Libraries = ["geometry"];
 
 function GoogleMapModal({ setFieldValue }: Props) {
-  const { setIsOpen } = useModal();
+  const { setIsOpen } = UseModal();
   const { isLoaded } = useJsApiLoader({
     googleMapsApiKey: "AIzaSyBpUCwzl4G9L6vrFOElEawM86H2QIQ6tdM", // Replace with your API key
     // libraries: ["places"], // Include 'places' if you want autocomplete functionality

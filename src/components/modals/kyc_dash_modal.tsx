@@ -15,7 +15,7 @@ import {
 } from "../ui/select";
 import { Textarea } from "../ui/textarea";
 import { Field, Form, Formik } from "formik";
-import { useModal } from "@/providers/context/context";
+import { UseModal } from "@/providers/context/context";
 import MyPdf from "../myUi/MyPdf";
 import MyCloseIcon from "../icons/My_CloseIcon";
 import { Update_Customer_Kyc_Api } from "@/services/customer/route";
@@ -25,7 +25,7 @@ import { makeToast, makeToastError } from "@/utils/toaster";
 
 export default function KycDashModal() {
   const dispatch = useAppDispatch();
-  const { selectedTask, closeModal } = useModal(); // Get the modal context
+  const { selectedTask, closeModal } = UseModal(); // Get the modal context
 
   console.log(selectedTask,'selectedTask');
 

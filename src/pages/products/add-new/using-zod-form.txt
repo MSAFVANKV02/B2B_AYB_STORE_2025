@@ -1,4 +1,4 @@
-import { useModal } from "@/providers/context/context";
+import { UseModal } from "@/providers/context/context";
 import ProductLayout, {
   ProductContent,
   ProductFooter,
@@ -31,7 +31,7 @@ const pageToStep: Record<string, number> = {
 export default function ProductAddPage() {
   const { search, pathname } = useLocation(); // Access current URL
   const navigate = useNavigate(); // For navigation
-  const { selectedPage, setSelectedPage } = useModal();
+  const { selectedPage, setSelectedPage } = UseModal();
   const [currentStep, setCurrentStep] = useState(1);
   const searchParams = useMemo(() => new URLSearchParams(search), [search]);
 

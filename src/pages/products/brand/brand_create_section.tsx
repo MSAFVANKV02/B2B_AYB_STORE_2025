@@ -11,7 +11,7 @@ import { getAllBrands, resetSelectedBrand } from "@/redux/actions/brandsSlice";
 import { dispatch, useAppSelector } from "@/redux/hook";
 import Loader from "@/components/global/loader";
 import { update_Brand_Api } from "@/services/brand/route";
-import { useModal } from "@/providers/context/context";
+import { UseModal } from "@/providers/context/context";
 
 
 const brandSchema = Yup.object().shape({
@@ -27,7 +27,7 @@ const brandSchema = Yup.object().shape({
 
 export default function BrandCreateSection() {
   const { selectedBrand, mode } = useAppSelector((state) => state.brand);
-  const { setIsOpen } = useModal();
+  const { setIsOpen } = UseModal();
 
 
   return (

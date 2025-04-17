@@ -2,7 +2,7 @@
 // import { memo } from "react";
 // import { Label } from "../ui/label";
 // import { Icon } from "@iconify/react/dist/iconify.js";
-// import { useModal } from "@/providers/context/context";
+// import { UseModal } from "@/providers/context/context";
 // import Media_Files_Modal from "../media/Media_Files_Modal";
 // import { IMediaDataType } from "@/types/types";
 // import { IFileDataMedia } from "@/pages/media/retrive/all_uploaded_files";
@@ -34,7 +34,7 @@
 //   handleFileChange,
 // }: Props) => {
 //   const { openMediaDrawer, openDrawerFieldName, setDrawerFieldName } =
-//     useModal();
+//     UseModal();
 
 //   return (
 //     <>
@@ -95,7 +95,7 @@ import { cn } from "@/lib/utils";
 import { memo } from "react";
 import { Label } from "../ui/label";
 import { Icon } from "@iconify/react/dist/iconify.js";
-import { useModal } from "@/providers/context/context";
+import { UseModal } from "@/providers/context/context";
 import Media_Files_Modal from "../media/Media_Files_Modal";
 import { IMediaDataType } from "@/types/types";
 import { ErrorMessage } from "formik";
@@ -140,7 +140,7 @@ const OpenMediaDrawer = ({
   showImage
 }: Props) => {
   const { openMediaDrawer, openDrawerFieldName, setDrawerFieldName } =
-    useModal();
+    UseModal();
 
   return (
     <>

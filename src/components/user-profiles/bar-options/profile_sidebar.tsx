@@ -1,11 +1,11 @@
 import AyButton from "@/components/myUi/AyButton";
-import { useModal } from "@/providers/context/context";
+import { UseModal } from "@/providers/context/context";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import { Link, useParams } from "react-router-dom";
 
 const ProfileSidebar = () => {
   const { page } = useParams();
-  const { handleLogout } = useModal();
+  const { handleLogout } = UseModal();
 
 
   const sidebarList = [

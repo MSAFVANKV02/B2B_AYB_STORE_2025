@@ -1,4 +1,4 @@
-import { useModal } from "@/providers/context/context"
+import { UseModal } from "@/providers/context/context"
 import { ICategory } from "@/types/categorytypes"
 import { Icon } from "@iconify/react/dist/iconify.js"
 
@@ -11,7 +11,7 @@ export default function CategoryAddModal({
     product,
   
 }: Props) {
-  const { openCategoryModal } = useModal()
+  const { openCategoryModal } = UseModal()
   return (
     <div className="flex gap-3">
 

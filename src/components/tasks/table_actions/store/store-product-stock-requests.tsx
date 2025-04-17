@@ -1,5 +1,5 @@
 import StoreStockRequestModal from "@/components/modals/store/Store-Stock-Request-Modal";
-import { useModal } from "@/providers/context/context";
+import { UseModal } from "@/providers/context/context";
 import { IProducts } from "@/types/productType";
 import { Icon } from "@iconify/react/dist/iconify.js";
 
@@ -9,7 +9,7 @@ type IProps ={
 }
 
 export default function StoreProductStockRequests({data}: IProps) {
-  const { setIsOpen } = useModal();
+  const { setIsOpen } = UseModal();
 
   console.log(data,'data in StoreProductStockRequests');
   

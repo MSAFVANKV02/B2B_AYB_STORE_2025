@@ -1,5 +1,5 @@
 import React from "react";
-import { useModal } from "@/providers/context/context";
+import { UseModal } from "@/providers/context/context";
 import { motion } from "framer-motion";
 import Modal from "react-modal";
 // import MyBackBtn from "../myUi/myBackBtn";
@@ -17,7 +17,7 @@ export default function TaskModal({
   className,
   onClick,
 }: ModalComponent) {
-  const { isOpen, closeModal } = useModal();
+  const { isOpen, closeModal } = UseModal();
 
   const handleCloseModal = () => {
     if (!onClick) {

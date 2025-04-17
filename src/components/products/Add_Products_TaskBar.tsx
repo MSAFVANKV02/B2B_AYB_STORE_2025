@@ -1,5 +1,5 @@
 "use client";
-import { useModal } from "@/providers/context/context";
+import { UseModal } from "@/providers/context/context";
 import {  useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
@@ -19,7 +19,7 @@ const TaskbarItems: TaskbarProps[] = [
 export default function AdminProductTaskbar() {
   const location = useLocation(); // Access current URL
   const navigate = useNavigate(); // For navigation
-  const { selectedPage, setSelectedPage } = useModal();
+  const { selectedPage, setSelectedPage } = UseModal();
 
   // Sync selected page with URL query
   useEffect(() => {

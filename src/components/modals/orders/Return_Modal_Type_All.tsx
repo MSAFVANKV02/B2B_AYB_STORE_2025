@@ -2,7 +2,7 @@ import { Textarea } from "@/components/ui/textarea";
 import TaskModal, { TaskModalContent, TaskModalFooter, TaskModalHeader } from "../TaskModal";
 import { IOrders } from "@/types/orderTypes";
 import MyCloseIcon from "@/components/icons/My_CloseIcon";
-import { useModal } from "@/providers/context/context";
+import { UseModal } from "@/providers/context/context";
 import { Separator } from "@/components/ui/separator";
 import { Input } from "@/components/ui/input";
 import {
@@ -24,7 +24,7 @@ export default function ReturnModalTypeAll({
   selectedOrder,
   setSelectedOrder,
 }: Props) {
-  const {setIsOpen} = useModal()
+  const {setIsOpen} = UseModal()
   return (
     <div>
         <TaskModal className="xl:w-[30vw] md:w-[50vw] sm:w-[80vw] w-full p-7">

@@ -1,4 +1,4 @@
-import { useModal } from "@/providers/context/context";
+import { UseModal } from "@/providers/context/context";
 import { ArrowRight } from "lucide-react";
 import RequestStockModal from "./request_stock_modal";
 import { IProducts } from "@/types/productType";
@@ -12,7 +12,7 @@ type Props = {
 };
 
 const ActionsCellRenderer = ({ data, isProductList = true }: Props) => {
-  const { dynamicOpenModal, dynamicSelectedTask, dynamicCloseModal } = useModal<
+  const { dynamicOpenModal, dynamicSelectedTask, dynamicCloseModal } = UseModal<
     IProducts | IStockType
   >();
 
@@ -23,7 +23,6 @@ const ActionsCellRenderer = ({ data, isProductList = true }: Props) => {
     !!task && "destination" in task;
 
   // console.log(dynamicSelectedTask,'dynamicSelectedTask');
-  
 
   return (
     <div>
@@ -60,7 +59,6 @@ const ActionsCellRenderer = ({ data, isProductList = true }: Props) => {
 };
 
 export default ActionsCellRenderer;
-
 
 // export const getAllStockRequests = async (req, res) => {
 //   try {

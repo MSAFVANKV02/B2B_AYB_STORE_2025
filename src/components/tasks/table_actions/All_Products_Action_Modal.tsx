@@ -3,7 +3,7 @@
 //   TaskModalFooter,
   
 // } from "@/components/modals/TaskModal";
-// import { useModal } from "@/providers/context/context";
+// import { UseModal } from "@/providers/context/context";
 // import {
 //   DropdownMenu,
 //   DropdownMenuContent,
@@ -68,7 +68,7 @@
 // }
 
 // export default function AllProductsActionModal({ product }: Props) {
-//   const { openProductModal, selectedProducts } = useModal();
+//   const { openProductModal, selectedProducts } = UseModal();
 //   const [formData, setFormData] = useState<IProducts>(InitialValues);
 //   const { downloadStockReport } = useDownloadXl();
 
@@ -143,7 +143,7 @@
 //   );
 // }
 import TaskModal, { TaskModalContent, TaskModalFooter } from "@/components/modals/TaskModal";
-import { useModal } from "@/providers/context/context";
+import { UseModal } from "@/providers/context/context";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Icon } from "@iconify/react";
 import { IProducts } from "@/types/productType";
@@ -234,7 +234,7 @@ const InitialValues: Partial<IProducts> = {
 };
 
 export default function AllProductsActionModal({ product }: Props) {
-  const { openProductModal, selectedProducts } = useModal();
+  const { openProductModal, selectedProducts } = UseModal();
   const { downloadStockReport } = useDownloadXl();
 
   const [initialValues, setInitialValues] = useState<Partial<IProducts>>(InitialValues);

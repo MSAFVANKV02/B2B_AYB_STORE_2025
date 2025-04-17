@@ -14,7 +14,7 @@ import { Label } from "@/components/ui/label";
 
 import Select from "react-select";
 import makeAnimated from "react-select/animated";
-import { useModal } from "@/providers/context/context";
+import { UseModal } from "@/providers/context/context";
 import { useMemo, useState } from "react";
 const animatedComponents = makeAnimated();
 
@@ -37,7 +37,7 @@ const CategoryAddModal = ({ isMain }: Props) => {
   const [randomId] = useState(() => uuidv4().toString());
 
   const dispatch = useAppDispatch();
-  const { setIsOpen, selectedCategory } = useModal();
+  const { setIsOpen, selectedCategory } = UseModal();
   const categories = useAppSelector((state) => state.category.categories);
 
   const [selectedParent, setSelectedParent] = useState<SelectOption | null>(

@@ -4,7 +4,7 @@
 // }
 
 export default function TransactionTableActionModal() {
-    // const {setIsOpen} = useModal();
+    // const {setIsOpen} = UseModal();
     // const navigate = useNavigate();
 
     // const showOrderDetails = (orderId:string) =>{

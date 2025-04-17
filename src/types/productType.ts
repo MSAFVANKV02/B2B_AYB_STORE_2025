@@ -4,10 +4,15 @@ import { StoreTypes } from "./storeTypes";
 
 export type IProductStatus = "pending" | "approved" | "hold" | "rejected"
 
+type IBundle = {
+  size:string;
+  quantity:number
+}
+
 export type IProducts = {
   _id?: string;
   product_owner?: "seller" | "admin" | "store";
-  
+  bundle_details?: IBundle[];
   createdBy?: IProductCreatedBy;
   requested_users?: IRequestedUserType[];
   product_name: string;

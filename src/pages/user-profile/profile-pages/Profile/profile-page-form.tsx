@@ -7,7 +7,7 @@ import AyButton from "@/components/myUi/AyButton";
 import Loader from "@/components/global/loader";
 import { makeToast, makeToastError } from "@/utils/toaster";
 import { setCurrentAdminSlices } from "@/redux/actions/adminSlice";
-import { useModal } from "@/providers/context/context";
+import { UseModal } from "@/providers/context/context";
 import Media_Files_Modal from "@/components/media/Media_Files_Modal";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import { useState } from "react";
@@ -34,7 +34,7 @@ const ProfilePageForm = () => {
   const { currentAdmin } = useAppSelector((state) => state.admin);
   const navigate = useNavigate();
   const [editAvatar, setEditAvatar] = useState(false);
-  const { openMediaDrawer, mediaOpenDrawer } = useModal();
+  const { openMediaDrawer, mediaOpenDrawer } = UseModal();
 
   const handleDeleteAvatar = async (setFieldValue: any) => {
     if (!currentAdmin?.avatar) {

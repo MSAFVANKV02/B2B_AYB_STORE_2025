@@ -1,4 +1,4 @@
-import { useModal } from "@/providers/context/context";
+import { UseModal } from "@/providers/context/context";
 import {
   Select,
   SelectContent,
@@ -16,7 +16,7 @@ import AyButton from "../myUi/AyButton";
 
 
 export default function OfflineDashModal() {
-  const { selectedTask } = useModal(); // Get the modal context
+  const { selectedTask } = UseModal(); // Get the modal context
 
   return (
     <TaskModal className="h-[75vh]">
