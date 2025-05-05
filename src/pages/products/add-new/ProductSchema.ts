@@ -171,10 +171,28 @@ export const PriceStockSchema = Yup.object({
     .required("Sample Price is required"),
 
   // Discount
+  // discount: Yup.number()
+  //   .nullable()
+  //   .min(0, "Discount must be a positive number")
+  //   .max(100, "Discount cannot be more than 100%")
+  //   .required("Discount is required"),
   discount: Yup.number()
     .nullable()
     .min(0, "Discount must be a positive number")
-    .max(100, "Discount cannot be more than 100%")
+    .when("discount_type", {
+      is: "percentage",
+      then: (schema) => schema.max(100, "Discount cannot be more than 100%"),
+      otherwise: (schema) =>
+        schema.test(
+          "is-less-than-basePrice",
+          "Flat discount must be less than Base Price",
+          function (value) {
+            const { basePrice } = this.parent;
+            if (value === null || value === undefined) return true;
+            return value < basePrice;
+          }
+        ),
+    })
     .required("Discount is required"),
 
   // Discount Type

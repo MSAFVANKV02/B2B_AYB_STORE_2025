@@ -97,9 +97,17 @@ export default function PriceStockSectionPage({
           onChange={(e) => {
             let discountValue = parseFloat(e.target.value);
 
-            // Ensure value is between 0 and 100
+            // Enforce rules based on discount_type
             if (discountValue < 0) discountValue = 0;
-            if (discountValue > 100) discountValue = 100;
+
+            if (values.discount_type === "percentage") {
+              if (discountValue > 100) discountValue = 100;
+            } else if (values.discount_type === "flat") {
+              const mrp = values.basePrice || 0;
+
+              if (discountValue >= mrp) discountValue = mrp - 1;
+            }
+
             setFieldValue("discount", discountValue);
 
             if (values.variations?.length > 0) {
@@ -117,7 +125,7 @@ export default function PriceStockSectionPage({
                 } else {
                   return {
                     ...variation,
-                    details: [{ discount: discountValue }], // If no details exist, create one
+                    details: [{ discount: discountValue }],
                   };
                 }
               });

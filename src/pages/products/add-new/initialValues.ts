@@ -42,6 +42,9 @@ export const InitialValues = {
   is_todays_deal: false,
   is_featured_product:false,
   description: '',
+  product_details: '',
+  special_features: '',
+  care_guid: '',
   
   // ===== File upload section =================
   gallery_image: [],

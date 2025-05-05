@@ -1,6 +1,7 @@
 import { MySwitch } from "@/components/myUi/mySwitch";
 import { IProducts } from "@/types/productType";
 import React, { useState } from "react";
+import { useParams } from "react-router-dom";
 
 type Props = {
   values: IProducts | null;
@@ -8,6 +9,8 @@ type Props = {
 };
 
 export default function AllNewProductsTable({ values, setFieldValue }: Props) {
+  const { id } = useParams();
+
   // const [isDiscountChanged, setIsDiscountChanged] = useState(false)
   const [changedDiscountIndexes, setChangedDiscountIndexes] = useState<
     Set<string>
@@ -24,7 +27,7 @@ export default function AllNewProductsTable({ values, setFieldValue }: Props) {
             <th className="border text-xs text-textGray px-4 py-2">Size</th>
             <th className="border text-xs text-textGray px-4 py-2">Stock</th>
             <th className="border text-xs text-textGray px-4 py-2">
-              Discount (%)
+              Discount {values?.discount_type === "flat" ? "(₹)" : "(%)"}
             </th>
             {values?.selectWise === "bundle" && (
               <th className="border text-xs text-textGray px-4 py-2">
@@ -120,8 +123,16 @@ export default function AllNewProductsTable({ values, setFieldValue }: Props) {
                       // }
 
                       // }
+                      // value={
+                      //   variant.discount
+                      //     ? variant.discount
+                      //     : changedDiscountIndexes.has(`${vIndex}-${index}`)
+                      //     ? variant.discount
+                      //     : values?.discount || 0
+                      // }
                       value={
-                        changedDiscountIndexes.has(`${vIndex}-${index}`)
+                        id ?variant.discount:
+                         changedDiscountIndexes.has(`${vIndex}-${index}`)
                           ? variant.discount
                           : values?.discount || 0
                       }
@@ -144,14 +155,15 @@ export default function AllNewProductsTable({ values, setFieldValue }: Props) {
                       <input
                         type="number"
                         min="0"
+                        disabled
                         className="w-full border rounded px-2 text-center py-2"
                         value={variant.bundleQuantity || 0}
-                        onChange={(e) =>
-                          setFieldValue(
-                            `variations[${vIndex}].details[${index}].bundleQuantity`,
-                            parseFloat(e.target.value) || 0
-                          )
-                        }
+                        // onChange={(e) =>
+                        //   setFieldValue(
+                        //     `variations[${vIndex}].details[${index}].bundleQuantity`,
+                        //     parseFloat(e.target.value) || 0
+                        //   )
+                        // }
                       />
                     </td>
                   )}

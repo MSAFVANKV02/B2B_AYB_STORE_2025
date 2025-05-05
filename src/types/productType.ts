@@ -25,9 +25,10 @@ export type IProducts = {
   product_weight?: number;
   product_dimensions: IProductDimensions;
   categoryId?: ICategory;
-  special_features?: string;
-  care_guide?: string;
-  description?: string;
+  description: string;
+  product_details: string;
+  special_features: string;
+  care_guid: string;
   //   ===== tax  details ============
   tax_details: ITaxDetails;
   //   taxSlab?: SelectOption[];

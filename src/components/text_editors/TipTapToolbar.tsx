@@ -1,5 +1,6 @@
+// ===========
 "use client";
-import  { useState } from "react";
+import { useState } from "react";
 import { type Editor } from "@tiptap/react";
 import { Toggle } from "@/components/ui/toggle";
 import {
@@ -44,12 +45,58 @@ export default function TipTapToolbar({ editor }: Props) {
     editor.chain().focus().extendMarkRange("link").setLink({ href: url }).run();
   };
 
+  // =================================================================
   const setImage = () => {
-    const url = window.prompt("URL");
+    const url = window.prompt("Enter Image URL");
 
-    if (url) {
-      editor.chain().focus().setImage({ src: url }).run();
+    if (!url) return;
+
+    const stylesInput = window.prompt(
+      "Enter styles (comma separated): width,height,marginTop,marginBottom,marginLeft,marginRight\n\n" +
+        "Example: 300px,auto,10px,10px,0,0 OR 100%,100%,10px,20px,5px,5px"
+    );
+    // let width = "300px",
+    let width = "auto",
+      height = "auto",
+      marginTop = "0px",
+      marginBottom = "0px",
+      marginLeft = "0px",
+      marginRight = "0px";
+
+    if (stylesInput) {
+      const [w, h, mt, mb, ml, mr] = stylesInput.split(",");
+
+      width = w?.trim() || width;
+      height = h?.trim() || height;
+      marginTop = mt?.trim() || marginTop;
+      marginBottom = mb?.trim() || marginBottom;
+      marginLeft = ml?.trim() || marginLeft;
+      marginRight = mr?.trim() || marginRight;
     }
+
+    // Ensure "auto" is left as is, while others add "px" if needed
+    const addUnit = (value: string) =>
+      value === "auto" || value.includes("%") || value.includes("px")
+        ? value
+        : `${value}px`;
+
+    const imageAttributes = {
+      src: url,
+      style: `
+        width: ${addUnit(width)};
+        height: ${addUnit(height)};
+        margin-top: ${addUnit(marginTop)};
+        margin-bottom: ${addUnit(marginBottom)};
+        margin-left: ${addUnit(marginLeft)};
+        margin-right: ${addUnit(marginRight)};
+      `,
+    };
+
+    editor
+      .chain()
+      .focus()
+      .setImage(imageAttributes as any)
+      .run();
   };
 
   const toggleTextColorPalette = () => {

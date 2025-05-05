@@ -5,15 +5,21 @@ import Link from "@tiptap/extension-link";
 import Image from "@tiptap/extension-image";
 import Heading from "@tiptap/extension-heading";
 import { useEffect } from "react";
+import TipTapToolbar from "./TipTapToolbar";
 import { Label } from "@/components/ui/label";
+// import BackgroundColor from "./BackgroundColor";
 import Highlight from "@tiptap/extension-highlight";
 import Text from "@tiptap/extension-text";
 import { Color } from "@tiptap/extension-color";
 import TextStyle from "@tiptap/extension-text-style";
 import HardBreak from "@tiptap/extension-hard-break"; // Import HardBreak extension
-import TipTapToolbar from "./TipTapToolbar";
 
-
+import { Mark } from '@tiptap/core';
+import CustomImage from "./CustomImage";
+const BackgroundColor = Mark.create({
+  name: 'backgroundColor',
+  // ... config
+});
 type Props = {
   careGuide: string;
   label: string;
@@ -22,7 +28,7 @@ type Props = {
   touched?: boolean;
 };
 
-export default function TiptapCareGuide({ careGuide, onChange, label }: Props) {
+export default function TiptapTextEditor({ careGuide, onChange, label}: Props) {
   const editor = useEditor({
     extensions: [
       StarterKit,
@@ -36,8 +42,10 @@ export default function TiptapCareGuide({ careGuide, onChange, label }: Props) {
       }),
       Link,
       Image,
+      BackgroundColor,
       TextStyle,
       Text,
+      CustomImage,
       Color,
       Highlight.configure({ multicolor: true }),
     ],

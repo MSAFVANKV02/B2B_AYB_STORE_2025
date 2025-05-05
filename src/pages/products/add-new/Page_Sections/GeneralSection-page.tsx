@@ -41,7 +41,10 @@ export interface GeneralFormValues {
   tax_details: ITaxDetails;
   status: boolean;
   is_todays_deal: boolean;
-  description?: string;
+  description: string;
+  product_details: string;
+  special_features: string;
+  care_guid: string;
 
   is_featured_product: boolean;
 }
@@ -264,13 +267,42 @@ Props) {
           </div>
         </div>
 
-        {/* #text editor description ==== */}
-        <TiptapCareGuide
+         {/* #text editor description ==== */}
+         <TiptapCareGuide
           label="Description"
           careGuide={values.description ?? ""}
-          onChange={(value) =>{
+          onChange={(value) => {
             setFieldValue("description", value);
-            console.log(value)}}
+            // console.log(value)
+          }}
+        />
+        {/* #text editor special_features ==== */}
+        <TiptapCareGuide
+          label="Special Features"
+          careGuide={values.special_features ?? ""}
+          onChange={(value) => {
+            setFieldValue("special_features", value);
+            // console.log(value)
+          }}
+        />
+
+        {/* #text editor product_details ==== */}
+        <TiptapCareGuide
+          label="Product Details"
+          careGuide={values.product_details ?? ""}
+          onChange={(value) => {
+            setFieldValue("product_details", value);
+            // console.log(value)
+          }}
+        />
+        {/* #text editor care_guid ==== */}
+        <TiptapCareGuide
+          label="Care Guid"
+          careGuide={values.care_guid ?? ""}
+          onChange={(value) => {
+            setFieldValue("care_guid", value);
+            // console.log(value)
+          }}
         />
 
         {/* #Tax details ======= */}
