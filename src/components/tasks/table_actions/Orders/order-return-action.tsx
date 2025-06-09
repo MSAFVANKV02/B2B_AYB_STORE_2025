@@ -6,7 +6,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Separator } from "@/components/ui/separator";
 import { UseModal } from "@/providers/context/context";
-import { IOrders } from "@/types/orderTypes";
+import { IOrders } from "@/types/orderTypes_dummy";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import { IconButton } from "@mui/material";
 import { useState } from "react";

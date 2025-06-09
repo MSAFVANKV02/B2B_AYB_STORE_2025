@@ -5,5 +5,15 @@
         "Storereg",
         "Subadmin",
         "Subadmins"
+    ],
+    "tailwindCSS.classAttributes": [
+        "class",
+        "className",
+        "ngClass",
+        "class:list",
+        "tableHeadClass",
+        "tableRowClass",
+        "tableCellClass",
+        "classNameImg"
     ]
 }

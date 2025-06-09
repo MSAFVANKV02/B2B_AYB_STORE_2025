@@ -58,10 +58,30 @@ function NavigationList() {
     },
     {
       kind: "page",
+      segment: "/return",
+      title: "Return Management",
+      icon: <Icon icon="ph:key-return-fill" />,
+      isChild: true,
+      subscribed: "free",
+      children: [
+        {
+          title: "Customer Return",
+          segment: "/return/customer-return",
+          subscribed: "free",
+        },
+        {
+          title: "Seller Return",
+          segment: "/return/seller-return",
+          subscribed: "free",
+        },
+      ],
+    },
+    {
+      kind: "page",
       segment: "/marketing",
       title: "Marketing",
       subscribed: "free",
-      icon: <Icon icon="mdi:bullhorn" />, 
+      icon: <Icon icon="mdi:bullhorn" />,
       isChild: true,
       children: [
         { title: "Coupons", subscribed: "free", segment: "/marketing/coupons" },

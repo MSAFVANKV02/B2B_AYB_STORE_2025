@@ -10,6 +10,7 @@ import { store } from "./redux/store.ts";
 import axios from "axios";
 import { I18nextProvider } from "react-i18next";
 import i18n from "./i18n.ts";
+import { ModalStateProvider } from "./providers/context/modal-context.tsx";
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.mjs`;
 
@@ -19,26 +20,28 @@ axios.defaults.withCredentials = true;
 
 createRoot(document.getElementById("root")!).render(
   <I18nextProvider i18n={i18n}>
-    <Provider store={store}>
-      {/* <ModalProvider> */}
-      <RouterProvider
-        router={rootRouter}
-        future={{
-          v7_startTransition: true,
-        }}
-      />
-      <Toaster
-        position="top-center"
-        reverseOrder={true}
-        toastOptions={{
-          duration: 2000,
-        }}
-        containerStyle={{
-          zIndex: "100009",
-        }}
-        gutter={14}
-      />
-      {/* </ModalProvider> */}
-    </Provider>
+    <ModalStateProvider>
+      <Provider store={store}>
+        {/* <ModalProvider> */}
+        <RouterProvider
+          router={rootRouter}
+          future={{
+            v7_startTransition: true,
+          }}
+        />
+        <Toaster
+          position="top-center"
+          reverseOrder={true}
+          toastOptions={{
+            duration: 2000,
+          }}
+          containerStyle={{
+            zIndex: "100009",
+          }}
+          gutter={14}
+        />
+        {/* </ModalProvider> */}
+      </Provider>
+    </ModalStateProvider>
   </I18nextProvider>
 );

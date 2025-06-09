@@ -1,7 +1,7 @@
 "use client";
 
 import { ColumnDef } from "@tanstack/react-table";
-import { IOrders } from "@/types/orderTypes";
+import { IOrders } from "@/types/orderTypes_dummy";
 import OrderReturnAction from "../../table_actions/Orders/order-return-action";
 
 export const OrderReturnColumn: ColumnDef<IOrders>[] = [
