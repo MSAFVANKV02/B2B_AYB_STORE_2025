@@ -108,7 +108,7 @@ type Props = {
   onClick?: () => void; // Function to call when the button is clicked
   title?: string; // The title of the button
   sx?: SxProps<Theme>; // Allow overriding styles
-  variant?: "contained" | "outlined" | "cancel" |"delete"; // Add variants
+  variant?: "contained" | "outlined" | "cancel" |"delete" |"gray"; // Add variants
   outLineColor?: string;
   icon?: string; //
   iconSize?: number; // Font size for the icon
@@ -178,7 +178,14 @@ export default function AyButton({
               "&:hover": {
                 bgcolor: "rgba(34, 32, 32, 0.9)", // Subtle hover background
               },
-            }:{
+            } : variant === "gray"  ? {
+              border: `1px solid ${outLineColor}`, // Border for "outlined"
+              color: disabled ? "#a0a0a0" : "#575757",  // Text color for "outlined"
+              bgcolor: disabled ? "#d3d3d3" : "#E5E5E5",  // Transparent background
+              "&:hover": {
+                bgcolor: "#DCDCDC", // Subtle hover background
+              },
+            } :{
               border: `1px solid ${outLineColor}`, // Border for "outlined"
               color: disabled ? "#a0a0a0" : "white",  // Text color for "outlined"
               bgcolor: disabled ? "#d3d3d3" : "red",  // Transparent background

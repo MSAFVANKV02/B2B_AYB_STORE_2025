@@ -126,7 +126,7 @@ function CustomMainReturnTable<TData, TValue>({
   columns,
 }: Props<TData, TValue>) {
   return (
-    <div>
+    <div className="w-full overflow-x-auto">
       <Table className="overflow-x-auto w-full  border-separate border-spacing-y-3 ">
         <TableHeader className={cn("", tableHeadClass)}>
           {table.getHeaderGroups().map((headerGroup) => (
@@ -164,7 +164,7 @@ function CustomMainReturnTable<TData, TValue>({
                   <TableCell
                     key={cell.id}
                     className={cn(
-                      "text-sm py-4 border-t border-b  ",
+                      " sm:px-4 px-2 py-4 border-t border-b sm:text-sm text-xs ",
                       tableCellClass,
                       cellIndex === 0 && "border-l rounded-l-lg ",                     // First column
                       cellIndex === columns.length - 1 && "border-r rounded-r-lg",  

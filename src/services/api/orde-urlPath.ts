@@ -4,4 +4,4 @@ export const GET_ALL_ORDERS_URL = '/api/order/orders/user'
 export const CANCEL_ORDERS_URL = '/api/order/orders/user'
 
 
-export const RETURN_ORDERS_URL = '/api/order/returns'
+export const RETURN_ORDERS_ACTION_URL = '/api/order/returns/store/action'

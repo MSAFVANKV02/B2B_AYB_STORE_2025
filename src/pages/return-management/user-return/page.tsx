@@ -64,11 +64,31 @@ const UserReturnOrderPage = () => {
         <h1 className="font-bold text-textGray">CUSTOMER RETURNS</h1>
       </div>
 
+      {/* <pre className="text-xs max-h-[500px] overflow-y-auto">
+        {JSON.stringify(filteredReturnOrders,null,4)}
+      </pre> */}
+
       <div className="page-outer">
         {modalState.isOpen && modalState.type === "return-product-details" ? (
           <UserReturnTableDetails />
         ) : (
           <DataTable
+            enableSearch
+            enableStatusFlatStyle
+            statuses={[
+              {
+                label: "Approved",
+                value: "Approved",
+                icon: "article",
+              },
+              {
+                label: "Pending",
+                value: "requested",
+                icon: "article",
+              },
+            ]}
+            enableStatus
+            searchWith="return_id"
             isCustomTableBody={(table, columns) => (
               <CustomMainReturnTable
                 table={table}
