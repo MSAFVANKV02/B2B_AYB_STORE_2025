@@ -5,6 +5,7 @@ import Modal from "@/components/modals/main";
 import AyButton from "@/components/myUi/AyButton";
 import MyBackBtn from "@/components/myUi/myBackBtn";
 import MyClock from "@/components/myUi/MyClock";
+import { Checkbox } from "@/components/ui/checkbox";
 import { DialogClose } from "@/components/ui/dialog";
 import { Textarea } from "@/components/ui/textarea";
 import { useMutationData } from "@/hooks/useMutationData";
@@ -180,7 +181,22 @@ const UserReturnTableDetails = () => {
                   </p>
                   <p className="text-xs">
                     <span className="font-semibold">User Name: </span>
-                    {orders.customer_id.name}
+                    {orders.customer_id.userId.name}
+                  </p>
+                  <p className="text-xs">
+                    <span className="font-semibold">GST NO: </span>
+                    {orders.customer_id.gstNumber}
+                  </p>
+                  <p className="text-xs flex gap-1">
+                    <span className="font-semibold">Address: </span>
+                   <p className=" w-[150px]">
+                   {orders.main_order_id.shipping_address.street},{" "}
+                    {orders.main_order_id.shipping_address.state},{" "}
+                    {orders.main_order_id.shipping_address.city},{" "}
+                    {orders.main_order_id.shipping_address.country},{" "}
+                    {orders.main_order_id.shipping_address.zip}
+
+                   </p>
                   </p>
                 </div>
                 <div>
@@ -200,7 +216,40 @@ const UserReturnTableDetails = () => {
                     <tr className="text-left border-b-2 font-semibold">
                       <th className="text-xs font-medium sm:px-4 px-2 py-3">
                         {" "}
-                        <input
+                        <Checkbox
+                          checked={values.items.length > 0}
+                          className=" data-[state=checked]:bg-[#2B90EC] data-[state=checked]:text-white"
+                          disabled={
+                            !orders.items.some((order) =>
+                              order.product.variations[0].details.some(
+                                (detail) => detail.return_status === "requested"
+                              )
+                            )
+                          }
+                          onChange={() => {
+                            if (values.items.length > 0) {
+                              setFieldValue("items", []);
+                            } else {
+                              const newItems = orders.items.flatMap((order) =>
+                                order.product.variations[0].details
+                                  .filter(
+                                    (detail) =>
+                                      detail.return_status === "requested"
+                                  )
+                                  .map((detail) => ({
+                                    return_id: orders.return_id,
+                                    product_order_id: order.product_order_id,
+                                    size: detail.size,
+                                    status: "approved",
+                                    return_mode: "replace",
+                                    remarks: "",
+                                  }))
+                              );
+                              setFieldValue("items", newItems);
+                            }
+                          }}
+                        />
+                        {/* <input
                           type="checkbox"
                           // checked={allSelected}
                           checked={values.items.length > 0}
@@ -252,7 +301,7 @@ const UserReturnTableDetails = () => {
                               setFieldValue("items", newItems);
                             }
                           }}
-                        />
+                        /> */}
                       </th>
                       <th className="text-xs sm:px-4 px-2 py-3  font-semibold">
                         Name
@@ -321,7 +370,33 @@ const UserReturnTableDetails = () => {
                               className="bg-[#FCFCFC] border-b-2 "
                             >
                               <td className="text-xs py-3 sm:px-4 px-2">
-                                <input
+                                <Checkbox
+                                  checked={isChecked}
+                                  className=" data-[state=checked]:bg-[#2B90EC] data-[state=checked]:text-white"
+                                  disabled={
+                                    detail.return_status !== "requested"
+                                  }
+                                  onChange={() => {
+                                    if (isChecked) {
+                                      const filtered = values.items.filter(
+                                        (i) =>
+                                          !(
+                                            i.return_id === dataObj.return_id &&
+                                            i.product_order_id ===
+                                              dataObj.product_order_id &&
+                                            i.size === dataObj.size
+                                          )
+                                      );
+                                      setFieldValue("items", filtered);
+                                    } else {
+                                      setFieldValue("items", [
+                                        ...values.items,
+                                        dataObj,
+                                      ]);
+                                    }
+                                  }}
+                                />
+                                {/* <input
                                   type="checkbox"
                                   checked={isChecked}
                                   disabled={
@@ -346,7 +421,7 @@ const UserReturnTableDetails = () => {
                                       ]);
                                     }
                                   }}
-                                />
+                                /> */}
                               </td>
                               <td className="py-3 sm:px-4 px-2 text-xs flex gap-3">
                                 <Image

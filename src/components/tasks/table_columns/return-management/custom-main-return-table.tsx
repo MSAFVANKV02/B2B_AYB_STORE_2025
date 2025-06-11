@@ -158,13 +158,13 @@ function CustomMainReturnTable<TData, TValue>({
             table.getRowModel().rows.map((row) => (
               <TableRow
                 key={row.id}
-                className={cn("border-none  py-0 px-0 my-5", tableRowClass)}
+                className={cn("border-none shadow-sm hover:bg-gray-50 transition-all duration-300 py-0 px-0 my-5", tableRowClass)}
               >
                 {row.getVisibleCells().map((cell,cellIndex) => (
                   <TableCell
                     key={cell.id}
                     className={cn(
-                      " sm:px-4 px-2 py-4 border-t border-b sm:text-sm text-xs ",
+                      " sm:px-4 px-2 py-6  border-t border-b sm:text-sm text-xs ",
                       tableCellClass,
                       cellIndex === 0 && "border-l rounded-l-lg ",                     // First column
                       cellIndex === columns.length - 1 && "border-r rounded-r-lg",  

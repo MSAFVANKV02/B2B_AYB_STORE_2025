@@ -63,7 +63,7 @@ export type ReturnStatusEnum =
 export interface IReturnOrders {
   _id: string;
   return_id: string;
-  main_order_id: string;
+  main_order_id: MainOrderReturnType;
   store_order_id: string;
   order_against_id: string;
   customer_id: CustomerId;
@@ -74,9 +74,50 @@ export interface IReturnOrders {
   __v: number;
 }
 
-export interface CustomerId {
+export interface MainOrderReturnType {
+  _id: string
+  shipping_address: ReturnShippingAddressType
+}
+
+export interface ReturnShippingAddressType {
   _id: string;
   name: string;
+  mobile: number;
+  email: string;
+  street: string;
+  city: string;
+  building: string;
+  landmark: string;
+  state: string;
+  country: string;
+  zip: string;
+  isDefault: boolean;
+}
+
+export interface CustomerId {
+  _id: string
+  businessName: string
+  emailId: string
+  buildingName: string
+  street: string
+  pinCode: string
+  state: string
+  country: string
+  gstNumber: string
+  proof: string
+  proofType: string
+  status: string
+  isApproved: boolean
+  userId: ReturnUserId
+  createdAt: string
+  updatedAt: string
+  __v: number
+  kycFeedback: string
+}
+
+export interface ReturnUserId {
+  _id: string
+  name: string
 }
 
 // Use overridden product type here

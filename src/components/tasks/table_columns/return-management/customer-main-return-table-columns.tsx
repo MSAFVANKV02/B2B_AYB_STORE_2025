@@ -3,26 +3,32 @@
 import { ColumnDef } from "@tanstack/react-table";
 import { IReturnOrders } from "@/types/return_order_types";
 import OrderUserReturnAction from "../../table_actions/reurn-management/customers/return-action-customers";
+import CopyTextContainer from "@/components/global/copy-text";
+import MyClock from "@/components/myUi/MyClock";
 
 export const CustomerMainReturnColumn: ColumnDef<IReturnOrders>[] = [
   {
     accessorKey: "createdAt",
     header: () => <div className="font-bold text-black max-w-32">Date</div>,
-    cell: ({ row }) => <div>{row.original.createdAt}</div>,
+    cell: ({ row }) => <div>
+      <MyClock date={row.original.createdAt} showSeconds={false} />
+    </div>,
   },
   {
     accessorKey: "return_id",
     header: () => (
       <div className="font-bold text-black max-w-32">Return ID</div>
     ),
-    cell: ({ row }) => <div>{row.original.return_id}</div>,
+    cell: ({ row }) => (
+      <CopyTextContainer id={row.original.return_id} />
+    ),
   },
   {
     accessorKey: "customer_id.name",
     header: () => (
       <div className="font-bold text-black max-w-32">User Name</div>
     ),
-    cell: ({ row }) => <div>{row.original.customer_id.name}</div>,
+    cell: ({ row }) => <div>{row.original.customer_id.userId.name}</div>,
   },
   {
     accessorKey: "items",

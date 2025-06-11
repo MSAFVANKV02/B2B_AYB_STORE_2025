@@ -74,20 +74,20 @@ const UserReturnOrderPage = () => {
         ) : (
           <DataTable
             enableSearch
-            enableStatusFlatStyle
-            statuses={[
-              {
-                label: "Approved",
-                value: "Approved",
-                icon: "article",
-              },
-              {
-                label: "Pending",
-                value: "requested",
-                icon: "article",
-              },
-            ]}
-            enableStatus
+            // enableStatusFlatStyle
+            // statuses={[
+            //   {
+            //     label: "Approved",
+            //     value: "Approved",
+            //     icon: "article",
+            //   },
+            //   {
+            //     label: "Pending",
+            //     value: "requested",
+            //     icon: "article",
+            //   },
+            // ]}
+            // enableStatus
             searchWith="return_id"
             isCustomTableBody={(table, columns) => (
               <CustomMainReturnTable
