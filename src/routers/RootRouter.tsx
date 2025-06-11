@@ -31,13 +31,13 @@ import MoneyWithdrawalPage from "@/pages/accounts/money-withdrawal/money-withdra
 import PageOnBuild from "@/components/myUi/PageOnBuild";
 import UploadMediaPage from "@/pages/media/upload-media-page";
 import AllUploadedFiles from "@/pages/media/retrive/all_uploaded_files";
-import AllOrdersPage from "@/pages/orders/all/all-oders-page";
 import CustomerRefundPage from "@/pages/orders/customer-refunds/customer-refund-page";
 import CustomersPage from "@/pages/customers/customers-page";
 import SellerNewAddedProductsPage from "@/pages/seller-management/new-product-from-seller/seller-new-products-page";
 import UserProfilePage from "@/pages/user-profile/user-profile-page";
 import CouponPage from "@/pages/marketing/copon/coupon-page";
 import UserReturnOrderPage from "@/pages/return-management/user-return/page";
+import AllOrderPage from "@/pages/orders/all/page";
 
 const rootRouter = createBrowserRouter(
   [
@@ -92,7 +92,7 @@ const rootRouter = createBrowserRouter(
           path: "/sales",
           element: <SalesLayout />, // Parent layout for Sales
           children: [
-            { path: "orders", element: <AllOrdersPage /> },
+            { path: "orders", element: <AllOrderPage /> },
             // { path: "refunds", element: <CustomerRefundPage /> },
           ],
         },

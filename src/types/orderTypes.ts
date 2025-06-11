@@ -1,3 +1,6 @@
+import { IUserAddressType } from "./address_types";
+import { Store } from "./final-product-types";
+
 export type IOrderItem = {
   size: string; // Size of the product (e.g., "S")
   count: number; // Quantity of the product
@@ -28,7 +31,7 @@ export type IOrderStatus =
   | "shipped"
   | "out_for_delivery"
   | "delivered"
-  | "cancelled"
+  | "cancelled";
 
 export type IReturnMode = "none" | "requested" | "replace" | "refund";
 
@@ -55,10 +58,6 @@ export type IFilterOrders =
   | "sort_by"
   | "sort_order";
 
-
-import { IUserAddressType } from "./address_types";
-import { Store } from "./final-product-types";
-
 // export type IOrder = {
 //   id: number; // Unique identifier for the order
 //   slug:string; // Order
@@ -79,6 +78,18 @@ export type IOrdersType = {
   totalPages: number;
   limit: number;
   orders: IOrders[];
+  orderStatusSummary: {
+    all: number;
+    pending: number;
+    processing: number;
+    ready_to_pickup: number;
+    shipped: number;
+    out_for_delivery: number;
+    delivered: number;
+    cancelled: number;
+    returnedCount: number;
+    
+  };
 };
 
 export type IOrderTransactionDetails = {
@@ -91,31 +102,35 @@ export type IOrderTransactionDetails = {
 
 export type ICouponCode = {
   _id: string;
-  code: string
-  discountType: "PERCENTAGE"|"FIXED_AMOUNT"|""
-  discountValue: number
-  maxDiscountAmount: number
-  minOrderAmount: number
-  expiryDate:  Date
-  startDate:  Date
-  usageLimit: number
-  isActive: boolean
-  applicableToAll: boolean
-  applicableStores: string[]
-  applicableSellers: string[]
-  applicableCategories: string[]
+  code: string;
+  discountType: "PERCENTAGE" | "FIXED_AMOUNT" | "";
+  discountValue: number;
+  maxDiscountAmount: number;
+  minOrderAmount: number;
+  expiryDate: Date;
+  startDate: Date;
+  usageLimit: number;
+  isActive: boolean;
+  applicableToAll: boolean;
+  applicableStores: string[];
+  applicableSellers: string[];
+  applicableCategories: string[];
   applicableProducts: string[];
   applicableBrands: string[];
-  applicablePurchaseType: "ALL"|"FIRST_PURCHASE"|"REPEAT_CUSTOMER"|"BULK_PURCHASE"
-  minPurchaseCount: number
-  minPurchaseAmountThreshold: number
-  maxUsagePerUser: number
-  createdBy: string
-  dbModel: string
-  coupon_owner: string
-  createdAt: string
-  updatedAt: string
-}
+  applicablePurchaseType:
+    | "ALL"
+    | "FIRST_PURCHASE"
+    | "REPEAT_CUSTOMER"
+    | "BULK_PURCHASE";
+  minPurchaseCount: number;
+  minPurchaseAmountThreshold: number;
+  maxUsagePerUser: number;
+  createdBy: string;
+  dbModel: string;
+  coupon_owner: string;
+  createdAt: string;
+  updatedAt: string;
+};
 
 export type IOrders = {
   _id: string;
@@ -124,10 +139,10 @@ export type IOrders = {
     _id: string;
     name: string;
   };
-  coupon_code: ICouponCode | null; 
-  shipping_address:IUserAddressType;
+  coupon_code: ICouponCode | null;
+  shipping_address: IUserAddressType;
   coupon: string;
-  payment_method: "cod"|"razorpay"|"offline_payment";
+  payment_method: "cod" | "razorpay" | "offline_payment";
   payment_status: string;
   createdAt: string;
   updatedAt: string;
@@ -152,7 +167,7 @@ type OrderTotal = {
 
 export type IStoreOrder = {
   _id: string;
-  invoice:string
+  invoice: string;
   main_order_id: string;
   store_order_id: string;
   customer_id: string;
@@ -160,7 +175,7 @@ export type IStoreOrder = {
   order_status: IOrderStatus;
   // return_mode: IReturnMode;
   // refund_replace_status: IReturnStatus;
-  is_returned:boolean;
+  is_returned: boolean;
   __v: number;
   order_total: OrderTotal;
   parcel_details: ParcelDetails;
@@ -207,7 +222,6 @@ type StoreItem = {
   mrp: number;
   discount_type: string;
   product: Product;
-
 };
 
 type Product = {
@@ -229,7 +243,7 @@ type Product = {
     _id: string;
     name: string;
   };
-  gst_rate:number
+  gst_rate: number;
   tax_details: TaxDetails;
   gallery_image: string[];
   thumbnails: string[];
@@ -274,7 +288,7 @@ type Product = {
 
 type TaxDetails = {
   hsn_sac_number: string;
-  non_gst_goods: "yes"|"no";
+  non_gst_goods: "yes" | "no";
   calculation_types: string;
   on_items_rate_details: {
     greaterThan: number | null;

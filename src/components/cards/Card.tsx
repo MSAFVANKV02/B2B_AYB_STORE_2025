@@ -10,6 +10,9 @@ export type CardProps = {
   description?: string;
   className?: string;
   bgcolor?: string;
+  iconIsSvg?:boolean
+  iColor?: string
+
 };
 
 export default function Card({
@@ -19,6 +22,8 @@ export default function Card({
   label,
   className,
   bgcolor,
+  iconIsSvg,
+  iColor,
 }: CardProps) {
   return (
     <CardContent className={className} key={id}>
@@ -31,7 +36,7 @@ export default function Card({
           className={` w-fit p-3 rounded-lg flex justify-center items-center text-white`}
           style={{ backgroundColor: `${bgcolor}` }}
         >
-          <Icon icon={icon} fontSize={30} />
+         {iconIsSvg ?icon : <Icon icon={icon} fontSize={30} color={`${iColor}`}/>} 
         </div>
       </section>
     </CardContent>
