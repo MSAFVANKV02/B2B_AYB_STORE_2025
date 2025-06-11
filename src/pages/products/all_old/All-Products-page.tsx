@@ -48,7 +48,7 @@ export default function AllProductsPage() {
   if (loading) return <div>Loading...</div>;
 
   return (
-    <div className="min-h-screen bg-white rounded-md p-3">
+    <div className="min-h-screen bg-white dark:bg-inherit rounded-md p-3">
      
        
         <MyPageTab

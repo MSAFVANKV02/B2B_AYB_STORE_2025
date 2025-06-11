@@ -121,7 +121,7 @@ export const SELLER_NEW_PRODUCT_INVENTORY_COLUMNS = (
     name: "MRP",
     selector: (row) => row.mrp ?? 0,
     grow: 1,
-    // width: "150px",
+    // width: "150px",s
   },
 
   {

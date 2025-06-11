@@ -111,10 +111,11 @@ type Props<TData, TValue> = {
   columns: ColumnDef<TData, TValue>[];
   isLoading?: boolean;
   tableHeadClass?: string;
-  enableStatusFlatStyle?: boolean;
   tableRowClass?: string;
   className?: string;
   tableCellClass?: string;
+  tableClass?: string;
+  tableHeadRowClass?: string;
 };
 
 function CustomMainReturnTable<TData, TValue>({
@@ -124,15 +125,29 @@ function CustomMainReturnTable<TData, TValue>({
   tableHeadClass,
   tableRowClass,
   columns,
+  tableClass,
+  tableHeadRowClass,
 }: Props<TData, TValue>) {
   return (
     <div className="w-full overflow-x-auto">
-      <Table className="overflow-x-auto w-full  border-separate border-spacing-y-3 ">
+      <Table
+        className={cn(
+          "overflow-x-auto w-full   border-separate border-spacing-y-3 ",
+          tableClass
+        )}
+      >
         <TableHeader className={cn("", tableHeadClass)}>
           {table.getHeaderGroups().map((headerGroup) => (
-            <TableRow key={headerGroup.id}>
+            <TableRow key={headerGroup.id} className={cn("")}>
               {headerGroup.headers.map((header) => (
-                <TableHead key={header.id} colSpan={header.colSpan}>
+                <TableHead
+                  key={header.id}
+                  colSpan={header.colSpan}
+                  className={cn(
+                    "text-center text-xs sm:text-sm text-neutral-600 dark:text-neutral-300",
+                    tableHeadRowClass
+                  )}
+                >
                   {header.isPlaceholder
                     ? null
                     : flexRender(
@@ -158,16 +173,20 @@ function CustomMainReturnTable<TData, TValue>({
             table.getRowModel().rows.map((row) => (
               <TableRow
                 key={row.id}
-                className={cn("border-none shadow-sm hover:bg-gray-50 transition-all duration-300 py-0 px-0 my-5", tableRowClass)}
+                className={cn(
+                  "border-none shadow-sm  transition-all duration-300 py-0 px-0 my-5",
+                  tableRowClass
+                )}
               >
-                {row.getVisibleCells().map((cell,cellIndex) => (
+                {row.getVisibleCells().map((cell, cellIndex) => (
                   <TableCell
                     key={cell.id}
                     className={cn(
                       " sm:px-4 px-2 py-6  border-t border-b sm:text-sm text-xs ",
                       tableCellClass,
-                      cellIndex === 0 && "border-l rounded-l-lg ",                     // First column
-                      cellIndex === columns.length - 1 && "border-r rounded-r-lg",  
+                      cellIndex === 0 && "border-l rounded-l-lg ", // First column
+                      cellIndex === columns.length - 1 &&
+                        "border-r rounded-r-lg"
                     )}
                   >
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}

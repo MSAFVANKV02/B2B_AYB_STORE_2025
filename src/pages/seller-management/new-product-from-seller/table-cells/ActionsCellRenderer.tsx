@@ -27,7 +27,7 @@ const ActionsCellRenderer = ({ data, isProductList = true }: Props) => {
   return (
     <div>
       <div
-        className="text-textMain flex items-center gap-2 cursor-pointer"
+        className="text-textMain dark:text-neutral-300 flex items-center gap-2 cursor-pointer"
         onClick={() => {
           dynamicOpenModal(data);
         }}

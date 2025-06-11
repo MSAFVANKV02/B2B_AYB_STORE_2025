@@ -123,19 +123,19 @@ const StockVarianTable = ({data, values,setFieldValue}: Props) => {
 
   return (
     <div className="overflow-x-auto">
-    <table className="min-w-full border-collapse border border-gray-300">
+    <table className="min-w-full border-collapse border ">
       <thead>
-        <tr className="">
-          <th className="border-b border-gray-300 text-xs text-textGray select-none px-4 py-4 text-left">Variant</th>
-          <th className="border-b border-gray-300 text-xs text-textGray select-none px-4 py-4 text-left">Size</th>
-          <th className="border-b border-gray-300 text-xs text-textGray select-none px-4 py-4 text-center">
+        <tr className=" bg-[#F9F9F9] dark:bg-inherit dark:text-neutral-300 dark:border-2 dark:border-neutral-300/20 ">
+          <th className="border-b  text-xs select-none px-4 py-4 text-left font-bold">Variant</th>
+          <th className="border-b  text-xs select-none px-4 py-4 text-left font-bold">Size</th>
+          <th className="border-b  text-xs select-none px-4 py-4 text-left font-bold">
             Sku Id
           </th>
-          <th className="border-b border-gray-300 text-xs text-textGray select-none px-4 py-4 text-center">
+          <th className="border-b  text-xs select-none px-4 py-4 text-left font-bold">
             Available Stock
           </th>
       
-          <th className="border-b border-gray-300 text-xs text-textGray select-none px-4 py-4 text-center">
+          <th className="border-b  text-xs select-none px-4 py-4 text-left font-bold">
             Purchase Quantity*
           </th>
         </tr>
@@ -144,19 +144,19 @@ const StockVarianTable = ({data, values,setFieldValue}: Props) => {
         {data && data.variations.map((variant) => (
           <React.Fragment key={variant.colorCode}>
             {variant.details.map((stock, stockIndex) => (
-              <tr key={`${data.product_name}-${stock.size}`}>
+              <tr key={`${data.product_name}-${stock.size}`} className='text-xs' >
                 {stockIndex === 0 && (
                   <td
                     rowSpan={variant.details.length}
-                    className="border border-gray-300 px-4 py-1 text-center"
+                    className="border border-gray-300 px-2 py-1 text-center w-[200px]"
                   >
-                    <div className="flex items-center gap-2">
+                    <div className="flex gap-2 w-full">
                       <img
                         src={variant.image}
                         alt={data.product_name}
-                        className="w-8 h-8 rounded-md text-xs"
+                        className="w-10 h-10 rounded-sm object-cover text-xs"
                       />
-                      <span>{data.product_name}</span>
+                      <span className='truncate overflow-hidden' >{data.product_name}</span>
                     </div>
                   </td>
                 )}
@@ -177,7 +177,7 @@ const StockVarianTable = ({data, values,setFieldValue}: Props) => {
                     name="stock"
                     type="number"
                     placeholder="0"
-                    className=" text-xs px-2 py-1 text-gray-900"
+                    className=" text-xs px-2 py-1 text-gray-900 dark:text-neutral-300"
                     value={
                       values.product_details.find(p => p.product === data._id)?.variant_details
                         .find(v => v.colorCode === variant.colorCode)?.size_details

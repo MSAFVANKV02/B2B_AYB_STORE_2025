@@ -10,6 +10,8 @@ import {
 import BundleCreation from "@/components/size/Bundle_Creation";
 import SingleSelect from "@/components/myUi/SingleSelect";
 import { Icon } from "@iconify/react/dist/iconify.js";
+import { useTheme } from "@/components/ui/theme";
+
 
 type Props = {
   setFieldValue: any;
@@ -22,6 +24,7 @@ const BundleSizeSelect = ({ values, className, setFieldValue }: Props) => {
   const [selectedSize, setSelectedSize] = useState<SelectOption | null>(null);
   const [bundleOptions, setSizeOptions] = useState<SelectOption[]>([]);
   const [newSize, setNewSize] = useState(false);
+  const { theme } = useTheme();
 
   const { bundles } = useAppSelector((state) => state.sizeColor);
 
@@ -70,6 +73,8 @@ const BundleSizeSelect = ({ values, className, setFieldValue }: Props) => {
       )}
     </div>
   );
+
+
 
   return (
     <div className={className}>
@@ -128,7 +133,7 @@ const BundleSizeSelect = ({ values, className, setFieldValue }: Props) => {
           title="Add New Size"
           sx={{
             border: "1px dotted #EC922B",
-            bgcolor: "#F3F3F3",
+            bgcolor: theme === "dark" ?"inherit": "#F3F3F3",
             color: "#737373",
             py: "0.6rem",
             width: "100%",

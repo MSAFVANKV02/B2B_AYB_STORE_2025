@@ -110,7 +110,7 @@ const ProfilePageForm = () => {
           </div>
           {/* <pre>{JSON.stringify(currentAdmin, null, 2)}</pre> */}
           {/* 1. user profile image starting ----------- */}
-          <div className=" bg-white px-5 gap-3 py-5 rounded-md shadow-sm">
+          <div className=" bg-white dark:bg-neutral-400/20 px-5 gap-3 py-5 rounded-md shadow-sm">
             <div className="flex items-center gap-3">
               <div className="relative flex-1">
                 <Avatar className="w-20 h-20 shadow-md">
@@ -181,33 +181,33 @@ const ProfilePageForm = () => {
           {/*  user profile image ending -------
           =========================================---- */}
 
-          <div className=" bg-white px-5 py-5 rounded-md shadow-sm space-y-4">
+          <div className=" bg-white dark:bg-neutral-400/20 dark:text-neutral-300 px-5 py-5 rounded-md shadow-sm space-y-4">
             <h2 className="text-lg font-semibold">User Information</h2>
             <div className="flex gap-5 md:flex-row flex-col w-full">
               {/* 2.  user store name -------
           =========================================---- */}
               <div className="flex flex-col gap-3 w-full">
-                <Label className="text-sm text-gray-500">Store Name</Label>
+                <Label className="text-sm text-gray-500 dark:text-neutral-300">Store Name</Label>
                 <Field
                   value={values.name}
                   name="name"
                   placeholder="Store Name"
                   type="text"
                   as={Input}
-                  className="px-4 py-6 text-xs rounded-lg bg-gray-100"
+                  className="px-4 py-6 text-xs rounded-lg bg-gray-100 dark:bg-neutral-400/20 dark:text-neutral-300"
                 />
               </div>
 
               {/* 3. use name */}
               <div className="flex flex-col gap-3 w-full">
-                <Label className="text-sm text-gray-500">User Name</Label>
+                <Label className="text-sm text-gray-500 dark:text-neutral-300">User Name</Label>
                 <Field
                   value={values.userName}
                   name="userName"
                   placeholder="User Name"
                   type="text"
                   as={Input}
-                  className="px-4 py-6 text-xs rounded-lg bg-gray-100"
+                  className="px-4 py-6 text-xs rounded-lg bg-gray-100 dark:bg-neutral-400/20 dark:text-neutral-300"
                 />
               </div>
             </div>
@@ -217,32 +217,32 @@ const ProfilePageForm = () => {
               {/* 5.  user Email -------
           =========================================---- */}
               <div className="flex flex-col gap-3 w-full">
-                <Label className="text-sm text-gray-500">Email</Label>
+                <Label className="text-sm text-gray-500 dark:text-neutral-300">Email</Label>
                 <Field
                   value={values.emailId}
                   name="emailId"
                   placeholder="Enter your email address "
                   type="email"
                   as={Input}
-                  className="px-4 py-6 text-xs rounded-lg bg-gray-100"
+                  className="px-4 py-6 text-xs rounded-lg bg-gray-100 dark:bg-neutral-400/20 dark:text-neutral-300"
                 />
               </div>
 
               {/* 6. Store Manger */}
               <div className="flex flex-col gap-3 w-full">
-                <Label className="text-sm text-gray-500">Store Manger</Label>
+                <Label className="text-sm text-gray-500 dark:text-neutral-300">Store Manger</Label>
                 <Field
                   value={values.manager}
                   name="manager"
                   placeholder="User Name"
                   type="text"
                   as={Input}
-                  className="px-4 py-6 text-xs rounded-lg bg-gray-100"
+                  className="px-4 py-6 text-xs rounded-lg bg-gray-100 dark:bg-neutral-400/20 dark:text-neutral-300"
                 />
               </div>
             </div>
             <div className="flex flex-col gap-3 w-full">
-              <Label className="text-sm text-gray-500">Mobile</Label>
+              <Label className="text-sm text-gray-500 dark:text-neutral-300">Mobile</Label>
               <Field
                 value={values.phoneNumber}
                 name="phoneNumber"
@@ -251,40 +251,40 @@ const ProfilePageForm = () => {
                 as={Input}
                 // max={10}
                 // min={10}
-                className="px-4 py-6 text-xs rounded-lg bg-gray-100"
+                className="px-4 py-6 text-xs rounded-lg bg-gray-100 dark:bg-neutral-400/20 dark:text-neutral-300"
               />
             </div>
           </div>
 
           {/* Address Information section starting =============
           ============================================== */}
-          <div className=" bg-white px-5 py-5 rounded-md shadow-sm space-y-4">
+          <div className=" bg-white dark:bg-neutral-400/20 dark:text-neutral-300 px-5 py-5 rounded-md shadow-sm space-y-4">
             <h2 className="text-lg font-semibold">Address Information</h2>
             <div className="flex gap-5 md:flex-row flex-col w-full">
               {/* 7.  pin code -------
           =========================================---- */}
               <div className="flex flex-col gap-3 w-full">
-                <Label className="text-sm text-gray-500">Pin code</Label>
+                <Label className="text-sm text-gray-500 dark:text-neutral-300">Pin code</Label>
                 <Field
                   value={values.pinCode}
                   name="pinCode"
                   placeholder="pinCode here"
                   type="text"
                   as={Input}
-                  className="px-4 py-6 text-xs rounded-lg bg-gray-100"
+                  className="px-4 py-6 text-xs rounded-lg bg-gray-100 dark:bg-neutral-400/20 dark:text-neutral-300"
                 />
               </div>
 
               {/* 8. state */}
               <div className="flex flex-col gap-3 w-full">
-                <Label className="text-sm text-gray-500">State</Label>
+                <Label className="text-sm text-gray-500 dark:text-neutral-300">State</Label>
                 <Field
                   value={values.state}
                   name="state"
                   placeholder="state"
                   type="text"
                   as={Input}
-                  className="px-4 py-6 text-xs rounded-lg bg-gray-100"
+                  className="px-4 py-6 text-xs rounded-lg bg-gray-100 dark:bg-neutral-400/20 dark:text-neutral-300"
                 />
               </div>
             </div>
@@ -293,27 +293,27 @@ const ProfilePageForm = () => {
               {/* 9.  Country -------
           =========================================---- */}
               <div className="flex flex-col gap-3 w-full">
-                <Label className="text-sm text-gray-500">Country</Label>
+                <Label className="text-sm text-gray-500 dark:text-neutral-300">Country</Label>
                 <Field
                   value={values.country}
                   name="country"
                   placeholder="pinCode here"
                   type="text"
                   as={Input}
-                  className="px-4 py-6 text-xs rounded-lg bg-gray-100"
+                  className="px-4 py-6 text-xs rounded-lg bg-gray-100 dark:bg-neutral-400/20 dark:text-neutral-300"
                 />
               </div>
 
               {/* 10. Address */}
               <div className="flex flex-col gap-3 w-full">
-                <Label className="text-sm text-gray-500">Address</Label>
+                <Label className="text-sm text-gray-500 dark:text-neutral-300">Address</Label>
                 <Field
                   value={values.Address}
                   name="Address"
                   placeholder="state"
                   type="text"
                   as={Input}
-                  className="px-4 py-6 text-xs rounded-lg bg-gray-100"
+                  className="px-4 py-6 text-xs rounded-lg bg-gray-100 dark:bg-neutral-400/20 dark:text-neutral-300"
                 />
               </div>
             </div>

@@ -104,7 +104,7 @@ function NotificationSetupPage() {
   ) => {
     return Object.entries(values.preferences).map(([prefKey, prefValue]) => {
       return (
-        <div key={prefKey} className="flex flex-col gap-4">
+        <div key={prefKey} className="flex flex-col gap-4 dark:bg-neutral-400/20 dark:text-neutral-300 dark:rounded-md p-1">
           <Label className="text-textGray font-bold">
             Enable Notifications for{" "}
             {notificationTitles[prefKey as keyof typeof notificationTitles]}
@@ -146,7 +146,8 @@ function NotificationSetupPage() {
   };
 
   return (
-    <Formik<NotificationFormValues>
+  <div className="h-[80dvh] overflow-hidden">
+      <Formik<NotificationFormValues>
       initialValues={initialValues}
       enableReinitialize
       onSubmit={async (values) => {
@@ -175,9 +176,10 @@ function NotificationSetupPage() {
           }
         }
       }}
+       
     >
       {({ values, setFieldValue, getFieldMeta, isSubmitting }) => (
-        <Form className="h-full bg-white px-5 py-5 rounded-md shadow-sm space-y-6">
+        <Form className="h-full bg-white dark:bg-neutral-400/20  dark:text-neutral-300 px-5 py-5 rounded-md shadow-sm space-y-6">
           <h2 className="text-lg font-semibold">Notification Preferences</h2>
           <span className="text-textGray text-xs">
             Remember, your preferences affect how and when you receive updates.
@@ -189,7 +191,7 @@ function NotificationSetupPage() {
             }
           </pre> */}
 
-          <div className="grid 2xl:sm:grid-cols-3 sm:grid-cols-2 gap-10">
+          <div className="grid 2xl:sm:grid-cols-3 sm:grid-cols-2 gap-10 dark:gap-6">
             {renderPreferenceOptions(values, setFieldValue, getFieldMeta)}
           </div>
 
@@ -201,6 +203,7 @@ function NotificationSetupPage() {
         </Form>
       )}
     </Formik>
+  </div>
   );
 }
 

@@ -73,7 +73,7 @@ export default function CouponPage() {
       <div className="font-bold text-sm p-4">
         <h1>All Coupon Information</h1>
       </div>
-      <div className="min-h-screen bg-white rounded-md p-3 overflow-x-hidden">
+      <div className="min-h-screen dark:text-neutral-300 bg-white dark:bg-inherit rounded-md p-3 overflow-x-hidden">
         <MyPageTab
           tabs={[
             {

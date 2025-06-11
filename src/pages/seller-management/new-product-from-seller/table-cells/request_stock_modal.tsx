@@ -71,8 +71,8 @@ export default function RequestStockModal() {
 
   return (
     <div>
-      <TaskModal className="2xl:w-[60%] sm:w-[90%] w-full md:h-[90vh] h-full bg-gray-50">
-        <TaskModalHeader className="bg-gray-100 p-1">
+      <TaskModal className="2xl:w-[60%] dark:border dark:border-white sm:w-[90%] w-full md:h-[90vh]  h-full ">
+        <TaskModalHeader className=" p-1">
           <span></span>
           <MyCloseIcon
             onClick={() => {
@@ -80,7 +80,7 @@ export default function RequestStockModal() {
             }}
           />
         </TaskModalHeader>
-        <TaskModalContent className="space-y-4  md:h-[90vh] overflow-scroll  bg-gray-100 sm:p-4">
+        <TaskModalContent className="space-y-4  md:h-[90vh] overflow-scroll  sm:p-4">
           <div className="flex justify-between ">
             <div className="flex gap-3">
               <div className="w-16 h-16">
@@ -91,8 +91,8 @@ export default function RequestStockModal() {
                 />
               </div>
               <div className="flex flex-col ">
-                <span className="text-sm capitalize flex items-center gap-1">
-                  <b>Product Name:</b>
+                <span className="text-sm capitalize flex items- gap-1 max-w-[400px]">
+                  <b>Name:</b>
                   <small className="overflow-hidden truncate">
                     {dynamicSelectedTask.product_name}
                   </small>

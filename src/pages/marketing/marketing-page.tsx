@@ -73,7 +73,7 @@ export default function MarketingPage() {
       <div className="font-bold text-sm p-4">
         <h1>All Coupon Information</h1>
       </div>
-      <div className="min-h-screen bg-white rounded-md p-3 overflow-x-hidden">
+      <div className="min-h-screen bg-white dark:bg-inherit rounded-md p-3 overflow-x-hidden">
         <MyPageTab
           tabs={[
             {
@@ -86,6 +86,7 @@ export default function MarketingPage() {
               children: (
                 <div className="max-w-screen-2xl mx-auto sm:mt-6">
                   <DataTable
+                  className="text-neutral-600 dark:text-neutral-300"
                     enableSearch
                     searchWith="coupon_code"
                     data={coupons}

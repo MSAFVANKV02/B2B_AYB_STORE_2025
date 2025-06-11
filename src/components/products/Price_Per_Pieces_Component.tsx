@@ -113,7 +113,7 @@ export default function PricePerPiecesComponent({
         <Button
           variant="outline"
           type="button"
-          className="w-full border-dashed bg-gray-50 border-textMain"
+          className="w-full border-dashed bg-gray-50 dark:bg-inherit border-textMain"
           onClick={handleAddField}
         >
           Add New +

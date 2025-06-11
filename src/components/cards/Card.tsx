@@ -25,7 +25,7 @@ export default function Card({
       <section className="w-full flex gap-3 items-center justify-between ">
         <div className="">
           <p className="text-sm text-textGray ">{label}</p>
-          <h5 className="text-2xl font-bold">{amount}</h5>
+          <h5 className="text-2xl font-bold dark:text-neutral-300">{amount}</h5>
         </div>
         <div
           className={` w-fit p-3 rounded-lg flex justify-center items-center text-white`}
@@ -43,7 +43,7 @@ export function CardContent(props: React.HTMLAttributes<HTMLDivElement>) {
     <div
       {...props}
       className={cn(
-        "flex  w-full flex-col rounded-xl bg-white border md:p-5 sm:p-4 p-3 shadow ",
+        "flex  w-full flex-col rounded-xl  border dark:border-neutral-400/20 md:p-5 sm:p-4 p-3 shadow ",
         props.className
       )}
     />

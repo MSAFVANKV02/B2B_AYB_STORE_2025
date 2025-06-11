@@ -10,7 +10,6 @@ import {
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from "@mui/material/AppBar";
 import { MenuIcon } from "lucide-react";
 
-
 import FullViewScreen from "@/hooks/FullViewScreen";
 import useNavigateClicks from "@/hooks/useClicks";
 import NotificationBarSheet from "./Notification_Sheet";
@@ -19,6 +18,8 @@ import { makeToast } from "@/utils/toaster";
 
 import { FullScreenSvg, GlobSvg } from "../icons/glob-icon";
 import AdminProfile from "./appbar_items/admin_profile";
+import { useTheme } from "../ui/theme";
+import { Icon } from "@iconify/react/dist/iconify.js";
 
 type Props = {
   open: boolean;
@@ -47,6 +48,7 @@ export default function NavAppBar({
   // handle full screen mode ====
   const { handleFullScreen } = FullViewScreen();
   const isLargeScreen = useMediaQuery("(min-width: 1024px)");
+  const { theme, setTheme } = useTheme();
   // const { currentAdmin } = useAppSelector((state) => state.admin);
 
   // const { i18n, t } = useTranslation();
@@ -99,6 +101,7 @@ export default function NavAppBar({
       sx={{
         boxShadow: " rgba(33, 35, 38, 0.1) 0px 10px 10px -10px",
         display: "flex",
+        bgcolor: theme === "dark" ? "#000000" : "",
         // borderBottom:"0.9px solid #4E4E4E"
       }}
       open={open}
@@ -139,7 +142,7 @@ export default function NavAppBar({
         <Box mr="1rem" display="flex" gap="" alignItems="center">
           {/* Full screen btn ======
             ========================== */}
-            <Tooltip title="Full Screen">
+          <Tooltip title="Full Screen">
             <div className="">
               <IconButton onClick={handleFullScreen}>
                 {/* <Fullscreen /> */}
@@ -149,8 +152,6 @@ export default function NavAppBar({
             </div>
           </Tooltip>
 
-      
-
           {/* Home btn ======
             ========================== */}
 
@@ -159,6 +160,23 @@ export default function NavAppBar({
               <IconButton onClick={() => handleClick("/dashboard")}>
                 {/* <PublicOutlined /> */}
                 <GlobSvg />
+              </IconButton>
+            </div>
+          </Tooltip>
+
+          <Tooltip title="theme">
+            <div className="">
+              <IconButton
+                onClick={() => {
+                  setTheme(theme === "dark" ? "light" : "dark");
+                }}
+              >
+                {/* <PublicOutlined /> */}
+                {theme !== "dark" ? (
+                  <Icon icon="tdesign:mode-dark-filled" color="8f8f8f" />
+                ) : (
+                  <Icon icon="tdesign:mode-dark" color="8f8f8f" className="" />
+                )}
               </IconButton>
             </div>
           </Tooltip>
@@ -185,7 +203,7 @@ export default function NavAppBar({
 
           {/* User Details avatar and more settings =====
         ================================================ */}
-       <AdminProfile />
+          <AdminProfile />
 
           {/* =============================== */}
         </Box>

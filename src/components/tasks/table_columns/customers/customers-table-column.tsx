@@ -7,43 +7,43 @@ import CustomersActions from "../../table_actions/customers/customers-actions";
 export const CustomersTableColumn: ColumnDef<IUsers>[] = [
   {
     accessorKey: "name",
-    header: () => <div className="font-bold text-black max-w-32">Name</div>,
+    header: () => <div className="font-bold  max-w-32">Name</div>,
     cell: ({ row }) => <div>{row.original.name}</div>,
   },
   {
     accessorKey: "store",
-    header: () => <div className="font-bold text-black max-w-32">Store</div>,
+    header: () => <div className="font-bold  max-w-32">Store</div>,
     cell: () => <div>Store</div>,
   },
   {
     accessorKey: "email",
-    header: () => <div className="font-bold text-black max-w-32">Email</div>,
+    header: () => <div className="font-bold  max-w-32">Email</div>,
     cell: ({ row }) => <div>{row.original.email}</div>,
   },
   {
     accessorKey: "gst",
     header: () => (
-      <div className="font-bold text-black max-w-32">GST number</div>
+      <div className="font-bold  max-w-32">GST number</div>
     ),
     cell: ({ row }) => <div>{row.original.gst}</div>,
   },
 
   {
     accessorKey: "pinCode",
-    header: () => <div className="font-bold text-black max-w-32">PinCode</div>,
+    header: () => <div className="font-bold  max-w-32">PinCode</div>,
     cell: ({ row }) => <div>{row.original.pinCode}</div>,
   },
 
   {
     accessorKey: "buildingNo",
     header: () => (
-      <div className="font-bold text-black max-w-32">Building number</div>
+      <div className="font-bold  max-w-32">Building number</div>
     ),
     cell: ({ row }) => <div>{row.original.buildingNo}</div>,
   },
   {
     accessorKey: "actions",
-    header: () => <div className="font-bold text-black max-w-32">Options</div>,
+    header: () => <div className="font-bold  max-w-32">Options</div>,
     cell: () => {
       //   const order = row.original;
       return (

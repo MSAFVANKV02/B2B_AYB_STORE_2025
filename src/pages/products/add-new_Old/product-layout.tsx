@@ -6,7 +6,7 @@ type Props = {
 
 export default function ProductLayout({ children }: Props) {
   return (
-    <div className="bg-white min-h-screen rounded-lg">
+    <div className="bg-white dark:bg-inherit min-h-screen rounded-lg">
      {children}
     </div>
   );

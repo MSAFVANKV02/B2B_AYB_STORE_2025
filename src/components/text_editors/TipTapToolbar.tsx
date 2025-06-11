@@ -118,7 +118,7 @@ export default function TipTapToolbar({ editor }: Props) {
   };
 
   return (
-    <div className="border rounded-t-md bg-[#F3F3F3] border-input p-2 flex flex-wrap relative">
+    <div className="border rounded-t-md bg-[#F3F3F3] dark:bg-inherit border-input p-2 flex flex-wrap relative">
       <Toggle
         size="sm"
         pressed={editor.isActive("heading", { level: 2 })}

@@ -32,7 +32,7 @@ const UserProfilePage = () => {
         <h1 className="text-xl font-bold">Admin Profile</h1>
       </div>
 
-      <div className="bg-white max-h-[80vh]  w-full rounded-md shadow-sm flex">
+      <div className="bg-white dark:bg-neutral-400/20 max-h-[80vh]  w-full rounded-md shadow-sm flex">
         {/* side bar starting */}
         <div
           className={`sm:w-[300px] w-full bg-slate ${page ? "sm:block hidden" : ""} `}
@@ -40,7 +40,7 @@ const UserProfilePage = () => {
           <ProfileSidebar />
         </div>
         <div
-          className={`flex-1 p-2 bg-gray-50 overflow-auto ${page ? "" : "sm:block hidden"}`}
+          className={`flex-1 p-2 bg-gray-50  dark:bg-neutral-400/20 dark:text-neutral-200 overflow-auto ${page ? "" : "sm:block hidden"}`}
         >
           {renderProfilePage(page)}
         </div>

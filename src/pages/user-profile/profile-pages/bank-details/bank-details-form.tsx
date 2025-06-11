@@ -59,7 +59,7 @@ const BankDetailsProfileForm = () => {
       }}
     >
       {({ values, isSubmitting }) => (
-        <Form className="h-full bg-white px-5 py-5 rounded-md shadow-sm space-y-4">
+        <Form className="h-full bg-white dark:bg-neutral-400/20 dark:text-neutral-300 px-5 py-5 rounded-md shadow-sm space-y-4">
           {/* <pre>{JSON.stringify(currentAdmin, null, 2)}</pre> */}
 
           <div className="sm:hidden block">
@@ -77,7 +77,7 @@ const BankDetailsProfileForm = () => {
           </span>
 
           {/* plan board  starting ==== */}
-          <div className=" w-full rounded-lg bg-gray-50 md:py-5 py-3 md:px-5 px-3 shadow-sm">
+          <div className=" w-full rounded-lg bg-gray-50 dark:bg-neutral-400/20 dark:text-neutral-300 md:py-5 py-3 md:px-5 px-3 shadow-sm">
             <div className="flex justify-between gap-3 sm:flex-row flex-col">
               <div className="flex md:items-center gap-3">
                 <div className="h-10 w-10 rounded-full bg-green-400 flex">
@@ -121,14 +121,14 @@ const BankDetailsProfileForm = () => {
 
           {/* 1. current password */}
           <div className="flex flex-col gap-2 w-full">
-            <Label className="text-sm text-gray-500">Acc Holder Name</Label>
+            <Label className="text-sm text-gray-500 dark:text-neutral-300">Acc Holder Name</Label>
             <Field
               value={values.bankDetails.accountName}
               name="bankDetails.accountName"
               placeholder="Your Account Name"
               type="text"
               as={Input}
-              className="px-4 py-6 text-xs rounded-lg bg-gray-100"
+              className="px-4 py-6 text-xs rounded-lg bg-gray-100 dark:bg-neutral-400/20 dark:text-neutral-300"
             />
           </div>
 
@@ -141,7 +141,7 @@ const BankDetailsProfileForm = () => {
               placeholder="Your new account number"
               type="number"
               as={Input}
-              className="px-4 py-6 text-xs rounded-lg bg-gray-100"
+              className="px-4 py-6 text-xs rounded-lg bg-gray-100 dark:bg-neutral-400/20 dark:text-neutral-300"
             />
           </div>
 
@@ -154,7 +154,7 @@ const BankDetailsProfileForm = () => {
               placeholder="Ifsc Code"
               type="text"
               as={Input}
-              className="px-4 py-6 text-xs rounded-lg bg-gray-100"
+              className="px-4 py-6 text-xs rounded-lg bg-gray-100 dark:bg-neutral-400/20 dark:text-neutral-300"
             />
           </div>
 
@@ -167,7 +167,7 @@ const BankDetailsProfileForm = () => {
               placeholder="shift Code"
               type="text"
               as={Input}
-              className="px-4 py-6 text-xs rounded-lg bg-gray-100"
+              className="px-4 py-6 text-xs rounded-lg bg-gray-100 dark:bg-neutral-400/20 dark:text-neutral-300"
             />
           </div>
 
@@ -180,7 +180,7 @@ const BankDetailsProfileForm = () => {
               placeholder="upiId Code"
               type="text"
               as={Input}
-              className="px-4 py-6 text-xs rounded-lg bg-gray-100"
+              className="px-4 py-6 text-xs rounded-lg bg-gray-100 dark:bg-neutral-400/20 dark:text-neutral-300"
             />
           </div>
 

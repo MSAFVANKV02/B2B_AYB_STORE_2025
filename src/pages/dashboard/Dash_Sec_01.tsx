@@ -153,9 +153,9 @@ export default function HomeSec01() {
 
       {/* Order Status================================================= */}
       <div className="lg:w-[60%] w-full ">
-        <div className="bg-white lg:p-5 sm:p-4 p-3  rounded-xl">
+        <div className="bg-white dark:bg-neutral-300/20 dark:backdrop-blur-sm lg:p-5 sm:p-4 p-3  rounded-xl">
           <div className="flex justify-between items-center  pb-10">
-            <p className="text-xl capitalize font-semibold">Order Status</p>
+            <p className="text-xl capitalize font-semibold dark:text-white ">Order Status</p>
             <Button variant="secondary">All orders</Button>
           </div>
           {/* Order Status================================================= */}

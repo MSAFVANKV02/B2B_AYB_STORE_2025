@@ -35,7 +35,7 @@ export default function TaskModal({
       shouldCloseOnOverlayClick={true}
       overlayClassName="fixed inset-0 bg-black/20 backdrop-filter  flex items-center justify-center z-[10000] "
       className={cn(
-        `bg-white md:rounded-lg rounded-none min-w-xl w-[30vw] p-4 h-[80vh] flex flex-col outline-none overflow-hidden relative z-[10001]`,
+        `bg-white dark:bg-black dark:text-neutral-300 md:rounded-lg rounded-none min-w-xl w-[30vw] p-4 h-[80vh] flex flex-col outline-none overflow-hidden relative z-[10001]`,
         className
       )}
       
@@ -56,7 +56,7 @@ export default function TaskModal({
         exit={{ opacity: 0, scale: 0.8, y: 20 }}
         transition={{ duration: 0.2, ease: "easeOut" }}
         className={cn(
-          `bg-white md:rounded-lg rounded-none min-w-xl max-w-full outline-none overflow-y-auto relative`
+          `bg-white dark:bg-inherit dark:text-neutral-300 md:rounded-lg rounded-none min-w-xl max-w-full outline-none overflow-y-auto relative`
         )}
       >
         {children}

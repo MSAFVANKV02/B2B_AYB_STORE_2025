@@ -57,7 +57,7 @@ export default function AddNewSize({ onClose, isOpen }: Props) {
     <>
       {isOpen && (
         <div
-          className="  border rounded-lg flex gap-3 p-1 items-center bg-gray-100"
+          className="  border rounded-lg flex gap-3 p-1 items-center dark:bg-inherit bg-gray-100"
           ref={sizePickerRef}
         >
           <input

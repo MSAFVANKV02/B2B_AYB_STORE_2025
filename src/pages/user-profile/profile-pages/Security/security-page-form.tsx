@@ -64,7 +64,7 @@ const SecurityPageForm = () => {
       }}
     >
       {({ values, isSubmitting }) => (
-        <Form className="h-full bg-white px-5 py-5 rounded-md shadow-sm space-y-4">
+        <Form className="h-full bg-white min-h-[75vh] overflow-hidden dark:bg-neutral-400/20 px-5 py-5 rounded-md shadow-sm space-y-4">
           {/* <pre>{JSON.stringify(currentAdmin, null, 2)}</pre> */}
 
           <div className="sm:hidden block">

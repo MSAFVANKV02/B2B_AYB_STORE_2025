@@ -186,7 +186,7 @@ export default function AllCouponsCreateForm() {
         }}
       >
         {({ values, setFieldValue,resetForm, isSubmitting }) => (
-          <Form className="space-y-4">
+          <Form className="space-y-4 dark:text-neutral-300">
             <div className="flex justify-between lg:flex-row flex-col gap-3">
               <Label
                 htmlFor="applicablePurchaseType"

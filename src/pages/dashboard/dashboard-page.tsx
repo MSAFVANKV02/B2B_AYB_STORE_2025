@@ -1,17 +1,17 @@
 import DashSec01 from "./Dash_Sec_01";
-import DashSec02 from "./Dash_Sec_02";
+// import DashSec02 from "./Dash_Sec_02";
 
-import { useAppSelector } from "@/redux/hook";
+// import { useAppSelector } from "@/redux/hook";
 
 import ReChartBar from "@/components/recharts/reChart_Bar";
 import ReChartPie from "@/components/recharts/reChart_Pie";
-import { TopProductsColumn } from "@/components/tasks/table_columns/top-products-column";
-import { TopStoresColumn } from "@/components/tasks/table_columns/top-stores-column";
-import { LowQtyStockColumn } from "@/components/tasks/table_columns/dashboard/low-qty-stock-column";
+// import { TopProductsColumn } from "@/components/tasks/table_columns/top-products-column";
+// import { TopStoresColumn } from "@/components/tasks/table_columns/top-stores-column";
+// import { LowQtyStockColumn } from "@/components/tasks/table_columns/dashboard/low-qty-stock-column";
 
 export default function DashboardPage() {
   // const dispatch = useAppDispatch();
-  const { customer } = useAppSelector((state) => state.customer);
+  // const { customer } = useAppSelector((state) => state.customer);
   //  const [tasks, setTasks] = useState([]);
 
   // const filteredCustomer = useMemo(() => {
@@ -36,7 +36,7 @@ export default function DashboardPage() {
       {/* tables starts =====
         ============== */}
 
-      <DashSec02
+      {/* <DashSec02
         titleOne="Top Products "
         titleTwo="Top Stores"
         data={customer}
@@ -50,7 +50,7 @@ export default function DashboardPage() {
         columns={LowQtyStockColumn}
         columnsTwo={LowQtyStockColumn}
         data={customer}
-      />
+      /> */}
     </div>
   );
 }

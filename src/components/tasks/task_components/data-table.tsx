@@ -106,7 +106,7 @@ export function DataTable<TData, TValue>({
   });
 
   return (
-    <div className="space-y-4  md:w-auto w-[90vw]">
+    <div className="space-y-4 dark:text-neutral-300  md:w-auto w-[90vw]">
       <DataTableToolbar
         table={table}
         enableStatus={enableStatus}
@@ -129,7 +129,7 @@ export function DataTable<TData, TValue>({
                 <TableRow key={headerGroup.id}>
                   {headerGroup.headers.map((header) => {
                     return (
-                      <TableHead key={header.id} colSpan={header.colSpan}>
+                      <TableHead key={header.id} colSpan={header.colSpan} className="dark:text-neutral-300" >
                         {header.isPlaceholder
                           ? null
                           : flexRender(
@@ -166,7 +166,7 @@ export function DataTable<TData, TValue>({
                           key={row.id}
                           data-state={row.getIsSelected() && "selected"}
                           className={cn(
-                            `${row.index % 2 === 0 ? "bg-gray-50" : ""}`,
+                            `${row.index % 2 === 0 ? "bg-gray-50 dark:bg-inherit" : ""}`,
                             tableRowClass,
                             !isLastRow && "mb-3"
                           )}

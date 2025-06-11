@@ -38,7 +38,7 @@ export default function AllProductsPage() {
   }, [urlTypes, refetch]);
 
   return (
-    <div className="min-h-screen bg-white rounded-md p-3 overflow-x-hidden">
+    <div className="min-h-screen bg-white dark:bg-inherit dark:border rounded-md p-3 overflow-x-hidden">
       {/* <MyPageTab
         // setTypeUrl={setSelectedTab}
         tabs={[

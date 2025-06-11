@@ -98,7 +98,7 @@ export default function AllOrdersPage() {
         />}
       </div>
       {/* ------------- */}
-      <div className="page-outer">
+      <div className="page-outer dark:bg-inherit dark:border">
         {!view ? (
           <DataTable
             enableSearch

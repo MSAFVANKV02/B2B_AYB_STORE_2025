@@ -96,12 +96,12 @@ const RequestedProductStock = ({ data, closeModal }: Props) => {
   }
 
   return (
-    <TaskModal className="2xl:w-[60%] sm:w-[90%] w-full md:h-[90vh] h-full bg-gray-50">
-      <TaskModalHeader className="bg-gray-50 p-1">
+    <TaskModal className="2xl:w-[60%] sm:w-[90%] w-full md:h-[90vh] h-full bg-gray-50 dark:border dark:border-white">
+      <TaskModalHeader className="bg-gray-50 dark:bg-inherit p-1">
         <span></span>
         <MyCloseIcon onClick={closeModal} />
       </TaskModalHeader>
-      <div className="w-full md:h-[70vh] h-full space-y-4 bg-gray-50 flex flex-col justify-between">
+      <div className="w-full md:h-[70vh] h-full space-y-4 bg-gray-50 dark:bg-inherit flex flex-col justify-between">
         <div className="space-y-6">
           <div className="flex justify-between">
             <div className="flex gap-3">
@@ -207,24 +207,24 @@ const RequestedProductStock = ({ data, closeModal }: Props) => {
                         <tr
                           key={`${selectedProduct.product_name}-${stock.size}`}
                         >
+                           
                           {stockIndex === 0 && (
                             <td
-                              rowSpan={variant.details.length}
-                              className="border border-gray-300 px-4 py-1 text-center"
-                            >
-                              <div className="flex items-center gap-2">
-                                <img
-                                  src={variant.image}
-                                  alt={selectedProduct.product_name}
-                                  className="w-8 h-8 rounded-md text-xs"
-                                />
-                              <div className="flex flex-col gap-1">
-                              <span>{ variant.variant_name || selectedProduct.product_name}</span>
-                              <span>{variant.colorName}</span>
-                              </div>
-
-                              </div>
-                            </td>
+                            rowSpan={variant.details.length}
+                            className="border border-gray-300 px-2 py-1 text-center text-xs  w-[300px]"
+                          >
+                            <div className="flex gap-2 w-full">
+                              <img
+                                src={variant.image}
+                                alt={selectedProduct.product_name}
+                                className="w-10 h-10 rounded-sm object-cover text-xs"
+                              />
+                             <div className="flex flex-col gap-1  w-[200px]">
+                             <span className='truncate overflow-hidden' >{variant.variant_name || selectedProduct.product_name}</span>
+                             <span className="">{variant.colorName}</span>
+                             </div>
+                            </div>
+                          </td>
                           )}
                           <td className="border border-gray-300 text-xs px-4 py-1 text-center">
                             {stock.size}

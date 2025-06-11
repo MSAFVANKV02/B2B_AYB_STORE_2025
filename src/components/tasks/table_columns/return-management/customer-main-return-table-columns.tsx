@@ -9,7 +9,7 @@ import MyClock from "@/components/myUi/MyClock";
 export const CustomerMainReturnColumn: ColumnDef<IReturnOrders>[] = [
   {
     accessorKey: "createdAt",
-    header: () => <div className="font-bold text-black max-w-32">Date</div>,
+    header: () => <div className="font-bold  max-w-32">Date</div>,
     cell: ({ row }) => <div>
       <MyClock date={row.original.createdAt} showSeconds={false} />
     </div>,
@@ -17,7 +17,7 @@ export const CustomerMainReturnColumn: ColumnDef<IReturnOrders>[] = [
   {
     accessorKey: "return_id",
     header: () => (
-      <div className="font-bold text-black max-w-32">Return ID</div>
+      <div className="font-bold  max-w-32">Return ID</div>
     ),
     cell: ({ row }) => (
       <CopyTextContainer id={row.original.return_id} />
@@ -26,13 +26,13 @@ export const CustomerMainReturnColumn: ColumnDef<IReturnOrders>[] = [
   {
     accessorKey: "customer_id.name",
     header: () => (
-      <div className="font-bold text-black max-w-32">User Name</div>
+      <div className="font-bold  max-w-32">User Name</div>
     ),
     cell: ({ row }) => <div>{row.original.customer_id.userId.name}</div>,
   },
   {
     accessorKey: "items",
-    header: () => <div className="font-bold text-black max-w-32">Store</div>,
+    header: () => <div className="font-bold  max-w-32">Store</div>,
     cell: ({ row }) => {
       const itemLength = row.original.items.length;
       return <div>{itemLength}</div>;
@@ -41,7 +41,7 @@ export const CustomerMainReturnColumn: ColumnDef<IReturnOrders>[] = [
 
   {
     accessorKey: "status",
-    header: () => <div className="font-bold text-black max-w-32">Status</div>,
+    header: () => <div className="font-bold  max-w-32">Status</div>,
     cell: ({ row }) => {
       const allDetails = row.original.items.flatMap((item) =>
         item.product.variations.flatMap((variation) => variation.details)
@@ -102,7 +102,7 @@ export const CustomerMainReturnColumn: ColumnDef<IReturnOrders>[] = [
 
   {
     accessorKey: "actions",
-    header: () => <div className="font-bold text-black max-w-32"></div>,
+    header: () => <div className="font-bold  max-w-32"></div>,
     cell: ({ row }) => {
       const order = row.original;
       return (

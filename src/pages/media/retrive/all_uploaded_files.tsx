@@ -27,6 +27,7 @@ import { Trash } from "lucide-react";
 import { useQueryData } from "@/hooks/useQueryData";
 import { getAllMediaById } from "@/actions/media/mediaAction";
 import CheckBox from "@/components/myUi/checkBox";
+import { useTheme } from "@/components/ui/theme";
 
 export interface IFileDataMedia {
   _id: string;
@@ -62,6 +63,8 @@ export default function AllUploadedFiles({
   const { handleClick } = useNavigateClicks();
   // const { media: files } = useAppSelector((state) => state.media);
   const { currentAdmin } = useAppSelector((state) => state.admin);
+
+  const {theme} = useTheme()
 
   const { data, isFetching, refetch } = useQueryData(["get-media"], () =>
     getAllMediaById(currentAdmin?._id ?? "")
@@ -237,7 +240,7 @@ export default function AllUploadedFiles({
   if (isFetching) return <PreloaderPage />;
 
   return (
-    <PagesLayout className="h-fit">
+    <PagesLayout className="h-fit dark:text-neutral-300">
       <PageLayoutHeader>
         {selectedFiles && selectedFiles.length > 0 ? (
           <div>
@@ -253,25 +256,26 @@ export default function AllUploadedFiles({
         />
       </PageLayoutHeader>
 
-      <PagesLayoutContent className="space-y-10">
+      <PagesLayoutContent className="space-y-10 dark:bg-inherit">
         <div className="flex items-center gap-5 flex-wrap">
           <Popover>
             <PopoverTrigger>
               <AyButton
+              // className="dark:border-gray-500 dark:text-gray-200 text-gray-800 border-gray-400"
                 icon="fluent-color:calendar-clock-20"
                 iconSize={23}
                 variant="outlined"
                 outLineColor="gray"
                 title={`${date ? "Filter With Date" : "Filter With Date"}`}
-                sx={{ width: "fit-content" }}
+                sx={{ width: "fit-content", color:theme==="dark"?"white":"" }}
               />
             </PopoverTrigger>
-            <PopoverContent className="ml-36 z-[10006]">
+            <PopoverContent className="ml-36 z-[20001]">
               <Calendar
                 mode="single"
                 selected={date}
                 onSelect={setDate}
-                className="z-[10006]"
+                className="z-[20001]"
               />
             </PopoverContent>
           </Popover>

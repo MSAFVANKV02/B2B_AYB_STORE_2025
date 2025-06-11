@@ -869,7 +869,7 @@ export function FormFieldGenal({
             className="border relative overflow-hidden items-center gap-4 rounded-md lg:w-[300px] w-full cursor-pointer flex"
           >
             <span
-              className="bg-bgGraySoft h-full flex py-4 px-10
+              className="bg-bgGraySoft dark:bg-inherit dark:border-r h-full flex py-4 px-10
           items-center"
             >
               Brows

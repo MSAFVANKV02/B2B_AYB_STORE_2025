@@ -66,7 +66,7 @@ const TagInput = ({ tags, setTags, maxTags = 100, className }: TagInputProps) =>
 
   return (
     <div className={cn('lg:w-3/4',className)}>
-      <div className="border  px-2 pt-2 rounded-md focus-within:ring-2 focus-within:ring-purple-500 focus-within:border-transparent">
+      <div className="border  px-2 pt-2 rounded-md focus-within:ring-2 focus-within:ring-[#2B90EC] focus-within:border-transparent">
         <div className="flex flex-wrap gap-2 mb-2">
           {tags.map((tag) => (
             <Tag key={tag} text={tag} onDelete={handleDeleteTag} />
@@ -79,7 +79,7 @@ const TagInput = ({ tags, setTags, maxTags = 100, className }: TagInputProps) =>
           onChange={(e) => setInput(e.target.value)}
           onKeyDown={handleKeyDown}
           placeholder="Add tags (Press Enter to add)"
-          className="w-full focus:outline-none text-sm  p-3"
+          className="w-full focus:outline-none text-sm  p-3  dark:bg-inherit"
           aria-label="Tag input"
         />
         <AyButton 

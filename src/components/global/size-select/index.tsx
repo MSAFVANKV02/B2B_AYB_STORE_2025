@@ -11,6 +11,7 @@ import {
   getSizesRedux,
 } from "@/redux/actions/size_color_Slice";
 import { Icon } from "@iconify/react/dist/iconify.js";
+import { useTheme } from "@/components/ui/theme";
 
 // const animatedComponents = makeAnimated();
 
@@ -23,6 +24,7 @@ type Props = {
 
 const SizeSelectTab = ({ values, className, setFieldValue }: Props) => {
   const [selectedSizes, setSelectedSizes] = useState<SelectOption[]>([]) || [];
+  const { theme } = useTheme();
 
   const [colorOptions, setSizeOptions] = useState<
     { name: string; _id: string }[]
@@ -144,7 +146,7 @@ const SizeSelectTab = ({ values, className, setFieldValue }: Props) => {
           title="Add New Size"
           sx={{
             border: "1px dotted #EC922B",
-            bgcolor: "#F3F3F3",
+            bgcolor: theme === "dark" ?"inherit": "#F3F3F3",
             color: "#737373",
             py: "0.6rem",
             width: "100%",

@@ -68,7 +68,7 @@ const UserReturnOrderPage = () => {
         {JSON.stringify(filteredReturnOrders,null,4)}
       </pre> */}
 
-      <div className="page-outer">
+      <div className="page-outer dark:bg-neutral-300/20 dark:text-neutral-300 dark:border">
         {modalState.isOpen && modalState.type === "return-product-details" ? (
           <UserReturnTableDetails />
         ) : (
@@ -94,13 +94,18 @@ const UserReturnOrderPage = () => {
                 table={table}
                 isLoading={isFetching}
                 columns={columns}
+                tableHeadClass="dark:text-neutral-300 "
+                tableHeadRowClass="dark:text-neutral-300"
+                tableRowClass=" dark:bg-neutral-400/20 dark:hover:bg-neutral-400/30  
+                bg-neutral-300/20 hover:bg-neutral-300/30
+                 text-neutral-600 dark:text-neutral-300 backdrop-blur-[1px] border border-neutral-400/20 "
               />
             )}
             isLoading={isFetching}
             tableCellClass="align-middle px-4 py-3"
             className="border-none"
             tableHeadClass="border-b-none text-center"
-            tableRowClass="bg-white border border-gray-200 rounded-lg shadow-sm overflow-hidden"
+            tableRowClass="bg-white dark:bg-inherit border border-gray-200 rounded-lg shadow-sm overflow-hidden"
             columns={CustomerMainReturnColumn}
             data={filteredReturnOrders}
           />

@@ -17,10 +17,12 @@ import {
 import ReactQueyProvider from "./providers/react-quey";
 import QueryLayout from "./layouts/queryLayout";
 import { TooltipProvider } from "./components/ui/tooltip";
+import { useTheme } from "./components/ui/theme";
 
 export default function MiniDrawer() {
   const { i18n } = useTranslation();
   const query = new QueryClient();
+  const { theme } = useTheme();
 
   const isLargeScreen = useMediaQuery("(min-width: 1024px)");
 
@@ -29,12 +31,13 @@ export default function MiniDrawer() {
   }, [i18n.language, i18n]);
   return (
     <div
-      className={cn(``, {
+      className={cn(`dark:bg-black`, {
         "debug-screens": import.meta.env.MODE === "development",
       })}
     >
+      {/* bgcolor: "#F7F7F7" */}
       <ModalProvider>
-        <Box sx={{ display: "flex", bgcolor: "#F7F7F7" }}>
+        <Box sx={{ display: "flex",  bgcolor:theme === "dark" ? "#000000" : "#F7F7F7", }}>
           <CssBaseline />
           {/* side bar and headers includes ========= */}
           <NavbarDrawer />
@@ -72,7 +75,7 @@ export default function MiniDrawer() {
       {/* === chat bot ====== */}
       {/* {window.location.pathname !== "/store/conversations" && <HelperIcon />} */}
 
-      <div className="h-10 bg-white border-t text-gray-400 text-xs w-full flex justify-end items-center px-3">
+      <div className="h-10  border-t dark:bg-neutral-400/30 dark:text-neutral-300 text-xs w-full flex justify-end items-center px-3">
         <span className="select-none text-xs">
           <Trans>
             Copyright 2024 All Rights Are Reserved | © Ayaboo by Haash.Tech

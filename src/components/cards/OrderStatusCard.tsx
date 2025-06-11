@@ -21,14 +21,14 @@ export default function OrderStatusCard({
   iColor
 }: StatusCardProps) {
   return (
-    <CardContent className={`bg-bgGraySoft shadow-none`} style={{ }}>
+    <CardContent className={`bg-bgGraySoft dark:bg-transparent shadow-none dark:border-neutral-400/20`} style={{ }}>
       <section className="w-full flex  items-center justify-start gap-4 ">
         <div className=" w-fit p-3 rounded-lg flex justify-center items-center text-white" style={{ backgroundColor: `${bgcolor}` }}>
           <Icon icon={icon} fontSize={30} color={`${iColor}`}/>
         </div>
         <div className="">
-          <p className=" text-textGray text-sm ">{label}</p>
-          <h5 className="text-2xl font-bold">{count}</h5>
+          <p className=" text-textGray  text-sm ">{label}</p>
+          <h5 className="text-2xl dark:text-neutral-300 font-bold">{count}</h5>
         </div>
       </section>
     </CardContent>

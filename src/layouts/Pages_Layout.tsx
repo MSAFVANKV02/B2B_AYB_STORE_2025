@@ -46,7 +46,7 @@ type ContentProps = {
 export function PagesLayoutContent({ children, className }: ContentProps) {
   return (
     <div>
-      <div className={cn(`page-outer`, className)}>{children}</div>
+      <div className={cn(`page-outer dark:bg-inherit`, className)}>{children}</div>
     </div>
   );
 }

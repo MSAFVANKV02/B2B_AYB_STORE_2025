@@ -34,7 +34,7 @@ function CustomersPage() {
         <div className="text-sm font-bold p-4">
             <h1>All Customers</h1>
         </div>
-        <div className="page-outer">
+        <div className="page-outer ">
         <DataTable
         enableSearch
         searchWith="name"

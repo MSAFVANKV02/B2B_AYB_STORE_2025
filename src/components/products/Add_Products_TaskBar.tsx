@@ -39,7 +39,7 @@ export default function AdminProductTaskbar() {
   };
 
   return (
-    <div className="h-full rounded-lg bg-white w-full">
+    <div className="h-full rounded-lg bg-white dark:bg-inherit w-full">
       <div className="px-4 py-5">
         <h3 className="font-bold">Add New Product</h3>
       </div>
@@ -49,7 +49,7 @@ export default function AdminProductTaskbar() {
             key={item.id}
             className={`w-full ${
               selectedPage === item.path
-                ? "backdrop-blur-lg  bg-bgGraySoft hover:bg-none text-textMain border-t border-l border border-textHardSoft font-bold"
+                ? "backdrop-blur-lg  bg-bgGraySoft  dark:bg-inherit hover:bg-none text-textMain border-t border-l border border-textHardSoft font-bold"
                 : "hover:bg-black/5 border-b border-t border-l border"
             }relative  ${
               index + 1 === TaskbarItems.length && "border-r"

@@ -66,7 +66,7 @@ export default function GeneralSectionPage({
 Props) {
   const isLargeScreen = useMediaQuery("(min-width: 1024px)");
 
-  console.log(errors, "errors");
+  // console.log(errors, "errors");
   // console.log(values, "values");
 
   const productFields: {

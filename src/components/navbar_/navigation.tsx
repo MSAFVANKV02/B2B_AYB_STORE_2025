@@ -87,21 +87,21 @@ function NavigationList() {
         { title: "Coupons", subscribed: "free", segment: "/marketing/coupons" },
       ],
     },
-    {
-      kind: "page",
-      title: "Customer Refunds",
-      segment: "/refunds",
-      subscribed: "free",
+    // {
+    //   kind: "page",
+    //   title: "Customer Refunds",
+    //   segment: "/refunds",
+    //   subscribed: "free",
 
-      icon: <Icon icon="heroicons:receipt-refund-solid" />,
-    },
-    {
-      kind: "page",
-      segment: "/customers",
-      title: "Customers",
-      subscribed: "free",
-      icon: <Icon icon="mdi:account-group" />,
-    },
+    //   icon: <Icon icon="heroicons:receipt-refund-solid" />,
+    // },
+    // {
+    //   kind: "page",
+    //   segment: "/customers",
+    //   title: "Customers",
+    //   subscribed: "free",
+    //   icon: <Icon icon="mdi:account-group" />,
+    // },
     {
       kind: "page",
       segment: "/stock",
