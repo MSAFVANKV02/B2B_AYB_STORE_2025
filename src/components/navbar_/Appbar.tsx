@@ -122,7 +122,7 @@ export default function NavAppBar({
               onClick={handleDrawerOpen}
               edge="start"
               sx={{
-                marginRight: 5,
+                // marginRight: 5,
                 marginLeft: isLargeScreen ? 5 : 0,
                 ...(open && { display: "none" }),
               }}

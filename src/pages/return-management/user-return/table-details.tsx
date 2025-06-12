@@ -189,14 +189,13 @@ const UserReturnTableDetails = () => {
                   </p>
                   <p className="text-xs flex gap-1">
                     <span className="font-semibold">Address: </span>
-                   <p className=" w-[150px]">
-                   {orders.main_order_id.shipping_address.street},{" "}
-                    {orders.main_order_id.shipping_address.state},{" "}
-                    {orders.main_order_id.shipping_address.city},{" "}
-                    {orders.main_order_id.shipping_address.country},{" "}
-                    {orders.main_order_id.shipping_address.zip}
-
-                   </p>
+                    <p className=" w-[150px]">
+                      {orders.main_order_id.shipping_address.street},{" "}
+                      {orders.main_order_id.shipping_address.state},{" "}
+                      {orders.main_order_id.shipping_address.city},{" "}
+                      {orders.main_order_id.shipping_address.country},{" "}
+                      {orders.main_order_id.shipping_address.zip}
+                    </p>
                   </p>
                 </div>
                 <div>
@@ -226,7 +225,7 @@ const UserReturnTableDetails = () => {
                               )
                             )
                           }
-                          onChange={() => {
+                          onCheckedChange={() => {
                             if (values.items.length > 0) {
                               setFieldValue("items", []);
                             } else {
@@ -370,13 +369,36 @@ const UserReturnTableDetails = () => {
                               className="bg-[#FCFCFC] border-b-2 "
                             >
                               <td className="text-xs py-3 sm:px-4 px-2">
+                                {/* <MyCheckBox 
+                                 checked={isChecked}
+                                 id=""
+                                 onChange={() => {
+                                  if (isChecked) {
+                                    const filtered = values.items.filter(
+                                      (i) =>
+                                        !(
+                                          i.return_id === dataObj.return_id &&
+                                          i.product_order_id ===
+                                            dataObj.product_order_id &&
+                                          i.size === dataObj.size
+                                        )
+                                    );
+                                    setFieldValue("items", filtered);
+                                  } else {
+                                    setFieldValue("items", [
+                                      ...values.items,
+                                      dataObj,
+                                    ]);
+                                  }
+                                }}
+                                /> */}
                                 <Checkbox
                                   checked={isChecked}
                                   className=" data-[state=checked]:bg-[#2B90EC] data-[state=checked]:text-white"
                                   disabled={
                                     detail.return_status !== "requested"
                                   }
-                                  onChange={() => {
+                                  onCheckedChange={() => {
                                     if (isChecked) {
                                       const filtered = values.items.filter(
                                         (i) =>
@@ -677,7 +699,7 @@ const RemarkField = ({
   isEnabled?: boolean;
   detail: IReturnDetail;
 }) => {
-  const isDisabled = !isEnabled && !detail.remarks;
+  const isDisabled = !isEnabled && detail.remarks === "";
   return (
     <Modal
       title="Remarks"
@@ -703,7 +725,9 @@ const RemarkField = ({
       }
     >
       {detail.remarks ? (
-        <Textarea />
+        <div className="">
+          <p className="text-xs capitalize">{detail.remarks}</p>
+        </div>
       ) : (
         <Field
           as={Textarea}

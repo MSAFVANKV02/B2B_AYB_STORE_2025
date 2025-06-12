@@ -38,7 +38,7 @@ const closedMixin = (theme: Theme): CSSObject => ({
   }),
   overflowX: "hidden",
   width: 0, // Set width to 0 when collapsed
-  [theme.breakpoints.up("sm")]: {
+  [theme.breakpoints.up("md")]: {
     width: `calc(${theme.spacing(7)} + 1px)`,
   },
 });

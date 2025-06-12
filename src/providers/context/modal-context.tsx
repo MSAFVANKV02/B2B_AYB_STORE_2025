@@ -12,6 +12,7 @@ type ModalType =
   | "return-order"
   | "return-product-details"
   | "order-status-update"
+  | "order-details"
   | "success";
 
 

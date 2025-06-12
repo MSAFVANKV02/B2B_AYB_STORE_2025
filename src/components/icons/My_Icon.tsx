@@ -1,3 +1,4 @@
+import { cn } from "@/lib/utils";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import { IconButton, Toolbar, Tooltip, TooltipProps } from "@mui/material";
 import { memo } from "react";
@@ -9,6 +10,8 @@ type Props = {
   fontSize?: number;
   tooltipTitle?: string;
   placement?: TooltipProps["placement"];
+  className?:string
+
 };
 
 function MyIcon({
@@ -18,11 +21,12 @@ function MyIcon({
   fontSize = 20,
   tooltipTitle = "status",
   placement = "top",
+  className
 }: Props) {
   return (
     <Toolbar disableGutters>
       <Tooltip title={tooltipTitle} placement={`${placement}`}>
-        <div className="">
+      <div className={cn("",className)}>
           <IconButton onClick={onClick}>
             <Icon icon={icon} fontSize={fontSize} color={color} />
           </IconButton>
