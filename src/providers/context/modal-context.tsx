@@ -10,8 +10,9 @@ type ModalType =
   | "order-tracker-one"
   | "cancel-order"
   | "return-order"
-  | "return-product-details";
-
+  | "return-product-details"
+  | "order-status-update"
+  | "success";
 
 
 type ModalState = {

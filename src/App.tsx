@@ -37,7 +37,12 @@ export default function MiniDrawer() {
     >
       {/* bgcolor: "#F7F7F7" */}
       <ModalProvider>
-        <Box sx={{ display: "flex",  bgcolor:theme === "dark" ? "#000000" : "#F7F7F7", }}>
+        <Box
+          sx={{
+            display: "flex",
+            bgcolor: theme === "dark" ? "#000000" : "#F7F7F7",
+          }}
+        >
           <CssBaseline />
           {/* side bar and headers includes ========= */}
           <NavbarDrawer />
@@ -54,6 +59,9 @@ export default function MiniDrawer() {
 
                 maxWidth: "1800px",
                 mx: "auto",
+                display: "flex", // ✅ added
+                flexDirection: "column", // ✅ added
+                minHeight: "100vh", // ✅ ensures full screen height
               }}
             >
               <DrawerHeader />
@@ -75,7 +83,7 @@ export default function MiniDrawer() {
       {/* === chat bot ====== */}
       {/* {window.location.pathname !== "/store/conversations" && <HelperIcon />} */}
 
-      <div className="h-10  border-t dark:bg-neutral-400/30 dark:text-neutral-300 text-xs w-full flex justify-end items-center px-3">
+      <div className="h-10 fixed bottom-0  border-t dark:bg-neutral-400/30 dark:text-neutral-300 text-xs w-full flex justify-end items-center px-3">
         <span className="select-none text-xs">
           <Trans>
             Copyright 2024 All Rights Are Reserved | © Ayaboo by Haash.Tech

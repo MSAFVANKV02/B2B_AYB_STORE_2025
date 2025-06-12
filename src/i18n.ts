@@ -11,7 +11,7 @@ i18n
   .init({
     fallbackLng: "en", // Fallback language if the user's language is not available
     returnObjects:true,
-    debug: import.meta.env.MODE === "development", // Enable debugging in development mode
+    // debug: import.meta.env.MODE === "development", // Enable debugging in development mode
     interpolation: {
       escapeValue: false, // React already escapes by default
     },
