@@ -7,12 +7,14 @@ type Props = {
   className?: string
   color?: string
   children?: React.ReactNode
+  spinnerClassName?:string
+
 }
 
-const Loader = ({ state, className, color, children }: Props) => {
+const Loader = ({ state, className, color, children, spinnerClassName }: Props) => {
   return state ? (
     <div className={cn(className)}>
-      <Spinner color={color} />
+      <Spinner color={color} spinnerClassName={spinnerClassName} />
     </div>
   ) : (
     children

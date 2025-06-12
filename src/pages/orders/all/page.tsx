@@ -27,7 +27,7 @@ const AllOrderPage = () => {
   };
 
   const pageQ = searchParams.get("page") ?? "1";
-  const type = searchParams.get("type") ?? "pending";
+  const type = searchParams.get("type") ?? "";
 
   const { data: fetchedAllOrders, isFetching } = useQueryData(
     ["all-orders", pageQ, type],
@@ -76,7 +76,7 @@ const AllOrderPage = () => {
 
   const { CardData } = AllOrdersCardBlocks({ orders: fetchedOrdersData });
 
-  console.log(fetchedOrdersData);
+  // console.log(fetchedOrdersData);
 
   return (
     <div className="2xl:px-20 md:px-10 px-3 space-y-5">

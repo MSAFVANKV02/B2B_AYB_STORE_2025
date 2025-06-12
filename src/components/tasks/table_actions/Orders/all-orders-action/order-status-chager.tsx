@@ -10,25 +10,34 @@ import { UseUpdateModal } from "@/providers/context/modal-context";
 import Modal from "@/components/modals/main";
 import AyButton from "@/components/myUi/AyButton";
 import { DialogClose } from "@/components/ui/dialog";
+import { useMutationData } from "@/hooks/useMutationData";
+import { updateStoreOrderStatusAction } from "@/actions/orders/ordersAction";
+import Loader from "@/components/global/loader";
+import { makeToastError } from "@/utils/toaster";
 
 type Props = {
   orders: IOrders;
 };
 
 // UI label ↔️ backend value mapping
-const statusOptions: { label: string; value: IOrderStatus }[] = [
-  { label: "Pending", value: "pending" },
-  { label: "Processing", value: "processing" },
-  { label: "Ready to Pickup", value: "ready_to_pickup" },
-  { label: "Shipped", value: "shipped" },
-  { label: "Out for Delivery", value: "out_for_delivery" },
-  { label: "Delivered", value: "delivered" },
-  { label: "Cancelled", value: "cancelled" },
-];
+const statusOptions: { id: number; label: string; value: IOrderStatus }[] = [
+    { id: 1, label: "Pending", value: "pending" },
+    { id: 2, label: "Processing", value: "processing" },
+    { id: 3, label: "Ready to Pickup", value: "ready_to_pickup" },
+    { id: 4, label: "Shipped", value: "shipped" },
+    { id: 5, label: "Out for Delivery", value: "out_for_delivery" },
+    { id: 6, label: "Delivered", value: "delivered" },
+    { id: 7, label: "Cancelled", value: "cancelled" },
+  ];
 
 const OrderStatusChangerWidget = ({ orders }: Props) => {
   const currentStatus = orders.store_orders?.[0]?.order_status ?? "pending";
   const [status, setStatus] = useState<IOrderStatus>(currentStatus);
+
+  const currentStatusObj = statusOptions.find(
+    (option) => option.value === currentStatus
+  );
+  const currentStatusId = currentStatusObj?.id ?? 1;
 
   const { dispatchModal, modalState } = UseUpdateModal();
 
@@ -44,6 +53,63 @@ const OrderStatusChangerWidget = ({ orders }: Props) => {
       },
     });
   };
+
+  const queryKey = ["all-orders"];
+
+  const { mutate, isPending } = useMutationData(
+    ["order-status-update"],
+    ({ status, store_order_id }: { store_order_id: string; status: string }) =>
+      updateStoreOrderStatusAction({
+        status: status,
+        store_order_id: store_order_id,
+      }),
+    queryKey
+  );
+
+
+  const handleSubmitForm = () => {
+    if (!orders.store_orders?.[0]?.store_order_id) return;
+
+    const newStatus = modalState.selectedModalData?.status as IOrderStatus;
+    const newStatusObj = statusOptions.find((s) => s.value === newStatus);
+    const newStatusId = newStatusObj?.id ?? 0;
+  
+    const currentStatusObj = statusOptions.find((s) => s.value === currentStatus);
+    const currentStatusId = currentStatusObj?.id ?? 0;
+  
+    const isCancel = newStatus === "cancelled";
+  
+    // Enforce strict step-by-step transition or cancel
+    const isValidStep =
+      newStatusId === currentStatusId + 1 || // next step only
+      (isCancel && currentStatusId < 6); // cancel only allowed before delivered
+  
+    if (!isValidStep) {
+      const nextAllowedStatus = statusOptions.find((s) => s.id === currentStatusId + 1);
+      makeToastError(
+        `Invalid update! You must update to '${nextAllowedStatus?.label}' before selecting '${newStatusObj?.label}'.`
+      );
+      return;
+    }
+  
+    mutate(
+      {
+        store_order_id: orders.store_orders[0]?.store_order_id,
+        status:modalState.selectedModalData?.status,
+      },
+      {
+        onSuccess: () => {
+          dispatchModal({ type: "CLOSE_MODAL" });
+        //   setStatus(currentStatus);
+        },
+        onError: (error) => {
+          console.error("Failed to update order status", error);
+          // You can optionally show a toast/snackbar here
+        },
+      }
+    );
+  };
+  
 
   return (
     <>
@@ -88,16 +154,25 @@ const OrderStatusChangerWidget = ({ orders }: Props) => {
             },
           }}
         >
-          {statusOptions.map(({ label, value }) => (
-            <MenuItem
-              key={value}
-              value={value}
-              disabled={value === currentStatus}
-              sx={{ fontSize: "13px" }}
-            >
-              {label}
-            </MenuItem>
-          ))}
+          {statusOptions.map(({ id, label, value }) => {
+            const isBeforeCurrent = id < currentStatusId;
+            const isDelivered = currentStatus === "delivered";
+            const isCancel = value === "cancelled";
+
+            const shouldDisable =
+              value === currentStatus || isBeforeCurrent || (isDelivered && isCancel);
+
+            return (
+              <MenuItem
+                key={value}
+                value={value}
+                disabled={shouldDisable}
+                sx={{ fontSize: "13px" }}
+              >
+                {label}
+              </MenuItem>
+            );
+          })}
         </Select>
       </FormControl>
 
@@ -108,8 +183,12 @@ const OrderStatusChangerWidget = ({ orders }: Props) => {
           modalState.selectedModalData?.order?.order_id === orders.order_id
         }
         setOpen={(value) => {
+            if(isPending){
+                return
+            }
           if (!value) {
             dispatchModal({ type: "CLOSE_MODAL" });
+            setStatus(currentStatus);
           }
         }}
         title="Update Order Status"
@@ -118,31 +197,36 @@ const OrderStatusChangerWidget = ({ orders }: Props) => {
         classnameDescription="text-center"
         classnameTitle="text-center"
         footer={
-            <div className="flex w-full gap-3">
-          <div className="flex-1">
-            <DialogClose className="w-full">
+          <div className="flex w-full gap-3 mt-3">
+            <div className="flex-1">
+              <DialogClose className="w-full">
+                <AyButton
+                  type="button"
+                  variant="gray"
+                  sx={{
+                    width: "100%",
+                  }}
+                  disabled={isPending}
+                >
+                  Close
+                </AyButton>
+              </DialogClose>
+            </div>
+            <div className="flex-1">
               <AyButton
-              type="button"
-              variant="gray"
+                type="submit"
                 sx={{
                   width: "100%",
                 }}
+                onClick={handleSubmitForm}
+                disabled={isPending}
               >
-                Close
+               <Loader state={isPending} spinnerClassName="h-6 w-6">
+               Yes, Submit
+               </Loader>
               </AyButton>
-            </DialogClose>
+            </div>
           </div>
-          <div className="flex-1">
-            <AyButton
-             type="submit"
-              sx={{
-                width: "100%",
-              }}
-            >
-              Yes, Submit
-            </AyButton>
-          </div>
-        </div> 
         }
       />
     </>
