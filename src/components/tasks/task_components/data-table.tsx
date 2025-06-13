@@ -62,6 +62,8 @@ interface DataTableProps<TData, TValue> {
   toolBarClassName?: string;
   titleDivClassName?: string;
   enableDatepicker?: boolean;
+  enablePagination?: boolean;
+
   dateColumnKey?: string;
   title?: string;
 }
@@ -90,6 +92,7 @@ export function DataTable<TData, TValue>({
   tableClass,
   title,
   titleDivClassName,
+  enablePagination = true,
 }: DataTableProps<TData, TValue>) {
   const { openRow } = UseModal();
   const [rowSelection, setRowSelection] = React.useState({});
@@ -282,7 +285,7 @@ export function DataTable<TData, TValue>({
           </Table>
         )}
       </div>
-      <DataTablePagination table={table} />
+      {enablePagination && <DataTablePagination table={table} />}
     </div>
   );
 }

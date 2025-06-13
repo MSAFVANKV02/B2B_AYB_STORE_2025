@@ -8,7 +8,7 @@ import { IOrdersType } from "@/types/orderTypes";
 import AllOrdersCardBlocks from "@/utils/dashboard/all-order-blocks";
 import { useTranslation } from "react-i18next";
 import { useSearchParams } from "react-router-dom";
-import OrderDetailsPage from "./order-details-page";
+import OrderDetailsPage from "./odrerId/page";
 
 const AllOrderPage = () => {
   const [searchParams] = useSearchParams();

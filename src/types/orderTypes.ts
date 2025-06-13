@@ -7,6 +7,36 @@ export type IOrderItem = {
   color: string; // Color of the product as a string (e.g., "red")
 };
 
+export type IFlatOrderItemDetailsType = {
+  _id: string;
+  product_id: string;
+  stock_id: string;
+  stock_sku: string;
+  mrp: number;
+  discount_type: string;
+  product: Product;
+
+  variation: ProductVariation;
+  details:VariationDetail;
+
+  store: IStoreOrder;
+  order: IOrders;
+  showVerifiedLabel: boolean;
+};
+
+export type IGroupedOrderDetails = {
+  product_id: string;
+  product_name: string;
+  image: string;
+  variationDetails: {
+    color: string;
+    size: string;
+    quantity: number;
+    selling_price: number;
+  }[];
+};
+
+
 export type IFlatOrderItem = StoreItem & {
   store: IStoreOrder;
   order: IOrders;
