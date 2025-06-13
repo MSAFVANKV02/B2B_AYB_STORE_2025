@@ -84,7 +84,7 @@ const OrderDetailsTables = ({ orders }: Props) => {
   // const groupedList = Array.from(groupedMap.values());
 
   return (
-    <div className="bg-white rounded-md p-4 max-h-[500px] overflow-y-auto">
+    <div className="bg-white dark:bg-inherit  rounded-md p-4 max-h-[500px] overflow-y-auto">
       {/* <DataTable
       isCustomTableBody={(table, columns) => (
         <CustomOrderDetailsTable

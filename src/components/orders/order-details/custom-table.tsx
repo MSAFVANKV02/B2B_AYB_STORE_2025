@@ -91,7 +91,7 @@ function CustomOrderDetailsTable<TData, TValue>({
                 return (
                   <TableRow
                     key={row.id}
-                    className={cn("bg-white ", tableRowClass)}
+                    className={cn("bg-white dark:bg-inherit ", tableRowClass)}
                   >
                     {row.getVisibleCells().map((cell, cellIndex) => {
                       const isFirstCell = cellIndex === 0;

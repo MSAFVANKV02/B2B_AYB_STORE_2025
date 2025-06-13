@@ -1,10 +1,13 @@
 import MyBackBtn from "@/components/myUi/myBackBtn";
 import MyClock from "@/components/myUi/MyClock";
 import { UseUpdateModal } from "@/providers/context/modal-context";
-import { IOrders, IOrderStatus } from "@/types/orderTypes";
+import { IFlatOrderItem, IOrders, IOrderStatus } from "@/types/orderTypes";
 import OrderStatusChangerWidget from "@/components/tasks/table_actions/Orders/all-orders-action/order-status-changer";
 
 import OrderDetailsTables from "@/components/orders/order-details/order-details-table";
+import OrderDetailsSideBar from "@/components/orders/order-details/order-details-sidebar";
+import { OrderStatusStepper } from "@/components/global/stepper";
+import { Separator } from "@/components/ui/separator";
 
 type Props = {
   orders: IOrders;
@@ -46,8 +49,22 @@ const OrderDetailsPage = ({ orders }: Props) => {
   const label = statusLabelMap[status] ?? "Unknown";
   const color = statusColorMap[status] ?? "bg-gray-200";
 
+
+  const filteredItems: IFlatOrderItem[] = orders.store_orders
+  .filter((store) => store)
+  .flatMap((store) =>
+    store.items.map((item, index) => ({
+      ...item,
+      store,
+      order: orders,
+      showVerifiedLabel: index === 0,
+    }))
+  );
+
+
+
   return (
-    <div className="2xl:px-0 lg:px-10  space-y-5 w-full">
+    <div className="2xl:px-0 lg:px-10  space-y-5 w-full dark:text-neutral-300">
       <MyBackBtn
         clickEvent={() => {
           dispatchModal({ type: "CLOSE_MODAL" });
@@ -95,10 +112,21 @@ const OrderDetailsPage = ({ orders }: Props) => {
 
           {/* table start here */}
           <OrderDetailsTables orders={orders} />
+
+
+          <div className="bg-white space-y-4 dark:bg-inherit p-5 rounded-md">
+            <span className="font-bold mb-3">
+            Order Timeline
+            </span>
+            
+            <Separator className="h-[2px] rounded-full" />
+
+          <OrderStatusStepper orderDetails={filteredItems} />
+          </div>
         </div>
         {/* 4. */}
         {/* side bar stats */}
-        <div className="lg:flex-grow bg-white">d</div>
+        <OrderDetailsSideBar orders={orders} />
       </div>
     </div>
   );
