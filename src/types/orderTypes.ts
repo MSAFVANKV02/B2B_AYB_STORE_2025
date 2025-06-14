@@ -43,16 +43,16 @@ export type IFlatOrderItem = StoreItem & {
   showVerifiedLabel: boolean;
 };
 
-export const OrderStatusEnum = {
-  PENDING: "pending",
-  PROCESSING: "processing",
-  READYTOPICK: "ready_to_pickup",
-  SHIPPED: "shipped",
-  OUTFORDELIVERY: "out_for_delivery",
-  DELIVERED: "delivered",
-  CANCELLED: "cancelled",
-  RETURNED: "returned",
-};
+// export const OrderStatusEnum = {
+//   PENDING: "pending",
+//   PROCESSING: "processing",
+//   READYTOPICK: "ready_to_pickup",
+//   SHIPPED: "shipped",
+//   OUTFORDELIVERY: "out_for_delivery",
+//   DELIVERED: "delivered",
+//   CANCELLED: "cancelled",
+//   RETURNED: "returned",
+// };
 
 export type IOrderStatus =
   | "pending"

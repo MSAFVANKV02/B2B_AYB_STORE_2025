@@ -105,6 +105,12 @@ import {
 } from "@/components/ui/table";
 
 import type { ColumnDef, Table as TableType } from "@tanstack/react-table";
+import { useMemo, useState } from "react";
+import {
+  IReturnDetail,
+  IReturnOrders,
+  ReturnItem,
+} from "@/types/return_order_types";
 
 type Props<TData, TValue> = {
   table: TableType<TData>;
@@ -128,8 +134,119 @@ function CustomMainReturnTable<TData, TValue>({
   tableClass,
   tableHeadRowClass,
 }: Props<TData, TValue>) {
+  const column = table.getColumn("status");
+  // const facets = column?.getFacetedUniqueValues();
+  // const selectedValues = new Set(column?.getFilterValue() as string[]);
+  const selectedValue = column?.getFilterValue() as string | undefined;
+
+  const [subFilter, setSubFilter] = useState<string>("replace");
+
+  // useEffect(() => {
+  //   if (
+  //     selectedValue === "Approved" ||
+  //     selectedValue === "refund" ||
+  //     selectedValue === "replace"
+  //   ) {
+  //     navigate("?filter=approved");
+  //   } else {
+  //     navigate("?filter");
+  //   }
+  // }, [selectedValue]);
+
+  // console.log(table.getRowModel().rows);
+
+  const options = [
+    {
+      name: "Replacement",
+      value: "replace",
+    },
+    {
+      name: "Refund",
+      value: "refund",
+    },
+  ];
+
+  const visibleRows = useMemo(() => {
+    const allRows = table.getRowModel().rows;
+
+    if (selectedValue !== "Approved" || !subFilter) return allRows;
+
+    return allRows.filter((row) => {
+      const order = row.original as IReturnOrders;
+
+      const details = order.items.flatMap((item: ReturnItem) =>
+        item.product.variations.flatMap((variation) => variation.details)
+      );
+
+      return details.some((detail: IReturnDetail) => {
+        return (
+          detail.returned_quantity > 0 &&
+          detail.return_status &&
+          detail.return_mode?.toLowerCase() === subFilter.toLowerCase()
+        );
+      });
+    });
+  }, [table, selectedValue, subFilter]);
+
+  // const showSubFilters =
+  //   selectedValue === "Approved" ||
+  //   selectedValue === "Refund" ||
+  //   selectedValue === "Replacement";
+
   return (
     <div className="w-full overflow-x-auto">
+      {/* {selectedValue} */}
+      {/* {selectedValue === "Approved" && (
+       <div className="border-t-2 pt-3">
+         <div className="border w-fit flex gap-1 px-1 text-xs py-1 rounded-full bg-white shadow-sm ">
+          {["Refund", "Replacement"].map((subFilter) => {
+            // const isSubSelected = selectedValue === subFilter;
+            return (
+              <button
+                key={subFilter}
+                className={`h-10 min-w-32 px-3 rounded-full ${
+                  selectedValue === subFilter
+                    ? "bg-textMain text-white"
+                    : "bg-gray-100 text-black"
+                }`}
+                onClick={() => {
+                  const newValue =
+                    selectedValue === subFilter ? "Approved" : subFilter;
+                  column?.setFilterValue(newValue);
+                }}
+              >
+                {subFilter.charAt(0).toUpperCase() + subFilter.slice(1)}
+              </button>
+            );
+          })}
+        </div>
+       </div>
+      )} */}
+
+      {selectedValue === "Approved" && (
+        <div className="border-t-2 pt-3">
+          <div className="border w-fit flex gap-1 px-1 text-xs py-1 rounded-full bg-white shadow-sm ">
+            {options.map((option, i) => (
+              <button
+                key={i}
+                className={`h-10 min-w-32 px-3 rounded-full ${
+                  subFilter === option.value
+                    ? "bg-textMain text-white"
+                    : "bg-gray-100 text-black"
+                }`}
+                onClick={() => {
+                  setSubFilter(
+                    subFilter === option.value ? "none" : option.value
+                  );
+                }}
+              >
+                {option.name}
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
+
       <Table
         className={cn(
           "overflow-x-auto w-full   border-separate border-spacing-y-3 ",
@@ -169,8 +286,10 @@ function CustomMainReturnTable<TData, TValue>({
                 </div>
               </TableCell>
             </TableRow>
-          ) : table.getRowModel().rows.length ? (
-            table.getRowModel().rows.map((row) => (
+          ) : //  table.getRowModel().rows.length ? (
+          //   table.getRowModel().rows.map((row) => (
+          visibleRows.length ? (
+            visibleRows.map((row) => (
               <TableRow
                 key={row.id}
                 className={cn(

@@ -173,43 +173,60 @@ const UserReturnTableDetails = () => {
           return (
             <Form className="space-y-6">
               {/* Top Info */}
-              <div className="flex justify-between lg:w-1/2 md:w-3/4 w-full">
+              <div className="flex justify-between  w-full">
                 <div className="flex flex-col gap-1">
+                  <div className="">
+                    <span className="text-xs font-semibold">Date: </span>
+                    <MyClock
+                      date={orders.createdAt}
+                      showSeconds={false}
+                      showTime={false}
+                      className="text-xs"
+                    />
+                  </div>
                   <p className="text-xs">
                     <span className="font-semibold">Return ID: </span>
                     {orders.return_id}
                   </p>
-                  <p className="text-xs">
+                  {/* <p className="text-xs">
                     <span className="font-semibold">User Name: </span>
                     {orders.customer_id.userId.name}
-                  </p>
+                  </p> */}
+                  {/* <p className="text-xs">
+                    <span className="font-semibold">Delivery Type: </span>
+                    
+                  </p> */}
                   <p className="text-xs">
                     <span className="font-semibold">GST NO: </span>
                     {orders.customer_id.gstNumber}
                   </p>
-                  <p className="text-xs flex gap-1">
-                    <span className="font-semibold">Address: </span>
-                    <p className=" w-[150px]">
-                      {orders.main_order_id.shipping_address.street},{" "}
-                      {orders.main_order_id.shipping_address.state},{" "}
-                      {orders.main_order_id.shipping_address.city},{" "}
-                      {orders.main_order_id.shipping_address.country},{" "}
-                      {orders.main_order_id.shipping_address.zip}
-                    </p>
-                  </p>
                 </div>
                 <div>
-                  <span>Date: </span>
-                  <MyClock
-                    date={orders.createdAt}
-                    showSeconds={false}
-                    showTime={false}
-                  />
+                  <p className="text-xs flex gap-1">
+                    {/* <span className="font-semibold">Address: </span> */}
+                    <div className="text-left w-[250px] flex flex-col gap-1">
+                      <span className="font-bold">
+                        {orders.main_order_id.shipping_address.name}
+                      </span>
+                      <p className="">
+                        {orders.main_order_id.shipping_address.street},{" "}
+                        {orders.main_order_id.shipping_address.state},{" "}
+                        {orders.main_order_id.shipping_address.city},{" "}
+                        {orders.main_order_id.shipping_address.country},{" "}
+                        {orders.main_order_id.shipping_address.zip}
+                      </p>
+                      <p className="">
+                      Phone :{" "}
+                        <span className="">{orders.main_order_id.shipping_address.mobile}</span>
+                      </p>
+                   
+                    </div>
+                  </p>
                 </div>
               </div>
 
               {/* Table */}
-              <div className=" shadow-md w-full overflow-x-auto">
+              <div className="  w-full overflow-x-auto">
                 <table className="min-w-[1200px] w-full table-auto border-collapse">
                   <thead className="bg-[#F8F8F8]">
                     <tr className="text-left border-b-2 font-semibold">

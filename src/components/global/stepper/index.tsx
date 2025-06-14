@@ -17,6 +17,8 @@ import {
 } from "../elements/FormateTime";
 import { IFlatOrderItem } from "@/types/orderTypes";
 import { useTheme } from "@/components/ui/theme";
+import { OrderStatusEnum } from "@/utils/enum/enum";
+import { getStatusOptions } from "@/utils/orderStatusOptions"; // path to your refactored export
 
 // order_status and IOrder types
 
@@ -103,162 +105,148 @@ export const OrderStatusStepper: React.FC<OrderStatusProps> = ({
   const { theme } = useTheme();
   const [currentStep, setCurrentStep] = useState<number>(1);
   const [isCancelled, setIsCancelled] = useState<boolean>(false);
-  const [isReturned, setIsReturned] = useState<boolean>(false);
+  // const [isReturned, setIsReturned] = useState<boolean>(false);
   const onlyWidth = useWindowWidth();
 
-  //   const activeStep = steps.findIndex(
-  //     (step) => step.label === orderDetails[0].store.order_status
-  //   );
+  const shippingMethod =
+    orderDetails[0]?.store?.parcel_details.shipping_method || "";
+  const storeStatus = orderDetails[0].store.order_status;
 
-  useEffect(() => {
-    if (orderDetails) {
-      // Check the order status and update the state accordingly
-      const { order_status, is_returned } = orderDetails[0].store; // Assuming the first product is of interest
-      setIsCancelled(order_status === "cancelled");
-      setIsReturned(is_returned);
-      setCurrentStep(
-        order_status === "out_for_delivery"
-          ? 4
-          : order_status === "delivered"
-          ? 5
-          : order_status === "pending"
-          ? 1
-          : 2
-      ); // Example logic
-    }
-  }, [orderDetails]);
+  const statusSteps = getStatusOptions(shippingMethod)
+    .filter((step) => {
+      if (orderDetails[0].store.is_returned) return true; // Keep all if returned
+      return step.value !== "cancelled" || storeStatus === "cancelled";
+    })
+    .map((step, index) => {
+      const status = step.value;
+      const store = orderDetails[0].store;
+      const order = orderDetails[0].order;
 
-  useEffect(() => {
-    // refetch()
-    const statusIndex = steps.findIndex(
-      (status) => status.label === orderDetails[0].store.order_status
-    );
+      const isReturned = store.is_returned && status === "cancelled"; // Replace cancelled with returned if returned
 
-    if (orderDetails[0].store.order_status === "cancelled") {
-      setIsCancelled(true);
-    } else if (orderDetails[0].store.is_returned) {
-      setIsReturned(true);
-      setCurrentStep(statusIndex + 1);
-    } else if (statusIndex !== -1) {
-      setCurrentStep(statusIndex + 1);
-      // console.log("Current step", statusIndex)
-    }
-  }, [orderDetails]);
+      const label = isReturned ? "returned" : status;
 
-  const orderProcessingLabel = (status: number) => {
-    if (status === 1 || status < 1) {
-      return "Order Processing...";
-    }
-    if (status !== 1 || status > 1) {
-      return "Order Processed";
-    }
-  };
-
-  const orderProcessingLabelShip = (status: number) => {
-    if (status === 2) {
-      return "Shipping Processing...";
-    } else if (status < 2) {
-      return "waiting for the package";
-    } else {
-      return "Order Shipped";
-    }
-  };
-
-  const steps = [
-    {
-      id: 1,
-      label: "pending",
-      title: `Your Order Confirmed`,
-      icon: "bi:bag-check",
-
-      description: ` 
-      ${formatOrderDate(orderDetails[0].order.createdAt)}`,
-    },
-    {
-      id: 2,
-      label: "confirmed",
-      title: `${orderProcessingLabel(currentStep)}`,
-      icon: "mdi:credit-card-check-outline",
-    },
-    {
-      id: 3,
-      label: "shipped",
-      title: `${orderProcessingLabelShip(currentStep)}`,
-      icon: "mdi:truck-fast-outline",
-      description: ` 
-      ${formatOrderDate(orderDetails[0].store.shipped_date)}`,
-    },
-    ...(orderDetails[0].store.order_status === "out_for_delivery"
-      ? [
-          {
-            id: 4,
-            label: "out_for_delivery",
-            title: `Order is out for delivery`,
-            icon: "mdi:truck-fast-outline",
-          },
-        ]
-      : []),
-    ...(orderDetails[0].store.order_status !== "delivered"
-      ? [
-          {
-            id: 5,
-            label: "deliveryTime",
-            title: `Delivery Expected By ${
-              orderDetails[0].order.createdAt
-                ? formatOrderDate(
-                    addDays(
-                      new Date(orderDetails[0].order.createdAt),
-                      MAX_RETURN_DAYS
-                    )
-                  )
-                : "Unknown Date"
-            }`,
-            icon: "hugeicons:package-delivered",
-          },
-        ]
-      : []),
-
-    ...(orderDetails[0].store.order_status === "delivered"
-      ? [
-          {
-            id: 6,
-            label: "delivered",
-            title: (() => {
-              // Safely parse the dates
-              const changedAt = safeParseDate(
-                orderDetails[0].store.delivery_date
-              );
-              const limitDate = safeParseDate(orderDetails[0].order.createdAt);
-
-              if (changedAt && limitDate) {
-                const maxReturnDate = addDays(limitDate, MAX_RETURN_DAYS);
+      return {
+        id: step.id,
+        label,
+        title: (() => {
+          if (isReturned) return "Order Returned";
+          switch (status) {
+            case "pending":
+              return "Order Placed";
+            case "processing":
+              return index <= currentStep ? "Order Confirmed" : "Processing...";
+            case "ready_to_pickup":
+              return "Ready for Store Pickup";
+            case "shipped":
+              return index === currentStep
+                ? "Package is on the way"
+                : "Shipped";
+            case "out_for_delivery":
+              return "Out for Delivery";
+            case "delivered": {
+              const changedAt = safeParseDate(store.delivery_date);
+              const createdAt = safeParseDate(order.createdAt);
+              if (changedAt && createdAt) {
+                const maxReturnDate = addDays(createdAt, MAX_RETURN_DAYS);
                 return changedAt < maxReturnDate
                   ? `Delivered early ${safeFormatDate(changedAt)}`
                   : `Delivered ${safeFormatDate(changedAt)}`;
               }
-
               return "Delivered";
-            })(),
-            icon: "hugeicons:package-delivered",
-          },
-        ]
-      : []),
-  ];
+            }
+            case "cancelled":
+              return "Order Cancelled";
+            default:
+              return step.label;
+          }
+        })(),
+        icon: (() => {
+          if (isReturned) return "game-icons:return-arrow";
+          switch (status) {
+            case "pending":
+              return "bi:bag-check";
+            case "processing":
+              return "mdi:credit-card-check-outline";
+            case "ready_to_pickup":
+              return "mdi:store-check-outline";
+            case "shipped":
+            case "out_for_delivery":
+              return "mdi:truck-fast-outline";
+            case "delivered":
+              return "hugeicons:package-delivered";
+            case "cancelled":
+              return "mdi:cancel";
+            default:
+              return "mdi:alert-circle-outline";
+          }
+        })(),
+        description: (() => {
+          if (isReturned)
+            return `${safeFormatDate(
+              orderDetails[0].store.return_action_date || store.updatedAt
+            )}`;
+          switch (status) {
+            case "pending":
+              return `${formatOrderDate(order.createdAt)}`;
+            case "shipped":
+              return `${formatOrderDate(store.shipped_date)}`;
+            case "delivered":
+              return `${safeFormatDate(store.delivery_date)}`;
+            case "cancelled":
+              return `${safeFormatDate(
+                store.cancelled_date || store.updatedAt
+              )}`;
+            default:
+              return "";
+          }
+        })(),
+      };
+    });
+
+  // useEffect(() => {
+  //   if (orderDetails?.length) {
+  //     const { order_status } = orderDetails[0].store;
+  //     // setIsCancelled(order_status === OrderStatusEnum.CANCELLED);
+  //     // setIsReturned(is_returned);
+
+  //     const index = statusSteps.findIndex((s) => s.label === order_status);
+  //     setCurrentStep(index !== -1 ? index : 0);
+  //   }
+  // }, [orderDetails]);
+  useEffect(() => {
+    if (orderDetails?.length) {
+      const store = orderDetails[0].store;
+      const { order_status } = orderDetails[0].store;
+      setIsCancelled(order_status === OrderStatusEnum.CANCELLED);
+      // setIsReturned(is_returned);
+
+      if (store.is_returned) {
+        // ✅ Mark all steps as completed if order is returned
+        setCurrentStep(statusSteps.length - 1);
+      } else {
+        const index = statusSteps.findIndex(
+          (s) => s.label === store.order_status
+        );
+        setCurrentStep(index !== -1 ? index : 0);
+      }
+    }
+  }, [orderDetails, statusSteps]);
 
   const statusesCancelled = [
     {
-      id: 6,
+      id: 1,
       label: "confirmed",
-      title: `Your Order Confirmed `,
+      title: `Order Confirmed `,
       icon: "mdi:credit-card-check-outline",
       description: ` 
       ${formatOrderDate(orderDetails[0].store.createdAt)}`,
     },
     {
-      id: 7,
+      id: 2,
 
       label: "cancelled",
-      title: `Your Order cancelled ${safeFormatDate(
+      title: `Order cancelled ${safeFormatDate(
         orderDetails[0].store.cancelled_date
       )}`,
       icon: "ix:cancelled",
@@ -267,30 +255,7 @@ export const OrderStatusStepper: React.FC<OrderStatusProps> = ({
     },
   ];
 
-  const statusesReturned = [
-    {
-      id: 8,
-      label: "confirmed",
-      title: `Your Order Confirmed `,
-      icon: "mdi:credit-card-check-outline",
-      description: ` 
-      ${formatOrderDate(orderDetails[0].store.createdAt)}`,
-    },
-    {
-      id: 9,
-      label: "returned",
-      title: `Your Order Returned `,
-      icon: "icon-park-outline:return",
-      description: ` 
-      ${safeFormatDate(orderDetails[0].store.return_action_date ?? "")}`,
-    },
-  ];
-
-  const stepperChanges = isCancelled
-    ? statusesCancelled
-    : isReturned
-    ? statusesReturned
-    : steps;
+  const stepperChanges = isCancelled ? statusesCancelled : statusSteps;
 
   return (
     <Box sx={{ maxWidth: 400 }}>
@@ -322,7 +287,14 @@ export const OrderStatusStepper: React.FC<OrderStatusProps> = ({
                   icon={step.icon}
                   style={{
                     fontSize: "24px",
-                    color: index <= currentStep ? "#6DC558" : "#BBBBBB",
+                    color:
+                      step.label === "cancelled"
+                        ? "#FF4D4F"
+                        : step.label === "returned"
+                        ? "#6C63FF" // ⬅️ Standard return violet color (customize as needed)
+                        : index <= currentStep
+                        ? "#6DC558"
+                        : "#BBBBBB",
                   }}
                 />
                 <Box>
@@ -331,16 +303,16 @@ export const OrderStatusStepper: React.FC<OrderStatusProps> = ({
                     style={{
                       fontWeight: index === currentStep ? "bold" : "normal",
                       color:
-                        index <= currentStep
+                        step.label === "cancelled" // ✅ Red for cancelled title
+                          ? "#FF4D4F"
+                          : step.label === "returned"
+                          ? "#6C63FF"
+                          : index <= currentStep
                           ? theme === "light"
                             ? "#000"
                             : "#d4d4d4"
                           : "#BBBBBB",
                       fontSize: `${onlyWidth < 645 ? "12px" : "15px"}`,
-                      //   color:
-                      //     index === currentStep || index < currentStep
-                      //       ? "#6DC558"
-                      //       : " ",
                     }}
                   >
                     {step.title}
@@ -348,7 +320,14 @@ export const OrderStatusStepper: React.FC<OrderStatusProps> = ({
                   <Typography
                     variant="body2"
                     style={{
-                      color: index <= currentStep ? "#636363" : "#BBBBBB",
+                      color:
+                        step.label === "cancelled" // ✅ Muted red for description
+                          ? "#FF8888"
+                          : step.label === "returned"
+                          ? "#6C63FF"
+                          : index <= currentStep
+                          ? "#636363"
+                          : "#BBBBBB",
                       fontSize: `${onlyWidth < 645 ? "10px" : "12px"}`,
                     }}
                   >

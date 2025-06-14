@@ -96,11 +96,11 @@ const AllOrderPage = () => {
           tableRowClass="capitalize h-10 py-0 text-xs mb-0 border-none"
           tableCellClass="py-2 align-middle border-none"
           tableHeadClass=""
-          toolBarClassName="justify-end "
+          toolBarClassName="justify-end  space-x-0 text-xs"
           tableClass="border-none "
           className="border-none"
           title="All Orders list"
-          titleDivClassName="px-3"
+          titleDivClassName="sm:px-3 px-2 sm:flex-row flex-col"
         />
       </section>
     </div>

@@ -14,7 +14,9 @@ import { useMutationData } from "@/hooks/useMutationData";
 import { updateStoreOrderStatusAction } from "@/actions/orders/ordersAction";
 import Loader from "@/components/global/loader";
 import { makeToastError } from "@/utils/toaster";
-import StatusOptions from "../widgets/statusOptons";
+import StatusOptions from "../widgets/StatusOptions";
+import { STATUS_MAP } from "@/utils/orderStatusOptions";
+
 
 type Props = {
   orders: IOrders;
@@ -82,58 +84,100 @@ const OrderStatusChangerWidget = ({ orders }: Props) => {
     queryKey
   );
 
+  // const handleSubmitForm = () => {
+  //   if (!orders.store_orders?.[0]?.store_order_id) return;
+
+  //   const newStatus = modalState.selectedModalData?.status as IOrderStatus;
+  //   const newStatusObj = statusOptions.find((s) => s.value === newStatus);
+  //   const newStatusId = newStatusObj?.id ?? 0;
+
+  //   const currentStatusObj = statusOptions.find(
+  //     (s) => s.value === currentStatus
+  //   );
+  //   const currentStatusId = currentStatusObj?.id ?? 0;
+
+  //   const isCancel = newStatus === "cancelled";
+
+  //   // Enforce strict step-by-step transition or cancel
+  //   const isValidStep =
+  //     newStatusId === currentStatusId + 1 || // next step only
+  //     (isCancel && currentStatusId < 6); // cancel only allowed before delivered
+
+  //   if (!isValidStep) {
+  //     const nextAllowedStatus = statusOptions.find(
+  //       (s) => s.id === currentStatusId + 1
+  //     );
+  //     makeToastError(
+  //       `Invalid update! You must update to '${nextAllowedStatus?.label}' before selecting '${newStatusObj?.label}'.`
+  //     );
+  //     return;
+  //   }
+
+  //   mutate(
+  //     {
+  //       store_order_id: orders.store_orders[0]?.store_order_id,
+  //       status: modalState.selectedModalData?.status,
+  //     },
+  //     {
+  //       onSuccess: async () => {
+  //         // if (modalState.type === "order-status-update") {
+  //         await dispatchModal({ type: "CLOSE_MODAL" });
+  //         // client.invalidateQueries({
+  //         //   queryKey: queryKey,
+  //         //   refetchType: "active",
+  //         // });
+
+  //         //   setStatus(currentStatus);
+  //       },
+  //       onError: (error) => {
+  //         console.error("Failed to update order status", error);
+  //         // You can optionally show a toast/snackbar here
+  //       },
+  //     }
+  //   );
+  // };
+
   const handleSubmitForm = () => {
     if (!orders.store_orders?.[0]?.store_order_id) return;
-
+  
+    // const shippingMethod = orders.store_orders?.[0]?.parcel_details?.shipping_method;
+  
+    const allowedStatusList = statusOptions.map(s => s.value); // dynamic flow
+  
     const newStatus = modalState.selectedModalData?.status as IOrderStatus;
-    const newStatusObj = statusOptions.find((s) => s.value === newStatus);
-    const newStatusId = newStatusObj?.id ?? 0;
-
-    const currentStatusObj = statusOptions.find(
-      (s) => s.value === currentStatus
-    );
-    const currentStatusId = currentStatusObj?.id ?? 0;
-
+    const currentIndex = allowedStatusList.indexOf(currentStatus);
+    const newIndex = allowedStatusList.indexOf(newStatus);
+  
     const isCancel = newStatus === "cancelled";
-
-    // Enforce strict step-by-step transition or cancel
     const isValidStep =
-      newStatusId === currentStatusId + 1 || // next step only
-      (isCancel && currentStatusId < 6); // cancel only allowed before delivered
-
+      newIndex === currentIndex + 1 || 
+      (isCancel && currentIndex < allowedStatusList.indexOf("delivered"));
+  
     if (!isValidStep) {
-      const nextAllowedStatus = statusOptions.find(
-        (s) => s.id === currentStatusId + 1
-      );
+      const nextAllowedStatus = allowedStatusList[currentIndex + 1];
+      const nextLabel = STATUS_MAP[nextAllowedStatus]?.label || nextAllowedStatus;
       makeToastError(
-        `Invalid update! You must update to '${nextAllowedStatus?.label}' before selecting '${newStatusObj?.label}'.`
+        `Invalid update! You must update to '${nextLabel}' before selecting '${STATUS_MAP[newStatus]?.label}'.`
       );
       return;
     }
-
+  
     mutate(
       {
         store_order_id: orders.store_orders[0]?.store_order_id,
-        status: modalState.selectedModalData?.status,
+        status: newStatus,
       },
       {
         onSuccess: async () => {
-          // if (modalState.type === "order-status-update") {
           await dispatchModal({ type: "CLOSE_MODAL" });
-          // client.invalidateQueries({
-          //   queryKey: queryKey,
-          //   refetchType: "active",
-          // });
-
-          //   setStatus(currentStatus);
         },
         onError: (error) => {
           console.error("Failed to update order status", error);
-          // You can optionally show a toast/snackbar here
         },
       }
     );
   };
+  
 
   return (
     <>

@@ -25,7 +25,7 @@ const OrderDetailsPage = () => {
 
 
   const { data: fetchedAllOrders, isPending } = useQueryData(
-    ["orders-details",orderId],
+    ["all-orders",orderId],
     () => getAllOrdersAction([{ key: "order_id", value: orderId ?? "" }]),
     { disableRefetch: true }
   );
@@ -36,6 +36,11 @@ const OrderDetailsPage = () => {
   };
   const storeOrder = fetchedOrdersData?.orders[0].store_orders[0];
   const orders = fetchedOrdersData?.orders[0];
+
+  const DeliveryType =
+  storeOrder?.parcel_details.shipping_method
+    .split("_")
+    .join(" ");
 
   // const storeOrder = orders.store_orders?.[0];
   const status = storeOrder?.order_status as IOrderStatus;
@@ -72,8 +77,8 @@ const OrderDetailsPage = () => {
 
   if(isPending){
     return (
-      <div className="h-[85dvh] bg-white rounded-lg shadow-md dark:bg-inherit flex items-center justify-center">
-        <span className="text-xs">
+      <div className="h-[85dvh] bg-white rounded-lg shadow-md dark:bg-neutral-400/20 flex items-center justify-center">
+        <span className="text-xs dark:text-neutral-300">
           Loading ...
         </span>
       </div>
@@ -113,11 +118,11 @@ const OrderDetailsPage = () => {
     );
 
   return (
-    <div className="2xl:px-0 lg:px-10  space-y-5 w-full dark:text-neutral-300">
+    <div className=" space-y-5 w-full dark:text-neutral-300">
       <MyBackBtn
    
       />
-      <div className="flex gap-7">
+      <div className="flex lg:flex-row flex-col gap-7">
         <div className="lg:w-[68%] space-y-3 ">
           {/* 1. */}
           <div className="bg-white dark:bg-inherit p-5 rounded-md flex justify-between">
@@ -131,6 +136,13 @@ const OrderDetailsPage = () => {
               <p className="text-xs">
                 <span className="font-bold">Order Created at :</span>{" "}
                 <MyClock date={orders.createdAt} showSeconds={false} />
+              </p>
+
+              <p className="text-xs">
+                <span className="font-bold">Order Type :</span>{" "}
+                <span className="">
+                {DeliveryType === "parcel pickup" ? "Door Delivery" : DeliveryType}
+                </span>
               </p>
             </div>
             <div className=" flex md:flex-row  gap-5 flex-col items-start">

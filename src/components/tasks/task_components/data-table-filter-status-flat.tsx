@@ -45,7 +45,7 @@ export function DataTableFacetedFilterFlatStyle<TData, TValue>({
               //     filterValues.length ? filterValues : undefined
               //   );
               // }}
-              className={` ${isSelected ? "bg-[#EC922B]/10 " : ""} `}
+              className={` ${isSelected ? "bg-[#F1F9FF] " : ""} rounded-md`}
               variant={"outline"}
             >
               {option.label}

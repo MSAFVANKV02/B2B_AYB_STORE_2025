@@ -196,7 +196,7 @@ export function DataTableToolbar<TData>({
   return (
     <div className="flex items-center justify-between">
       <div
-        className={cn("flex flex-1 items-center space-x-2", toolBarClassName)}
+        className={cn("flex flex-1 items-center gap-2", toolBarClassName)}
       >
         {enableDatepicker && (
           <CalendarDatePicker
