@@ -97,6 +97,7 @@
 //   const latestVariables = data[data.length - 1];
 //   return { latestVariables };
 // };
+import { UseUpdateModal } from "@/providers/context/modal-context";
 import { makeToast, makeToastError } from "@/utils/toaster";
 import {
   MutationFunction,
@@ -119,12 +120,14 @@ export const useMutationData = (
   // console.log("useMutationData");
   // const { toast } = useToast();
   const client = useQueryClient();
+  const { dispatchModal } = UseUpdateModal();
+
   const { mutate, isPending, data, status } = useMutation({
     mutationKey,
     mutationFn,
     onSuccess(data) {
       // console.log(data, "data mutation");
-
+      dispatchModal({ type: "CLOSE_MODAL" })
       if (onSuccess) onSuccess(data); // Reset form only if success
 
       if (

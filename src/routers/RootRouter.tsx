@@ -38,6 +38,7 @@ import UserProfilePage from "@/pages/user-profile/user-profile-page";
 import CouponPage from "@/pages/marketing/copon/coupon-page";
 import UserReturnOrderPage from "@/pages/return-management/user-return/page";
 import AllOrderPage from "@/pages/orders/all/page";
+import OrderDetailsPage from "@/pages/orders/all/odrerId/page";
 
 const rootRouter = createBrowserRouter(
   [
@@ -93,6 +94,8 @@ const rootRouter = createBrowserRouter(
           element: <SalesLayout />, // Parent layout for Sales
           children: [
             { path: "orders", element: <AllOrderPage /> },
+            { path: "orders/:orderId", element: <OrderDetailsPage /> },
+
             // { path: "refunds", element: <CustomerRefundPage /> },
           ],
         },

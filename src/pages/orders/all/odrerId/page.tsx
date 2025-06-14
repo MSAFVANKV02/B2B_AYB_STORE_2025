@@ -1,22 +1,43 @@
 import MyBackBtn from "@/components/myUi/myBackBtn";
 import MyClock from "@/components/myUi/MyClock";
-import { UseUpdateModal } from "@/providers/context/modal-context";
-import { IFlatOrderItem, IOrders, IOrderStatus } from "@/types/orderTypes";
+import {
+  IFlatOrderItem,
+  IOrderStatus,
+  IOrdersType,
+} from "@/types/orderTypes";
 import OrderStatusChangerWidget from "@/components/tasks/table_actions/Orders/all-orders-action/order-status-changer";
 
 import OrderDetailsTables from "@/components/orders/order-details/order-details-table";
 import OrderDetailsSideBar from "@/components/orders/order-details/order-details-sidebar";
 import { OrderStatusStepper } from "@/components/global/stepper";
 import { Separator } from "@/components/ui/separator";
+import { useQueryData } from "@/hooks/useQueryData";
+import { getAllOrdersAction } from "@/actions/orders/ordersAction";
+import {  useParams } from "react-router-dom";
+import { OrderNotFoundSvgIcon } from "@/components/icons/order-icons";
 
-type Props = {
-  orders: IOrders;
-};
+// type Props = {
+//   orders: IOrders;
+// };
 
-const OrderDetailsPage = ({ orders }: Props) => {
-  const { dispatchModal } = UseUpdateModal();
+const OrderDetailsPage = () => {
+  const { orderId } = useParams();
 
-  const storeOrder = orders.store_orders?.[0];
+
+  const { data: fetchedAllOrders, isPending } = useQueryData(
+    ["orders-details",orderId],
+    () => getAllOrdersAction([{ key: "order_id", value: orderId ?? "" }]),
+    { disableRefetch: true }
+  );
+
+  const { data: fetchedOrdersData } = (fetchedAllOrders ?? {}) as {
+    status?: number;
+    data?: IOrdersType;
+  };
+  const storeOrder = fetchedOrdersData?.orders[0].store_orders[0];
+  const orders = fetchedOrdersData?.orders[0];
+
+  // const storeOrder = orders.store_orders?.[0];
   const status = storeOrder?.order_status as IOrderStatus;
   const isReturned = storeOrder?.is_returned;
   const statusLabelMap: Record<IOrderStatus, string> = {
@@ -49,26 +70,52 @@ const OrderDetailsPage = ({ orders }: Props) => {
   const label = statusLabelMap[status] ?? "Unknown";
   const color = statusColorMap[status] ?? "bg-gray-200";
 
+  if(isPending){
+    return (
+      <div className="h-[85dvh] bg-white rounded-lg shadow-md dark:bg-inherit flex items-center justify-center">
+        <span className="text-xs">
+          Loading ...
+        </span>
+      </div>
+    )
+  }
+
+  if (!orders) {
+    return (
+      <div className="h-[85dvh] p-5 bg-white rounded-lg shadow-md dark:bg-inherit select-none  gap-7 items-center">
+      <MyBackBtn
+     
+      />
+      <div className="flex flex-col justify-center items-center gap-5 w-full h-full">
+        <div className="">
+        <OrderNotFoundSvgIcon />
+      </div>
+      <div className="">
+        <p className="text-center text-[#B3B3B3] font-medium">
+          No Orders yet.
+        </p>
+      </div> 
+      </div>
+     
+    </div>
+    );
+  }
 
   const filteredItems: IFlatOrderItem[] = orders.store_orders
-  .filter((store) => store)
-  .flatMap((store) =>
-    store.items.map((item, index) => ({
-      ...item,
-      store,
-      order: orders,
-      showVerifiedLabel: index === 0,
-    }))
-  );
-
-
+    .filter((store) => store)
+    .flatMap((store) =>
+      store.items.map((item, index) => ({
+        ...item,
+        store,
+        order: orders,
+        showVerifiedLabel: index === 0,
+      }))
+    );
 
   return (
     <div className="2xl:px-0 lg:px-10  space-y-5 w-full dark:text-neutral-300">
       <MyBackBtn
-        clickEvent={() => {
-          dispatchModal({ type: "CLOSE_MODAL" });
-        }}
+   
       />
       <div className="flex gap-7">
         <div className="lg:w-[68%] space-y-3 ">
@@ -113,15 +160,12 @@ const OrderDetailsPage = ({ orders }: Props) => {
           {/* table start here */}
           <OrderDetailsTables orders={orders} />
 
-
           <div className="bg-white space-y-4 dark:bg-inherit p-5 rounded-md">
-            <span className="font-bold mb-3">
-            Order Timeline
-            </span>
-            
+            <span className="font-bold mb-3">Order Timeline</span>
+
             <Separator className="h-[2px] rounded-full" />
 
-          <OrderStatusStepper orderDetails={filteredItems} />
+            <OrderStatusStepper orderDetails={filteredItems} />
           </div>
         </div>
         {/* 4. */}

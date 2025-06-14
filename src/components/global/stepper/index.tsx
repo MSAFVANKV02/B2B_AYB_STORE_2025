@@ -16,6 +16,7 @@ import {
   safeParseDate,
 } from "../elements/FormateTime";
 import { IFlatOrderItem } from "@/types/orderTypes";
+import { useTheme } from "@/components/ui/theme";
 
 // order_status and IOrder types
 
@@ -99,6 +100,7 @@ export const OrderStatusStepper: React.FC<OrderStatusProps> = ({
   orderDetails,
 }) => {
   // Determine the active step based on the order_status
+  const { theme } = useTheme();
   const [currentStep, setCurrentStep] = useState<number>(1);
   const [isCancelled, setIsCancelled] = useState<boolean>(false);
   const [isReturned, setIsReturned] = useState<boolean>(false);
@@ -118,10 +120,10 @@ export const OrderStatusStepper: React.FC<OrderStatusProps> = ({
         order_status === "out_for_delivery"
           ? 4
           : order_status === "delivered"
-            ? 5
-            : order_status === "pending"
-              ? 1
-              : 2
+          ? 5
+          : order_status === "pending"
+          ? 1
+          : 2
       ); // Example logic
     }
   }, [orderDetails]);
@@ -134,9 +136,7 @@ export const OrderStatusStepper: React.FC<OrderStatusProps> = ({
 
     if (orderDetails[0].store.order_status === "cancelled") {
       setIsCancelled(true);
-    } else if (
-      orderDetails[0].store.is_returned 
-    ) {
+    } else if (orderDetails[0].store.is_returned) {
       setIsReturned(true);
       setCurrentStep(statusIndex + 1);
     } else if (statusIndex !== -1) {
@@ -217,7 +217,7 @@ export const OrderStatusStepper: React.FC<OrderStatusProps> = ({
           },
         ]
       : []),
-    
+
     ...(orderDetails[0].store.order_status === "delivered"
       ? [
           {
@@ -289,8 +289,8 @@ export const OrderStatusStepper: React.FC<OrderStatusProps> = ({
   const stepperChanges = isCancelled
     ? statusesCancelled
     : isReturned
-      ? statusesReturned
-      : steps;
+    ? statusesReturned
+    : steps;
 
   return (
     <Box sx={{ maxWidth: 400 }}>
@@ -330,7 +330,12 @@ export const OrderStatusStepper: React.FC<OrderStatusProps> = ({
                     variant="body2"
                     style={{
                       fontWeight: index === currentStep ? "bold" : "normal",
-                      color: index <= currentStep ? "#000" : "#BBBBBB",
+                      color:
+                        index <= currentStep
+                          ? theme === "light"
+                            ? "#000"
+                            : "#d4d4d4"
+                          : "#BBBBBB",
                       fontSize: `${onlyWidth < 645 ? "12px" : "15px"}`,
                       //   color:
                       //     index === currentStep || index < currentStep

@@ -3,17 +3,16 @@ import Card from "@/components/cards/Card";
 import { AllOrdersTableColumnSDcn } from "@/components/tasks/table_columns/ordes/all-orders-table-columns";
 import { DataTable } from "@/components/tasks/task_components/data-table";
 import { useQueryData } from "@/hooks/useQueryData";
-import { UseUpdateModal } from "@/providers/context/modal-context";
 import { IOrdersType } from "@/types/orderTypes";
 import AllOrdersCardBlocks from "@/utils/dashboard/all-order-blocks";
 import { useTranslation } from "react-i18next";
 import { useSearchParams } from "react-router-dom";
-import OrderDetailsPage from "./odrerId/page";
+
 
 const AllOrderPage = () => {
   const [searchParams] = useSearchParams();
   const { t, i18n } = useTranslation();
-  const { modalState } = UseUpdateModal();
+  // const { modalState } = UseUpdateModal();
 
 
   const locale = i18n.language;
@@ -53,11 +52,11 @@ const AllOrderPage = () => {
 
   // console.log(fetchedOrdersData);
 
-  if(modalState.isOpen && modalState.type === "order-details"){
-    return (
-      <OrderDetailsPage orders={modalState.selectedModalData} />
-    )
-  }
+  // if(modalState.isOpen && modalState.type === "order-details"){
+  //   return (
+  //     <OrderDetailsPage orders={modalState.selectedModalData} />
+  //   )
+  // }
 
   return (
     <div className="2xl:px-0 lg:px-10  space-y-5 w-full">

@@ -1,6 +1,10 @@
 import { OrderSummarySvgIcon } from "@/components/icons/order-icons";
 import { IOrders } from "@/types/orderTypes";
 
+// import { motion } from "framer-motion";
+// import { useEffect, useRef } from "react";
+// import gsap from "gsap"
+
 type Props = {
   orders: IOrders;
 };
@@ -13,7 +17,17 @@ const OrderDetailsSideBar = ({ orders }: Props) => {
     SubTotalOrderSummarySvgIcon,
     TaxOrderSummarySvgIcon,
     PaymentInfoOrderSummarySvgIcon,
+    PaymentInfoRazorpayOrderSummarySvgIcon,
+    PaymentInfoUpiOrderSummarySvgIcon,
   } = OrderSummarySvgIcon();
+
+
+  // const boxRef = useRef(null);
+
+  // useEffect(() => {
+  //   gsap.to(boxRef.current, { rotation: 360, duration: 2 });
+  // }, []);
+
 
   if (!storeOrder) return null;
 
@@ -29,11 +43,14 @@ const OrderDetailsSideBar = ({ orders }: Props) => {
       <span className="">₹{amount.toLocaleString()}</span>
     );
 
+    
+
   return (
     <div className="flex flex-col gap-3 lg:w-[32%]">
       {/* <pre className="h-[400px] text-xs overflow-auto">
             {JSON.stringify(orders,null,4)}
         </pre> */}
+        {/* <motion.div ref={boxRef} whileHover={{ scale: 1.1 }}>Hover me</motion.div> */}
       <div className="bg-white dark:bg-neutral-300/30  rounded-lg overflow-hidden shadow-sm">
         <div className=" p-4">
           <h3 className="font-medium text-sm border-b border-b-black dark:border-b-white  text-neutral-700 dark:text-white pb-2 mb-1">
@@ -81,7 +98,22 @@ const OrderDetailsSideBar = ({ orders }: Props) => {
       <div className="bg-white dark:bg-neutral-300/30  rounded-lg overflow-hidden shadow-sm p-4">
         <span className="font-bold">Payment Info</span>
         <div className="flex gap-5 mt-2">
-          <PaymentInfoOrderSummarySvgIcon />
+          {orders.payment_method === "offline_payment" ? (
+            orders.payment_details.payment_type === "bank" ? (
+              <PaymentInfoOrderSummarySvgIcon />
+            ) : (
+              <PaymentInfoUpiOrderSummarySvgIcon />
+            )
+          ) : orders.payment_method === "razorpay" ? (
+            <PaymentInfoRazorpayOrderSummarySvgIcon />
+          ):(
+            <div className="w-[50px] h-[50px] bg-[#F0F0F0] rounded-[10px] flex items-center justify-center">
+              <span className="text-[10px] text-textMain font-semibold ">
+                COD
+              </span>
+            </div>
+          )}
+
           <div className="flex flex-col gap-1 text-xs">
             <p className="">
               <span className="">Method: </span>
@@ -94,35 +126,35 @@ const OrderDetailsSideBar = ({ orders }: Props) => {
             </p>
             <p className="">
               <span className="">Method: </span>
-              <span className="capitalize text-blue-400">{orders.payment_status}</span>
+              <span className="capitalize text-blue-400">
+                {orders.payment_status}
+              </span>
             </p>
           </div>
         </div>
       </div>
 
       <div className="bg-white dark:bg-neutral-300/30 text-sm rounded-lg overflow-hidden shadow-sm p-4">
-      <div className="border rounded-md p-4 space-y-4">
-        <h4 className="font-bold">
-        Delivery Address
-        </h4>
-       <div className="">
-       <span className="break-words w-fit">
-            {orders.shipping_address.street}
-        </span>
-        <p className="">
-            <span className="font-bold">Email</span>:{" "}
-        <span className="break-words w-fit">
-            {orders.shipping_address.email}
-        </span>
-        </p>
-        <p className="">
-            <span className="font-bold">Phone</span>:{" "}
-        <span className="break-words w-fit">
-            {orders.shipping_address.mobile}
-        </span>
-        </p>
-       </div>
-      </div>
+        <div className="border rounded-md p-4 space-y-4">
+          <h4 className="font-bold">Delivery Address</h4>
+          <div className="">
+            <span className="break-words w-fit">
+              {orders.shipping_address.street}
+            </span>
+            <p className="">
+              <span className="font-bold">Email</span>:{" "}
+              <span className="break-words w-fit">
+                {orders.shipping_address.email}
+              </span>
+            </p>
+            <p className="">
+              <span className="font-bold">Phone</span>:{" "}
+              <span className="break-words w-fit">
+                {orders.shipping_address.mobile}
+              </span>
+            </p>
+          </div>
+        </div>
       </div>
     </div>
   );

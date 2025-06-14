@@ -14,25 +14,32 @@ import { useMutationData } from "@/hooks/useMutationData";
 import { updateStoreOrderStatusAction } from "@/actions/orders/ordersAction";
 import Loader from "@/components/global/loader";
 import { makeToastError } from "@/utils/toaster";
+import StatusOptions from "../widgets/statusOptons";
 
 type Props = {
   orders: IOrders;
 };
 
 // UI label ↔️ backend value mapping
-const statusOptions: { id: number; label: string; value: IOrderStatus }[] = [
-    { id: 1, label: "Pending", value: "pending" },
-    { id: 2, label: "Processing", value: "processing" },
-    { id: 3, label: "Ready to Pickup", value: "ready_to_pickup" },
-    { id: 4, label: "Shipped", value: "shipped" },
-    { id: 5, label: "Out for Delivery", value: "out_for_delivery" },
-    { id: 6, label: "Delivered", value: "delivered" },
-    { id: 7, label: "Cancelled", value: "cancelled" },
-  ];
 
 const OrderStatusChangerWidget = ({ orders }: Props) => {
   const currentStatus = orders.store_orders?.[0]?.order_status ?? "pending";
   const [status, setStatus] = useState<IOrderStatus>(currentStatus);
+  // const client = useQueryClient();
+
+  const { statusOptions } = StatusOptions({
+    type: orders.store_orders[0].parcel_details.shipping_method,
+  });
+
+  // const statusOptions: { id: number; label: string; value: IOrderStatus }[] = [
+  //   { id: 1, label: "Pending", value: "pending" },
+  //   { id: 2, label: "Processing", value: "processing" },
+  //   { id: 3, label: "Ready to Pickup", value: "ready_to_pickup" },
+  //   { id: 4, label: "Shipped", value: "shipped" },
+  //   { id: 5, label: "Out for Delivery", value: "out_for_delivery" },
+  //   { id: 6, label: "Delivered", value: "delivered" },
+  //   { id: 7, label: "Cancelled", value: "cancelled" },
+  // ];
 
   const currentStatusObj = statusOptions.find(
     (option) => option.value === currentStatus
@@ -43,6 +50,15 @@ const OrderStatusChangerWidget = ({ orders }: Props) => {
 
   const handleChange = (event: SelectChangeEvent) => {
     const newStatus = event.target.value as IOrderStatus;
+
+    if (
+      modalState.isOpen &&
+      modalState.type === "order-status-update" &&
+      modalState.selectedModalData?.order?.order_id === orders.order_id
+    ) {
+      return;
+    }
+
     setStatus(newStatus);
     dispatchModal({
       type: "OPEN_MODAL",
@@ -66,41 +82,50 @@ const OrderStatusChangerWidget = ({ orders }: Props) => {
     queryKey
   );
 
-
   const handleSubmitForm = () => {
     if (!orders.store_orders?.[0]?.store_order_id) return;
 
     const newStatus = modalState.selectedModalData?.status as IOrderStatus;
     const newStatusObj = statusOptions.find((s) => s.value === newStatus);
     const newStatusId = newStatusObj?.id ?? 0;
-  
-    const currentStatusObj = statusOptions.find((s) => s.value === currentStatus);
+
+    const currentStatusObj = statusOptions.find(
+      (s) => s.value === currentStatus
+    );
     const currentStatusId = currentStatusObj?.id ?? 0;
-  
+
     const isCancel = newStatus === "cancelled";
-  
+
     // Enforce strict step-by-step transition or cancel
     const isValidStep =
       newStatusId === currentStatusId + 1 || // next step only
       (isCancel && currentStatusId < 6); // cancel only allowed before delivered
-  
+
     if (!isValidStep) {
-      const nextAllowedStatus = statusOptions.find((s) => s.id === currentStatusId + 1);
+      const nextAllowedStatus = statusOptions.find(
+        (s) => s.id === currentStatusId + 1
+      );
       makeToastError(
         `Invalid update! You must update to '${nextAllowedStatus?.label}' before selecting '${newStatusObj?.label}'.`
       );
       return;
     }
-  
+
     mutate(
       {
         store_order_id: orders.store_orders[0]?.store_order_id,
-        status:modalState.selectedModalData?.status,
+        status: modalState.selectedModalData?.status,
       },
       {
-        onSuccess: () => {
-          dispatchModal({ type: "CLOSE_MODAL" });
-        //   setStatus(currentStatus);
+        onSuccess: async () => {
+          // if (modalState.type === "order-status-update") {
+          await dispatchModal({ type: "CLOSE_MODAL" });
+          // client.invalidateQueries({
+          //   queryKey: queryKey,
+          //   refetchType: "active",
+          // });
+
+          //   setStatus(currentStatus);
         },
         onError: (error) => {
           console.error("Failed to update order status", error);
@@ -109,7 +134,6 @@ const OrderStatusChangerWidget = ({ orders }: Props) => {
       }
     );
   };
-  
 
   return (
     <>
@@ -160,7 +184,9 @@ const OrderStatusChangerWidget = ({ orders }: Props) => {
             const isCancel = value === "cancelled";
 
             const shouldDisable =
-              value === currentStatus || isBeforeCurrent || (isDelivered && isCancel);
+              value === currentStatus ||
+              isBeforeCurrent ||
+              (isDelivered && isCancel);
 
             return (
               <MenuItem
@@ -183,9 +209,9 @@ const OrderStatusChangerWidget = ({ orders }: Props) => {
           modalState.selectedModalData?.order?.order_id === orders.order_id
         }
         setOpen={(value) => {
-            if(isPending){
-                return
-            }
+          if (isPending) {
+            return;
+          }
           if (!value) {
             dispatchModal({ type: "CLOSE_MODAL" });
             setStatus(currentStatus);
@@ -221,9 +247,9 @@ const OrderStatusChangerWidget = ({ orders }: Props) => {
                 onClick={handleSubmitForm}
                 disabled={isPending}
               >
-               <Loader state={isPending} spinnerClassName="h-6 w-6">
-               Yes, Submit
-               </Loader>
+                <Loader state={isPending} spinnerClassName="h-6 w-6">
+                  Yes, Submit
+                </Loader>
               </AyButton>
             </div>
           </div>

@@ -234,7 +234,7 @@ export type IStoreOrder = {
 };
 
 type ParcelDetails = {
-  shipping_method: string;
+  shipping_method: "store_pickup"|"parcel_pickup"|"custom"|"";
   parcel_payment_method: string;
   parcel_weight: number | null;
   parcel_charge: number | null;
