@@ -31,7 +31,7 @@ import MoneyWithdrawalPage from "@/pages/accounts/money-withdrawal/money-withdra
 import PageOnBuild from "@/components/myUi/PageOnBuild";
 import UploadMediaPage from "@/pages/media/upload-media-page";
 import AllUploadedFiles from "@/pages/media/retrive/all_uploaded_files";
-import CustomerRefundPage from "@/pages/orders/customer-refunds/customer-refund-page";
+// import CustomerRefundPage from "@/pages/orders/customer-refunds/customer-refund-page";
 import CustomersPage from "@/pages/customers/customers-page";
 import SellerNewAddedProductsPage from "@/pages/seller-management/new-product-from-seller/seller-new-products-page";
 import UserProfilePage from "@/pages/user-profile/user-profile-page";
@@ -39,6 +39,7 @@ import CouponPage from "@/pages/marketing/copon/coupon-page";
 import UserReturnOrderPage from "@/pages/return-management/user-return/page";
 import AllOrderPage from "@/pages/orders/all/page";
 import OrderDetailsPage from "@/pages/orders/all/odrerId/page";
+import CreateStorePages from "@/pages/settings/store-page-creation/page";
 
 const rootRouter = createBrowserRouter(
   [
@@ -107,10 +108,10 @@ const rootRouter = createBrowserRouter(
             // { path: "refunds", element: <CustomerRefundPage /> },
           ],
         },
-        {
-          path: "/refunds",
-          element: <CustomerRefundPage />, // Parent layout for Sales
-        },
+        // {
+        //   path: "/refunds",
+        //   element: <CustomerRefundPage />, // Parent layout for Sales
+        // },
         {
           path: "/customers",
           element: <CustomersPage />, // Parent layout for Sales
@@ -185,6 +186,8 @@ const rootRouter = createBrowserRouter(
             { path: "support-ticket", element: <PageOnBuild title="Support Ticket"/> },
             { path: "media", element: <UploadMediaPage /> },
             { path: "media/uploads", element: <AllUploadedFiles /> },
+            { path: "templates", element: <CreateStorePages /> },
+
           ],
         },
       ],

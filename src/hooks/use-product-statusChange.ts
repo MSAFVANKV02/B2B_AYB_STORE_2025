@@ -12,7 +12,7 @@ export const useUpdateProductStatus = (productId: string) => {
   const { mutate } = useMutationData(
     ["change-status", productId], // Ensure unique mutation key per product
     (newStatus: IProductStatus) => changeProductStatus(productId, newStatus), // Pass newStatus
-    "product-status",
+    ["product-status"],
     (data) => {
       if (data.status === 200 || data.status === 201) {
         dispatch(fetchProducts());
@@ -33,7 +33,7 @@ export const useUpdateToggleWithStore = (productId: string, refetch: any) => {
     ["change-toggle", productId], // Ensure unique mutation key per product
     ({ fieldName, storeIds }: { fieldName: string; storeIds: string[] }) =>
       changeProductToggle({ productId, fieldName, storeIds }), // Pass newStatus
-    "product-toggle",
+    ["product-toggle"],
     (data) => {
       if (data.status === 200 || data.status === 201) {
         refetch();
@@ -57,7 +57,7 @@ export const useSoftDeleteProduct = (refetch: any) => {
     ["softDeleteProduct"],
     ({ productId }: { productId: string }) =>
       softDeleteProductFn({ productId: productId }),
-    "product-delete",
+    ["product-delete"],
     (data) => {
       if (data.status === 200 || data.status === 201) {
         refetch();

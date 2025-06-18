@@ -1,12 +1,26 @@
 
 import { DataTable } from "@/components/tasks/task_components/data-table";
-import { IOrders } from "@/types/orderTypes";
 import { useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import ViewPaymentDetails from "./view_Payment_Details";
 import AyButton from "@/components/myUi/AyButton";
 import '@/assets/css/orders.css'
 import { PaymentHistoryTableColumn } from "@/components/tasks/table_columns/Accounts/transaction-table-columns";
+
+type IOrders = {
+  orderCode: string;
+  store: string;
+  numOfProducts: number;
+  customer: string;
+  amount: string; // you can convert this to number if needed
+  deliveryStatus: "Pending" | "Shipped" | "Delivered" | "Cancelled"; // extend based on your statuses
+  paymentMethod: "Cash on Delivery" | "Online Payment" | string; // adjust based on your methods
+  paymentStatus: "Paid" | "Un-paid";
+  refund: "Refunded" | "No Refund";
+  createdAt: string; // consider `Date` if parsed
+  returnType: "replace" | "refund" | "none"; // extend as per your logic
+};
+
 
 export const Orders: IOrders[] = [
   {

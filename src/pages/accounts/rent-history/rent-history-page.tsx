@@ -1,8 +1,21 @@
 import { DataTable } from "@/components/tasks/task_components/data-table";
-import { IOrders } from "@/types/orderTypes";
 
 import { PageLayoutHeader } from "@/layouts/Pages_Layout";
 import { RentHistoryColumn } from "@/components/tasks/table_columns/Accounts/rent-history-table-columns";
+
+type IOrders = {
+  orderCode: string;
+  store: string;
+  numOfProducts: number;
+  customer: string;
+  amount: string; // you can convert this to number if needed
+  deliveryStatus: "Pending" | "Shipped" | "Delivered" | "Cancelled"; // extend based on your statuses
+  paymentMethod: "Cash on Delivery" | "Online Payment" | string; // adjust based on your methods
+  paymentStatus: "Paid" | "Un-paid";
+  refund: "Refunded" | "No Refund";
+  createdAt: string; // consider `Date` if parsed
+  returnType: "replace" | "refund" | "none"; // extend as per your logic
+};
 
 const Orders: IOrders[] = [
   {

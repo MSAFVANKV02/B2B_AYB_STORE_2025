@@ -14,6 +14,15 @@ const config = {
     "./src/**/*.{js,jsx,tsx,ts}",
 	'./src/**/*.{js,jsx,ts,tsx,html}'
   ],
+  safelist: [
+    "bg-inherit",
+    "bg-red-300",
+    "bg-blue-300",
+    "bg-yellow-100",
+    "px-0", "px-1", "px-2", "px-3", "px-4", "px-5", "px-6",
+    "py-0", "py-1", "py-2", "py-3", "py-4", "py-5", "py-6",
+    "border", "rounded-md", "shadow-md"
+  ],
   prefix: "",
   theme: {
   	container: {

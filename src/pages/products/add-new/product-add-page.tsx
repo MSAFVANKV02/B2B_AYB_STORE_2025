@@ -43,7 +43,7 @@ export default function ProductAddPage() {
           value: `${id}`,
         },
       ]),
-    !!id
+    {enabled:!!id}
   );
 
   const { data: product } = (fetchedProducts ?? {}) as {

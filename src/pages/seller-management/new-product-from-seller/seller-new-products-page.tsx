@@ -1,4 +1,4 @@
-import InventoryDataTable from "@/components/tables/inventory-table/Inventory-Data-Table";
+// import InventoryDataTable from "@/components/tables/inventory-table/Inventory-Data-Table";
 import PagesLayout, {
   PageLayoutHeader,
   PagesLayoutContent,
@@ -12,11 +12,12 @@ import { useSearchParams } from "react-router-dom";
 import { useQueryData } from "@/hooks/useQueryData";
 // import { SELLER_NEW_PRODUCT_INVENTORY_COLUMNS } from "./table-cells/seller-new-product-inventory-columns";
 import MyPageTab from "@/components/myUi/MyTabs";
-import { SELLER_STOCK_INVENTORY_COLUMNS } from "./table-cells/seller-stock-inventory-columns";
+// import { SELLER_STOCK_INVENTORY_COLUMNS } from "./table-cells/seller-stock-inventory-columns";
 import { DataTable } from "@/components/tasks/task_components/data-table";
 import { SellerListedTableColumnShaDcn } from "@/components/tasks/table_columns/seller-management/seller-listeted-products-table-column";
-import CustomMainReturnTable from "@/components/tasks/table_columns/return-management/custom-main-return-table";
 import { StoreRequestedTableColumnShaDcn } from "@/components/tasks/table_columns/seller-management/store-requsted-product-table-column";
+import CustomSellerDataTable from "./customSellerDataTable";
+import { IStockType } from "@/types/stock_types";
 
 const SellerNewAddedProductsPage = () => {
   const [searchParams] = useSearchParams();
@@ -39,10 +40,19 @@ const SellerNewAddedProductsPage = () => {
 
   // const { products } = useAppSelector((state) => state.products);
 
-  const { data: product = [] } = (fetchedProducts ?? {}) as {
+  // const { data: product = [] } = (fetchedProducts ?? {}) as {
+  //   status?: number;
+  //   data?: IProducts[] 
+  // };
+  const { data: fetchedData = [] } = (fetchedProducts ?? {}) as {
     status?: number;
-    data?: IProducts[] 
+    data?: unknown;
   };
+  
+  const product = (urlTypes === "requested-product"
+    ? (fetchedData as IStockType[])
+    : (fetchedData as IProducts[]));
+  
 
   
   // console.log(product, "product");
@@ -77,14 +87,14 @@ const SellerNewAddedProductsPage = () => {
                 children: (
                   <div className="overflow-x-auto w-full ">
                     <DataTable 
-                    data={product}
+                    data={product as IProducts[]}
                     columns={SellerListedTableColumnShaDcn}
                     tableCellClass="align-middle sm:px-2 py-1"
                     className="border-none "
                     tableHeadClass="border-b-none text-center"
                     tableRowClass=" border border-gray-200 rounded-lg shadow-sm overflow-hidden"
                     isCustomTableBody={(table, columns) => (
-                      <CustomMainReturnTable
+                      <CustomSellerDataTable
                         table={table}
                         isLoading={isFetching}
                         columns={columns}
@@ -114,14 +124,14 @@ const SellerNewAddedProductsPage = () => {
                 children: (
                   <div className="overflow-x-auto w-full">
                      <DataTable 
-                    data={product}
+                    data={product as IStockType[]}
                     columns={StoreRequestedTableColumnShaDcn}
                     tableCellClass="align-middle sm:px-2 py-1"
                     className="border-none "
                     tableHeadClass="border-b-none text-center"
                     tableRowClass=" border border-gray-200 rounded-lg shadow-sm overflow-hidden"
                     isCustomTableBody={(table, columns) => (
-                      <CustomMainReturnTable
+                      <CustomSellerDataTable
                         table={table}
                         isLoading={isFetching}
                         columns={columns}

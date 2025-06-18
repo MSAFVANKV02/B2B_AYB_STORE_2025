@@ -275,6 +275,11 @@ function NavigationList() {
           segment: "/settings/media/uploads",
           subscribed: "free",
         },
+        {
+          title: "Templates",
+          segment: "/settings/templates",
+          subscribed: "free",
+        },
       ],
     },
   ];
