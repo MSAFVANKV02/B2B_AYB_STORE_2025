@@ -6,9 +6,34 @@ export const PuckCardBlock: ComponentConfig = {
     title: { type: "text" },
 
     description: { type: "textarea" },
+    justifyContent: {
+      type: "select",
+      label: "Horizontal Alignment",
+      options: [
+        { label: "Start", value: "justify-start" },
+        { label: "Center", value: "justify-center" },
+        { label: "End", value: "justify-end" },
+        { label: "Between", value: "justify-between" },
+        { label: "Around", value: "justify-around" },
+        { label: "Evenly", value: "justify-evenly" },
+      ],
+    },
+
+    alignItems: {
+      type: "select",
+      label: "Vertical Alignment",
+      options: [
+        { label: "Start", value: "items-start" },
+        { label: "Center", value: "items-center" },
+        { label: "End", value: "items-end" },
+        { label: "Stretch", value: "items-stretch" },
+      ],
+    },
     // padding: { type: "number" },
     paddingX: { type: "number", label: "Padding X (px)" },
     paddingY: { type: "number", label: "Padding Y (px)" },
+    height: { type: "text", label: "Card Height (e.g., 200px or 20rem)" },
+
     variant: {
       type: "select",
       options: [
@@ -17,15 +42,15 @@ export const PuckCardBlock: ComponentConfig = {
       ],
     },
     bgColor: {
-        type: "select",
-        options: [
-            { label: "Inherit", value: "inherit" },
-            { label: "Red", value: "red-300" },
-            { label: "Blue", value: "blue-300" },
+      type: "select",
+      options: [
+        { label: "Inherit", value: "inherit" },
+        { label: "Red", value: "red-300" },
+        { label: "Blue", value: "blue-300" },
 
-            { label: "Yellow", value: "yellow-100" },
-        ],
-      },
+        { label: "Yellow", value: "yellow-100" },
+      ],
+    },
   },
   defaultProps: {
     title: "Title",
@@ -33,17 +58,19 @@ export const PuckCardBlock: ComponentConfig = {
     // padding: 16,
     paddingX: 4, // Tailwind unit (e.g. 4 = px-4)
     paddingY: 4,
-    variant:"border rounded-md",
-    bgColor:"inherit"
+    height: "150px",
+    variant: "border rounded-md",
+    bgColor: "inherit",
+    justifyContent: "justify-normal",
+    alignItems: "items-normal",
   },
 
-  render: ({ title, description,  variant,  paddingX, paddingY, bgColor }) => {
-
+  render: ({ title, description, variant, paddingX, paddingY, bgColor, height, justifyContent, alignItems  }) => {
     const pxClass = `px-${paddingX || 0}`;
     const pyClass = `py-${paddingY || 0}`;
-    const className = `${variant} ${pxClass} ${pyClass} bg-${bgColor} `;
+    const className = `${variant} ${pxClass} ${pyClass} bg-${bgColor} flex flex-col ${justifyContent} ${alignItems} `;
     return (
-      <div className={className}>
+      <div className={className} style={{ height }}>
         <h2>{title}</h2>
         <p>{description}</p>
       </div>

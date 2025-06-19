@@ -1,12 +1,15 @@
 // templates/template1.ts
 
-import CreatePageBlock from "@/components/settings/store-page-creation-components/create-page-block";
+import PageBuilderCraft from "@/components/web/web-builder-craft/canvas/page-editor-craft";
+import PageViewer from "@/components/web/web-builder-craft/canvas/page-viewer";
 
 const CreateStorePages = () => {
   return (
-    <div>
+    <div className="">
+      <PageBuilderCraft />
+      <PageViewer />
       {/* <PageEditor /> */}
-      <CreatePageBlock />
+      {/* <CreatePageBlock /> */}
       {/* <iframe
   width="30%"
   height="400"

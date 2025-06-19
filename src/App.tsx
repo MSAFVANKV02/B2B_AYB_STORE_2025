@@ -3,7 +3,7 @@ import Box from "@mui/material/Box";
 import CssBaseline from "@mui/material/CssBaseline";
 import { cn } from "./lib/utils";
 import NavbarDrawer, { DrawerHeader } from "./components/navbar_/Navbar_Drawer";
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 import ThemProviderMui from "./providers/metrialUi/theme-provider";
 import { useMediaQuery } from "@mui/material";
 import { ModalProvider } from "./providers/context/context";
@@ -22,6 +22,7 @@ import { useTheme } from "./components/ui/theme";
 export default function MiniDrawer() {
   const { i18n } = useTranslation();
   const query = new QueryClient();
+  const {pathname} = useLocation();
   const { theme } = useTheme();
 
   const isLargeScreen = useMediaQuery("(min-width: 1024px)");
@@ -58,7 +59,7 @@ export default function MiniDrawer() {
                 p: isLargeScreen ? 2 : 1,
 
                 maxWidth: "1800px",
-                mx: "auto",
+                mx: pathname === "/settings/templates"?"": "auto",
                 display: "flex", // ✅ added
                 flexDirection: "column", // ✅ added
                 minHeight: "100vh", // ✅ ensures full screen height\

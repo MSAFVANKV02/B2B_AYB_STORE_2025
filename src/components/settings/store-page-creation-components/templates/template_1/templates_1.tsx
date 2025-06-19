@@ -8,12 +8,14 @@ import { PuckUnderlineBlock } from "../../universal-blocks/hr-block";
 import { PuckSubHeaderBlock } from "../../universal-blocks/subheader-block";
 import { ParagraphBlock } from "../../universal-blocks/paragraph";
 import { SliderBannerBlock } from "../../universal-blocks/banner-block";
-import { FreeformContainerBlock } from "../../universal-blocks/container-block";
+import { PageWrapperBlock } from "../../universal-blocks/container-block";
+// import { FreeformContainerBlock } from "../../universal-blocks/container-block";
 
 //   ==================================================
 
 export const template1: Config = {
   components: {
+    PageWrapperBlock,
     Tm_01_MainBlock01,
     PuckUnderlineBlock,
     PukeDragDropBlock,
@@ -23,6 +25,6 @@ export const template1: Config = {
     PuckArticleBlock,
     ParagraphBlock,
     SliderBannerBlock,
-    FreeformContainerBlock
+    // FreeformContainerBlock
   },
 };

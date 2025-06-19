@@ -42,6 +42,30 @@ export const SliderBannerBlock: ComponentConfig = {
       type: "number",
       label: "Slider Height (e.g., 300px, 50vh)",
     },
+    marginTop: {
+      type: "select",
+      label: "Top Margin",
+      options: Array.from({ length: 9 }, (_, i) => ({
+        label: `mt-${i}`,
+        value: `mt-${i}`,
+      })),
+    },
+    marginBottom: {
+      type: "select",
+      label: "Bottom Margin",
+      options: Array.from({ length: 9 }, (_, i) => ({
+        label: `mb-${i}`,
+        value: `mb-${i}`,
+      })),
+    },
+    paddingX: {
+      type: "select",
+      label: "Horizontal Padding",
+      options: Array.from({ length: 9 }, (_, i) => ({
+        label: `px-${i}`,
+        value: `px-${i}`,
+      })),
+    },
     imageFit: {
       type: "select",
       label: "Image Fit Mode",
@@ -53,6 +77,7 @@ export const SliderBannerBlock: ComponentConfig = {
         { label: "Scale Down", value: "scale-down" },
       ],
     },
+    
   },
   defaultProps: {
     items: [
@@ -65,8 +90,11 @@ export const SliderBannerBlock: ComponentConfig = {
     autoplaySpeed: "3000",
     sliderHeight: 300,
     imageFit: "cover",
+    marginTop: "mt-2",
+    marginBottom: "mb-2",
+    paddingX: "px-2",
   },
-  render: ({ items, autoplay, autoplaySpeed, sliderHeight, imageFit }) => {
+  render: ({ items, autoplay, autoplaySpeed, sliderHeight, imageFit , marginTop, marginBottom, paddingX,}) => {
     const settings = {
       dots: true,
       infinite: items.length > 1,
@@ -75,12 +103,14 @@ export const SliderBannerBlock: ComponentConfig = {
       autoplaySpeed: Number(autoplaySpeed) || 3000,
     };
 
+    const containerClass = `${marginTop || ""} ${marginBottom || ""} ${paddingX || ""}`;
+
     return (
+      <div className={containerClass}>
       <Slider {...settings}>
         {items.map((slide: any, i: number) => {
           const img = (
             <img
-              key={i}
               src={slide.image}
               alt={`Slide ${i + 1}`}
               style={{
@@ -91,9 +121,10 @@ export const SliderBannerBlock: ComponentConfig = {
               }}
             />
           );
+
           return slide.link ? (
             <a
-              key={i}
+              key={`slide-link-${i}`}
               href={slide.link}
               target="_blank"
               rel="noopener noreferrer"
@@ -101,17 +132,19 @@ export const SliderBannerBlock: ComponentConfig = {
               {img}
             </a>
           ) : (
-           <div className=""
-           style={{
-            width: "100%",
-            height: sliderHeight,
-          }}
-           >
-            { img}
-           </div>
+            <div
+              key={`slide-${i}`}
+              style={{
+                width: "100%",
+                height: sliderHeight,
+              }}
+            >
+              {img}
+            </div>
           );
         })}
       </Slider>
+    </div>
     );
   },
 };

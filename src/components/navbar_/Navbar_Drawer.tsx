@@ -92,7 +92,7 @@ export default function NavbarDrawer() {
 
   const { navigationItems } = NavigationList();
   const theme = useTheme();
-  const [open, setOpen] = React.useState(()=>{
+  const [open, setOpen] = React.useState(() => {
     return onlyWidth > 1024;
   });
   const [collapseStates, setCollapseStates] = React.useState<{
@@ -155,167 +155,172 @@ export default function NavbarDrawer() {
         drawerWidth={drawerWidth}
         handleDrawerOpen={handleDrawerOpen}
         open={open}
+        pathname={pathname}
+        
       />
+      {pathname !== "/settings/templates" && (
+        <Drawer
+          variant="permanent"
+          open={open}
+          sx={{
+            "& .MuiDrawer-paper": {
+              backgroundColor: "#1E1E1E", // Black background
+              color: "#fff", // White text color (optional)
+            },
+            "& .MuiListItemIcon-root": {
+              color: "#2B90EC", // Icon color
+            },
+          }}
+        >
+          <DrawerHeader className="">
+            <Logo />
+            {open && (
+              <>
+                <div className="">
+                  <IconButton onClick={handleDrawerClose}>
+                    {theme.direction === "rtl" ? (
+                      <ChevronRightIcon />
+                    ) : (
+                      <ChevronLeftIcon className="text-white" />
+                    )}
+                  </IconButton>
+                </div>
+              </>
+            )}
+          </DrawerHeader>
+          {/* <Divider /> */}
+          <List>
+            {navigationItems.map((item, index) => {
+              // console.log(item.segment);
+              // console.log(pathname);
 
-      <Drawer
-        variant="permanent"
-        open={open}
-        sx={{
-          "& .MuiDrawer-paper": {
-            backgroundColor: "#1E1E1E", // Black background
-            color: "#fff", // White text color (optional)
-          },
-          "& .MuiListItemIcon-root": {
-            color: "#2B90EC", // Icon color
-          },
-        }}
-      >
-        <DrawerHeader className="">
-          <Logo />
-          {open && (
-            <>
-              <div className="">
-                <IconButton onClick={handleDrawerClose}>
-                  {theme.direction === "rtl" ? (
-                    <ChevronRightIcon />
-                  ) : (
-                    <ChevronLeftIcon className="text-white" />
-                  )}
-                </IconButton>
-              </div>
-            </>
-          )}
-        </DrawerHeader>
-        {/* <Divider /> */}
-        <List>
-          {navigationItems.map((item, index) => {
-            // console.log(item.segment);
-            // console.log(pathname);
-
-            if (item.isChild) {
-              return (
-                <React.Fragment key={index}>
-                  <ListItemButton
-                    onClick={() => handleCollapseToggle(index)}
-                    sx={{
-                      color: pathname.startsWith(item.segment)
-                        ? "#fff"
-                        : "gray",
-                      bgcolor: pathname.startsWith(item.segment) ? "black" : "",
-                      primaryTypographyProps: {
-                        fontSize: "15px", // Adjust child item font size
-                      },
-                      borderRadius: "10px",
-                      mx: open ? "10px" : "",
-                    }}
-                  >
-                    <ListItemIcon>{item.icon}</ListItemIcon>
-                    <ListItemText
-                      primary={item.title}
-                      primaryTypographyProps={{
-                        fontSize: "15px", // Adjust child item font size
-                        // Optional: Change text color
-                      }}
-                    />
-                    {collapseStates[index] ? <ExpandLess /> : <ExpandMore />}
-                  </ListItemButton>
-                  <Collapse
-                    in={collapseStates[index]}
-                    timeout="auto"
-                    unmountOnExit
-                  >
-                    <List component="div" disablePadding>
-                      {item.children?.map((child, childIndex) => (
-                        <ListItemButton
-                          key={childIndex}
-                          sx={{ pl: 4 }}
-                          onClick={() => handleNavigation(child.segment)}
-                        >
-                          {child.segment === pathname ? (
-                            <label className="radio-button">
-                              <input
-                                id={`option-${childIndex}`} // Use unique IDs for each input
-                                name="radio-group"
-                                type="radio"
-                                // checked
-                                checked={child.segment === pathname}
-                              />
-                              <span className="radio-checkmark"></span>
-                            </label>
-                          ) : (
-                            <label className="radio-button">
-                              <input
-                                id={`option-${childIndex}`} // Use unique IDs for each input
-                                name="radio-group"
-                                type="radio"
-                              />
-                              <span className="radio-checkmark"></span>
-                            </label>
-                          )}
-
-                          <ListItemText
-                            primaryTypographyProps={{
-                              fontSize: "0.75rem",
-                              color:
-                                child.segment === pathname ? "#fff" : "gray",
-                            }}
-                            primary={child.title}
-                          />
-                        </ListItemButton>
-                      ))}
-                    </List>
-                  </Collapse>
-                </React.Fragment>
-              );
-            } else {
-              return (
-                <ListItem
-                  key={index}
-                  disablePadding
-                  sx={
-                    {
-                      // backgroundColor:
-                      //   item.segment === pathname
-                      //     ? "#818080cc"
-                      //     : "undefined,opacity: 0.8", // Use undefined instead of false
-                    }
-                  }
-                >
-                  <ListItemButton
-                    onClick={() => handleNavigation(item.segment)}
-                    sx={{
-                      backgroundColor:
-                        item.segment === pathname
-                          ? "black"
-                          : "undefined,opacity: 0.8",
-                      mx: open ? "10px" : "",
-                      borderRadius: "10px",
-                    }}
-                  >
-                    <ListItemIcon
+              if (item.isChild) {
+                return (
+                  <React.Fragment key={index}>
+                    <ListItemButton
+                      onClick={() => handleCollapseToggle(index)}
                       sx={{
-                        display: open || isLargeScreen ? "block" : "none",
+                        color: pathname.startsWith(item.segment)
+                          ? "#fff"
+                          : "gray",
+                        bgcolor: pathname.startsWith(item.segment)
+                          ? "black"
+                          : "",
+                        primaryTypographyProps: {
+                          fontSize: "15px", // Adjust child item font size
+                        },
+                        borderRadius: "10px",
+                        mx: open ? "10px" : "",
                       }}
                     >
-                      {item.icon}
-                    </ListItemIcon>
-                    <ListItemText
-                      primary={item.title}
+                      <ListItemIcon>{item.icon}</ListItemIcon>
+                      <ListItemText
+                        primary={item.title}
+                        primaryTypographyProps={{
+                          fontSize: "15px", // Adjust child item font size
+                          // Optional: Change text color
+                        }}
+                      />
+                      {collapseStates[index] ? <ExpandLess /> : <ExpandMore />}
+                    </ListItemButton>
+                    <Collapse
+                      in={collapseStates[index]}
+                      timeout="auto"
+                      unmountOnExit
+                    >
+                      <List component="div" disablePadding>
+                        {item.children?.map((child, childIndex) => (
+                          <ListItemButton
+                            key={childIndex}
+                            sx={{ pl: 4 }}
+                            onClick={() => handleNavigation(child.segment)}
+                          >
+                            {child.segment === pathname ? (
+                              <label className="radio-button">
+                                <input
+                                  id={`option-${childIndex}`} // Use unique IDs for each input
+                                  name="radio-group"
+                                  type="radio"
+                                  // checked
+                                  checked={child.segment === pathname}
+                                />
+                                <span className="radio-checkmark"></span>
+                              </label>
+                            ) : (
+                              <label className="radio-button">
+                                <input
+                                  id={`option-${childIndex}`} // Use unique IDs for each input
+                                  name="radio-group"
+                                  type="radio"
+                                />
+                                <span className="radio-checkmark"></span>
+                              </label>
+                            )}
+
+                            <ListItemText
+                              primaryTypographyProps={{
+                                fontSize: "0.75rem",
+                                color:
+                                  child.segment === pathname ? "#fff" : "gray",
+                              }}
+                              primary={child.title}
+                            />
+                          </ListItemButton>
+                        ))}
+                      </List>
+                    </Collapse>
+                  </React.Fragment>
+                );
+              } else {
+                return (
+                  <ListItem
+                    key={index}
+                    disablePadding
+                    sx={
+                      {
+                        // backgroundColor:
+                        //   item.segment === pathname
+                        //     ? "#818080cc"
+                        //     : "undefined,opacity: 0.8", // Use undefined instead of false
+                      }
+                    }
+                  >
+                    <ListItemButton
+                      onClick={() => handleNavigation(item.segment)}
                       sx={{
-                        display: open || isLargeScreen ? "block" : "none",
-                        color: item.segment === pathname ? "#fff" : "gray",
+                        backgroundColor:
+                          item.segment === pathname
+                            ? "black"
+                            : "undefined,opacity: 0.8",
+                        mx: open ? "10px" : "",
+                        borderRadius: "10px",
                       }}
-                      primaryTypographyProps={{
-                        fontSize: "15px", // Adjust font size for non-child items
-                      }}
-                    />
-                  </ListItemButton>
-                </ListItem>
-              );
-            }
-          })}
-        </List>
-      </Drawer>
+                    >
+                      <ListItemIcon
+                        sx={{
+                          display: open || isLargeScreen ? "block" : "none",
+                        }}
+                      >
+                        {item.icon}
+                      </ListItemIcon>
+                      <ListItemText
+                        primary={item.title}
+                        sx={{
+                          display: open || isLargeScreen ? "block" : "none",
+                          color: item.segment === pathname ? "#fff" : "gray",
+                        }}
+                        primaryTypographyProps={{
+                          fontSize: "15px", // Adjust font size for non-child items
+                        }}
+                      />
+                    </ListItemButton>
+                  </ListItem>
+                );
+              }
+            })}
+          </List>
+        </Drawer>
+      )}
     </>
   );
 }

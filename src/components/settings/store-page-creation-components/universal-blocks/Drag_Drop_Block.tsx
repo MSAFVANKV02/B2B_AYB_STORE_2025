@@ -26,6 +26,7 @@ export const PukeDragDropBlock: ComponentConfig = {
           gridTemplateColumns: `repeat(${columnCount}, 1fr)`,
           gap: "1rem",
           padding: "0px 10px", 
+          height:"auto",
         }}
       />
     );

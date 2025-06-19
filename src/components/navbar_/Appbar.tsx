@@ -20,6 +20,7 @@ import { FullScreenSvg, GlobSvg } from "../icons/glob-icon";
 import AdminProfile from "./appbar_items/admin_profile";
 import { useTheme } from "../ui/theme";
 import { Icon } from "@iconify/react/dist/iconify.js";
+import Logo from "./Logo";
 
 type Props = {
   open: boolean;
@@ -27,6 +28,7 @@ type Props = {
   title?: string;
   handleDrawerOpen: () => void;
   logo?: string;
+  pathname?:string
 };
 
 interface AppBarProps extends MuiAppBarProps {
@@ -44,6 +46,7 @@ export default function NavAppBar({
   open,
   drawerWidth,
   handleDrawerOpen,
+  pathname
 }: Props) {
   // handle full screen mode ====
   const { handleFullScreen } = FullViewScreen();
@@ -86,7 +89,7 @@ export default function NavAppBar({
     boxShadow: "none", // Remove the shadow here
     ...(open && {
       marginLeft: drawerWidth,
-      width: `calc(100% - ${drawerWidth}px)`,
+      width: pathname !== "/settings/templates" ?`calc(100% - ${drawerWidth}px)`:"100%",
       transition: theme.transitions.create(["width", "margin"], {
         easing: theme.transitions.easing.sharp,
         duration: theme.transitions.duration.enteringScreen,
@@ -133,6 +136,7 @@ export default function NavAppBar({
 
           <Typography variant="h6" noWrap component="div">
             {/* <img src={MyLogo} alt="My Logo" style={{ height: '40px', marginRight: '10px' }} /> */}
+            <Logo />
           </Typography>
         </Toolbar>
 
