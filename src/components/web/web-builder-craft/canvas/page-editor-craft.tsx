@@ -15,7 +15,7 @@ import { RenderNode } from "./RenderNode";
 
 import CraftBuilderHeader from "../tools/CraftHeader";
 import { Container } from "../selecters";
-import { CraftSliderBannerBlock } from "../templates/craft-temp-one/craft-slider";
+import { CraftSliderBannerBlock } from "../bloks/craft-slider";
 
 const PageBuilderCraft = () => {
   return (

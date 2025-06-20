@@ -1,13 +1,11 @@
 // templates/template1.ts
 
 import PageBuilderCraft from "@/components/web/web-builder-craft/canvas/page-editor-craft";
-import PageViewer from "@/components/web/web-builder-craft/canvas/page-viewer";
 
 const CreateStorePages = () => {
   return (
     <div className="">
       <PageBuilderCraft />
-      <PageViewer />
       {/* <PageEditor /> */}
       {/* <CreatePageBlock /> */}
       {/* <iframe

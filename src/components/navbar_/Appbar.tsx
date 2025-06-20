@@ -89,7 +89,7 @@ export default function NavAppBar({
     boxShadow: "none", // Remove the shadow here
     ...(open && {
       marginLeft: drawerWidth,
-      width: pathname !== "/settings/templates" ?`calc(100% - ${drawerWidth}px)`:"100%",
+      width: pathname !== "/settings/templates/edit" ?`calc(100% - ${drawerWidth}px)`:"100%",
       transition: theme.transitions.create(["width", "margin"], {
         easing: theme.transitions.easing.sharp,
         duration: theme.transitions.duration.enteringScreen,
@@ -134,10 +134,16 @@ export default function NavAppBar({
             </IconButton>
           </div>
 
-          <Typography variant="h6" noWrap component="div">
+
+              {
+                 pathname === "/settings/templates/edit" && (
+      <Typography variant="h6" noWrap component="div">
             {/* <img src={MyLogo} alt="My Logo" style={{ height: '40px', marginRight: '10px' }} /> */}
             <Logo />
           </Typography>
+                 )
+              }
+    
         </Toolbar>
 
         {/* ======  navbar right side starts here =======

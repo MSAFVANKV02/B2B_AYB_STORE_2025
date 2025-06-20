@@ -158,7 +158,7 @@ export default function NavbarDrawer() {
         pathname={pathname}
         
       />
-      {pathname !== "/settings/templates" && (
+      {pathname !== "/settings/templates/edit" && (
         <Drawer
           variant="permanent"
           open={open}

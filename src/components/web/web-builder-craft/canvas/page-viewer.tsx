@@ -9,7 +9,7 @@ import CraftParagraph from "../bloks/Craft_ParaGraph";
 import CraftCard from "../bloks/Craft_Card";
 import CraftButton from "../bloks/Craft_Button";
 import { CraftContainerBlock } from "../bloks/craft_container_block";
-import { CraftSliderBannerBlock } from "../templates/craft-temp-one/craft-slider";
+import { CraftSliderBannerBlock } from "../bloks/craft-slider";
 import { GridDropzoneBlock } from "../bloks/CraftGridDropzoneBlock";
 import { Container, Text } from "../selecters";
 import CraftBuilderHeader from "../tools/CraftHeader";
@@ -35,7 +35,7 @@ const PageViewer = () => {
         CraftSliderBannerBlock
       }}
     >
-      <div className="min-h-screen bg-white p-8">
+      <div className=" w-full flex justify-center">
         <Frame data={savedJson}>
           <Element is={Container} canvas id="root" />
         </Frame>

@@ -1,3 +1,4 @@
+import { Input } from '@/components/ui/input';
 import { useNode } from '@craftjs/core';
 import React, { useState, useEffect } from 'react';
 
@@ -37,7 +38,7 @@ export const CraftSliderBannerSettings = () => {
   };
 
   const removeSlide = (index: number) => {
-    const updated = localSlides.filter((_, i) => i !== index);
+    const updated = localSlides.filter((_: any, i:number) => i !== index);
     setLocalSlides(updated);
     setProp((props: any) => {
       props.slides = updated;
@@ -63,14 +64,14 @@ export const CraftSliderBannerSettings = () => {
       {/* <h4 className="font-bold">Slider Settings</h4> */}
 
       <div className="flex gap-2">
-        <input
+        <Input
           type="text"
           value={props.width || ''}
           placeholder="Width (e.g. 100% or 800px)"
           onChange={(e) => handleChange('width', e.target.value)}
           className="w-full border px-2 py-1"
         />
-        <input
+        <Input
           type="text"
           value={props.height || ''}
           placeholder="Height (e.g. auto or 300px)"
@@ -83,7 +84,7 @@ export const CraftSliderBannerSettings = () => {
         <label className="block font-semibold mb-1">Margin (Top, Right, Bottom, Left)</label>
         <div className="grid grid-cols-4 gap-2">
           {['Top', 'Right', 'Bottom', 'Left'].map((label, i) => (
-            <input
+            <Input
               key={i}
               type="text"
               value={props.margin?.[i] || ''}
@@ -112,14 +113,14 @@ export const CraftSliderBannerSettings = () => {
       <h4 className="font-bold">Slides</h4>
       {localSlides.map((slide: any, index: number) => (
         <div key={index} className="border p-2 rounded space-y-2">
-          <input
+          <Input
             type="text"
             placeholder="Image URL"
             value={slide.image}
             onChange={(e) => updateSlideLocal(index, 'image', e.target.value)}
             className="w-full border px-2 py-1"
           />
-          <input
+          <Input
             type="text"
             placeholder="Link URL"
             value={slide.link}

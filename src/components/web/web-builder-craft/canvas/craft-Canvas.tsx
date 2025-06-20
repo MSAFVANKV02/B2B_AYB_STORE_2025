@@ -1,7 +1,7 @@
 import { Frame, Element } from "@craftjs/core";
 // import { CraftContainerBlock } from "../bloks/craft_container_block";
 import { Container } from "../selecters/Container";
-import { CraftSliderBannerBlock } from "../templates/craft-temp-one/craft-slider";
+import { CraftSliderBannerBlock } from "../bloks/craft-slider";
 
 const CraftCanvas = () => (
   <div className="flex-1 h-screen page-container">

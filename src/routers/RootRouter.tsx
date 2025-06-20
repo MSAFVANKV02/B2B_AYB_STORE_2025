@@ -39,7 +39,8 @@ import CouponPage from "@/pages/marketing/copon/coupon-page";
 import UserReturnOrderPage from "@/pages/return-management/user-return/page";
 import AllOrderPage from "@/pages/orders/all/page";
 import OrderDetailsPage from "@/pages/orders/all/odrerId/page";
-import CreateStorePages from "@/pages/settings/store-page-creation/page";
+import CreateStorePages from "@/pages/settings/store-page-creation/edit/page";
+import ViewBuildPage from "@/pages/settings/store-page-creation/page-viewer/page";
 
 const rootRouter = createBrowserRouter(
   [
@@ -186,7 +187,9 @@ const rootRouter = createBrowserRouter(
             { path: "support-ticket", element: <PageOnBuild title="Support Ticket"/> },
             { path: "media", element: <UploadMediaPage /> },
             { path: "media/uploads", element: <AllUploadedFiles /> },
-            { path: "templates", element: <CreateStorePages /> },
+            { path: "templates", element: <ViewBuildPage /> },
+            { path: "templates/edit", element: <CreateStorePages /> },
+
 
           ],
         },

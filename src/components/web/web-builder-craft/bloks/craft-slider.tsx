@@ -3,7 +3,7 @@ import 'slick-carousel/slick/slick-theme.css';
 import React from 'react';
 import Slider from 'react-slick';
 import { useNode, useEditor } from '@craftjs/core';
-import { CraftSliderBannerSettings } from '../../bloks/settings/slider-settings';
+import { CraftSliderBannerSettings } from './settings/slider-settings';
 
 type Slide = {
   image: string;
@@ -30,7 +30,7 @@ export const CraftSliderBannerBlock = (props: Partial<SliderBannerProps>) => {
     infinite = true,
     speed = 500,
     width = '100%',
-    height = '200px',
+    height = '250px',
     margin = ['0px', '0px', '0px', '0px'],
     objectFit = 'cover',
   } = props;

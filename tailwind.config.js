@@ -135,6 +135,9 @@ const config = {
   				ring: 'hsl(var(--sidebar-ring))'
   			}
   		},
+		  boxShadow: {
+			main: '0px 8px 64px 0px rgba(15, 34, 67, 0.06)',
+		  },
   		borderRadius: {
   			lg: 'var(--radius)',
   			md: 'calc(var(--radius) - 2px)',
