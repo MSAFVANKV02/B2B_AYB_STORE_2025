@@ -68,7 +68,7 @@ const SettingsPanelCraft = () => {
   const related = node.related;
 
   return (
-    <div className="w-[20%] p-4 bg-gray-50 overflow-auto">
+    <div className="w-[20%] p-4 bg-gray-50 dark:bg-neutral-300/50 dark:text-neutral-300 fixed right-0 z-[10001] bottom-0 top-0 overflow-auto">
       <h3 className="font-bold mb-2">{displayName} Settings</h3>
 
       {related?.settings ? (

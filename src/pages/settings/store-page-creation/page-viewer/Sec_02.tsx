@@ -54,7 +54,7 @@ const Sec_02 = () => {
         {
           breakpoint: 768,
           settings: {
-            slidesToShow: 1.5,
+            slidesToShow: 1,
             slidesToScroll: 1,
           },
         },
@@ -74,18 +74,23 @@ const Sec_02 = () => {
   }, [currentSlide, settings.slidesToShow, data.length]);
 
   return (
-    <div className="max-w-screen-xl mx-auto relative ">
+    <section className="flex flex-col justify-center items-center md:gap-7 gap-5 bg-white sm:py-10 py-5  ">
+         <h2 className="font-bold capitalize">Helpful resources</h2>
+        <p className="">
+          Start building your Brand Store on Ayaboo with these helpful guides
+        </p>
         
-      <div className="absolute -left-10 -translate-y-1/2 top-1/2 xl:block hidden z-10">
+     <div className="w-3/4 relative">
+     <div className="absolute -left-10 -translate-y-1/2 top-1/2 xl:block hidden z-10">
         <TodaysDealArrowPrev slider={slider} disabled={disablePrev} />
       </div>
-      <Slider {...settings} ref={slider}>
+      <Slider {...settings} ref={slider} className="w-full h-auto">
         {data.map((card,index) => (
-          <div className="lg:px-4 ">
+          <div className="lg:pr-3 ">
             <Card className="rounded-none p-0 border-none shadow-none h-fit flex flex-col">
               <CardContent className="p-0" >
               <iframe
-               className="w-full h-[220px] sm:h-[300px]" 
+               className="w-full h-[220px] " 
                     // width="100%"
                     // height="250"
                     src={card.youTube}
@@ -106,7 +111,8 @@ const Sec_02 = () => {
       <div className="absolute -right-10 -translate-y-1/2 top-1/2 xl:block hidden  z-10">
         <TodaysDealArrowNext slider={slider} disabled={disableNext} />
       </div>
-    </div>
+     </div>
+    </section>
   );
 };
 

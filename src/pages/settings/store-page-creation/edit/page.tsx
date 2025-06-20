@@ -1,10 +1,13 @@
 // templates/template1.ts
 
+import MyBackBtn from "@/components/myUi/myBackBtn";
 import PageBuilderCraft from "@/components/web/web-builder-craft/canvas/page-editor-craft";
 
 const CreateStorePages = () => {
   return (
     <div className="">
+      <MyBackBtn />
+
       <PageBuilderCraft />
       {/* <PageEditor /> */}
       {/* <CreatePageBlock /> */}
@@ -17,7 +20,6 @@ const CreateStorePages = () => {
   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
   allowFullScreen
 ></iframe> */}
-
     </div>
   );
 };

@@ -1,5 +1,4 @@
 import { Editor } from "@craftjs/core";
-import CraftSidebar from "../tools/craft-sidebar";
 import CraftCanvas from "./craft-Canvas";
 
 import CraftParagraph from "../bloks/Craft_ParaGraph";
@@ -10,12 +9,14 @@ import { CraftContainerBlock } from "../bloks/craft_container_block";
 import { GridDropzoneBlock } from "../bloks/CraftGridDropzoneBlock";
 
 import { CraftViewport } from "./craft-view-port";
-import { Text } from "../bloks/text";
+// import { Text } from "../bloks/text";
 import { RenderNode } from "./RenderNode";
 
 import CraftBuilderHeader from "../tools/CraftHeader";
-import { Container } from "../selecters";
+import { Container, Text } from "../selecters";
 import { CraftSliderBannerBlock } from "../bloks/craft-slider";
+import CraftMainProductBlock from "../selecters/CraftMainProductBlock";
+import CraftCategorySelection from "../selecters/category";
 
 const PageBuilderCraft = () => {
   return (
@@ -31,7 +32,9 @@ const PageBuilderCraft = () => {
         Container,
         Text,
         CraftBuilderHeader,
-        CraftSliderBannerBlock
+        CraftSliderBannerBlock,
+        CraftMainProductBlock,
+        CraftCategorySelection
       }}
       onRender={RenderNode}
       enabled={true}

@@ -66,13 +66,13 @@ const CraftSidebar = () => {
   ];
 
   return (
-    <div className="w-[200px] bg-gray-100 p-4 overflow-y-auto">
+    <div className="w-full  overflow-y-auto">
       <h3 className="mb-4 font-bold text-lg">Blocks</h3>
       {blocks.map((b, i) => (
         <div
           key={i}
           ref={(ref) => ref && connectors.create(ref, b.component)}
-          className="cursor-pointer mb-2 p-3 bg-white rounded shadow hover:bg-gray-200 transition-all"
+          className="cursor-pointer mb-2 p-3 bg-white dark:bg-neutral-300/30 rounded shadow hover:bg-gray-200 transition-all"
         >
           {b.name}
         </div>

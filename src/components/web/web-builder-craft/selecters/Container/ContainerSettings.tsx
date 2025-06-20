@@ -1,12 +1,12 @@
 import React from 'react';
 import { ToolbarItem, ToolbarSection } from '../../elements/Toolbar';
 import { ToolbarRadio } from '../../elements/Toolbar/ToolbarRadio';
-
+import './container.css'
 
 
 export const ContainerSettings = () => {
   return (
-    <React.Fragment>
+    <React.Fragment >
       <ToolbarSection
         title="Dimensions"
         props={['width', 'height']}

@@ -66,7 +66,7 @@ export const CraftSliderBannerBlock = (props: Partial<SliderBannerProps>) => {
       }}
     >
       {/* {objectFit} */}
-      <Slider {...settings}>
+      <Slider {...settings} className='w-full'>
         {slides.map((slide, index) =>
           enabled ? (
             <div key={index}>

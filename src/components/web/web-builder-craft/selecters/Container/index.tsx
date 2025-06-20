@@ -101,6 +101,6 @@ Container.craft = {
     canDrag: () => true,
   },
   related: {
-    toolbar: ContainerSettings,
+    settings: ContainerSettings,
   },
 };

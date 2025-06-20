@@ -1,18 +1,18 @@
 import React from "react";
-import { useNode, useEditor } from "@craftjs/core";
+import { useNode } from "@craftjs/core";
 
 const BlockWrapper: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   const {
     connectors: { connect, drag },
-    id,
+    // id,
     isSelected,
   } = useNode((node) => ({
     isSelected: node.events.selected,
   }));
 
-  const { actions } = useEditor();
+  // const { actions } = useEditor();
 
   return (
     <div
@@ -21,14 +21,14 @@ const BlockWrapper: React.FC<{ children: React.ReactNode }> = ({
         isSelected ? "border p-1 border-blue-500 rounded" : ""
       }`}
     >
-      {isSelected && (
+      {/* {isSelected && (
         <button
           onClick={() => actions.delete(id)}
           className="absolute top-0 right-0 text-xs z-10 dark:bg-neutral-400/20 bg-neutral-400 text-white h-4 w-4 flex items-center justify-center rounded-full hover:bg-red-700"
         >
           &times;
         </button>
-      )}
+      )} */}
       {children}
     </div>
   );

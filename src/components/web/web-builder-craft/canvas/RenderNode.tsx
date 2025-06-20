@@ -34,7 +34,7 @@ const Btn = styled.a`
   }
 `;
 
-export const RenderNode = ({ render }) => {
+export const RenderNode = ({ render }:any) => {
   const { id } = useNode();
   const { actions, query, isActive } = useEditor((_, query) => ({
     isActive: query.getEvent('selected').contains(id),
@@ -81,7 +81,10 @@ export const RenderNode = ({ render }) => {
     };
   }, []);
 
+
+
   const scroll = useCallback(() => {
+      if(!dom) return
     const currentDOM = currentRef.current;
     if (!currentDOM) return;
     const { top, left } = getPos(dom);
@@ -101,11 +104,11 @@ export const RenderNode = ({ render }) => {
 
   return (
     <>
-      {(isHover || isActive) && portalTarget
+      {dom &&(isHover || isActive) && portalTarget
         ? ReactDOM.createPortal(
             <IndicatorDiv
               ref={currentRef}
-              className="px-2 py-2 text-white bg-primary fixed flex items-center"
+              className="px-2 py-2 text-white dark:text-neutral-300 dark:bg-black bg-primary fixed flex items-center"
               style={{
                 left: getPos(dom).left,
                 top: getPos(dom).top,
@@ -121,7 +124,7 @@ export const RenderNode = ({ render }) => {
               {id !== ROOT_NODE && (
                 <Btn
                   className="mr-2 cursor-pointer"
-                  onClick={() => actions.selectNode(parent)}
+                  onClick={() => actions.selectNode(parent??"")}
                 >
                   <ArrowUp />
                 </Btn>
