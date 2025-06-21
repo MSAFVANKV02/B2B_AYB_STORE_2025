@@ -508,7 +508,9 @@
 import { Label } from "@/components/ui/label";
 import { cn } from "@/lib/utils";
 import { ErrorMessage } from "formik";
-import CloseIcon from "@mui/icons-material/Close";
+// import CloseIcon from "@mui/icons-material/Close";
+import CloseIcon from '@mui/icons-material/esm/Close';
+
 import { Tooltip } from "@mui/material";
 import { UseModal } from "@/providers/context/context";
 import { useState } from "react";
@@ -520,7 +522,8 @@ import TaskModal, {
 import { ProductImageModal } from "@/components/products/Product_Image_Modal";
 import { Button } from "@/components/ui/button";
 import { makeToastError } from "@/utils/toaster";
-import DoneAllIcon from "@mui/icons-material/DoneAll";
+// import DoneAllIcon from "@mui/icons-material/DoneAll";
+import DoneAllIcon from '@mui/icons-material/esm/DoneAll';
 import { IProducts } from "@/types/productType";
 import Media_Files_Modal from "@/components/media/Media_Files_Modal";
 import { IFileDataMedia } from "@/pages/media/retrive/all_uploaded_files";

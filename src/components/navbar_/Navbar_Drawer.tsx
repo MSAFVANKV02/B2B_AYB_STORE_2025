@@ -14,8 +14,8 @@ import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
 import MuiDrawer from "@mui/material/Drawer";
 import Logo from "./Logo";
 import { useLocation, useNavigate } from "react-router-dom";
-import ExpandLess from "@mui/icons-material/ExpandLess";
-import ExpandMore from "@mui/icons-material/ExpandMore";
+import ExpandMore from '@mui/icons-material/esm/ExpandMore';
+import ExpandLess from '@mui/icons-material/esm/ExpandLess';
 import Collapse from "@mui/material/Collapse"; // Import Collapse
 import NavAppBar from "./Appbar";
 import { useWindowWidth } from "@react-hook/window-size";

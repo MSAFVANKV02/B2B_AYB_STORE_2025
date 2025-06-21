@@ -108,7 +108,9 @@ import {
 } from "@/components/ui/table";
 import React, { useState } from "react";
 import { Collapse, IconButton } from "@mui/material";
-import { ExpandMore, ExpandLess } from "@mui/icons-material";
+// import { ExpandMore, ExpandLess } from "@mui/icons-material";
+import ExpandMore from '@mui/icons-material/esm/ExpandMore';
+import ExpandLess from '@mui/icons-material/esm/ExpandLess';
 import { ProductLocalType } from "@/pages/reports/product-sale/product-sale-page";
 
 type Props = {
