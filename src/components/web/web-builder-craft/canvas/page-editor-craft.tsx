@@ -17,6 +17,8 @@ import { Container, Text } from "../selecters";
 import { CraftSliderBannerBlock } from "../bloks/craft-slider";
 import CraftMainProductBlock from "../selecters/CraftMainProductBlock";
 import CraftCategorySelection from "../selecters/category";
+import { ImageBlock } from "../selecters/image";
+import Craft_About_Block from "../selecters/about";
 
 const PageBuilderCraft = () => {
   return (
@@ -34,23 +36,19 @@ const PageBuilderCraft = () => {
         CraftBuilderHeader,
         CraftSliderBannerBlock,
         CraftMainProductBlock,
-        CraftCategorySelection
+        CraftCategorySelection,
+        Craft_About_Block,
+        ImageBlock
       }}
       onRender={RenderNode}
       enabled={true}
     >
-      {/* <CraftBuilderHeader /> */}
-      {/* <div className="flex h-screen">
-        <CraftToolBar />
-        <CraftSidebar />
-        <CraftCanvas />
-        <SettingsPanelCraft />
-      </div> */}
+
 
       <CraftViewport>
         {/* <CraftCanvas /> */}
 
-        <div className="flex h-full w-full">
+        <div className=" h-full w-full">
           {/* <CraftToolBar /> */}
           <CraftCanvas />
           {/* <CraftSidebar /> */}

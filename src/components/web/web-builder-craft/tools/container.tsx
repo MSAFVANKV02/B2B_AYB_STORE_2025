@@ -1,6 +1,6 @@
 import { useNode } from '@craftjs/core';
 import { Slider, Paper, FormControl, FormLabel } from '@mui/material';
-import React from 'react';
+
 import { HexColorPicker } from 'react-colorful';
 
 export const Container = ({ background, padding, children, ...props }:any) => {
@@ -10,7 +10,8 @@ export const Container = ({ background, padding, children, ...props }:any) => {
   return (
     <Paper
       {...props}
-      ref={(ref) => ref && connect(drag(ref))}
+      ref={(ref:any) => ref && connect(drag(ref))}
+      
       style={{ margin: '5px 0', background, padding: `${padding}px` }}
     >
       {children}
@@ -33,10 +34,10 @@ export const ContainerSettings = () => {
       <FormControl fullWidth={true} margin="normal" component="fieldset">
         <FormLabel component="legend">Background</FormLabel>
         <HexColorPicker
-          name="background-color"
+          // name="background-color"
           color={background}
           onChange={(color) => {
-            setProp((props) => (props.background = color), 500);
+            setProp((props:any) => (props.background = color), 500);
           }}
         />
       </FormControl>
@@ -45,7 +46,7 @@ export const ContainerSettings = () => {
         <Slider
           defaultValue={padding}
           onChange={(_, value) =>
-            setProp((props) => (props.padding = value), 500)
+            setProp((props:any) => (props.padding = value), 500)
           }
         />
       </FormControl>

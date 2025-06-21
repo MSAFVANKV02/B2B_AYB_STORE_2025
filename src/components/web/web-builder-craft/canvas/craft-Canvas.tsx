@@ -1,85 +1,74 @@
 import { Frame, Element } from "@craftjs/core";
-// import { CraftContainerBlock } from "../bloks/craft_container_block";
 import { Container } from "../selecters/Container";
 import { CraftSliderBannerBlock } from "../bloks/craft-slider";
 import CraftMainProductBlock from "../selecters/CraftMainProductBlock";
 import CraftCategorySelection from "../selecters/category";
 
+import Craft_About_Block from "../selecters/about";
+
 const CraftCanvas = () => (
-  <div className="flex-1 h-screen page-container">
+  <div className="page-container">
     <Frame>
       <Element
         canvas
         is={Container}
         width="1080px"
-        height="100%"
+        height="auto"
         background={{ r: 250, g: 250, b: 250, a: 1 }}
         padding={["10", "10", "10", "10"]}
         custom={{ displayName: "App" }}
         id="root"
       >
-        <Element
-          canvas
-          is={Container}
-          // background={{ r: 39, g: 41, b: 41, a: 1 }}
-          flexDirection="column"
-          width="100%"
-          height="auto"
-          // padding={['40', '40', '40', '40']}
-          margin={["0", "0", "40", "0"]}
-          custom={{ displayName: "CraftSliderBannerBlock" }}
-        >
+        <Element canvas is={Container} flexDirection="column" width="100%" height="auto" margin={["0", "0", "40", "0"]} custom={{ displayName: "CraftSliderBannerBlock" }}>
           <CraftSliderBannerBlock />
         </Element>
-        <Element
-          canvas
-          is={Container}
-          // background={{ r: 39, g: 41, b: 41, a: 1 }}
-          flexDirection="column"
-          width="100%"
-          height="auto"
-          // padding={['40', '40', '40', '40']}
-          margin={["0", "0", "40", "0"]}
-          custom={{ displayName: "CraftMainProductBlock" }}
-        >
+
+        <Element canvas is={Container} flexDirection="column" width="100%" height="auto" margin={["0", "0", "40", "0"]} custom={{ displayName: "CraftMainProductBlock" }}>
           <CraftMainProductBlock />
         </Element>
 
-        <Element
-          canvas
-          is={Container}
-          // background={{ r: 39, g: 41, b: 41, a: 1 }}
-          flexDirection="column"
-          width="100%"
-          height="auto"
-          // padding={['40', '40', '40', '40']}
-          // margin={["0", "0", "40", "0"]}
-          custom={{ displayName: "CraftCategorySelection" }}
-        >
+        <Element canvas is={Container} flexDirection="column" width="100%" height="auto" margin={["0", "0", "40", "0"]} custom={{ displayName: "CategorySelection" }}>
           <CraftCategorySelection />
         </Element>
 
+        <Element canvas is={Container} flexDirection="column" width="100%" height="auto" margin={["0", "0", "40", "0"]} custom={{ displayName: "About Section" }}>
+          <Craft_About_Block />
+        </Element>
 
-        {/* <CraftSliderBannerBlock /> */}
+        <Element canvas is={Container} flexDirection="column" width="100%" height="auto" margin={["0", "0", "60", "0"]} custom={{ displayName: "Galley Block" }}>
+          <CraftSliderBannerBlock 
+          slides={[
+            { image: "https://res.cloudinary.com/ddzwv1pc9/image/upload/v1750488122/media_uploads/vlbetakhsubyaylf3adl.png", link: "#" },
+            { image: "https://res.cloudinary.com/ddzwv1pc9/image/upload/v1750488122/media_uploads/vlbetakhsubyaylf3adl.png", link: "#" },
+            { image: "https://res.cloudinary.com/ddzwv1pc9/image/upload/v1750488122/media_uploads/vlbetakhsubyaylf3adl.png", link: "#" },
+            { image: "https://res.cloudinary.com/ddzwv1pc9/image/upload/v1750488122/media_uploads/vlbetakhsubyaylf3adl.png", link: "#" },
+
+          ]}
+          gap="1"
+          slidesToShow={4} 
+          enableLabel
+          labelText="Company Gallery"
+          />
+        </Element>
+
+        <Element canvas is={Container} flexDirection="column" width="100%" height="auto" margin={["0", "0", "40", "0"]} custom={{ displayName: "Custom Block" }}>
+          <CraftSliderBannerBlock 
+          slides={[
+            { image: "https://res.cloudinary.com/ddzwv1pc9/image/upload/v1750488122/media_uploads/vlbetakhsubyaylf3adl.png", link: "#" },
+            { image: "https://res.cloudinary.com/ddzwv1pc9/image/upload/v1750488122/media_uploads/vlbetakhsubyaylf3adl.png", link: "#" },
+           
+
+          ]}
+          gap="2"
+          height="300px"
+          slidesToShow={2} 
+          enableLabel
+          labelText="Custom"
+          />
+        </Element>
       </Element>
     </Frame>
   </div>
 );
 
 export default CraftCanvas;
-
-// export const CraftContainer = ({ children }: any) => {
-//   const { connectors: { connect, drag } } = useNode();
-//   return (
-//     <div ref={(ref) => ref && connect(drag(ref))} className="border-dashed border p-4 min-h-[400px]">
-//       {children}
-//     </div>
-//   );
-// };
-
-// CraftContainer.craft = {
-//   displayName: 'Container',
-//   rules: {
-//     canMoveOut: () => false
-//   }
-// };

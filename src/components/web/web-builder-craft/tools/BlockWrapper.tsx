@@ -1,8 +1,15 @@
 import React from "react";
 import { useNode } from "@craftjs/core";
+import { cn } from "@/lib/utils";
 
-const BlockWrapper: React.FC<{ children: React.ReactNode }> = ({
+type Props = {
+children: React.ReactNode
+className?:string
+}
+
+const BlockWrapper:React.FC<Props> = ({
   children,
+  className
 }) => {
   const {
     connectors: { connect, drag },
@@ -17,9 +24,9 @@ const BlockWrapper: React.FC<{ children: React.ReactNode }> = ({
   return (
     <div
       ref={(ref) => ref && connect(drag(ref))}
-      className={`relative group   ${
-        isSelected ? "border p-1 border-blue-500 rounded" : ""
-      }`}
+      className={cn(`relative group   ${
+        isSelected ? "border border-blue-500 overflow-visible h-auto rounded" : ""
+      }`,className)}
     >
       {/* {isSelected && (
         <button

@@ -2,7 +2,7 @@ import { BuilderPageIcons } from "@/components/icons/builder-page-icons";
 
 import {
   Card,
-  CardContent,
+
   CardDescription,
   CardHeader,
   CardTitle,

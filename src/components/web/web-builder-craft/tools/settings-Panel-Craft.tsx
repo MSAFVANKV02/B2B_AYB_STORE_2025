@@ -58,7 +58,7 @@ const SettingsPanelCraft = () => {
   const id = selected && Array.from(selected)[0];
 
   if (!id) {
-    return <div className="w-[20%] p-4 bg-gray-50">Select a block</div>;
+    return <div className="w-full h-full p-4 bg-gray-50">Select a block</div>;
   }
 
   const node = editor.query.node(id).get() as any;
@@ -68,14 +68,18 @@ const SettingsPanelCraft = () => {
   const related = node.related;
 
   return (
-    <div className="w-[20%] p-4 bg-gray-50 dark:bg-neutral-300/50 dark:text-neutral-300 fixed right-0 z-[10001] bottom-0 top-0 overflow-auto">
-      <h3 className="font-bold mb-2">{displayName} Settings</h3>
+    <div className="w-full h-full bg-gray-50 dark:bg-neutral-300/50 dark:text-neutral-300">
+     <div className="w-full h-10 p-2 text-sm text-center bg-white border-b">
+     <h3 className="font-bold mb-2">{displayName} Settings</h3>
+     </div>
 
-      {related?.settings ? (
+     <div className="">
+     {related?.settings ? (
         React.createElement(related.settings as React.ComponentType)
       ) : (
         <p className="text-sm text-gray-500">No settings available for this block.</p>
       )}
+     </div>
     </div>
   );
 };

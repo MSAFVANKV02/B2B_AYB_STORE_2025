@@ -22,7 +22,7 @@ import { useTheme } from "./components/ui/theme";
 export default function MiniDrawer() {
   const { i18n } = useTranslation();
   const query = new QueryClient();
-  const {pathname} = useLocation();
+  const { pathname } = useLocation();
   const { theme } = useTheme();
 
   const isLargeScreen = useMediaQuery("(min-width: 1024px)");
@@ -59,15 +59,20 @@ export default function MiniDrawer() {
                 p: isLargeScreen ? 2 : 1,
 
                 maxWidth: "1800px",
-                mx: pathname === "/settings/templates"?"": "auto",
+                mx: pathname === "/settings/templates/edit" ? "" : "auto",
                 display: "flex", // ✅ added
                 flexDirection: "column", // ✅ added
                 minHeight: "100vh", // ✅ ensures full screen height\
-                overflow:"auto",
-                pb:"3rem"
+                overflow: "auto",
+                pb: "3rem",
               }}
+              className={
+                pathname === "/settings/templates/edit"
+                  ? "no-layout-restriction"
+                  : ""
+              }
             >
-              <DrawerHeader />
+              {pathname !== "/settings/templates/edit" && <DrawerHeader />}
 
               <ReactQueyProvider>
                 <HydrationBoundary state={dehydrate(query)}>
@@ -86,13 +91,15 @@ export default function MiniDrawer() {
       {/* === chat bot ====== */}
       {/* {window.location.pathname !== "/store/conversations" && <HelperIcon />} */}
 
-      <div className="h-10 fixed bottom-0 bg-white border-t dark:bg-neutral-400/30 dark:text-neutral-300 text-xs w-full flex justify-end items-center px-3">
-        <span className="select-none text-xs">
-          <Trans>
-            Copyright 2024 All Rights Are Reserved | © Ayaboo by Haash.Tech
-          </Trans>
-        </span>
-      </div>
+      {pathname !== "/settings/templates/edit" && (
+        <div className="h-10 fixed bottom-0 bg-white border-t dark:bg-neutral-400/30 dark:text-neutral-300 text-xs w-full flex justify-end items-center px-3">
+          <span className="select-none text-xs">
+            <Trans>
+              Copyright 2024 All Rights Are Reserved | © Ayaboo by Haash.Tech
+            </Trans>
+          </span>
+        </div>
+      )}
     </div>
   );
 }

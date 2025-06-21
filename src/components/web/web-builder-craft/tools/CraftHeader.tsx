@@ -18,7 +18,7 @@ const CraftBuilderHeader = () => {
   };
 
   return (
-    <div className="w-1/2 bg-white border rounded-sm dark:bg-neutral-300/50 fixed top-10 z-[19999] px-4 py-2 border-b flex justify-between items-center">
+    <div className="  px-4 py-2 border-b flex justify-between items-center">
       <div className="flex items-center space-x-3">
         <input
           type="text"

@@ -1,5 +1,5 @@
 import { Element, useNode } from "@craftjs/core";
-import React, { useRef } from "react";
+import { useRef } from "react";
 import Slider from "react-slick";
 import { Text } from "..";
 import "slick-carousel/slick/slick.css";
@@ -71,7 +71,7 @@ const CraftMainProductBlock = ({
         <Slider {...settings} ref={sliderRef} className="w-full h-auto ">
           {selectedProducts.map((item, idx) => (
             <div key={idx} className="p-2">
-              <div className="bg-white border rounded-md h-full p-1 flex gap-2 ">
+              <div  className="bg-white border rounded-md h-full p-1 flex gap-2 ">
                 <div className="h-[150px] rounded overflow-hidden">
                   <img
                     src={item.product?.thumbnails?.[0] || "/placeholder.png"}
@@ -94,12 +94,12 @@ const CraftMainProductBlock = ({
                   </div>
                   <div className="flex gap-2">
                     {item.product.gallery_image.slice(0,3).map((img)=>(
-                      <img src={img} alt="" className="w-10 h-10 rounded-sm shadow-sm" />
+                      <img src={img} alt="" className="w-10 h-10 rounded-sm shadow-sm" key={img} />
                     ))}
                   </div>
-                  <button className="mt-2 w-full text-xs border py-1 rounded hover:bg-gray-100">
+                  <a href={`/product/${item.product.slug}`} className="mt-2 px-4 py-2 hover:bg-neutral-100 w-full text-xs border rounded">
                     Make order
-                  </button>
+                  </a>
                 </div>
               </div>
             </div>

@@ -1,5 +1,5 @@
 import { useNode, useEditor } from '@craftjs/core';
-import React from 'react';
+
 import YouTube from 'react-youtube';
 import { styled } from 'styled-components';
 
@@ -32,9 +32,10 @@ export const Video = (props: any) => {
 
   return (
     <YoutubeDiv
-      ref={(dom) => {
-        connect(dom);
-      }}
+    ref={(dom) => {
+      if (dom) connect(dom);
+    }}
+    
       $enabled={enabled}
     >
       <YouTube

@@ -1,6 +1,6 @@
 import { useNode, useEditor } from '@craftjs/core';
 import { ROOT_NODE } from '@craftjs/utils';
-import React, { useEffect, useRef, useCallback } from 'react';
+import  { useEffect, useRef, useCallback } from 'react';
 import ReactDOM from 'react-dom';
 import styled from 'styled-components';
 import { Trash2, Move3D, ArrowUp } from 'lucide-react';

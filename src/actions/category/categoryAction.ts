@@ -2,6 +2,7 @@ import { getCategories } from "@/redux/actions/category_Slice";
 import { useAppDispatch } from "@/redux/hook";
 import {
   get_Category_Api,
+  get_Store_Category_Api,
   hard_Delete_All_Category_Api,
   hard_Delete_Single_Category_Api,
   soft_Delete_Category_Api,
@@ -24,6 +25,25 @@ export const getAllCategories = async () => {
     return { status: 403, data: [], error: error };
   }
 };
+
+
+export const getAllStoreCategories = async (storeId:string) => {
+  try {
+    const response = await get_Store_Category_Api(storeId);
+    if (response.status === 200) {
+      // return { status: 200, data: response.data.file };
+      return {
+        status: response.status,
+        data: response.data.data,
+        message: response.data.message,
+      };
+    }
+    // console.log(response);
+  } catch (error) {
+    return { status: 403, data: [], error: error };
+  }
+};
+
 
 // 2.   ===== toggle change
 

@@ -1,5 +1,6 @@
 import { CREATE_CATEGORY_URL, GET_CATEGORY_URL, GET_CATEGORY_WITH_SUB_URL, HARD_DELETE_ALL_CATEGORY_URL, HARD_DELETE_SINGLE_CATEGORY_URL, SOFT_DELETE_CATEGORY_URL, TOGGLE_CATEGORY_URL, UPDATE_CATEGORY_URL } from "@/services/api/urlPath";
 import { API } from "../auth/route";
+import { GET_STORE_CATEGORY_URL } from "../api/category_urlPath";
 
 export const create_Category_Api = async (data: {
   name: string | null;
@@ -10,6 +11,13 @@ export const create_Category_Api = async (data: {
 
 export const get_Category_Api = async () =>
   await API.get(GET_CATEGORY_URL, { withCredentials: true });
+
+// GET_STORE_CATEGORY_URL
+
+export const get_Store_Category_Api = async (storeId:string) =>
+  await API.get(`${GET_STORE_CATEGORY_URL}/${storeId}/categories`, { withCredentials: true });
+
+// GET_STORE_CATEGORY_URL ends
 
 export const get_Category_With_Sub_Api = async () =>
   await API.get(GET_CATEGORY_WITH_SUB_URL, { withCredentials: true });

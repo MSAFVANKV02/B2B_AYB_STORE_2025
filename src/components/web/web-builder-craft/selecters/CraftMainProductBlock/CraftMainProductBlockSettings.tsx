@@ -2,7 +2,7 @@ import { useNode } from "@craftjs/core";
 import { getStorePurchasedProducts } from "@/actions/stocks/stockAction";
 import { useQueryData } from "@/hooks/useQueryData";
 import { IFinalProductTypes } from "@/types/final-product-types";
-import React from "react";
+
 
 const CraftMainProductBlockSettings = () => {
   const { setProp, props } = useNode((node) => ({
@@ -14,28 +14,28 @@ const CraftMainProductBlockSettings = () => {
     () => getStorePurchasedProducts()
   );
 
-  let products: IFinalProductTypes[] = fetchedProducts?.data || [];
+  const products: IFinalProductTypes[] = fetchedProducts?.data || [];
 
 
   // ✅ TEMPORARY DUPLICATION FOR TESTING — REMOVE AFTERWARDS
-  if (products.length === 2) {
-    const duplicated: IFinalProductTypes[] = [];
+  // if (products.length === 2) {
+  //   const duplicated: IFinalProductTypes[] = [];
 
-    for (let i = 0; i < 8; i++) {
-      products.forEach((p, idx) => {
-        duplicated.push({
-          ...p,
-          _id: `${p._id}-${i}-${idx}`, // fake unique ID
-          product: {
-            ...p.product,
-            product_name: `${p.product.product_name} ${i + 1}`,
-          },
-        });
-      });
-    }
+  //   for (let i = 0; i < 8; i++) {
+  //     products.forEach((p, idx) => {
+  //       duplicated.push({
+  //         ...p,
+  //         _id: `${p._id}-${i}-${idx}`, // fake unique ID
+  //         product: {
+  //           ...p.product,
+  //           product_name: `${p.product.product_name} ${i + 1}`,
+  //         },
+  //       });
+  //     });
+  //   }
 
-    products = duplicated;
-  }
+  //   products = duplicated;
+  // }
   // ✅ END TEMPORARY BLOCK
 
   const toggleProduct = (product: IFinalProductTypes) => {

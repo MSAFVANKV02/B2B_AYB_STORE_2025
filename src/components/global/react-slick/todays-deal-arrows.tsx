@@ -1,6 +1,6 @@
 
 import { NextArrowSvgIcon, PrevArrowSvgIcon } from "@/components/icons/react-slick-icons";
-import React from "react";
+
 // import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
 
 type Props = {

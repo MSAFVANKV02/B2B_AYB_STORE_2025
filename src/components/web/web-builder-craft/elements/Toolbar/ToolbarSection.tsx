@@ -5,7 +5,7 @@ import {
   AccordionSummary,
   Grid2 as Grid,
 } from '@mui/material';
-import React from 'react';
+
 
 export const ToolbarSection = ({ title, props, summary, children }: any) => {
   const { nodeProps } = useNode((node) => ({
@@ -65,7 +65,7 @@ export const ToolbarSection = ({ title, props, summary, children }: any) => {
           </Grid>
         </div>
       </AccordionSummary>
-      <AccordionDetails style={{ padding: '0px 24px 20px' }}>
+      <AccordionDetails style={{ padding: '0px 24px 0px' }}>
         <Grid container spacing={1}>
           {children}
         </Grid>

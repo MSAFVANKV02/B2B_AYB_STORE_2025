@@ -1,8 +1,8 @@
 import { FormControlLabel, Radio } from '@mui/material';
-import React from 'react';
+
 
 // Inspired by blueprintjs
-function StyledRadio(props) {
+function StyledRadio(props:any) {
   return (
     <Radio
       disableRipple
@@ -20,6 +20,12 @@ function StyledRadio(props) {
 
 export const ToolbarRadio = ({ value, label }: any) => {
   return (
-    <FormControlLabel value={value} control={<StyledRadio />} label={label} />
+    <FormControlLabel value={value} control={<StyledRadio />} label={label}
+    sx={{
+      '& .MuiFormControlLabel-label': {
+        fontSize: "14px", // 👈 font size applied here
+      },
+    }}
+    />
   );
 };

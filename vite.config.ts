@@ -32,6 +32,7 @@ export default defineConfig({
       "@radix-ui/react-dialog",
       "@radix-ui/react-*",
     ],
+    exclude: ['@mui/icons-material'],
   },
 });
 
