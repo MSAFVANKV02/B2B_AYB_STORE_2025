@@ -5,11 +5,12 @@ import { cn } from "@/lib/utils";
 type Props = {
 children: React.ReactNode
 className?:string
+style?: React.CSSProperties
 }
 
 const BlockWrapper:React.FC<Props> = ({
   children,
-  className
+  className, style
 }) => {
   const {
     connectors: { connect, drag },
@@ -27,6 +28,7 @@ const BlockWrapper:React.FC<Props> = ({
       className={cn(`relative group   ${
         isSelected ? "border border-blue-500 overflow-visible h-auto rounded" : ""
       }`,className)}
+      style={style}
     >
       {/* {isSelected && (
         <button

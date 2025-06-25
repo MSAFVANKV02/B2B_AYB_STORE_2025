@@ -14,13 +14,16 @@ import { GridDropzoneBlock } from "../bloks/CraftGridDropzoneBlock";
 import { Container, Text } from "../selecters";
 import CraftBuilderHeader from "../tools/CraftHeader";
 import CraftMainProductBlock from "../selecters/CraftMainProductBlock";
-import Craft_About_Settings from "../selecters/about/craft_about_settings";
 import CraftCategorySelection from "../selecters/category";
+import Craft_About_Block from "../selecters/about";
+import { ImageBlock } from "../selecters/image";
 
-// 👇 Example JSON from your saved data (normally from DB)
-// const savedJson = `{"ROOT":{"type":{"resolvedName":"Container"},"isCanvas":true,"props":{"flexDirection":"column","alignItems":"flex-start","justifyContent":"flex-start","fillSpace":"no","padding":["40","40","40","40"],"margin":["0","0","0","0"],"background":{"r":255,"g":255,"b":255,"a":1},"color":{"r":0,"g":0,"b":0,"a":1},"shadow":0,"radius":0,"width":"1080px","height":"100%","marginTop":0,"marginLeft":0,"marginBottom":0,"marginRight":0,"id":"root"},"displayName":"Container","custom":{"displayName":"App"},"hidden":false,"nodes":["-5gqHWJe0Z"],"linkedNodes":{}},"-5gqHWJe0Z":{"type":{"resolvedName":"CraftSliderBannerBlock"},"isCanvas":true,"props":{"slides":[{"image":"https://via.placeholder.com/800x200?text=Slide+1","link":"#"},{"image":"https://via.placeholder.com/800x200?text=Slide+2","link":"#"}],"autoplay":true,"showDots":true,"infinite":true,"speed":500,"width":"100%","height":"200px","margin":["0px","0px","0px","0px"],"objectFit":"cover"},"displayName":"Slider Banner","custom":{"displayName":"Banners"},"parent":"ROOT","hidden":false,"nodes":[],"linkedNodes":{}}}`;
-const savedJson = `{"ROOT":{"type":{"resolvedName":"Container"},"isCanvas":true,"props":{"flexDirection":"column","alignItems":"flex-start","justifyContent":"flex-start","fillSpace":"no","padding":["40","40","40","40"],"margin":["0","0","0","0"],"background":{"r":255,"g":255,"b":255,"a":1},"color":{"r":0,"g":0,"b":0,"a":1},"shadow":0,"radius":0,"width":"1080px","height":"100%","marginTop":0,"marginLeft":0,"marginBottom":0,"marginRight":0,"id":"root"},"displayName":"Container","custom":{"displayName":"App"},"hidden":false,"nodes":["NxPqVlWFvI"],"linkedNodes":{}},"NxPqVlWFvI":{"type":{"resolvedName":"CraftSliderBannerBlock"},"isCanvas":true,"props":{"slides":[{"image":"https://via.placeholder.com/800x200?text=Slide+1","link":"#"},{"image":"https://via.placeholder.com/800x200?text=Slide+2","link":"#"}],"autoplay":true,"showDots":true,"infinite":true,"speed":500,"width":"100%","height":"200px","margin":["0px","0px","0px","0px"],"objectFit":"cover"},"displayName":"CraftSliderBannerBlock","custom":{},"parent":"ROOT","hidden":false,"nodes":[],"linkedNodes":{}}}`;
-const PageViewer = () => {
+type Props ={
+  data: any; // This should be the type of your saved JSON data
+}
+
+
+const PageViewer = ({data}:Props) => {
   return (
     <Editor
       enabled={false} // 👈 disable drag/edit on view
@@ -37,15 +40,18 @@ const PageViewer = () => {
         CraftBuilderHeader,
         CraftSliderBannerBlock,
         CraftMainProductBlock,
-        Craft_About_Settings,
-        CraftCategorySelection
+        CraftCategorySelection,
+        Craft_About_Block,
+        ImageBlock
       }}
     >
-      <div className=" w-full flex justify-center">
-        <Frame data={savedJson}>
-          <Element is={Container} canvas id="root" />
-        </Frame>
-      </div>
+      <div className="w-full flex justify-center px-4">
+    <div className="w-full max-w-screen-xl">
+      <Frame data={data}>
+        <Element is={Container} canvas id="root" />
+      </Frame>
+    </div>
+  </div>
     </Editor>
   );
 };

@@ -8,9 +8,18 @@ import CraftParagraph from "../bloks/Craft_ParaGraph";
 // import CraftToolBar from "./Craft_ToolBar";
 import MyBackBtn from "@/components/myUi/myBackBtn";
 import { CraftSliderBannerBlock } from "../bloks/craft-slider";
+import { UIAction } from "@/providers/reducers/builderReducer";
 
-const CraftSidebar = () => {
+import HamburgerBtn from "./hamburgerBtn";
+import useNavigateClicks from "@/hooks/useClicks";
+
+type Props = {
+  dispatch: React.Dispatch<UIAction>;
+};
+
+const CraftSidebar = ({ dispatch }: Props) => {
   const { connectors } = useEditor();
+  const { handleClick } = useNavigateClicks();
 
   const blocks = [
     {
@@ -73,7 +82,16 @@ const CraftSidebar = () => {
 
   return (
     <div className="w-full  overflow-y-auto">
-      <MyBackBtn className="p-2" />
+      <div className="flex items-center justify-between p-2">
+        <MyBackBtn
+          className=""
+          clickEvent={() => {
+            handleClick("/settings/templates");
+          }}
+        />
+
+        <HamburgerBtn dispatch={dispatch} type="TOGGLE_SIDEBAR" />
+      </div>
       <div className="w-full h-10 p-2 text-sm text-center bg-white border-b">
         <h3 className="mb-4 font-bold text-lg">Blocks</h3>
       </div>
@@ -89,6 +107,15 @@ const CraftSidebar = () => {
           </div>
         ))}
       </div>
+
+      <ul className="text-xs list-disc p-4 bg-yellow-50 border-yellow-600">
+        <li className="">
+          Don’t include pricing or personal contact details in the Images
+        </li>
+        <li className="">No blurry or pixelated images</li>
+        <li className="">Avoid using too much text — keep it visual</li>
+        <li className=""></li>
+      </ul>
     </div>
   );
 };

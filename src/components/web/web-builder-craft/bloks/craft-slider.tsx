@@ -6,6 +6,7 @@ import { Element, useNode } from "@craftjs/core";
 import { CraftSliderBannerSettings } from "./settings/slider-settings";
 import { Text } from "../selecters";
 import BlockWrapper from "../tools/BlockWrapper";
+import { useWindowWidth } from "@react-hook/window-size";
 
 type Slide = {
   image: string;
@@ -20,7 +21,9 @@ type SliderBannerProps = {
   infinite?: boolean;
   speed?: number;
   slidesToShow?: number;
-  width?: string;
+  // width?: string;
+  width?: [string, string, string];
+
   height?: string;
   labelText?: string;
   gap?: string;
@@ -37,13 +40,16 @@ export const CraftSliderBannerBlock = (props: Partial<SliderBannerProps>) => {
     infinite = true,
     speed = 500,
     slidesToShow = 1,
-    width = "100%",
-    height = "400px",
+    // width = "100%",
+    width = ["100%", "100%", "100%"],
+    height = ["400px", "400px", "400px"],
+
+    // height = "400px",
     // margin = ["0px", "0px", "0px", "0px"],
     margin = ["0", "0", "0", "0"],
     objectFit = "cover",
     labelText = "heading",
-    gap
+    gap,
   } = props;
 
   const {
@@ -73,7 +79,35 @@ export const CraftSliderBannerBlock = (props: Partial<SliderBannerProps>) => {
     autoplay: String(autoplay) === "true",
     arrows: false,
   };
-  
+
+  const windowWidth = useWindowWidth();
+
+  const formatResponsiveValue = (
+    val: string | undefined,
+    fallback: string
+  ): string => {
+    if (!val) return fallback;
+    if (/^\d+$/.test(val)) return `${val}px`; // e.g. "200" → "200px"
+    return val; // e.g. "100%" stays "100%"
+  };
+
+  const resolvedWidth = formatResponsiveValue(
+    windowWidth <= 768
+      ? width?.[2]
+      : windowWidth <= 1024
+      ? width?.[1]
+      : width?.[0],
+    "100%"
+  );
+
+  const resolvedHeight = formatResponsiveValue(
+    windowWidth <= 768
+      ? height?.[2]
+      : windowWidth <= 1024
+      ? height?.[1]
+      : height?.[0],
+    "400px"
+  );
 
   return (
     <div
@@ -81,16 +115,10 @@ export const CraftSliderBannerBlock = (props: Partial<SliderBannerProps>) => {
         if (ref) connect(ref);
       }}
       className="w-full h-full overflow-visible relative bg-white"
-      style={{
-        width,
-        height,
-        // margin: margin.join(" "),
-        margin: `${margin[0]}px ${margin[1]}px ${margin[2]}px ${margin[3]}px`,
-      }}
     >
-      <BlockWrapper className="h-full overflow-visible relative">
-      {enableLabel && (
-        <div className="">
+      {" "}
+      <div className="">
+        {enableLabel && (
           <Element
             id="label-text"
             is={Text}
@@ -103,31 +131,38 @@ export const CraftSliderBannerBlock = (props: Partial<SliderBannerProps>) => {
             margin={["5", "0", "0", "5"]}
             shadow={0}
           />
-        </div>
-      )}
-
-      <Slider {...settings} className="w-full h-full ">
-        {slides.map((slide, index) => (
-          <div
-            key={index}
-            className={`w-full px-${gap}`}
-            style={{ height }} // ✅ this sets height on slide wrapper
-          >
-            <a
-              href={slide.link}
-              className="block w-full h-full"
-              style={{ height }} // ✅ ensure <a> has height
+        )}
+      </div>
+      <BlockWrapper
+        className="h-full overflow-visible relative"
+        style={{
+          width: resolvedWidth,
+          height: resolvedHeight,
+          margin: `${margin[0]}px ${margin[1]}px ${margin[2]}px ${margin[3]}px`,
+        }}
+      >
+        <Slider {...settings} className="w-full h-full">
+          {slides.map((slide, index) => (
+            <div
+              key={index}
+              className={`w-full px-${gap}`}
+              style={{ height: resolvedHeight }}
             >
-              <img
-                src={slide.image}
-                alt=""
-                className="w-full h-full object-cover"
-                style={{ objectFit, height }} // ✅ ensure <img> fits as well
-              />
-            </a>
-          </div>
-        ))}
-      </Slider>
+              <a
+                href={slide.link}
+                className="block w-full h-full"
+                style={{ height: resolvedHeight }}
+              >
+                <img
+                  src={slide.image}
+                  alt=""
+                  className="w-full h-full"
+                  style={{ objectFit, height: resolvedHeight }}
+                />
+              </a>
+            </div>
+          ))}
+        </Slider>
       </BlockWrapper>
     </div>
   );
@@ -137,21 +172,27 @@ CraftSliderBannerBlock.craft = {
   displayName: "CraftSliderBannerBlock",
   props: {
     slides: [
-      { image: "https://res.cloudinary.com/ddzwv1pc9/image/upload/v1750488122/media_uploads/vlbetakhsubyaylf3adl.png", link: "#" },
+      {
+        image:
+          "https://res.cloudinary.com/ddzwv1pc9/image/upload/v1750488122/media_uploads/vlbetakhsubyaylf3adl.png",
+        link: "#",
+      },
     ],
     autoplay: true,
     showDots: true,
     infinite: true,
     speed: 500,
     slidesToShow: 1,
-    width: "100%",
-    height: "200px",
+    // width: "100%",
+    width: ["100%", "100%", "100%"],
+    height: ["200px", "200px", "200px"], 
+    // height: "200px",
     // margin: ["0px", "0px", "0px", "0px"],
-    margin: ["0", "0", "0", "0"],
+    margin: ["0", "0", "25", "0"],
     objectFit: "cover",
     labelText: "heading",
     enableLabel: false,
-    gap:"0"
+    gap: "0",
   },
   rules: {
     canDrag: () => true,

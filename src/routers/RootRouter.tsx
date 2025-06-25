@@ -41,6 +41,7 @@ import AllOrderPage from "@/pages/orders/all/page";
 import OrderDetailsPage from "@/pages/orders/all/odrerId/page";
 import CreateStorePages from "@/pages/settings/store-page-creation/edit/page";
 import ViewBuildPage from "@/pages/settings/store-page-creation/page-viewer/page";
+import ClientPageBuilderAccess from "@/pages/settings/store-page-creation/client/page";
 
 const rootRouter = createBrowserRouter(
   [
@@ -188,6 +189,7 @@ const rootRouter = createBrowserRouter(
             { path: "media", element: <UploadMediaPage /> },
             { path: "media/uploads", element: <AllUploadedFiles /> },
             { path: "templates", element: <ViewBuildPage /> },
+            { path: "client/access", element: <ClientPageBuilderAccess /> },
             { path: "templates/edit", element: <CreateStorePages /> },
 
 

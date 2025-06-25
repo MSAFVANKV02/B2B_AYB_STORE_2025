@@ -1,6 +1,6 @@
-import { Input } from "@/components/ui/input";
+
 import { useNode } from "@craftjs/core";
-import  { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import {
   ToolbarItem,
   ToolbarSection,
@@ -55,11 +55,11 @@ export const CraftSliderBannerSettings = () => {
     });
   };
 
-  const handleChange = (key: string, value: any) => {
-    setProp((props: any) => {
-      props[key] = value;
-    });
-  };
+  // const handleChange = (key: string, value: any) => {
+  //   setProp((props: any) => {
+  //     props[key] = value;
+  //   });
+  // };
 
   // const handleMarginChange = (index: number, value: string) => {
   //   const updated = [...(props.margin || ['0', '0', '0', '0'])];
@@ -73,7 +73,7 @@ export const CraftSliderBannerSettings = () => {
     <div className="space-y-4 bg-white p-4 ">
       {/* <h4 className="font-bold">Slider Settings</h4> */}
 
-      <div className="flex gap-2">
+      {/* <div className="flex gap-2">
         <Input
           type="text"
           value={props.width || ""}
@@ -88,7 +88,18 @@ export const CraftSliderBannerSettings = () => {
           onChange={(e) => handleChange("height", e.target.value)}
           className="w-full border px-2 py-1"
         />
-      </div>
+      </div> */}
+
+      <ToolbarSection title="Width Dimension" props={["width"]}>
+        <ToolbarItem propKey="width" index={0} type="text" label="Desktop" />
+        <ToolbarItem propKey="width" index={1} type="text" label="Tablet" />
+        <ToolbarItem propKey="width" index={2} type="text" label="Mobile" />
+      </ToolbarSection>
+      <ToolbarSection title="Height Dimension" props={["height"]}>
+        <ToolbarItem propKey="height" index={0} type="text" label="Desktop" />
+        <ToolbarItem propKey="height" index={1} type="text" label="Tablet" />
+        <ToolbarItem propKey="height" index={2} type="text" label="Mobile" />
+      </ToolbarSection>
 
       {/* <div>
         <label className="block font-semibold mb-1">Margin (Top, Right, Bottom, Left)</label>
@@ -121,13 +132,13 @@ export const CraftSliderBannerSettings = () => {
           type="slider"
           label="Slider Gap"
         /> */}
-     
+
         <ToolbarItem propKey="gap" type="radio">
           <ToolbarRadio value="1" label="1" />
           <ToolbarRadio value="2" label="2" />
           <ToolbarItem propKey="gap" type="radio">
-          <ToolbarRadio value="0" label="Reset" />
-        </ToolbarItem>
+            <ToolbarRadio value="0" label="Reset" />
+          </ToolbarItem>
         </ToolbarItem>
         <ToolbarItem propKey="gap" type="radio">
           <ToolbarRadio value="3" label="3" />

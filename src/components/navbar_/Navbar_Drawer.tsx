@@ -152,7 +152,7 @@ export default function NavbarDrawer() {
     <>
       {/* App bar here */}
       {
-        pathname !== "/settings/templates/edit" && (
+        pathname !== "/settings/templates/edit" && pathname !== "/settings/client/access" && (
           <NavAppBar
         drawerWidth={drawerWidth}
         handleDrawerOpen={handleDrawerOpen}
@@ -163,7 +163,7 @@ export default function NavbarDrawer() {
         )
       }
       
-      {pathname !== "/settings/templates/edit" && (
+      {  pathname !== "/settings/templates/edit" && pathname !== "/settings/client/access" && (
         <Drawer
           variant="permanent"
           open={open}

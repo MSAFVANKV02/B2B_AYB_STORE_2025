@@ -46,10 +46,17 @@
 
 // export default SettingsPanelCraft;
 // SettingsPanelCraft.tsx
-import React from 'react';
-import { useEditor } from '@craftjs/core';
+import React, { useEffect } from "react";
+import { useEditor } from "@craftjs/core";
+import { UIAction, UIState } from "@/providers/reducers/builderReducer";
+import HamburgerBtn from "./hamburgerBtn";
 
-const SettingsPanelCraft = () => {
+type Props = {
+  dispatch: React.Dispatch<UIAction>;
+  state: UIState;
+};
+
+const SettingsPanelCraft = ({ dispatch, state }: Props) => {
   const { selected } = useEditor((state) => ({
     selected: state.events.selected,
   }));
@@ -57,8 +64,28 @@ const SettingsPanelCraft = () => {
   const editor = useEditor();
   const id = selected && Array.from(selected)[0];
 
+  useEffect(() => {
+    console.log("🧪 useEffect running: id =", id, "settingsOpen =", state.settingsOpen);
+    if (id && !state.settingsOpen) {
+      dispatch({ type: "OPEN_SETTINGS" });
+    }
+  }, [id, state.settingsOpen, dispatch]);
+  
+
   if (!id) {
-    return <div className="w-full h-full p-4 bg-gray-50">Select a block</div>;
+    return (
+      <div className="w-full h-full p-4 bg-gray-50 ">
+        <div className="flex justify-between items-center">
+          <p className="text-xs">Select a block</p>
+
+          <HamburgerBtn
+            dispatch={dispatch}
+            type="TOGGLE_SETTINGS"
+            className=""
+          />
+        </div>
+      </div>
+    );
   }
 
   const node = editor.query.node(id).get() as any;
@@ -69,21 +96,28 @@ const SettingsPanelCraft = () => {
 
   return (
     <div className="w-full h-full bg-gray-50 dark:bg-neutral-300/50 dark:text-neutral-300">
-     <div className="w-full h-10 p-2 text-sm text-center bg-white border-b">
-     <h3 className="font-bold mb-2">{displayName} Settings</h3>
-     </div>
+      <div className="w-full h-10 p-2 flex justify-between text-sm items-center bg-white border-b">
+        <h3 className="font-bold ">{displayName} Settings</h3>
 
-     <div className="">
-     {related?.settings ? (
-        React.createElement(related.settings as React.ComponentType)
-      ) : (
-        <p className="text-sm text-gray-500">No settings available for this block.</p>
-      )}
-     </div>
+
+          <HamburgerBtn
+            dispatch={dispatch}
+            type="TOGGLE_SETTINGS"
+            className=""
+          />
+      </div>
+
+      <div className="">
+        {related?.settings ? (
+          React.createElement(related.settings as React.ComponentType)
+        ) : (
+          <p className="text-sm text-gray-500">
+            No settings available for this block.
+          </p>
+        )}
+      </div>
     </div>
   );
 };
 
 export default SettingsPanelCraft;
-
-

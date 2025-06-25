@@ -41,7 +41,7 @@ export default function MiniDrawer() {
         <Box
           sx={{
             display: "flex",
-            bgcolor: theme === "dark" ? "#000000" : "#F7F7F7",
+            bgcolor: theme === "dark" ? "#000000" : pathname === "/settings/client/access" ? "#FFFF": "#F7F7F7",
           }}
         >
           <CssBaseline />
@@ -67,12 +67,12 @@ export default function MiniDrawer() {
                 pb: "3rem",
               }}
               className={
-                pathname === "/settings/templates/edit"
+                pathname === "/settings/templates/edit" || pathname === "/settings/client/access"
                   ? "no-layout-restriction"
                   : ""
               }
             >
-              {pathname !== "/settings/templates/edit" && <DrawerHeader />}
+              {pathname !== "/settings/templates/edit" && pathname !== "/settings/client/access"  && <DrawerHeader />}
 
               <ReactQueyProvider>
                 <HydrationBoundary state={dehydrate(query)}>
@@ -91,7 +91,7 @@ export default function MiniDrawer() {
       {/* === chat bot ====== */}
       {/* {window.location.pathname !== "/store/conversations" && <HelperIcon />} */}
 
-      {pathname !== "/settings/templates/edit" && (
+      {pathname !== "/settings/templates/edit" && pathname !== "/settings/client/access" && (
         <div className="h-10 fixed bottom-0 bg-white border-t dark:bg-neutral-400/30 dark:text-neutral-300 text-xs w-full flex justify-end items-center px-3">
           <span className="select-none text-xs">
             <Trans>

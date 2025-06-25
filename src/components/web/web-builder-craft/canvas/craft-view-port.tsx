@@ -1,4 +1,3 @@
-
 // import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 // import { useEditor } from "@craftjs/core";
 // import { useEffect, useState } from "react";
@@ -96,16 +95,15 @@
 //             </div>
 //           </TransformComponent>
 //           {/* <div className="w-full h-full relative">
-            
+
 //             <TransformComponent
 //               wrapperClass="w-full h-full"
 //               contentClass="relative w-full h-full"
 //             >
-            
+
 //               <div className="zoom-wrapper mx-auto w-[1080px] min-h-[1200px] bg-gray-100" />
 //             </TransformComponent>
 
-        
 //             <div
 //               ref={(ref) => {
 //                 if (ref) connectors.select(connectors.hover(ref, ""), "");
@@ -118,18 +116,24 @@
 //             </div>
 //           </div> */}
 //         </TransformWrapper>
-        
+
 //       </div>
 //     </div>
 //   );
 // };
 
 import { useEditor } from "@craftjs/core";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useReducer, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 import CraftBuilderHeader from "../tools/CraftHeader";
 import SettingsPanelCraft from "../tools/settings-Panel-Craft";
 import CraftSidebar from "../tools/craft-sidebar";
+import {
+  builderReducer,
+  initialUIState,
+} from "@/providers/reducers/builderReducer";
+import HamburgerBtn from "../tools/hamburgerBtn";
+import { Icon } from "@iconify/react/dist/iconify.js";
 
 export const CraftViewport: React.FC<{ children?: React.ReactNode }> = ({
   children,
@@ -137,16 +141,17 @@ export const CraftViewport: React.FC<{ children?: React.ReactNode }> = ({
   const {
     enabled,
     connectors,
+    selected,
     actions: { setOptions },
   } = useEditor((state) => ({
     enabled: state.options.enabled,
+    selected: state.events.selected,
   }));
+
+  const [state, dispatch] = useReducer(builderReducer, initialUIState);
 
   const rendererRef = useRef<HTMLDivElement | null>(null);
   const [zoom, setZoom] = useState(1);
-
-
-
 
   useEffect(() => {
     window.requestAnimationFrame(() => {
@@ -159,13 +164,15 @@ export const CraftViewport: React.FC<{ children?: React.ReactNode }> = ({
     });
   }, [setOptions]);
 
-
   useEffect(() => {
     const handleWheel = (e: WheelEvent) => {
       if (e.ctrlKey) {
         e.preventDefault();
         setZoom((prevZoom) => {
-          const newZoom = Math.max(0.2, Math.min(prevZoom - e.deltaY * 0.001, 3));
+          const newZoom = Math.max(
+            0.2,
+            Math.min(prevZoom - e.deltaY * 0.001, 3)
+          );
           return parseFloat(newZoom.toFixed(2));
         });
       }
@@ -174,6 +181,10 @@ export const CraftViewport: React.FC<{ children?: React.ReactNode }> = ({
     window.addEventListener("wheel", handleWheel, { passive: false });
     return () => window.removeEventListener("wheel", handleWheel);
   }, []);
+
+  useEffect(() => {
+    dispatch({ type: "OPEN_SETTINGS" });
+  }, [selected]);
 
   const handleZoomChange = (value: number) => {
     setZoom((prev) => {
@@ -185,25 +196,55 @@ export const CraftViewport: React.FC<{ children?: React.ReactNode }> = ({
   return (
     <div className="w-screen h-screen overflow-auto relative bg-black">
       {/* Sidebar */}
-      <div className="fixed left-0 top-0 bottom-0 w-[240px] z-50 bg-white border-r">
-        <CraftSidebar />
-      </div>
+      {state.sidebarOpen ? (
+        <div className="fixed left-0 top-0 bottom-0 w-[260px] z-50 bg-white border-r">
+          <CraftSidebar dispatch={dispatch} />
+        </div>
+      ) : (
+        <HamburgerBtn
+          dispatch={dispatch}
+          type="TOGGLE_SIDEBAR"
+          className="fixed left-4 top-4  w-10 h-10 flex justify-center items-center z-50 bg-white border cursor-pointer"
+        />
+      )}
 
       {/* Settings Panel */}
-      <div className="fixed right-0 top-0 bottom-0 w-[320px] z-50 bg-white border-l">
-        <SettingsPanelCraft />
-      </div>
+      {state.settingsOpen ? (
+        <div className="fixed right-0 top-0 bottom-0 w-[320px] z-50 bg-white border-l">
+          <SettingsPanelCraft dispatch={dispatch} state={state} />
+        </div>
+      ) : (
+        <HamburgerBtn
+          type="OPEN_SETTINGS"
+          dispatch={dispatch}
+          className="fixed right-5 top-5"
+        />
+      )}
 
+      {state.headerOpen ? (
+        <div className="fixed top-5 left-1/2 -translate-x-1/2 z-[60] w-1/2 bg-white border rounded shadow">
+          <CraftBuilderHeader dispatch={dispatch} />
+        </div>
+      ) : (
+        <HamburgerBtn
+          type="TOGGLE_HEADER"
+          dispatch={dispatch}
+          className="fixed top-5 left-1/2 -translate-x-1/2 z-[60] w-10"
+        />
+      )}
       {/* Header */}
-      <div className="fixed top-5 left-1/2 -translate-x-1/2 z-[60] w-1/2 bg-white border rounded shadow">
-        <CraftBuilderHeader />
-      </div>
 
-      <div className="fixed bottom-4 left-1/2 -translate-x-1/2 z-50 bg-white border rounded shadow p-2 flex gap-2 items-center text-sm">
-        <button onClick={() => handleZoomChange(-0.1)}>➖</button>
-        <span className="min-w-[50px] text-center">{Math.round(zoom * 100)}%</span>
-        <button onClick={() => handleZoomChange(0.1)}>➕</button>
-        <button onClick={() => setZoom(1)} className="ml-2 text-xs text-blue-500">
+      <div className="fixed bottom-4 left-1/2 -translate-x-1/2 z-50 bg-white border border-black text-black rounded  p-2 flex gap-2 items-center text-sm">
+        <button onClick={() => handleZoomChange(-0.1)}>
+          <Icon fontSize={20} icon={"circum:zoom-out"} />
+        </button>
+        <span className="min-w-[50px] text-center">
+          {Math.round(zoom * 100)}%
+        </span>
+        <button onClick={() => handleZoomChange(0.1)}>
+          <Icon fontSize={20} icon={"circum:zoom-in"} />
+        </button>
+        <button onClick={() => setZoom(1)} className="ml-2 text-xs ">
           Reset
         </button>
       </div>
@@ -215,9 +256,9 @@ export const CraftViewport: React.FC<{ children?: React.ReactNode }> = ({
           {/* Renderer area scrollable */}
           <div
             className={cn(
-              'craftjs-renderer w-full flex justify-center overflow-visible transition',
+              "craftjs-renderer w-full flex justify-center overflow-visible transition",
               {
-                'bg-renderer-gray dark:bg-neutral-300': enabled,
+                "bg-renderer-gray dark:bg-neutral-300": enabled,
               }
             )}
             // ref={(ref) => {
@@ -235,7 +276,7 @@ export const CraftViewport: React.FC<{ children?: React.ReactNode }> = ({
               transition: "transform 0.2s ease",
             }}
           >
-            <div className="relative w-auto bg-white ">{children}</div>
+            <div className="relative w-auto bg-white max-w-[1080px] ">{children}</div>
           </div>
         </div>
       </div>
