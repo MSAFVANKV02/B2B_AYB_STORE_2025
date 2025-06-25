@@ -12,7 +12,7 @@ const CraftCanvas = () => (
       <Element
         canvas
         is={Container}
-        width="1080px"
+        width="100%"
         height="auto"
         background={{ r: 250, g: 250, b: 250, a: 1 }}
         padding={["10", "10", "10", "10"]}
@@ -60,7 +60,6 @@ const CraftCanvas = () => (
 
           ]}
           gap="2"
-          height="300px"
           slidesToShow={2} 
           enableLabel
           labelText="Custom"

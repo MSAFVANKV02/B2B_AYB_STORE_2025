@@ -65,12 +65,16 @@ const SettingsPanelCraft = ({ dispatch, state }: Props) => {
   const id = selected && Array.from(selected)[0];
 
   useEffect(() => {
-    console.log("🧪 useEffect running: id =", id, "settingsOpen =", state.settingsOpen);
+    console.log(
+      "🧪 useEffect running: id =",
+      id,
+      "settingsOpen =",
+      state.settingsOpen
+    );
     if (id && !state.settingsOpen) {
       dispatch({ type: "OPEN_SETTINGS" });
     }
   }, [id, state.settingsOpen, dispatch]);
-  
 
   if (!id) {
     return (
@@ -95,16 +99,11 @@ const SettingsPanelCraft = ({ dispatch, state }: Props) => {
   const related = node.related;
 
   return (
-    <div className="w-full h-full bg-gray-50 dark:bg-neutral-300/50 dark:text-neutral-300">
+    <div className="w-full h-full bg-gray-50 dark:bg-neutral-300/50 dark:text-neutral-300 overflow-y-auto">
       <div className="w-full h-10 p-2 flex justify-between text-sm items-center bg-white border-b">
         <h3 className="font-bold ">{displayName} Settings</h3>
 
-
-          <HamburgerBtn
-            dispatch={dispatch}
-            type="TOGGLE_SETTINGS"
-            className=""
-          />
+        <HamburgerBtn dispatch={dispatch} type="TOGGLE_SETTINGS" className="" />
       </div>
 
       <div className="">

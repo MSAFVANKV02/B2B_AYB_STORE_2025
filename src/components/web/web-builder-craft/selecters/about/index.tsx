@@ -12,8 +12,8 @@ const Craft_About_Block = () => {
 
   return (
     <div ref={(ref) => ref && connect(ref)} className="w-full">
-      <BlockWrapper className="flex ">
-        <div className="w-1/2">
+      <BlockWrapper className="flex md:flex-row flex-col ">
+        <div className="md:w-1/2 w-full">
           <Element
             id="about-image"
             is={ImageBlock}
@@ -26,7 +26,7 @@ const Craft_About_Block = () => {
             borderRadius={0}
           />
         </div>
-        <div className="w-1/2">
+        <div className="md:w-1/2 w-full">
           <Element
             id="about-text"
             is={Text}

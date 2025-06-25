@@ -55,7 +55,7 @@ const CraftCategorySettings = () => {
 
   return (
     <div className="space-y-2">
-      <h3 className="font-semibold text-sm flex items-center justify-between">
+      <h3 className="font-semibold p-2 text-sm flex items-center justify-between">
         <span>Select Categories</span>
         <span className="text-xs text-gray-500">Selected: {selectedCount}</span>
       </h3>

@@ -109,6 +109,21 @@ export const CraftSliderBannerBlock = (props: Partial<SliderBannerProps>) => {
     "400px"
   );
 
+  const gapClass = {
+    "0": "px-0",
+    "1": "px-1",
+    "2": "px-2",
+    "3": "px-3",
+    "4": "px-4",
+    "5": "px-5",
+    "6": "px-6",
+    "7": "px-7",
+    "8": "px-8",
+    "9": "px-9",
+    "10": "px-10",
+  }[gap ?? "0"];
+  
+
   return (
     <div
       ref={(ref) => {
@@ -145,9 +160,16 @@ export const CraftSliderBannerBlock = (props: Partial<SliderBannerProps>) => {
           {slides.map((slide, index) => (
             <div
               key={index}
-              className={`w-full px-${gap}`}
-              style={{ height: resolvedHeight }}
+              className={`w-full px-[1px] sm:${gapClass}`}
+
+              // style={{ height: resolvedHeight }}
+              style={{
+                height: resolvedHeight,
+                // paddingLeft: windowWidth <= 768 ? `${gap}px` : "1px",
+                // paddingRight:  windowWidth >= 768  ? `${gap}px` : "1px",
+              }}
             >
+              
               <a
                 href={slide.link}
                 className="block w-full h-full"

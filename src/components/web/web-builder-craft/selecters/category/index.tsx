@@ -30,13 +30,13 @@ const CraftCategorySelection = ({
       {
         breakpoint: 1024,
         settings: {
-          slidesToShow: 3,
+          slidesToShow: 8,
         },
       },
       {
         breakpoint: 768,
         settings: {
-          slidesToShow: 1,
+          slidesToShow: 5,
         },
       },
     ],
