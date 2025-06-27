@@ -42,6 +42,8 @@ import OrderDetailsPage from "@/pages/orders/all/odrerId/page";
 import CreateStorePages from "@/pages/settings/store-page-creation/edit/page";
 import ViewBuildPage from "@/pages/settings/store-page-creation/page-viewer/page";
 import ClientPageBuilderAccess from "@/pages/settings/store-page-creation/client/page";
+import RentManagementOverview from "@/pages/rent-management/rent-overview/page";
+import RentRequestSellerPage from "@/pages/rent-management/rent-requests/page";
 
 const rootRouter = createBrowserRouter(
   [
@@ -108,6 +110,14 @@ const rootRouter = createBrowserRouter(
           children: [
             { path: "customer-return", element: <UserReturnOrderPage /> },
             // { path: "refunds", element: <CustomerRefundPage /> },
+          ],
+        },
+        {
+          path: "/rent",
+          element: <SalesLayout />, // Parent layout for Sales
+          children: [
+            { path: "rent-overview", element: <RentManagementOverview /> },
+            { path: "rent-requests", element: <RentRequestSellerPage /> },
           ],
         },
         // {

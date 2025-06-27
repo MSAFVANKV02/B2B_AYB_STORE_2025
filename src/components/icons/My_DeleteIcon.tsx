@@ -26,7 +26,7 @@ export default function MyDeleteIcon({
 }: Props) {
   return (
     <Toolbar disableGutters>
-      <Tooltip title={title} placement={placement}>
+      <Tooltip title={title} placement={placement} disableInteractive>
         <div className="">
           <IconButton onClick={onClick}>
             {

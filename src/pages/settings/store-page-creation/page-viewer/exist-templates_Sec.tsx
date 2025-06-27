@@ -13,7 +13,7 @@ type Props = {
 };
 
 const ExistTemplatesSec = ({ templates }: Props) => {
-  console.log(templates, "exist templates");
+  // console.log(templates, "exist templates");
 
   const queryKey = ["all-templates"];
 
@@ -53,7 +53,7 @@ const ExistTemplatesSec = ({ templates }: Props) => {
             const imageUrl = imageNode?.[1]?.props?.slides?.[0]?.image;
             return (
               <div className="flex gap-3 w-full">
-                <div className=" py-3 px-2 bg-white rounded-md w-full flex gap-3">
+                <div className=" py-3 px-2 bg-white  dark:bg-neutral-300/30 rounded-md w-full flex gap-3">
                   <Image
                     src={imageUrl}
                     disableLink
@@ -73,7 +73,7 @@ const ExistTemplatesSec = ({ templates }: Props) => {
                         template.storeId
                       )}`}
                       target="_blank"
-                      className="text-sm text-gray-600 bg-slate-50 p-2 rounded-sm shadow-sm"
+                      className="text-xs capitalize text-gray-800 bg-slate-50 dark:bg-neutral-300/30 p-2 rounded-sm shadow-sm"
                     >
                       view live Store
                     </Link>
@@ -94,7 +94,7 @@ const ExistTemplatesSec = ({ templates }: Props) => {
                   title="Are you sure?"
                   trigger={
                     <button
-                      className=" py-5 px-2 bg-white rounded-md w-28 flex justify-center items-center text-xs cursor-pointer hover:shadow-main "
+                      className=" py-5 px-2 bg-white  dark:bg-neutral-300/30 rounded-md w-28 flex justify-center items-center text-xs cursor-pointer hover:shadow-main "
                       // onClick={() => {
                       //   mutate({
                       //     storeId: template.storeId,
@@ -122,7 +122,7 @@ const ExistTemplatesSec = ({ templates }: Props) => {
                 ></Modal>
                 <Link
                   to={`/settings/templates/edit?storeId=${template.storeId}&templateId=${template._id}&name=${template.name}`}
-                  className=" bg-white rounded-md w-28 flex justify-center items-center text-xs cursor-pointer hover:shadow-main"
+                  className=" bg-white  dark:bg-neutral-300/30 rounded-md w-28 flex justify-center items-center text-xs cursor-pointer hover:shadow-main"
                 >
                   edit
                 </Link>

@@ -1,45 +1,8 @@
-// import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
-// import { useCallback } from "react";
-// import { useNavigate } from "react-router-dom";
 
-// type OfflineTabProps = {
-//     activeTab: "offline" | "offline-setup";
-//   };
-
-// export default function MyTab({ activeTab }: OfflineTabProps) {
-
-//   const navigate = useNavigate();
-
-//   const handleTabClick = useCallback(
-//     (type: "offline" | "offline-setup" ) => {
-//       navigate(`/offline-payment?type=${type}`);
-//     },
-//     [navigate]
-//   );
-//   return (
-//     <Tabs defaultValue="offline" className="w-[400px]">
-//       <TabsList className="border bg-transparent rounded-full py-6 ">
-//         <TabsTrigger
-//           value="offline"
-//           data-state={activeTab === "offline" ? "active" : "inactive"}
-//           className="data-[state=active]:bg-bg text-xs min-w-36 font-bold w-auto py-3 data-[state=active]:text-white data-[state=active]:rounded-full"
-//           onClick={() => handleTabClick("offline")}
-//         >
-//           Offline payment
-//         </TabsTrigger>
-//         <TabsTrigger
-//           value="offline-setup"
-//           data-state={activeTab === "offline-setup" ? "active" : "inactive"}
-//           className="data-[state=active]:bg-bg text-xs min-w-36 font-bold w-auto py-3 data-[state=active]:text-white data-[state=active]:rounded-full"
-//           onClick={() => handleTabClick("offline-setup")}
-//         >
-//           Payment section setup
-//         </TabsTrigger>
-//       </TabsList>
-//     </Tabs>
-//   );
-// }
+// ==================
+// ===========================
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { cn } from "@/lib/utils";
 import { useCallback, useEffect, useState } from "react";
 
 import { useNavigate, useSearchParams } from "react-router-dom";
@@ -56,9 +19,10 @@ type MyTabProps = {
   setTypeUrl?: (value: string) => void;
   tabs: Tab[];
   sideBtn?: React.ReactNode;
+  triggerClassName?: string;
 };
 
-function MyPageTab({ tabs, setTypeUrl, sideBtn }: MyTabProps) {
+function MyPageTab({ tabs, setTypeUrl, sideBtn, triggerClassName }: MyTabProps) {
   const [activeTab, setActiveTab] = useState<string | null>(null);
   const [searchParams] = useSearchParams();
 
@@ -96,7 +60,14 @@ function MyPageTab({ tabs, setTypeUrl, sideBtn }: MyTabProps) {
               key={tab.value}
               value={tab.value}
               // data-state={activeTab === tab.value ? "active" : "inactive"}
-              className="data-[state=active]:bg-bg text-xs min-w-36 font-bold w-auto py-3 data-[state=active]:text-white data-[state=active]:rounded-full"
+              // className="data-[state=active]:bg-bg text-xs min-w-36 font-bold w-auto py-3 data-[state=active]:text-white data-[state=active]:rounded-full"
+              className={cn(
+                "text-xs min-w-36 font-bold w-auto py-3",
+                "data-[state=active]:bg-bg data-[state=active]:text-white data-[state=active]:rounded-full",
+                triggerClassName
+              )}
+              
+              
               onClick={() => {
                 if (tab?.onClick) {
                   tab?.onClick();

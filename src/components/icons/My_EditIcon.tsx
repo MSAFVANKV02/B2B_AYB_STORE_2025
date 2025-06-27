@@ -10,7 +10,7 @@ type Props = {
 function MyEditIcon({ onClick, icon = "bxs:edit", title="Edit" }: Props) {
   return (
     <Toolbar disableGutters>
-      <Tooltip title={title} placement="top">
+      <Tooltip title={title} placement="top" disableInteractive>
         <IconButton onClick={onClick}>
           <Icon icon={icon} fontSize={20} />
         </IconButton>

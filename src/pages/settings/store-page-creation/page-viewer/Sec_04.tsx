@@ -53,7 +53,7 @@ for retailers to find and choose you.`,
   ];
 
   return (
-    <section className="w-full lg:px-0 px-3 py-10 bg-white flex flex-col gap-16 justify-center items-center">
+    <section className="w-full lg:px-0 px-3 py-10 bg-white dark:bg-neutral-300/30 flex flex-col gap-16 justify-center items-center">
       <span className="font-bold capitalize text-lg">Key Benefits</span>
 
       <div className="grid grid-cols-3 gap-10 gap-y-20  w-3/4 h-auto">

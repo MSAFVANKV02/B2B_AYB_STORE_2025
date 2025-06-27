@@ -1,56 +1,65 @@
 export type StoreTypes = {
-  _id?:string;
-  registrationType: IRegistrationTypes;
-  role?: "Seller" | "Store";
-  avatar:string;
-  isRegistered?: boolean;
-  isBlocked?: boolean;
-  mobileVerified?: boolean;
-  subscription?: boolean;
-  adminStatus?: IAdminStatus;
-  name?: string | null;
-  gstNumber?: string | null;
-  Address?: string | null;
-  storeCapacity?: number | null;
-  state?: string | null;
-  country?: string | null;
-  pinCode?: string | null;
-  googleLocation?: { latitude: number | null; longitude: number | null };
-  manager: string | null;
-  emailId: string | null;
-  phoneNumber: string | null;
-  userName: string | null;
-  password: string | null;
-  inHouseProduct: boolean;
-  bankDetails: {
-    accountName: string | null;
-    accountNumber: string | null;
-    ifscCode: string | null;
-    shiftCode: string | null;
-    upiId: string | null;
-  };
-  amount?: number | null;
-  capacity: number | null;
-  status?: "pending" | "paid";
-  created_at?: string | number | Date;
-  // =====  Sole Proprietorship Registration  ================
-  aadhaarCard?: File | string | null;
-  panCard?: File | string | null;
-  localBodyLicense?: File | string | null;
-  roomRentAgreement?: File | string | null;
-  gstCertificate?: File | string | null;
-
-  // =====  Partnerships Firm Registration  ================
-  partnershipAgreement?: File | string | null;
-  companyPanCard?: File | string | null;
-
-  //  pv ltd license================================
-  companyIncorporationCertificate?: File | string | null;
-  cinNumber?: string | null;
-
-  // ----- llp ltd license================================
-  llpNumber?: string | null;
+  bankDetails: BankDetails
+  _id: string
+  role: string
+  createdBy: string
+  subscription: boolean
+  rentedSellers:string[];
+  mobileVerified: boolean
+  isRegistered: boolean
+  adminStatus: string
+  isBlocked: boolean
+  name: string
+  gstNumber: string
+  Address: string
+  storeCapacity: number
+  state: string
+  country: string
+  pinCode: string
+  googleLocation: GoogleLocation
+  manager: string
+  emailId: string
+  phoneNumber: string
+  userName: string
+  password: string
+  registrationType: IRegistrationTypes
+  aadhaarCard: string
+  panCard: string
+  localBodyLicense: string
+  roomRentAgreement: string
+  gstCertificate: string
+  totalSalessAmount: number
+  totalOrders: number
+  mostPurchasedProducts: any[]
+  createdAt: string
+  updatedAt: string
+  __v: number
+  avatar: string
+  cinNumber: string
+  companyIncorporationCertificate: any
+  companyPanCard: any
+  llpNumber: string
+  partnershipAgreement: any
+  allocatedVolume: number
+  rentCurrency: string
+  rentPricePerUnit: number
 };
+
+
+export interface BankDetails {
+  accountName: string
+  accountNumber: string
+  ifscCode: string
+  shiftCode: string
+  upiId: string
+}
+
+export interface GoogleLocation {
+  latitude: number
+  longitude: number
+  _id: string
+}
+
 
 
 export type IAdminStatus =  "pending" | "viewed" | "approved" | "rejected";

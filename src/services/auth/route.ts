@@ -11,6 +11,23 @@ import {
 } from "@/services/api/urlPath";
 import axios from "axios";
 
+
+export type IGetAllFilterKey =
+  | "category"
+  | "product"
+  | "brand"
+  | "color"
+  | "sort"
+  | "page"
+  | "limit"
+  | "is_todays_deal"
+  | "is_cod"
+  | "is_free_shipping"
+  | "is_featured_product"
+  | "is_featured_product"
+  | "is_best_selling"
+  | "";
+
 export const API = axios.create({
   baseURL: `${
     import.meta.env.MODE == "development"

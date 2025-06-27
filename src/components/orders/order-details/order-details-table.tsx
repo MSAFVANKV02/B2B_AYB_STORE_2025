@@ -1,7 +1,7 @@
 import { DataTable } from "@/components/tasks/task_components/data-table";
 
 import CustomOrderDetailsTable from "./custom-table";
-import { OrderDetailsTableColumnSDcn } from "@/components/tasks/table_columns/ordes/order-details-table-column";
+import { OrderDetailsTableColumnSDcn } from "@/components/tasks/table_columns/orders/order-details-table-column";
 import { IFlatOrderItemDetailsType, IOrders } from "@/types/orderTypes";
 
 type Props = {

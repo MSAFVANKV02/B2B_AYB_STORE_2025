@@ -39,7 +39,7 @@ const ViewBuildPage = () => {
         templates.length > 0 ? (
           <ExistTemplatesSec  templates={templates} /> 
         ):(
-          <div className="bg-white shadow-main w-full lg:w-3/4 mx-auto flex justify-center items-center rounded-sm ">
+          <div className="bg-white  dark:bg-neutral-300/30 shadow-main w-full lg:w-3/4 mx-auto flex justify-center items-center rounded-sm ">
         <div className="flex flex-col items-center w-3/4 gap-5 py-5 px-2">
           <span className="font-bold text-black capitalize">
             Set Up Your Digital Store Page

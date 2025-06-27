@@ -74,7 +74,7 @@ const Sec_02 = () => {
   }, [currentSlide, settings.slidesToShow, data.length]);
 
   return (
-    <section className="flex flex-col justify-center items-center md:gap-7 gap-5 bg-white sm:py-10 py-5  ">
+    <section className="flex flex-col justify-center items-center md:gap-7 gap-5 bg-white  dark:bg-neutral-300/30 sm:py-10 py-5  ">
          <h2 className="font-bold capitalize">Helpful resources</h2>
         <p className="">
           Start building your Brand Store on Ayaboo with these helpful guides

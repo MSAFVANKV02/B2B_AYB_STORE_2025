@@ -1,6 +1,6 @@
 import { getAllOrdersAction } from "@/actions/orders/ordersAction";
 import Card from "@/components/cards/Card";
-import { AllOrdersTableColumnSDcn } from "@/components/tasks/table_columns/ordes/all-orders-table-columns";
+import { AllOrdersTableColumnSDcn } from "@/components/tasks/table_columns/orders/all-orders-table-columns";
 import { DataTable } from "@/components/tasks/task_components/data-table";
 import { useQueryData } from "@/hooks/useQueryData";
 import { IOrdersType } from "@/types/orderTypes";

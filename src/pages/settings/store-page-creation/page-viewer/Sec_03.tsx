@@ -4,7 +4,7 @@ import { Separator } from '@/components/ui/separator'
 
 const Sec_03 = () => {
   return (
-    <section className="bg-gradient-to-r from-[#FFFFFF] to-[#ECF6FF] w-full lg:px-0 px-3">
+    <section className="bg-gradient-to-r from-[#FFFFFF] to-[#ECF6FF]  dark:from-neutral-300/30 w-full lg:px-0 px-3">
     <div className="lg:w-3/4 mx-auto flex lg:flex-row flex-col justify-between">
       <div className="space-y-2 lg:w-3/5  py-4">
         <h3 className=" font-bold ">Why Create Your Brand Store?</h3>

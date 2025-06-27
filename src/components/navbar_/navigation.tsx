@@ -78,6 +78,26 @@ function NavigationList() {
     },
     {
       kind: "page",
+      segment: "/rent",
+      title: "Rent Management",
+      icon: <Icon icon="ix:product-management" />,
+      isChild: true,
+      subscribed: "free",
+      children: [
+        {
+          title: "Rent Overview",
+          segment: "/rent/rent-overview",
+          subscribed: "free",
+        },
+        {
+          title: "Rent Requests",
+          segment: "/rent/rent-requests",
+          subscribed: "free",
+        },
+      ],
+    },
+    {
+      kind: "page",
       segment: "/marketing",
       title: "Marketing",
       subscribed: "free",
@@ -165,7 +185,7 @@ function NavigationList() {
       kind: "page",
       segment: "/accounts",
       title: "Accounts",
-      icon: <Icon icon="streamline:graph-bar-increase-solid" />,
+      icon: <Icon icon="ix:user-management-filled" />,
       subscribed: "free",
       isChild: true,
       children: [

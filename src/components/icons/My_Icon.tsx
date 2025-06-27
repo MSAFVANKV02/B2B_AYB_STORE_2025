@@ -4,14 +4,13 @@ import { IconButton, Toolbar, Tooltip, TooltipProps } from "@mui/material";
 import { memo } from "react";
 
 type Props = {
-  onClick: (e:any) => void;
+  onClick: (e: any) => void;
   icon?: string;
   color?: string;
   fontSize?: number;
   tooltipTitle?: string;
   placement?: TooltipProps["placement"];
-  className?:string
-
+  className?: string;
 };
 
 function MyIcon({
@@ -21,12 +20,16 @@ function MyIcon({
   fontSize = 20,
   tooltipTitle = "status",
   placement = "top",
-  className
+  className,
 }: Props) {
   return (
     <Toolbar disableGutters>
-      <Tooltip title={tooltipTitle} placement={`${placement}`}>
-      <div className={cn("",className)}>
+      <Tooltip
+        title={tooltipTitle}
+        placement={`${placement}`}
+        disableInteractive
+      >
+        <div className={cn("", className)}>
           <IconButton onClick={onClick}>
             <Icon icon={icon} fontSize={fontSize} color={color} />
           </IconButton>
