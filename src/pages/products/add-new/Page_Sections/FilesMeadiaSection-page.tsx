@@ -509,7 +509,6 @@ import { Label } from "@/components/ui/label";
 import { cn } from "@/lib/utils";
 import { ErrorMessage } from "formik";
 // import CloseIcon from "@mui/icons-material/Close";
-import CloseIcon from '@mui/icons-material/esm/Close';
 
 import { Tooltip } from "@mui/material";
 import { UseModal } from "@/providers/context/context";
@@ -522,11 +521,12 @@ import TaskModal, {
 import { ProductImageModal } from "@/components/products/Product_Image_Modal";
 import { Button } from "@/components/ui/button";
 import { makeToastError } from "@/utils/toaster";
-// import DoneAllIcon from "@mui/icons-material/DoneAll";
-import DoneAllIcon from '@mui/icons-material/esm/DoneAll';
+
 import { IProducts } from "@/types/productType";
 import Media_Files_Modal from "@/components/media/Media_Files_Modal";
 import { IFileDataMedia } from "@/pages/media/retrive/all_uploaded_files";
+import MyCloseIcon from "@/components/icons/My_CloseIcon";
+import { Icon } from "@iconify/react/dist/iconify.js";
 
 type Props = {
   setFieldValue: any;
@@ -584,7 +584,10 @@ export default function FilesMediaSectionPage({
           const requiredHeight = 600;
 
           // Validate the image dimensions from the IFileDataMedia object
-          if (file.width !== requiredWidth || file.height !== requiredHeight) {
+          if (
+            import.meta.env.MODE !== "development" &&
+            (file.width !== requiredWidth || file.height !== requiredHeight)
+          ) {
             throw new Error(
               `Image must be ${requiredWidth}x${requiredHeight}px`
             );
@@ -594,7 +597,10 @@ export default function FilesMediaSectionPage({
           const requiredHeight = 300;
 
           // Validate the image dimensions from the IFileDataMedia object
-          if (file.width !== requiredWidth || file.height !== requiredHeight) {
+          if (
+            import.meta.env.MODE !== "development" &&
+            (file.width !== requiredWidth || file.height !== requiredHeight)
+          ) {
             throw new Error(
               `Thumbnail must be ${requiredWidth}x${requiredHeight}px`
             );
@@ -881,12 +887,13 @@ export function FormFieldGenal({
           </Label>
           {values.length > 0 && (
             <span className={`rounded-full`}>
-              <DoneAllIcon
+              {/* <DoneAllIcon
                 fontSize="small"
                 sx={{
                   color: "#EC922B",
                 }}
-              />
+              /> */}
+              <Icon icon={'ic:round-done-all'} className="text-textMain" />
             </span>
           )}
         </div>
@@ -990,7 +997,7 @@ export function SelectedImages({
                 <div className="w-[50px] bg-gray-100 rounded-md relative mt-3">
                   <img src={image} alt={alt} className="object-cover " />
                   <Tooltip title={`img-${index + 1}`} placement="top-end">
-                    <button
+                    {/* <button
                       type="button"
                       className="absolute -top-3 -right-3 bg-red-500 text-white h-5 w-5 flex items-center justify-center rounded-full"
                       onClick={() => {
@@ -1001,7 +1008,16 @@ export function SelectedImages({
                       }}
                     >
                       <CloseIcon className="" fontSize="small" />
-                    </button>
+                    </button> */}
+                    <MyCloseIcon 
+                    //  className="absolute -top-3 -right-3 bg-red-500 text-white h-5 w-5 flex items-center justify-center rounded-full"
+                     onClick={() => {
+                       const updatedImages = value.filter(
+                         (_, imgIndex) => imgIndex !== index
+                       );
+                       setFieldValue(name, updatedImages);
+                     }}
+                    />
                   </Tooltip>
                 </div>
               </div>

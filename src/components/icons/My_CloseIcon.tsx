@@ -1,4 +1,4 @@
-import { Close } from "@mui/icons-material";
+import { Icon } from "@iconify/react/dist/iconify.js";
 import { IconButton, Toolbar, Tooltip } from "@mui/material";
 
 type Props = {
@@ -14,14 +14,15 @@ export default function MyCloseIcon({ onClick, isTooltip }: Props) {
           <Tooltip title="Close" placement="top" disableInteractive>
             <div className="">
               <IconButton onClick={onClick}>
-                <Close />
+                {/* <Close /> */}
+                <Icon icon={"iconamoon:close-light"} />
               </IconButton>
             </div>
           </Tooltip>
         </Toolbar>
       ) : (
         <IconButton onClick={onClick}>
-          <Close />
+          <Icon icon={"iconamoon:close-light"} />
         </IconButton>
       )}
     </>

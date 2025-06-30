@@ -2,6 +2,7 @@ import {
   APPROVE_RENTAL_REQUESTS_URL,
   GET_ALL_RENTAL_REQUESTS_URL,
   REJECT_RENTAL_REQUESTS_URL,
+  VACATE_REQUEST_RENT_SPACE_SELLER_URL,
 } from "../api/rental_urlPath";
 import { API, IGetAllFilterKey } from "../auth/route";
 
@@ -43,6 +44,25 @@ export const reject_Seller_Rental_Request_Api = (
   return API.post(
     `${REJECT_RENTAL_REQUESTS_URL}/${rentalId}`,
     { reason },
+    {
+      withCredentials: true,
+    }
+  );
+};
+
+
+// ------ seller vacate request action api here
+export const vacate_Seller_Rental_Request_Api = (
+  {reason, rentalId, status}:{
+    rentalId: string,
+  reason: string
+  status: string
+  }
+
+) => {
+  return API.post(
+    `${VACATE_REQUEST_RENT_SPACE_SELLER_URL}/${rentalId}`,
+    { reason, status },
     {
       withCredentials: true,
     }

@@ -17,7 +17,6 @@ import { getStoreTemplatesByIdAction } from "@/actions/store/storeAction";
 import { useQueryData } from "@/hooks/useQueryData";
 import { IStoreTemplateTypes } from "@/types/store_templates_types";
 import Loader from "@/components/global/loader";
-import { BuilderDeviceProvider } from "@/providers/context/useBuilderDevice";
 
 const PageBuilderCraft = () => {
   const [searchParams] = useSearchParams();
@@ -51,7 +50,7 @@ const PageBuilderCraft = () => {
   }
 
   return (
-    <BuilderDeviceProvider>
+    <div>
         <Editor
       resolver={{
         Container,
@@ -78,7 +77,7 @@ const PageBuilderCraft = () => {
         )}
       </CraftViewport>
     </Editor>
-    </BuilderDeviceProvider>
+    </div>
   
   );
 };

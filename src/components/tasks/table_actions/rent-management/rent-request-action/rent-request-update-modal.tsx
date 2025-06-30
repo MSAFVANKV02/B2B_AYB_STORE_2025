@@ -1,4 +1,7 @@
-import { updateRequestForRental } from "@/actions/rental/rentalActions";
+import {
+  RequestForRentalVacateAction,
+  updateRequestForRental,
+} from "@/actions/rental/rentalActions";
 import Loader from "@/components/global/loader";
 import Modal from "@/components/modals/main";
 import AyButton from "@/components/myUi/AyButton";
@@ -29,7 +32,29 @@ const RentRequestUpdateModal = ({
 
   const { mutate, isPending } = useMutationData(
     ["request-update"],
-    () => updateRequestForRental(reason, data._id, type),
+    ({
+      reason,
+      rentalId,
+      status,
+    }: {
+      rentalId: string;
+      reason: string;
+      status: string;
+    }) => {
+      if (data.status === "pending") {
+        return updateRequestForRental(reason, rentalId, type);
+      }
+
+      if (data.status === "vacate_requested") {
+        return RequestForRentalVacateAction({
+          reason,
+          rentalId,
+          status,
+        });
+      }
+
+      throw new Error("Invalid rental status for update");
+    },
     queryKey
   );
 
@@ -38,7 +63,14 @@ const RentRequestUpdateModal = ({
       makeToastError("Please provide a reason for rejection.");
       return;
     }
-    mutate({});
+
+    const status = type === "accept" ? "vacated" : "vacate_rejected";
+
+    mutate({
+      rentalId: data._id,
+      reason: reason,
+      status: status,
+    });
   };
 
   return (
@@ -66,7 +98,7 @@ const RentRequestUpdateModal = ({
         </div>
       }
     >
-        {/* {data._id} */}
+      {/* {data._id} */}
       {type === "reject" && (
         <div className="">
           <Label htmlFor="reason" className="text-textGray">

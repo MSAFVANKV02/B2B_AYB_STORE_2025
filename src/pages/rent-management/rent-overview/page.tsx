@@ -1,69 +1,36 @@
 
 // import React360Viewer from 'react-360-view';
 
+import { getSellerRequestForRental } from "@/actions/rental/rentalActions";
+import Loader from "@/components/global/loader";
 import { RentOverviewTableColumnSDcn } from "@/components/tasks/table_columns/rent-management/rent-overview-column";
 import { DataTable } from "@/components/tasks/task_components/data-table";
+import { useQueryData } from "@/hooks/useQueryData";
 
 import { IRentTypes } from "@/types/rent-types";
 
 const RentManagementOverview = () => {
 //   const { formatNumber } = NumberFormateI18n();
 
-const mockOrder: IRentTypes[] = [
-  {
-    seller_name: "Haash India pvt ltd",
-    space_m3: 35,
-    start_date: "10 Jun 2025",
-    end_date: "10 July 2025",
-    total_amount: "₹5,000",
-    days_remaining: "5 Days",
-    status: "Received",
-    invoice: {
-      print: true,
-      view: true
-    }
-  },
-  {
-    seller_name: "Haash India pvt ltd",
-    space_m3: 35,
-    start_date: "10 Jun 2025",
-    end_date: "10 July 2025",
-    total_amount: "₹5,000",
-    days_remaining: "5 Days",
-    status: "Received",
-    invoice: {
-      print: true,
-      view: true
-    }
-  },
-  {
-    seller_name: "Haash India pvt ltd",
-    space_m3: 35,
-    start_date: "10 Jun 2025",
-    end_date: "10 July 2025",
-    total_amount: "₹5,000",
-    days_remaining: "5 Days",
-    status: "Received",
-    invoice: {
-      print: true,
-      view: true
-    }
-  },
-  {
-    seller_name: "Filia Enterprises",
-    space_m3: 35,
-    start_date: "10 Jun 2025",
-    end_date: "10 July 2025",
-    total_amount: "₹5,000",
-    days_remaining: "10 Days Overdue",
-    status: "Overdue",
-    invoice: {
-      print: true,
-      view: true
-    }
-  }
-]
+const { data: fetchedData, isPending } = useQueryData(
+  ["rental-requests"],
+  () => getSellerRequestForRental(),
+  { disableRefetch: true }
+);
 
+const { data: rental } = (fetchedData ?? {}) as {
+  status?: number;
+  data?: IRentTypes[];
+};
+
+
+if(isPending){
+  return (
+    <div className="">
+      <Loader state={isPending} />
+    </div>
+  )
+}
 
 
   const cards = [
@@ -138,7 +105,7 @@ const mockOrder: IRentTypes[] = [
           
           enableSearch
           columns={RentOverviewTableColumnSDcn}
-          data={mockOrder ?? []}
+          data={rental ?? []}
           tableRowClass="capitalize h-10 py-0 text-xs mb-0 border-none"
           tableCellClass="py-2 align-middle border-none"
           tableHeadClass=""

@@ -4,7 +4,6 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { IconButton, Tooltip } from "@mui/material";
-import { Notifications } from "@mui/icons-material";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import { makeToast } from "@/utils/toaster";
 
@@ -45,7 +44,8 @@ export default function NotificationBarSheet() {
           {/* Wrap IconButton in a div to prevent button nesting */}
           <div>
             <IconButton>
-            <Notifications className="text-[#8F8F8F]" />
+            {/* <Notifications className="text-[#8F8F8F]" /> */}
+            <Icon icon={'mingcute:notification-fill'} />
             </IconButton>
           </div>
         </Tooltip>

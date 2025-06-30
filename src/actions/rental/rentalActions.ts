@@ -3,6 +3,7 @@ import {
   accept_Seller_Rental_Request_Api,
   get_Seller_Rental_Request_Api,
   reject_Seller_Rental_Request_Api,
+  vacate_Seller_Rental_Request_Api,
 } from "@/services/rental/route";
 
 export const getSellerRequestForRental = async (
@@ -19,12 +20,14 @@ export const getSellerRequestForRental = async (
         message: response.data.message,
       };
     }
-  } catch (error:any) {
+  } catch (error: any) {
     console.error("Error fetching available stores for rental:", error);
     return {
       status: 500,
       data: [],
-      message: error.response.data.message || "An error occurred while fetching rental requests.",
+      message:
+        error.response.data.message ||
+        "An error occurred while fetching rental requests.",
     };
   }
 };
@@ -52,12 +55,52 @@ export const updateRequestForRental = async (
         message: response.data.message,
       };
     }
-  } catch (error:any) {
+  } catch (error: any) {
     console.error("Error updating rental:", error);
     return {
       status: 500,
       data: [],
-      message: error.response.data.message || "An error occurred while fetching rental requests.",
+      message:
+        error.response.data.message ||
+        "An error occurred while fetching rental requests.",
+    };
+  }
+};
+
+export const RequestForRentalVacateAction = async ({
+  reason,
+  rentalId,
+  status,
+}: {
+  rentalId: string;
+  reason: string;
+  status: string;
+}) => {
+  try {
+    const route = vacate_Seller_Rental_Request_Api({
+      reason,
+      rentalId,
+      status,
+    });
+
+    const response = await route;
+    console.log(response.data, "response in rental update action");
+
+    if (response.status === 200 || response.status === 201) {
+      return {
+        status: response.status,
+        data: response.data.data,
+        message: response.data.message,
+      };
+    }
+  } catch (error: any) {
+    console.error("Error updating rental:", error);
+    return {
+      status: 500,
+      data: [],
+      message:
+        error.response.data.message ||
+        "An error occurred while fetching rental requests.",
     };
   }
 };

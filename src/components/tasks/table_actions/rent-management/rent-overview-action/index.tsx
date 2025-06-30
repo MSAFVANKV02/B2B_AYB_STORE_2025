@@ -1,10 +1,13 @@
 
 import My_Icon from "@/components/icons/My_Icon";
 import { RentSpaceChangeModal } from "./rent_space_modal";
+// import { IRentTypes } from "@/types/rent-types";
 
-type Props = {};
+// type Props = {
+//   data:IRentTypes
+// };
 
-const RentOverviewActions = (props: Props) => {
+const RentOverviewActions = () => {
   return (
     <div className="flex gap-3 items-center justify-center h-0">
       <RentSpaceChangeModal />

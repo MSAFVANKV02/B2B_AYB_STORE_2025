@@ -14,11 +14,11 @@ import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
 import MuiDrawer from "@mui/material/Drawer";
 import Logo from "./Logo";
 import { useLocation, useNavigate } from "react-router-dom";
-import ExpandMore from '@mui/icons-material/esm/ExpandMore';
-import ExpandLess from '@mui/icons-material/esm/ExpandLess';
+
 import Collapse from "@mui/material/Collapse"; // Import Collapse
 import NavAppBar from "./Appbar";
 import { useWindowWidth } from "@react-hook/window-size";
+import { Icon } from "@iconify/react/dist/iconify.js";
 
 const drawerWidth = 290;
 
@@ -226,7 +226,10 @@ export default function NavbarDrawer() {
                           // Optional: Change text color
                         }}
                       />
-                      {collapseStates[index] ? <ExpandLess /> : <ExpandMore />}
+                      {/* {collapseStates[index] ? <ExpandLess /> : <ExpandMore />} */}
+
+                      {collapseStates[index] ? <Icon icon="si:expand-more-line" /> : <Icon icon="si:expand-less-line" />}
+
                     </ListItemButton>
                     <Collapse
                       in={collapseStates[index]}

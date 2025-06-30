@@ -1,4 +1,4 @@
-import CloseIcon from "@mui/icons-material/Close";
+
 
 // import {
 //   Select,
@@ -18,6 +18,7 @@ import { create_New_Color_Api } from "@/services/extra/route";
 import { dispatch, useAppSelector } from "@/redux/hook";
 import ColorVariantSelectTab from "../global/color-select";
 import { getColorsRedux } from "@/redux/actions/size_color_Slice";
+import MyCloseIcon from "../icons/My_CloseIcon";
 
 interface Color {
   value: string;
@@ -182,13 +183,18 @@ export const ProductImageModal = ({
             />
           </div>
           <Tooltip title="Delete" placement="top">
-            <button
+            {/* <button
               type="button"
               className="h-5 flex justify-center items-center bg-red-500 text-white rounded-full"
               onClick={() => handleDeleteImage(index)}
             >
               <CloseIcon fontSize="small" />
-            </button>
+              
+            </button> */}
+            <MyCloseIcon 
+              onClick={() => handleDeleteImage(index)}
+              isTooltip={false}
+            />
           </Tooltip>
         </div>
       ))}

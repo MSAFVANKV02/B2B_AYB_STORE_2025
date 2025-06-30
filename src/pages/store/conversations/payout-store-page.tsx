@@ -1,11 +1,11 @@
-import { StoreTypes } from "@/types/storeTypes";
+// import { StoreTypes } from "@/types/storeTypes";
 import { useSearchParams } from "react-router-dom";
 import StorePaymentForm from "./store_payment_form";
 import { DataTableStorePayout } from "@/components/tasks/task_components/store/data-table-store-payout";
 
 import PayoutStoreDue from "./payout-store-due";
 
-const storeData: StoreTypes[] = [
+const storeData: any[] = [
   {
     registrationType: "LLP",
     name: "Green Mart",

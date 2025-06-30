@@ -8,7 +8,7 @@ type Props = {
 const RentRequestActions = ({ data }: Props) => {
   return (
     <div className="">
-      {data.status === "pending" ? (
+      {data.status === "pending" || data.status === "vacate_requested" ? (
         <div className="flex gap-3 items-center justify-center">
           <RentRequestUpdateModal
             type="accept"

@@ -108,9 +108,9 @@ import {
 } from "@/components/ui/table";
 import React, { useState } from "react";
 import { Collapse, IconButton } from "@mui/material";
-// import { ExpandMore, ExpandLess } from "@mui/icons-material";
-import ExpandMore from '@mui/icons-material/esm/ExpandMore';
-import ExpandLess from '@mui/icons-material/esm/ExpandLess';
+
+import { Icon } from "@iconify/react/dist/iconify.js";
+
 import { ProductLocalType } from "@/pages/reports/product-sale/product-sale-page";
 
 type Props = {
@@ -184,7 +184,9 @@ export default function DataTableProductsReports({ data }: Props) {
                     onClick={() => toggleAccordion(productIndex)}
                     aria-label="toggle details"
                   >
-                    {openRow === productIndex ? <ExpandLess /> : <ExpandMore />}
+                    {/* {openRow === productIndex ? <ExpandLess /> : <ExpandMore />} */}
+                    {openRow === productIndex ? <Icon icon="si:expand-more-line" /> : <Icon icon="si:expand-less-line" />}
+
                   </IconButton>
                  </div>
                 </TableCell>

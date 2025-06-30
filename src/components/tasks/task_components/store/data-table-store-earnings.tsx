@@ -34,11 +34,11 @@ import {
   TableRow,
 } from "@/components/ui/table";
 
-import { StoreTypes } from "@/types/storeTypes";
+// import { StoreTypes } from "@/types/storeTypes";
 import MyClock from "@/components/myUi/MyClock";
 
 type Props = {
-  data: StoreTypes[];
+  data: any[];
 };
 
 export function DataTableStoreEarnings({ data }: Props) {
@@ -51,7 +51,7 @@ export function DataTableStoreEarnings({ data }: Props) {
     React.useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = React.useState({});
 
-  const columns: ColumnDef<StoreTypes>[] = [
+  const columns: ColumnDef<any>[] = [
     {
       accessorKey: "created_at",
       header: ({ column }) => {

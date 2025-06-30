@@ -1,19 +1,5 @@
 import { StoreTypes } from "../storeTypes";
 
-export interface IRentTypesDummy {
-    seller_name: string;
-    space_m3: number;
-    start_date: string;
-    end_date: string;
-    total_amount: string;
-    days_remaining: string; // "5 Days" or "10 Days Overdue"
-    status: "Received" | "Overdue";
-    invoice: {
-      print: boolean;
-      view: boolean;
-    };
-  }
-
 
   export const PaymentStatusEnum = {
     PENDING: "pending",
@@ -53,5 +39,9 @@ export interface IRentTypesDummy {
     extensionRequests: any[]
     createdAt: string
     updatedAt: string
+    rejectionReason:string
+    endDate:Date;
+    approvalDate:Date;
+    startDate:Date
     __v: number
   }

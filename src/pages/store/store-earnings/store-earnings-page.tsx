@@ -1,10 +1,8 @@
-import { DataTableStoreEarnings } from "@/components/tasks/task_components/store/data-table-store-earnings"
-import { StoreTypes } from "@/types/storeTypes";
+import { DataTableStoreEarnings } from "@/components/tasks/task_components/store/data-table-store-earnings";
+
 import StoreEarningRent from "./store-earnings-rent";
 
-
-
-const storeData: StoreTypes[] = [
+const storeData: any[] = [
   {
     registrationType: "LLP",
     name: "Green Mart",
@@ -60,24 +58,21 @@ const storeData: StoreTypes[] = [
 ];
 
 export default function StoreEarningsPage() {
-
   return (
     <div>
-        <div className="">
+      <div className="">
         <h1 className="font-bold text-textGray text-sm p-4">Store Earnings</h1>
+      </div>
+      <div className=" rounded-md shadow-sm scrollbar-none min-h-[80vh] w-full bg-transparent">
+        <div className="flex lg:flex-row flex-col gap-3">
+          <div className="lg:w-[60%] bg-white overflow-y-auto h-[80vh]  p-2 rounded-md">
+            <DataTableStoreEarnings data={storeData} />
+          </div>
+          <div className="flex-grow bg-white overflow-y-auto h-[80vh]  p-2 rounded-md">
+            <StoreEarningRent />
+          </div>
         </div>
-        <div className=" rounded-md shadow-sm scrollbar-none min-h-[80vh] w-full bg-transparent">
-            <div className="flex lg:flex-row flex-col gap-3">
-              <div className="lg:w-[60%] bg-white overflow-y-auto h-[80vh]  p-2 rounded-md">
-              <DataTableStoreEarnings
-                data={storeData}
-                />
-              </div>
-              <div className="flex-grow bg-white overflow-y-auto h-[80vh]  p-2 rounded-md">
-    <StoreEarningRent />
-              </div>
-            </div>
-        </div>
+      </div>
     </div>
-  )
+  );
 }

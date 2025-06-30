@@ -13,8 +13,7 @@ import {
 } from "@tanstack/react-table";
 import { Collapse, IconButton } from "@mui/material";
 // import { ExpandMore, ExpandLess } from "@mui/icons-material";
-import ExpandMore from '@mui/icons-material/esm/ExpandMore';
-import ExpandLess from '@mui/icons-material/esm/ExpandLess';
+
 import { ProductLocalType } from "@/pages/reports/product-sale/product-sale-page";
 import { Button } from "@/components/ui/button";
 // import {
@@ -32,6 +31,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { Icon } from "@iconify/react/dist/iconify.js";
 // import { ChevronDown } from "lucide-react";
 
 type Props = {
@@ -99,7 +99,7 @@ export default function DataTableProductStockReports({ data }: Props) {
         onClick={() => toggleAccordion(row.index)}
         aria-label="toggle details"
       >
-        {openRow === row.index ? <ExpandLess /> : <ExpandMore />}
+        {openRow === row.index ? <Icon icon="si:expand-more-line" /> : <Icon icon="si:expand-less-line" />}
       </IconButton>
      </div>
     </TableCell>

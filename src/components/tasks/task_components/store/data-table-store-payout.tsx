@@ -27,13 +27,13 @@ import {
   TableRow,
 } from "@/components/ui/table";
 
-import { StoreTypes } from "@/types/storeTypes";
+// import { StoreTypes } from "@/types/storeTypes";
 import AyButton from "@/components/myUi/AyButton";
 import { useNavigate } from "react-router-dom";
 import MyClock from "@/components/myUi/MyClock";
 
 type Props = {
-  data: StoreTypes[];
+  data: any[];
 };
 
 export function DataTableStorePayout({ data }: Props) {
@@ -46,7 +46,7 @@ export function DataTableStorePayout({ data }: Props) {
     React.useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = React.useState({});
 
-  const columns: ColumnDef<StoreTypes>[] = [
+  const columns: ColumnDef<any>[] = [
     {
       accessorKey: "created_at",
       header: ({ column }) => {
