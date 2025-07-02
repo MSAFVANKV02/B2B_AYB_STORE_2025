@@ -6,11 +6,13 @@ import Loader from "@/components/global/loader";
 import { RentOverviewTableColumnSDcn } from "@/components/tasks/table_columns/rent-management/rent-overview-column";
 import { DataTable } from "@/components/tasks/task_components/data-table";
 import { useQueryData } from "@/hooks/useQueryData";
+import { useAppSelector } from "@/redux/hook";
 
 import { IRentTypes } from "@/types/rent-types";
 
 const RentManagementOverview = () => {
 //   const { formatNumber } = NumberFormateI18n();
+const {currentAdmin} = useAppSelector((state)=>state.admin)
 
 const { data: fetchedData, isPending } = useQueryData(
   ["rental-requests"],
@@ -22,6 +24,7 @@ const { data: rental } = (fetchedData ?? {}) as {
   status?: number;
   data?: IRentTypes[];
 };
+
 
 
 if(isPending){
@@ -37,12 +40,12 @@ if(isPending){
     {
       id: 1,
       title: "Total Sellers Renting Space",
-      value: `10`,
+      value: `${currentAdmin?.rentedSellers.length}`,
     },
     {
       id: 2,
       title: "Total Space Rented",
-      value: `130 m³`,
+      value: `${currentAdmin?.allocatedVolume} m³`,
     },
     {
       id: 3,
@@ -67,7 +70,7 @@ if(isPending){
           <div className="flex gap-3">
             <div className="flex flex-col gap-1">
               <span className="">My total rent space</span>
-              <span className="">150 m³</span>
+              <span className="">{currentAdmin?.storeCapacity} m³</span>
             </div>
           </div>
           <div className="grid lg:grid-cols-4 sm:grid-cols-2 grid-cols-1 w-full sm:gap-6 gap-3">

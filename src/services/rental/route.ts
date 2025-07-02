@@ -1,5 +1,6 @@
 import {
   APPROVE_RENTAL_REQUESTS_URL,
+  EXTENT_REQUEST_RENT_SPACE_SELLER_URL,
   GET_ALL_RENTAL_REQUESTS_URL,
   REJECT_RENTAL_REQUESTS_URL,
   VACATE_REQUEST_RENT_SPACE_SELLER_URL,
@@ -62,6 +63,25 @@ export const vacate_Seller_Rental_Request_Api = (
 ) => {
   return API.post(
     `${VACATE_REQUEST_RENT_SPACE_SELLER_URL}/${rentalId}`,
+    { reason, status },
+    {
+      withCredentials: true,
+    }
+  );
+};
+
+
+// ------ seller extent request action api here
+export const extent_Seller_Rental_Request_Api = (
+  {reason, rentalId, status}:{
+    rentalId: string,
+  reason: string
+  status: string
+  }
+
+) => {
+  return API.post(
+    `${EXTENT_REQUEST_RENT_SPACE_SELLER_URL}/${rentalId}`,
     { reason, status },
     {
       withCredentials: true,

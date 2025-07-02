@@ -1,6 +1,7 @@
 import { IGetAllFilterKey } from "@/services/auth/route";
 import {
   accept_Seller_Rental_Request_Api,
+  extent_Seller_Rental_Request_Api,
   get_Seller_Rental_Request_Api,
   reject_Seller_Rental_Request_Api,
   vacate_Seller_Rental_Request_Api,
@@ -84,7 +85,7 @@ export const RequestForRentalVacateAction = async ({
     });
 
     const response = await route;
-    console.log(response.data, "response in rental update action");
+    // console.log(response.data, "response in rental update action");
 
     if (response.status === 200 || response.status === 201) {
       return {
@@ -101,6 +102,47 @@ export const RequestForRentalVacateAction = async ({
       message:
         error.response.data.message ||
         "An error occurred while fetching rental requests.",
+    };
+  }
+};
+
+// extent request from seller
+
+export const extentRequestAction = async ({
+  rentalId,
+  reason,
+
+  status,
+}: {
+  rentalId: string;
+  reason: string;
+  status: string;
+}) => {
+  try {
+    const route = extent_Seller_Rental_Request_Api({
+      reason,
+      rentalId,
+      status,
+    });
+
+    const response = await route;
+    console.log(response.data, "response in extentRequestAction");
+
+    if (response.status === 200 || response.status === 201) {
+      return {
+        status: response.status,
+        data: response.data.data,
+        message: response.data.message,
+      };
+    }
+  } catch (error: any) {
+    console.error("An error occurred while extent Request Action:", error);
+    return {
+      status: 500,
+      data: [],
+      message:
+        error.response.data.message ||
+        "An error occurred while extent Request Action",
     };
   }
 };

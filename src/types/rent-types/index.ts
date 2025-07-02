@@ -29,19 +29,34 @@ import { StoreTypes } from "../storeTypes";
     _id: string
     storeId: StoreTypes
     sellerId: StoreTypes
-    volume: number
+  volume: number
+  requestedDays: number
+  pricePerUnit: number
+  totalPrice: number
+  status: RentStatusType
+  paymentStatus: PaymentStatusType
+  isExtensionRequested: boolean
+  rejectionReason:string;
+  rentalHistory: any[]
+  requestDate: string
+  createdAt: string
+  updatedAt: string
+  __v: number
+  approvalDate: string
+  endDate: string
+  startDate: string
+  extension: RentTypeExtension
+  }
+
+  export interface RentTypeExtension {
     requestedDays: number
+    volume: number
     pricePerUnit: number
     totalPrice: number
-    status: RentStatusType
-    paymentStatus: PaymentStatusType
+    isExtend: boolean
+    action: string
+    status: string
+    _id: string
     requestDate: string
-    extensionRequests: any[]
-    createdAt: string
-    updatedAt: string
-    rejectionReason:string
-    endDate:Date;
-    approvalDate:Date;
-    startDate:Date
-    __v: number
   }
+  

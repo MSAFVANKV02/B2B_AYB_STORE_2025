@@ -6,3 +6,8 @@ export const APPROVE_RENTAL_REQUESTS_URL = "/user_api/rentals/approve";
 
 // ------ seller vacate request action url path here
 export const VACATE_REQUEST_RENT_SPACE_SELLER_URL = "/user_api/rentals/vacate/action";
+
+
+
+// ------ seller vacate request action url path here
+export const EXTENT_REQUEST_RENT_SPACE_SELLER_URL = "/user_api/rentals/extension/action";

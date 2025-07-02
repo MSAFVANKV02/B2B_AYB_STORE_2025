@@ -1,4 +1,5 @@
 import {
+  extentRequestAction,
   RequestForRentalVacateAction,
   updateRequestForRental,
 } from "@/actions/rental/rentalActions";
@@ -18,6 +19,7 @@ type Props = {
   trigger?: React.ReactNode;
   data: IRentTypes;
   type: "accept" | "reject";
+  isExtend?: boolean;
 };
 
 const RentRequestUpdateModal = ({
@@ -25,6 +27,7 @@ const RentRequestUpdateModal = ({
   trigger,
   data,
   type,
+  isExtend = false,
 }: Props) => {
   const [reason, setReason] = useState<string>("");
 
@@ -41,6 +44,14 @@ const RentRequestUpdateModal = ({
       reason: string;
       status: string;
     }) => {
+      if (isExtend === true&& data.extension.status === "pending") {
+        return extentRequestAction({
+          reason,
+          rentalId,
+          status: type === "accept" ? "approved" : "rejected",
+        });
+      }
+
       if (data.status === "pending") {
         return updateRequestForRental(reason, rentalId, type);
       }
