@@ -3,6 +3,7 @@ import {
   EXTENT_REQUEST_RENT_SPACE_SELLER_URL,
   GET_ALL_RENTAL_REQUESTS_URL,
   REJECT_RENTAL_REQUESTS_URL,
+  STORE_CUBIC_CAPACITY_REQUEST_URL,
   VACATE_REQUEST_RENT_SPACE_SELLER_URL,
 } from "../api/rental_urlPath";
 import { API, IGetAllFilterKey } from "../auth/route";
@@ -83,6 +84,26 @@ export const extent_Seller_Rental_Request_Api = (
   return API.post(
     `${EXTENT_REQUEST_RENT_SPACE_SELLER_URL}/${rentalId}`,
     { reason, status },
+    {
+      withCredentials: true,
+    }
+  );
+};
+
+
+// ------ seller extent request action api here
+export const extent_Store_Cubic_Meter_Request_Api = (
+  { action, remarks, volume}:{
+    rentalId?: string;
+    remarks: string;
+    volume: number;
+    action: string;
+  }
+
+) => {
+  return API.patch(
+    `${STORE_CUBIC_CAPACITY_REQUEST_URL}`,
+    { action, remarks, volume },
     {
       withCredentials: true,
     }

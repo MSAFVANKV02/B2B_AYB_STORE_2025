@@ -44,6 +44,7 @@ import ViewBuildPage from "@/pages/settings/store-page-creation/page-viewer/page
 import ClientPageBuilderAccess from "@/pages/settings/store-page-creation/client/page";
 import RentManagementOverview from "@/pages/rent-management/rent-overview/page";
 import RentRequestSellerPage from "@/pages/rent-management/rent-requests/page";
+import ViewMyRentStoresPage from "@/pages/rent-management/view-my-rent-stores/page";
 
 const rootRouter = createBrowserRouter(
   [
@@ -118,6 +119,7 @@ const rootRouter = createBrowserRouter(
           children: [
             { path: "rent-overview", element: <RentManagementOverview /> },
             { path: "rent-requests", element: <RentRequestSellerPage /> },
+            { path: "rent-stores", element: <ViewMyRentStoresPage /> },
           ],
         },
         // {

@@ -164,7 +164,7 @@ export const RentOverviewTableColumnSDcn: ColumnDef<IRentTypes>[] = [
       // const data = row.original;
       return (
         <div className="relative flex justify-end gap-3">
-           <RentOverviewActions />
+           <RentOverviewActions  />
 
           {/* <OrderReturnAction order={order} /> */}
           {/* Additional action logic can go here */}

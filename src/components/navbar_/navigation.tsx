@@ -80,7 +80,8 @@ function NavigationList() {
       kind: "page",
       segment: "/rent",
       title: "Rent Management",
-      icon: <Icon icon="ix:product-management" />,
+      // icon: <Icon icon="ix:product-management" />,
+      icon: <Icon icon="bxs:building" />,
       isChild: true,
       subscribed: "free",
       children: [
@@ -92,6 +93,11 @@ function NavigationList() {
         {
           title: "Rent Requests",
           segment: "/rent/rent-requests",
+          subscribed: "free",
+        },
+        {
+          title: "Rent Stores",
+          segment: "/rent/rent-stores",
           subscribed: "free",
         },
       ],

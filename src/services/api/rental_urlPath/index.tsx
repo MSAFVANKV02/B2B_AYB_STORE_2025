@@ -11,3 +11,8 @@ export const VACATE_REQUEST_RENT_SPACE_SELLER_URL = "/user_api/rentals/vacate/ac
 
 // ------ seller vacate request action url path here
 export const EXTENT_REQUEST_RENT_SPACE_SELLER_URL = "/user_api/rentals/extension/action";
+
+
+
+// ------ store cubic capacity url path here
+export const STORE_CUBIC_CAPACITY_REQUEST_URL = "/user_api/store/storage/extend";

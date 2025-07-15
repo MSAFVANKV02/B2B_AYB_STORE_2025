@@ -3,6 +3,7 @@
 
 import { getSellerRequestForRental } from "@/actions/rental/rentalActions";
 import Loader from "@/components/global/loader";
+import { RentSpaceChangeModal } from "@/components/tasks/table_actions/rent-management/rent-overview-action/rent_space_modal";
 import { RentOverviewTableColumnSDcn } from "@/components/tasks/table_columns/rent-management/rent-overview-column";
 import { DataTable } from "@/components/tasks/task_components/data-table";
 import { useQueryData } from "@/hooks/useQueryData";
@@ -62,16 +63,18 @@ if(isPending){
 
   return (
     <div>
+      {/* <TestData data={rental??[]} /> */}
       <div className="page-outer !shadow-none !bg-inherit space-y-3">
         <div className="">
           <h1 className="font-bold text-lg uppercase">Rent Overview</h1>
         </div>
         <section className="py-3 space-y-5 sm:px-4 px-1 bg-white dark:bg-inherit">
-          <div className="flex gap-3">
+          <div className="flex gap-5">
             <div className="flex flex-col gap-1">
               <span className="">My total rent space</span>
               <span className="">{currentAdmin?.storeCapacity} m³</span>
             </div>
+            <RentSpaceChangeModal />
           </div>
           <div className="grid lg:grid-cols-4 sm:grid-cols-2 grid-cols-1 w-full sm:gap-6 gap-3">
             {/* Rent management overview cards */}

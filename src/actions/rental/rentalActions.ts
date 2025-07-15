@@ -2,6 +2,7 @@ import { IGetAllFilterKey } from "@/services/auth/route";
 import {
   accept_Seller_Rental_Request_Api,
   extent_Seller_Rental_Request_Api,
+  extent_Store_Cubic_Meter_Request_Api,
   get_Seller_Rental_Request_Api,
   reject_Seller_Rental_Request_Api,
   vacate_Seller_Rental_Request_Api,
@@ -137,6 +138,49 @@ export const extentRequestAction = async ({
     }
   } catch (error: any) {
     console.error("An error occurred while extent Request Action:", error);
+    return {
+      status: 500,
+      data: [],
+      message:
+        error.response.data.message ||
+        "An error occurred while extent Request Action",
+    };
+  }
+};
+
+// extent store cubic meter request
+
+export const extentStoreCubicMeterRequestAction = async ({
+  rentalId,
+  remarks,
+  action,
+  volume,
+}: {
+  rentalId?: string;
+  remarks: string;
+  volume: number;
+  action: string;
+}) => {
+  try {
+    const route = extent_Store_Cubic_Meter_Request_Api({
+      remarks,
+      rentalId,
+      action,
+      volume,
+    });
+
+    const response = await route;
+    // console.log(response.data, "response in extentRequestAction");
+
+    if (response.status === 200 || response.status === 201) {
+      return {
+        status: response.status,
+        data: response.data.data,
+        message: response.data.message,
+      };
+    }
+  } catch (error: any) {
+    // console.error("An error occurred while extent Request Action:", error);
     return {
       status: 500,
       data: [],

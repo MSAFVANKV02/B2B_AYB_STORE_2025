@@ -19,6 +19,9 @@ const RentRequestSellerPage = () => {
     data?: IRentTypes[];
   };
 
+  console.log(rental,'rental');
+  
+
   const filterExtentReq = (): IRentTypes[] => {
     return (rental ?? []).filter(
       (item) =>

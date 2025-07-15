@@ -13,7 +13,7 @@ export const StoreRequestedTableColumnShaDcn: ColumnDef<IStockType>[] = [
     accessorKey: "product",
     header: () => <div className="font-bold text-black dark:text-neutral-300 ">Product</div>,
     cell: ({row}) => {
-      console.log(row, "row");
+      // console.log(row, "row");
       const isStore = "emailId" in row.original.destination; // StoreTypes has 'emailId'
       const isAdmin = "email" in row.original.destination;
 

@@ -55,7 +55,7 @@ const SellerNewAddedProductsPage = () => {
   
 
   
-  // console.log(product, "product");
+  console.log(product, "product");
 
   // let product: IProducts[] | IStockType[] = [];
 
