@@ -99,6 +99,13 @@ export type IProductCreatedBy = {
   email?: string;
   mobile?: string;
   role?: string;
+  avatar:string
+  Address: string
+  state: string
+  country: string
+  pinCode: string
+  city: string
+
 }
 
 export type IRequestedUserType = {

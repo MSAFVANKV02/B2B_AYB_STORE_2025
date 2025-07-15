@@ -45,6 +45,7 @@ import ClientPageBuilderAccess from "@/pages/settings/store-page-creation/client
 import RentManagementOverview from "@/pages/rent-management/rent-overview/page";
 import RentRequestSellerPage from "@/pages/rent-management/rent-requests/page";
 import ViewMyRentStoresPage from "@/pages/rent-management/view-my-rent-stores/page";
+import NewUploadedSellerProductPage from "@/pages/seller-management/new-product-from-seller-with-card/page";
 
 const rootRouter = createBrowserRouter(
   [
@@ -184,6 +185,8 @@ const rootRouter = createBrowserRouter(
           element: <SellerManagementLayout />,
           children:[
             { path: "new-products", element: <SellerNewAddedProductsPage />},
+            { path: "enquire-products", element: <NewUploadedSellerProductPage />},
+
             { path: "stock-request", element: <StoreManagementPage /> },
           ]
 

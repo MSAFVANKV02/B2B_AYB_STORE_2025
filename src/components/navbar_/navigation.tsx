@@ -169,6 +169,11 @@ function NavigationList() {
           subscribed: "free",
         },
         {
+          title: "Enquire Products",
+          segment: "/seller/enquire-products",
+          subscribed: "free",
+        },
+        {
           title: "Stock Request",
           segment: "/seller/stock-request",
           subscribed: "free",
